@@ -42,7 +42,8 @@
 		<a class="btn btn-link" href="">Olvidé mi contraseña</a>
 
 		<input name="btningresar" class="btn btn-secondary" title="click para ingresar" type="submit" value="INICIAR SESION">
-		<input name="btningresar" class="btn btn-dark" title="click para ingresar" type="submit" value="REGISTRATE">
+		<input onclick="location.href='vista/login/registrate.php'" name="" class="btn btn-dark" title="click para registrar un nuevo usuario" type="dark" value="REGISTRATE">
+
    </form>
 	
 	<script src="js/bootstrap.js"></script>

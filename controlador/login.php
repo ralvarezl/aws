@@ -34,10 +34,10 @@ if (!empty($_POST["btningresar"])){
                     echo"<div class='alert alert-danger'>Acceso denegado</div>";  
                 }//CONTRASEÑA INCORRECTA ADMINISTRADOR
         } else {
-            echo"<div class='alert alert-danger'>Usuario Inactivo</div>";//Usuario o password incorrecto
+            echo"<div class='alert alert-warning'>Usuario Inactivo</div>";//Usuario o password incorrecto
         }
     }else {
-        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>";//Falta rellenar campos
+        echo"<div class='alert alert-warning'>Favor Rellenar Campos</div>";//Falta rellenar campos
     }
    
 
