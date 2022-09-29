@@ -1,5 +1,4 @@
 <?php
-
 //Validacion para el login
 if (!empty($_POST["btningresar"])){
    
