@@ -15,7 +15,7 @@
      	<h2>REGISTRO DE USUARIO</h2>
 		 <?php
                 include "../../modelo/conexion.php";       
-                include "../../controlador/registrate.php";  //CAMBIAR
+                include "../../controlador/registrate.php";  
                 ?> 		
 		<div class="usuario">
 			<label>Ingrese Usuario</label>
