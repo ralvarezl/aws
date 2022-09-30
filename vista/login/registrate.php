@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <form action="login.php" method="post">
+    <form action="registrate.php" method="post">
 		<img class="img" src="../../public/img/AVATAR.png" />
      	<h2>REGISTRO DE USUARIO</h2>
 		 <?php
@@ -22,7 +22,7 @@
 			<label>Nombre y Apellido</label>
 			<input id="nombres" type="text"
 				class="input" name="nombres"
-				title="ingrese sus nombres" autocomplete="nombres" value="" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+				title="ingrese sus nombres" autocomplete="nombres" value="" >
 		</div>
 
 		<div class="identidad">
@@ -61,7 +61,7 @@
 			<div class="div">
 				<label>Repita Contraseña</label>
 				<input type="password" id="input" class="input"
-					name="password" title="repita su clave para ingresar" autocomplete="current-password">
+					name="r_password" title="repita su clave para ingresar" autocomplete="current-password">
 			</div>
 		</div>
 
@@ -69,14 +69,14 @@
 			<div class="fas fa-eye verPassword" onclick="vista()" id="verPassword"></div>
 		</div>
 
-        <div class="usuario">
+        <div class="correo">
 			<label>Ingrese Correo Electronico</label>
 			<input id="usuario" type="text"
 				class="input" name="correo"
 				title="ingrese su correo electronico" autocomplete="correo" value="">
 
 
-		<input name="btnregistrate" class="btn btn-dark" title="click para ingresar" type="dark" value="REGISTRATE">
+		<input name="btnregistrate" class="btn btn-dark" title="click para ingresar" type="submit" value="REGISTRATE">
 		<input onclick="location.href='../../login.php'" name="" class="btn btn-danger" title="click para ingresar" type="danger" value="SALIR">
 
    </form>
