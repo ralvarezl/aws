@@ -36,7 +36,7 @@ if (!empty($_POST["btningresar"])){
             echo"<div class='alert alert-warning'>Usuario Inactivo</div>";//Usuario o password incorrecto
         }
     }else {
-        echo"<div class='alert alert-warning'>Favor Rellenar Campos</div>";//Falta rellenar campos
+        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>";//Falta rellenar campos
     }
    
 

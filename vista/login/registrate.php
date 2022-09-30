@@ -17,6 +17,21 @@
                 include "../../modelo/conexion.php";       
                 include "../../controlador/registrate.php";  
                 ?> 		
+		
+		<div class="nombres">
+			<label>Nombre y Apellido</label>
+			<input id="nombres" type="text"
+				class="input" name="nombres"
+				title="ingrese sus nombres" autocomplete="nombres" value="" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+		</div>
+
+		<div class="identidad">
+			<label>Identidad</label>
+			<input id="identidad" type="text"
+				class="input" name="identidad"
+				title="ingrese su identidad" autocomplete="identidad" value="" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+		</div>
+		
 		<div class="usuario">
 			<label>Ingrese Usuario</label>
 			<input id="usuario" type="text"
