@@ -14,7 +14,7 @@ if (!empty($_POST["btningresar"])){
             //VALIDAR DATOS DEL USUARIO Y SI ES ADMNISTRADOR
             $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=1");
                 if ($datos=$sql->fetch_object()) {
-                    header("location:vista/administracion.php");//Entra al sistema de administrador.
+                    header("location:vista/administracion/administracion.php");//Entra al sistema de administrador.
                     }
             }   
                 //VALIDAR A LOS USUARIOS DE FACTURACIÓN
