@@ -46,6 +46,38 @@
                 <div class="row justify-content-center align-content-center text-center">
                     <div class="columna col-lg-6">
                         CONTENIDO
+                        <?php
+                        //Llamado a la base de datos
+                        include "../../modelo/conexion.php";
+                        //Consulta la tabla:
+                        $sql= $conexion->query("select id_usuario, nombres, usuario,password, identidad, telefono, estado, rol, correo from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL ");
+                        ?>
+                        <table >
+                            <tr>
+                                <td>Id</td>
+                                <td>Nombre</td>
+                                <td>Usuario</td>
+                                <td>Contraseña</td>
+                                <td>Identidad</td>
+                                <td>Telefono</td>
+                                <td>Estado</td>
+                                <td>Rol</td>
+                                <td>Correo</td>
+                        </tr>
+                        <?php while($u = $sql->fetch_assoc()){ ?>
+                            <tr>
+                                <td><?php echo $u['id_usuario']; ?></td>
+                                <td><?php echo $u['nombres']; ?></td>
+                                <td><?php echo $u['usuario']; ?></td>
+                                <td><?php echo $u['password']; ?></td>
+                                <td><?php echo $u['identidad']; ?></td>
+                                <td><?php echo $u['telefono']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>
+                                <td><?php echo $u['rol']; ?></td>
+                                <td><?php echo $u['correo']; ?></td>
+                            </tr>
+                        <?php } ?>
+                        </table>
                     </div>
 
                 </div>

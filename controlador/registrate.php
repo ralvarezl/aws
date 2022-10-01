@@ -14,7 +14,7 @@ if (!empty($_POST["btnregistrate"])){
         //VERIFICAR QUE LAS CONTRASEÑAS SEAN IGUALES
         if ($password === $r_password){
             //MANDAR LA INFORMACIÓN DE LOS CAMPOS
-            $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, correo, fecha_creacion) value ( '$nombres', '$identidad', '$usuario', '$password','$correo','$mifecha')");
+            $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, correo, fecha_creacion, estado) value ( '$nombres', '$identidad', '$usuario', '$password','$correo','$mifecha','i')");
 
             echo"<div class='alert alert-warning'>Usuario Creado Exitosamente</div>";//CREACIÓN EXITOSA
         }else{
