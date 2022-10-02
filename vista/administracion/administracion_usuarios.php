@@ -11,7 +11,8 @@
 </head>
 
 <body>
-
+    
+    <form action="administracion_usuarios.php" method="post">
     <div class="container-fluid">
         <div class="row justify-content-center align-content-center">
             <div class="col-8 barra">
@@ -54,16 +55,17 @@
                         <table class = "table table-dark table-striped">
                             <h1>USUARIOS</h1>
                             <tr>
-                                <td>Id</td>
-                                <td>Nombre</td>
-                                <td>Usuario</td>
-                                <td>Contraseña</td>
-                                <td>Identidad</td>
-                                <td>Telefono</td>
-                                <td>Estado</td>
-                                <td>Rol</td>
-                                <td>Correo</td>
+                                <td>ID</td>
+                                <td>NOMBRES</td>
+                                <td>USUARIO</td>
+                                <td>CONTRASEÑA</td>
+                                <td>IDENTIDAD</td>
+                                <td>TELEFONO</td>
+                                <td>ESTADO</td>
+                                <td>ROL</td>
+                                <td>CORREO</td>
                         </tr>
+                            
                         <?php while($u = $sql->fetch_assoc()){ ?>
                             <tr>
                                 <td><?php echo $u['id_usuario']; ?></td>
@@ -97,6 +99,11 @@
                             <div class="modal-body">
 
                             <!--DATOS DEL MODAL-->
+                            <?php
+                            //Llamado a la base de datos
+                            include "../../modelo/conexion.php";
+                            include "../../controlador/administracion_usuarios.php";  
+                            ?>
                             <div class="mb-3">
                                 <label for="formGroupExampleInput" class="form-label">Nombres</label>
                                 <input id="nombres" type="text" class="form-control" placeholder="Ingrese nombres">
@@ -166,7 +173,7 @@
                             </div>                          
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-dark">Guardar</button>
+                                <input name="btnguardar" class="btn btn-dark" title="click para guardar" type="submit" value="Guardar">
                             </div>
                             </div>
                         </div>
@@ -179,6 +186,7 @@
             </main>
         </div>
     </div>
+</form>
 
 
 
