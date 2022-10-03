@@ -24,42 +24,64 @@
             <label for="formGroupExampleInput" class="form-label">Nombres</label>
             <input type="text" class="form-control" placeholder="Ingrese nombres" name="nombres">
             </div>
+
             <div class="mb-3">
 			<label for="formGroupExampleInput" class="form-label">Usuario</label>
 			<input id="usuario" type="text"
 				class="form-control" name="usuario" title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
 		    </div>
+
             <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
             <input type="password" class="form-control" placeholder="Ingrese contraseña" name="password">
             </div>
+
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
             <input type="text" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
             </div>
+
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Genero</label>
-            <input type="text" class="form-control" placeholder="Ingrese genero" name="genero">
+            <select class="form-select" aria-label="Default select example" name="genero">
+            <option selected>Seleccione genero</option>
+            <option value="1">Hombre</option>
+            <option value="2">Mujer</option>
+            </select>
             </div>
+
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Telefono</label>
             <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono">
             </div>
+
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Direccion</label>
             <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion">
             </div>
+
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Correo</label>
             <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
             </div>
+
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Estado</label>
-            <input type="text" class="form-control" placeholder="Ingrese estado del usuario" name="estado">
+            <select class="form-select" aria-label="Default select example" name="estado">
+            <option selected>Seleccione estado</option>
+            <option value="1">Activo</option>
+            <option value="2">Inactivo</option>
+            <option value="3">Bloqueado</option>
+            </select>
             </div>
+
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
-            <input type="text" class="form-control" placeholder="Ingrese rol del usuario" name="id_rol">
+            <select class="form-select" aria-label="Default select example" name="rol">
+            <option selected>Seleccione rol</option>
+            <option value="1">Administrador</option>
+            <option value="2">Empleado</option>
+            </select>
             </div>
             <!--BOTON NUEVO USUARIO-->
             <button type="submit" class="btn btn-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
