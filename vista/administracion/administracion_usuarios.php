@@ -77,10 +77,14 @@
 
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
-            <select class="form-select" aria-label="Default select example" name="rol">
+            <select class="form-select" aria-label="Default select example" name="id_rol">
             <option selected>Seleccione rol</option>
-            <option value="1">Administrador</option>
-            <option value="2">Empleado</option>
+            <?php 
+            $sql=$conexion->query("select rol from tbl_ms_roles");
+                while($datos=mysqli_fetch_array($sql)){
+                    echo '<option value="'.$datos['id_rol'].'">'.$datos['rol'].'</option>';
+                }
+            ?>
             </select>
             </div>
             <!--BOTON NUEVO USUARIO-->
