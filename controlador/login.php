@@ -5,7 +5,7 @@ if (!empty($_POST["btningresar"])){
     if (!empty($_POST["usuario"]) and !empty($_POST["password"])) {//validacion que no existan campos vacios
         $usuario=$_POST["usuario"];     //Guardar usuario
         //$password=$_POST["password"];   //NO SE NECESITA EN ESTE MOMENTO
-        $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'and estado='a'"); //VALIDAR ESTADO
+        $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'and estado='activo'"); //VALIDAR ESTADO
         if ($datos=$sql->fetch_object()) {
              //VALIDAR A LOS USUARIOS ADMINISTRADORES
             if (!empty($_POST["usuario"]) and !empty($_POST["password"])) {

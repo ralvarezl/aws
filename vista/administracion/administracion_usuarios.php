@@ -45,8 +45,8 @@
             <label for="formGroupExampleInput" class="form-label">Genero</label>
             <select class="form-select" aria-label="Default select example" name="genero">
             <option selected>Seleccione genero</option>
-            <option value="1">Hombre</option>
-            <option value="2">Mujer</option>
+            <option value="Hombre">Hombre</option>
+            <option value="Mujer">Mujer</option>
             </select>
             </div>
 
@@ -69,9 +69,9 @@
             <label for="formGroupExampleInput" class="form-label">Estado</label>
             <select class="form-select" aria-label="Default select example" name="estado">
             <option selected>Seleccione estado</option>
-            <option value="1">Activo</option>
-            <option value="2">Inactivo</option>
-            <option value="3">Bloqueado</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+            <option value="Bloqueado">Bloqueado</option>
             </select>
             </div>
 
@@ -80,7 +80,8 @@
             <select class="form-select" aria-label="Default select example" name="id_rol">
             <option selected>Seleccione rol</option>
             <?php 
-            $sql=$conexion->query("select rol from tbl_ms_roles");
+            include "../../modelo/conexion.php";
+            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles");
                 while($datos=mysqli_fetch_array($sql)){
                     echo '<option value="'.$datos['id_rol'].'">'.$datos['rol'].'</option>';
                 }
