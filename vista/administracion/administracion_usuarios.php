@@ -20,27 +20,28 @@
             include "../../modelo/conexion.php";
             include "../../controlador/administracion_usuarios.php";
             ?>
+            <!--INGRESE NOMBRE-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Nombres</label>
             <input type="text" class="form-control" placeholder="Ingrese nombres" name="nombres">
             </div>
-
+            <!--INGRESE USUARIO-->
             <div class="mb-3">
 			<label for="formGroupExampleInput" class="form-label">Usuario</label>
 			<input id="usuario" type="text"
 				class="form-control" name="usuario" title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
 		    </div>
-
+            <!--INGRESE CONTRASEÑA-->
             <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
             <input type="password" class="form-control" placeholder="Ingrese contraseña" name="password">
             </div>
-
+            <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
             <input type="text" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
             </div>
-
+            <!--SELECCIONE GENERO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Genero</label>
             <select class="form-select" aria-label="Default select example" name="genero">
@@ -49,22 +50,22 @@
             <option value="Mujer">Mujer</option>
             </select>
             </div>
-
+            <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Telefono</label>
             <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono">
             </div>
-
+            <!--INGRESE DIRECCIÓN-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Direccion</label>
+            <label for="formGroupExampleInput" class="form-label">Dirección</label>
             <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion">
             </div>
-
+            <!--INGRESE CORREO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Correo</label>
             <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
             </div>
-
+            <!--SELECCIONE ESTADO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Estado</label>
             <select class="form-select" aria-label="Default select example" name="estado">
@@ -74,7 +75,7 @@
             <option value="Bloqueado">Bloqueado</option>
             </select>
             </div>
-
+            <!--SELECCIONE ROL-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
             <select class="form-select" aria-label="Default select example" name="id_rol">
@@ -82,6 +83,7 @@
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select id_rol, rol from tbl_ms_roles");
+                //Mostrar los roles creados en la base de datos
                 while($datos=mysqli_fetch_array($sql)){
                     echo '<option value="'.$datos['id_rol'].'">'.$datos['rol'].'</option>';
                 }
@@ -92,7 +94,7 @@
             <button type="submit" class="btn btn-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
         </form>
                 <div class="col-8 p-4">
-                    <table class="table">
+                    <table class="table" style="text-align:center;" >
                         <thead class="table-dark">
                             <tr>
                             <th scope="col">ID</th>
@@ -106,6 +108,7 @@
                             <th scope="col">CORREO</th>
                             <th scope="col">ESTADO</th>
                             <th scope="col">ROL</th>
+                            <th scope="col"></th>
                             <th scope="col"></th>
                             </tr>
                         </thead>
@@ -129,6 +132,8 @@
                                 <td><?php echo $u['rol']; ?></td>
                                 <td>
                                     <a href="" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                </td>
+                                <td>
                                     <a href="" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
