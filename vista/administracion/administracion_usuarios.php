@@ -59,7 +59,7 @@
             </div>
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
-            <input type="text" class="form-control" placeholder="Ingrese rol del usuario" name="rol">
+            <input type="text" class="form-control" placeholder="Ingrese rol del usuario" name="id_rol">
             </div>
             <!--BOTON NUEVO USUARIO-->
             <button type="submit" class="btn btn-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
@@ -101,8 +101,8 @@
                                 <td><?php echo $u['estado']; ?></td>
                                 <td><?php echo $u['rol']; ?></td>
                                 <td>
-                                    <a href="" class="btn btn-small btn-warning"><i class="fa-solid fa-user-pen"></i></a>
-                                    <a href="" class="btn btn-small btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                    <a href="" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                             <?php }

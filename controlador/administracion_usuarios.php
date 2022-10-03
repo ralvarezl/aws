@@ -14,7 +14,10 @@ if (!empty($_POST["btnregistrar"])) {
         $estado=$_POST["estado"];
         $rol=$_POST["id_rol"];
 
-        $sql=$conexion->query(" insert into tbl_ms_usuario(nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol) values('$nombres', '$usuario', '$password', '$identidad', '$genero', '$telefono', '$direccion', '$correo', '$estado', '$rol')");
+        date_default_timezone_set("America/Tegucigalpa");
+        $mifecha = date('Y-m-d');
+
+        $sql=$conexion->query(" insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion) values ('$nombres', '$usuario', '$password', '$identidad', '$genero', '$telefono', '$direccion', '$correo', '$estado', '$rol', '$mifecha')");
         if ($sql==1) {
             echo '<div class="alert alert-success">Usuario registrado correctamente</div>';
         } else {
