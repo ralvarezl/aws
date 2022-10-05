@@ -8,13 +8,61 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="administracion_usuarios.css">
+    <link rel="shortcut icon" href="../../public/img/Logo.png">
 
 </head>
 
 <body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" >
+                <img src="../../public/img/Ac.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="fas fa-user-circle" style='font-size:36px' id="offcanvasDarkNavbarLabel"></h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
+
+                <li class="nav-item p-3">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-users-gear"></i>  ADMINISTRADOR DE USUARIOS</a>
+                </li>
+                <li class="nav-item p-3">
+                    <a class="nav-link" href="#">ADMINISTRADOR </a>
+                </li>
+                <li class="nav-item p-3">
+                    <a class="nav-link" href="#">ADMINISTRADOR </a>
+                </li>
+
+                <li class="nav-item dropdown p-3">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        </nav>
+
+
     <h1 class="text-center p-3">USUARIOS</h1>
     <div class="container-fluid row">
         <form class="col-2 p-3" method="POST">
+            <br></br>
             <h3 class="text-center text-secundary">REGISTRO DE USUARIOS</h3>
             <?php
             include "../../modelo/conexion.php";
@@ -96,6 +144,7 @@
                 <div class="col-8 p-4">
                     <table class="table" style="text-align:center;" >
                         <thead class="table-dark">
+                        <br></br>
                             <tr>
                             <th scope="col">ID</th>
                             <th scope="col">NOMBRES</th>
@@ -111,6 +160,7 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             </tr>
+                            </center>
                         </thead>
                         <tbody>
                             <?php
