@@ -1,50 +1,123 @@
 <?php
-
-//Validacion para el login
-if (!empty($_POST["btningresar"])){
-   
-    if (!empty($_POST["usuario"]) and !empty($_POST["password"])) {//validacion que no existan campos vacios
-        $usuario=$_POST["usuario"];     //Guardar usuario
-       
-        //$password=$_POST["password"];   //NO SE NECESITA EN ESTE MOMENTO
-        $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'and estado='activo'"); //VALIDAR ESTADO
-        if ($datos=$sql->fetch_object()) {
-             //VALIDAR A LOS USUARIOS ADMINISTRADORES
-            if (!empty($_POST["usuario"]) and !empty($_POST["password"])) {
-            $usuario=$_POST["usuario"];     //Guardar usuario
-            $password=$_POST["password"];   //Guardar password
-            //VALIDAR DATOS DEL USUARIO Y SI ES ADMNISTRADOR
-            $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=1");
-                if ($datos=$sql->fetch_object()) {
-                    header("location:vista/administracion/administracion_usuarios.php");//Entra al sistema de administrador.
-                    }
-            }   
-                //VALIDAR A LOS USUARIOS DE FACTURACIÓN
-                if (!empty($_POST["usuario"]) and !empty($_POST["password"])) {
-                    $usuario=$_POST["usuario"];     //Guardar usuario
-                    $password=$_POST["password"];   //Guardar password
-                    //VALIDAR DATOS DEL USUARIO Y SI ES UN USUARIO DE FACTURACION
-                    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=2");
-                    if ($datos=$sql->fetch_object()) {
-                        header("location:vista/facturacion.php");//Entra al sistema de facturacion.
-                    } else {
-                        echo"<div class='alert alert-danger'>Acceso denegado</div>";    //Usuario o password incorrecto
-                    }//CONTRASEÑA INCORRECTA FACTURACION
-                    
-                } else {
-                    echo"<div class='alert alert-danger'>Acceso denegado</div>";  
-                }//CONTRASEÑA INCORRECTA ADMINISTRADOR
-        } else {
-            echo"<div class='alert alert-warning'>Usuario Inactivo</div>";//Usuario o password incorrecto
-        }
+//Funcion para validar campos vacios
+function campo_vacio($usuario,$password,&$validar){
+    if (!empty($_POST["usuario"] and $_POST["password"]) and $validar=true) { //Campos llenos
+        return $validar;
     }else {
-        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>";//Falta rellenar campos
+        $validar=false;
+        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>"; //Campos vacios
+        return $validar;
     }
-   
+}
 
+//Funcion para validar que existe el usuario
+function usuario_existe($usuario,$password,&$validar){
+    include "modelo/conexion.php";
+    $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario'");//consultar por el usuario
+    if ($datos=$sql->fetch_object()) { //si existe
+        return $validar;
+    }else {
+        $validar=false;
+        echo"<div class='alert alert-danger'>Usuario no existe</div>"; //Usuario no existe
+        return $validar;
+    }
+}
+//Funcion para validar que la contraseña este bien
+function contrasenia($password,&$validar){
+    include "modelo/conexion.php";
+    $sql=$conexion->query("select usuario from tbl_ms_usuario where password='$password'");//Validar sea la contraseña sea la del usuario
+    if ($datos=$sql->fetch_object()) {
+        return $validar;
+    }else {
+        $validar=false;
+        echo"<div class='alert alert-danger'>Acceso Denegado</div>"; //Contraseña erronea
+        return $validar;
+    }
+}
 
+//Funcion para validar el estado activo
+function estado_usuario($usuario,$password,&$validar){
+    include "modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
+    $row=mysqli_fetch_array($sql);
+    $estado=$row[0]; //Guardamos el estado
+    if ($estado=='ACTIVO') { //si es activo 
+        return $validar;
+    }else {
+        $validar=false;
+        echo"<div class='alert alert-danger'>USUARIO $estado</div>"; //Usuario no activo, bloqueado o nuevo
+        return $validar;
+    }
+}
+
+//Funcion para saber si es admnistrador
+function administrador($usuario,$password,&$validar){
+    include "modelo/conexion.php";
+    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=1"); //Consultar el rol del usuario
+    if ($datos=$sql->fetch_object()) {
+        header("location:vista/administracion/administracion_usuarios.php");//Entra al sistema de administrador.
+        }else{
+            $validar=false;
+            return $validar; 
+        }
+}
+//Funcion para saber si es empleado
+function empleado($usuario,$password,&$validar){
+    include "modelo/conexion.php";
+    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=2");
+    if ($datos=$sql->fetch_object()) {
+        header("location:vista/facturacion.php");//Entra al sistema de facturacion.
+        }else{
+            $validar=false;
+            return $validar; 
+        }
+}
+
+//Funcion para saber si es nuevo
+function empleado_nuevo($usuario,$password,&$validar){
+    include "modelo/conexion.php";
+    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=3");
+    if ($datos=$sql->fetch_object()) {
+        header("location:vista/preguntas.php");//Entra al sistema de facturacion.
+        }else{
+            $validar=false;
+            return $validar; 
+        }
+}
+
+//Al presionar el boton
+if (!empty($_POST["btningresar"])){
+    $validar=true;
+    $usuario=$_POST["usuario"];
+    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'");
+    $password=$_POST["password"];
+   //validar campos vacios
+    campo_vacio($usuario,$password,$validar);
+        if($validar==true){
+            //validar si existe usuario
+            usuario_existe($usuario,$password,$validar);
+            if($validar==true){
+                //validar contraseña
+                contrasenia($password,$validar);
+                if($validar==true){
+                    //validar estado
+                    estado_usuario($usuario,$password,$validar);
+                    if($validar==true){
+                        //Dirigirlo dependiendo el tipo de usuario
+                        administrador($usuario,$password,$validar);
+                        empleado($usuario,$password,$validar);
+                        empleado_nuevo($usuario,$password,$validar);
+                    }
+                }
+            }
+        }
+    
+    
+    
+    
+    
+    
     
     
 }
-
 ?>

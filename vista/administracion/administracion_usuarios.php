@@ -71,13 +71,14 @@
             <!--INGRESE NOMBRE-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Nombres</label>
-            <input type="text" class="form-control" placeholder="Ingrese nombres" name="nombres">
+            <input type="text" class="form-control" placeholder="Ingrese nombres" 
+                name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE USUARIO-->
             <div class="mb-3">
 			<label for="formGroupExampleInput" class="form-label">Usuario</label>
-			<input id="usuario" type="text"
-				class="form-control" name="usuario" title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+			<input id="usuario" type="text" class="form-control" name="usuario" 
+                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="this.value=this.value.toUpperCase();">
 		    </div>
             <!--INGRESE CONTRASEÑA-->
             <div class="mb-3">
@@ -94,8 +95,14 @@
             <label for="formGroupExampleInput" class="form-label">Genero</label>
             <select class="form-select" aria-label="Default select example" name="genero">
             <option selected>Seleccione genero</option>
-            <option value="Hombre">Hombre</option>
-            <option value="Mujer">Mujer</option>
+            <?php 
+            include "../../modelo/conexion.php";
+            $sql=$conexion->query("select genero from tbl_ms_genero");
+                //Mostrar los roles creados en la base de datos
+                while($datos=mysqli_fetch_array($sql)){
+                    echo '<option value="'.$datos['genero'].'">'.$datos['genero'].'</option>';
+                }
+            ?>
             </select>
             </div>
             <!--INGRESE TELEFONO-->
@@ -118,9 +125,14 @@
             <label for="formGroupExampleInput" class="form-label">Estado</label>
             <select class="form-select" aria-label="Default select example" name="estado">
             <option selected>Seleccione estado</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-            <option value="Bloqueado">Bloqueado</option>
+            <?php 
+            include "../../modelo/conexion.php";
+            $sql=$conexion->query("select estado from tbl_ms_estado");
+                //Mostrar los roles creados en la base de datos
+                while($datos=mysqli_fetch_array($sql)){
+                    echo '<option value="'.$datos['estado'].'">'.$datos['estado'].'</option>';
+                }
+            ?>
             </select>
             </div>
             <!--SELECCIONE ROL-->
