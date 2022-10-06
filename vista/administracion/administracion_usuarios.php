@@ -113,7 +113,7 @@
             <!--INGRESE DIRECCIÓN-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Dirección</label>
-            <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion">
+            <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE CORREO-->
             <div class="mb-3">
@@ -153,7 +153,11 @@
             <!--BOTON NUEVO USUARIO-->
             <button type="submit" class="btn btn-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
         </form>
-                <div class="col-8 p-4">
+                <div class="col-9 p-4">
+                <?php
+                include "../../modelo/conexion.php";
+                include "../../controlador/eliminar_usuario.php";
+                ?>
                     <table class="table" style="text-align:center;" >
                         <thead class="table-dark">
                         <br></br>
@@ -172,7 +176,6 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             </tr>
-                            </center>
                         </thead>
                         <tbody>
                             <?php
@@ -193,10 +196,10 @@
                                 <td><?php echo $u['estado']; ?></td>
                                 <td><?php echo $u['rol']; ?></td>
                                 <td>
-                                    <a href="" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                    <a href="actualizar_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="administracion_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                             <?php }
