@@ -11,12 +11,18 @@ if (!empty($_POST["btnregistrate"])){
         $correo=$_POST["correo"];
         date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
+
+        $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL 4 DAY)"); //preguntar el estado del usuario
+        $row=mysqli_fetch_array($sql);
+        $fecha_vencimiento=$row[0];
+
+
         //VERIFICAR QUE LAS CONTRASEÑAS SEAN IGUALES
         if ($password === $r_password){
             //MANDAR LA INFORMACIÓN DE LOS CAMPOS
-            $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, correo, fecha_creacion, estado,id_rol) value ( '$nombres', '$identidad', '$usuario', '$password','$correo','$mifecha','NUEVO', 3)");
+            $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, correo, fecha_creacion, estado,id_rol,fecha_vencimiento) value ( '$nombres', '$identidad', '$usuario', '$password','$correo','$mifecha','NUEVO', 3,'$fecha_vencimiento')");
 
-            echo"<div class='alert alert-warning'>Usuario Creado Exitosamente</div>";//CREACIÓN EXITOSA
+            echo"<div class='alert alert-success'>Usuario Creado Exitosamente</div>";//CREACIÓN EXITOSA
         }else{
             echo"<div class='alert alert-warning'>Ambas Contraseñas Deben Ser Iguales</div>";//CONTRASEÑAS DISTINTAS
         }

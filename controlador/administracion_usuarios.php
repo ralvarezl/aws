@@ -18,8 +18,11 @@ if (!empty($_POST["btnregistrar"])) {
         //Zona horaria de honduras
         date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
+        $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL 4 DAY)"); //preguntar el estado del usuario
+        $row=mysqli_fetch_array($sql);
+        $fecha_vencimiento=$row[0];
         //Envio de los datos a ingresar por la query
-        $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , '$estado' , '$id_rol' , '$mifecha')");
+        $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , '$estado' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
         if ($sql==1) {
             echo '<div class="alert alert-success">Usuario registrado correctamente</div>';//Usuario ingresado
         } else {
