@@ -18,7 +18,7 @@ if (!empty($_POST["btnregistrar"])) {
         //Zona horaria de honduras
         date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
-        $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL 4 DAY)"); //preguntar el estado del usuario
+        $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL 365 DAY)"); //preguntar el estado del usuario
         $row=mysqli_fetch_array($sql);
         $fecha_vencimiento=$row[0];
         //Envio de los datos a ingresar por la query

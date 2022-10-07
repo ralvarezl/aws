@@ -19,62 +19,58 @@
                 include "../../controlador/registrate.php";  
                 ?> 		
 		
-		<div class="nombres">
-			<label>Nombre y Apellido</label>
-			<input id="nombres" type="text"
-				class="input" name="nombres"
-				title="ingrese sus nombres" autocomplete="nombres" value="" onKeyUp="this.value=this.value.toUpperCase();" >
-		</div>
-
-		<div class="identidad">
-			<label>Identidad</label>
-			<input id="identidad" type="text"
-				class="input" name="identidad"
-				title="ingrese su identidad" autocomplete="identidad" value="" onKeyUp="this.value=this.value.toUpperCase();">
-		</div>
-		
-		<div class="usuario">
-			<label>Ingrese Usuario</label>
-			<input id="usuario" type="text"
-				class="input" name="usuario"
-				title="ingrese su nombre de usuario" autocomplete="usuario" value="" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
-		</div>
-
-		<div class="input-div pass">
-			<div class="i">
-				<i class="fas fa-lock"></i>
-			</div>
-			<div class="div">
-				<label>Ingrese Contraseña</label>
-				<input type="password" id="input" class="input"
-					name="password" title="ingrese su clave para ingresar" autocomplete="current-password">
-			</div>
-		</div>
-
-		<div class="view">
-			<div class="fas fa-eye verPassword" onclick="vista()" id="verPassword"></div>
-		</div>
-
-        <div class="input-div pass">
-			<div class="i">
-				<i class="fas fa-lock"></i>
-			</div>
-			<div class="div">
-				<label>Repita Contraseña</label>
-				<input type="password" id="input" class="input"
-					name="r_password" title="repita su clave para ingresar" autocomplete="current-password">
-			</div>
-		</div>
-
-		<div class="view">
-			<div class="fas fa-eye verPassword" onclick="vista()" id="verPassword"></div>
-		</div>
-
-        <div class="correo">
-			<label>Ingrese Correo Electronico</label>
-			<input id="usuario" type="text"
-				class="input" name="correo"
-				title="ingrese su correo electronico" autocomplete="correo" value="">
+			<!--INGRESE NOMBRE-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Nombres</label>
+            <input type="text" class="form-control" placeholder="Ingrese nombres" 
+                name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
+            </div>
+            <!--INGRESE USUARIO-->
+            <div class="mb-3">
+			<label for="formGroupExampleInput" class="form-label">Usuario</label>
+			<input id="usuario" type="text" class="form-control" name="usuario" 
+                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="this.value=this.value.toUpperCase();">
+		    </div>
+            <!--INGRESE CONTRASEÑA-->
+            <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" placeholder="Ingrese contraseña" name="password">
+            </div>
+            <!--INGRESE IDENTIDAD-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Identidad</label>
+            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
+            </div>
+            <!--SELECCIONE GENERO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Genero</label>
+            <select class="form-select" aria-label="Default select example" name="genero">
+            <option selected>Seleccione genero</option>
+            <?php 
+            include "../../modelo/conexion.php";
+            $sql=$conexion->query("select genero from tbl_ms_genero");
+                //Mostrar los roles creados en la base de datos
+                while($datos=mysqli_fetch_array($sql)){
+                    echo '<option value="'.$datos['genero'].'">'.$datos['genero'].'</option>';
+                }
+            ?>
+            </select>
+            </div>
+            <!--INGRESE TELEFONO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Telefono</label>
+            <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono">
+            </div>
+            <!--INGRESE DIRECCIÓN-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Dirección</label>
+            <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion" onKeyUp="this.value=this.value.toUpperCase();">
+            </div>
+            <!--INGRESE CORREO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Correo</label>
+            <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
+            </div>
 
 
 		<input name="btnregistrate" class="btn btn-dark" title="click para ingresar" type="submit" value="REGISTRATE">

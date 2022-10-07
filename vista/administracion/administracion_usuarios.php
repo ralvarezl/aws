@@ -88,7 +88,7 @@
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="text" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
+            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
             </div>
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
