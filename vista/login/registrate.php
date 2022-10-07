@@ -36,6 +36,11 @@
             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
             <input type="password" class="form-control" placeholder="Ingrese contraseña" name="password">
             </div>
+			<!--REPITA CONTRASEÑA-->
+            <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Repita Contraseña</label>
+            <input type="password" class="form-control" placeholder="Repita contraseña" name="r_password">
+            </div>
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
