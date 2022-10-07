@@ -181,7 +181,7 @@
                             <?php
                             //Llamado a la base de datos
                             include "../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_usuario, nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL ");
+                            $sql= $conexion->query("select id_usuario, nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL order by id_usuario asc");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
                                 <td><?php echo $u['id_usuario']; ?></td>
