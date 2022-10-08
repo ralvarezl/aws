@@ -1,6 +1,6 @@
 <?php
 //Funcion para validar campos vacios
-function campo_vacio($usuario,$password,&$validar){
+function campo_vacio_login($usuario,$password,&$validar){
     if (!empty($_POST["usuario"] and $_POST["password"]) and $validar=true) { //Campos llenos
         return $validar;
     }else {
@@ -11,7 +11,7 @@ function campo_vacio($usuario,$password,&$validar){
 }
 
 //Funcion para validar que existe el usuario
-function usuario_existe($usuario,$password,&$validar){
+function usuario_existe_login($usuario,$password,&$validar){
     include "modelo/conexion.php";
     $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario'");//consultar por el usuario
     if ($datos=$sql->fetch_object()) { //si existe
@@ -92,10 +92,10 @@ if (!empty($_POST["btningresar"])){
     $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'");
     $password=$_POST["password"];
    //validar campos vacios
-    campo_vacio($usuario,$password,$validar);
+    campo_vacio_login($usuario,$password,$validar);
         if($validar==true){
             //validar si existe usuario
-            usuario_existe($usuario,$password,$validar);
+            usuario_existe_login($usuario,$password,$validar);
             if($validar==true){
                 //validar contraseña
                 contrasenia($password,$validar);

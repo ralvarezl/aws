@@ -1,4 +1,5 @@
 <?php
+
 //Funcion para validar campos vacios
 function campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,&$validar){
     if (!empty($_POST["nombres"] and $_POST["usuario"] and $_POST["password"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $_POST["direccion"] and $_POST["correo"] and $_POST["estado"] and $_POST["id_rol"]) and $validar=true) { //Campos llenos
@@ -23,6 +24,63 @@ function usuario_existe($usuario,&$validar){
     }
 }
 
+//Funcion para insertar los registros
+function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,&$validar){
+    include "../../modelo/conexion.php";
+    date_default_timezone_set("America/Tegucigalpa");
+                $mifecha = date('Y-m-d');
+                $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL 365 DAY)"); //Fecha de Vencimiento
+                $row=mysqli_fetch_array($sql);
+                $fecha_vencimiento=$row[0];
+                //Envio de los datos a ingresar por la query
+                $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , '$estado' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
+                if ($sql==1) {
+                    return $validar;
+                } else {
+                    $validar=false;
+                    return $validar;
+                }
+}
+
+//Funcion para saber si cambio el usuario 
+function usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$id_usuario,&$validar){
+    include "../../modelo/conexion.php";
+    $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario' and id_usuario=$id_usuario");//consultar por el usuario
+    if ($datos=$sql->fetch_object()) { //si existe
+        date_default_timezone_set("America/Tegucigalpa");
+        $mifecha = date('Y-m-d');
+        include "../../modelo/conexion.php";
+        //Actualiza si no se cambio el usuario pero si los demas campos
+        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', password='$password', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+        if ($sql==1) {
+            header("location:administracion_usuarios.php");
+            //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
+        } else {
+            echo '<div class="alert alert-danger">Error al actualizar el usuario</div>';//Error al ingresar usuario
+        }
+        $validar=false;
+        return $validar;
+    }else {
+        return $validar;
+    }
+}
+
+//Funcion para actualizar con usuario
+function actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$id_usuario,&$validar){
+    
+    date_default_timezone_set("America/Tegucigalpa");
+        $mifecha = date('Y-m-d');
+        include "../../modelo/conexion.php";
+        //Envio de los datos a ingresar por la query
+        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario',password='$password', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+        if ($sql==1) {
+            header("location:administracion_usuarios.php");
+            //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
+        } else {
+            echo '<div class="alert alert-danger">Error al actualizar el usuario</div>';//Error al ingresar usuario
+        }
+}
+/////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 //Crear Nuevo Usuario Al Presionar Boton
 if (!empty($_POST["btnregistrar"])) {
     $validar=true;
@@ -41,26 +99,19 @@ if (!empty($_POST["btnregistrar"])) {
         if($validar==true){
             usuario_existe($usuario,$validar);
             if($validar==true){
-                date_default_timezone_set("America/Tegucigalpa");
-                $mifecha = date('Y-m-d');
-                $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL 365 DAY)"); //Fecha de Vencimiento
-                $row=mysqli_fetch_array($sql);
-                $fecha_vencimiento=$row[0];
-                //Envio de los datos a ingresar por la query
-                $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , '$estado' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
-                if ($sql==1) {
-                    echo '<div class="alert alert-success">Usuario registrado correctamente</div>';//Usuario ingresado
-                } else {
+                usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
+                if($validar==true){
+                    echo '<div class="alert alert-success">Usuario registrado correctamente</div>';//Usuario ingresado 
+                }else{
                     echo '<div class="alert alert-danger">Error al registrar usuario</div>';//Error al ingresar usuario
-                    
                 }
             }
         }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-//Actualizar Datos de Usuario
+//AL presionar el boton actualizar
 if (!empty($_POST["btnactualizar"])) {
-    if (!empty($_POST["nombres"]) and !empty($_POST["usuario"]) and !empty($_POST["password"]) and !empty($_POST["identidad"]) and !empty($_POST["genero"]) and !empty($_POST["telefono"]) and !empty($_POST["direccion"]) and !empty($_POST["correo"]) and !empty($_POST["estado"]) and !empty($_POST["id_rol"])) {
+        $validar=true;
         $id_usuario=$_POST["id_usuario"];
         $nombres=$_POST["nombres"];
         $usuario=$_POST["usuario"];
@@ -72,23 +123,19 @@ if (!empty($_POST["btnactualizar"])) {
         $correo=$_POST["correo"];
         $estado=$_POST["estado"];
         $id_rol=$_POST["id_rol"];
-        //Zona horaria de honduras
-        date_default_timezone_set("America/Tegucigalpa");
-        $mifecha = date('Y-m-d');
-        //Envio de los datos a ingresar por la query
-        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario', password='$password', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
-        if ($sql==1) {
-            header("location:administracion_usuarios.php");
-            //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
-        } else {
-            echo '<div class="alert alert-danger">Error al actualizar el usuario</div>';//Error al ingresar usuario
+
+        //Validar que no hayan campos vacios
+        campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
+        if($validar==true){
+            usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$id_usuario,$validar);
+            if($validar==true){
+                usuario_existe($usuario,$validar);
+                if($validar==true){
+                    actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$id_usuario,$validar);
+                }
+            }
         }
-
-    } else {
-        echo '<div class="alert alert-warning">Favor llenar todos los campos</div>';//Campos vacios
-    }
 }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //Eliminar Usuario
 if (!empty($_POST["btnborrar"])) {

@@ -22,8 +22,8 @@
 		<div class="usuario">
 			<label>Usuario</label>
 			<input id="usuario" type="text"
-				class="input" name="usuario"
-				title="ingrese su nombre de usuario" autocomplete="usuario" value="" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+				class="input" name="usuario" autofocus
+				title="ingrese su nombre de usuario" autocomplete="usuario" value="" onKeyUp="this.value=this.value.toUpperCase(); ">
 		</div>
 
 		<div class="input-div pass">

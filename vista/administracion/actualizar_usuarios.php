@@ -2,7 +2,6 @@
 include "../../modelo/conexion.php";
 $id_usuario=$_GET["id_usuario"];    //Guardamos el id usuario desde el boton editar
 $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuario ");
-
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +22,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <input type="hidden" name="id_usuario" value="<?= $_GET["id_usuario"] ?>"> 
             <?php
             include "../../controlador/administracion_usuarios.php";
+            
             //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE NOMBRE-->
@@ -71,7 +71,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuario ");
             ?>
              <?php
-            include "../../controlador/administracion_usuarios.php";
+            include_once "../../controlador/administracion_usuarios.php";
             //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
             while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE GENERO-->
@@ -101,7 +101,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuario ");
             ?>
              <?php
-            include "../../controlador/administracion_usuarios.php";
+            include_once "../../controlador/administracion_usuarios.php";
             //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
             while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE ESTADO-->
@@ -131,7 +131,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             $sql=$conexion->query(" select u.id_rol ,r.rol  from tbl_ms_usuario u join tbl_ms_roles r on r.id_rol=u.id_rol where id_usuario=$id_usuario ");
             ?>
              <?php
-            include "../../controlador/administracion_usuarios.php";
+            include_once "../../controlador/administracion_usuarios.php";
             //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
             while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE ROL-->
