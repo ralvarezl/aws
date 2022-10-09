@@ -85,6 +85,27 @@ function empleado_nuevo($usuario,$password,&$validar){
         }
 }
 
+//Funcion para saber si el usuario esta en RESET
+function usuario_resert($usuario, $password, &$validar){
+    include "modelo/conexion.php";
+        
+    $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+    $row=mysqli_fetch_array($sql);
+    $id_usuario1=$row[0];
+
+    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_usuario='$id_usuario1' and parametro='Admin_Reset'");
+    $row1=mysqli_fetch_array($sql1);
+    $valor=$row1[0];
+        
+    if($valor=="RESET"){
+        $validar=false;
+        header("location:vista/login/cambiarpassword.php");
+        return $validar; 
+    }else{
+        return $validar; 
+    }
+}
+
 //Al presionar el boton
 if (!empty($_POST["btningresar"])){
     $validar=true;
@@ -103,10 +124,14 @@ if (!empty($_POST["btningresar"])){
                     //validar estado
                     estado_usuario($usuario,$password,$validar);
                     if($validar==true){
-                        //Dirigirlo dependiendo el tipo de usuario
-                        administrador($usuario,$password,$validar);
-                        empleado($usuario,$password,$validar);
-                        empleado_nuevo($usuario,$password,$validar);
+                        //Validar RESET
+                        usuario_resert($usuario,$password,$validar);
+                        if($validar==true){
+                            //Dirigirlo dependiendo el tipo de usuario
+                            administrador($usuario,$password,$validar);
+                            empleado($usuario,$password,$validar);
+                            empleado_nuevo($usuario,$password,$validar);
+                        }
                     }
                 }
             }

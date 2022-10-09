@@ -81,7 +81,7 @@ if (!empty($_POST["btnrecuperar"])){
                         
                         $titulo="Recuperacion de Contraseña";  
                         $asunto="Recuperar Password - Sistema de Usuarios";
-                        $bodyphp="Estimad@ ". $usuario.": <br/><br/> Se ha solicitado un reinicio de contraseña.<br/><br/>Por los momentos su PASSWORD es: ".$token.", para restaurar la contraseña visit@ la pagina principal y cambia tu contraseña";
+                        $bodyphp="Estimad@ ". $usuario.": <br/><br/> Se ha solicitado un reinicio de contraseña.<br/><br/>Por los momentos su PASSWORD es: ".$token."<br/> Para restaurar la contraseña visit@ la pagina principal y cambia tu contraseña";
                         
                         $enviado = $mailSend->metEnviar($titulo,$usuario,$correo,$asunto,$bodyphp);
                                  
@@ -99,7 +99,7 @@ if (!empty($_POST["btnrecuperar"])){
                             $insertar=("insert into tbl_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
                             $resultado2 = mysqli_query($conexion,$insertar);
                             
-                            $modificar1=("update tbl_ms_parametros set valor='R' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
+                            $modificar1=("update tbl_ms_parametros set valor='RESET' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
                             $resultado3 = mysqli_query($conexion,$modificar1);
                             
                             echo '<script language="javascript">alert("CORREO ENVIADO");;window.location.href="../../login.php"</script>';
@@ -122,6 +122,7 @@ if (!empty($_POST["btnrecuperar_mjs"])){
     $usuario=$_POST["usuario"];      
     $sql=$conexion -> query("select * from tbl_ms_usuario where usuario='$usuario'");
 
+    
     $validar=true;
     Campo_vacio($usuario,$validar);
     if($validar==true){
