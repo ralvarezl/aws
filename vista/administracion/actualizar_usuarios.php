@@ -16,7 +16,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
     <title>Actualizar Usuario</title>
 </head>
 <body>
-    <form class="col-3 p-2 m-auto" method="POST">
+    <form class="col-4 p-3 m-auto" method="POST">
             <img class="img" src="../../public/img/avatar_actualizar.png" />
             <h3 class="text-center text-secundary" >ACTUALIZAR USUARIO</h3>
             <!--Imput que se oculta para almacenar el usuario para enviarlo a la BD-->

@@ -1,5 +1,6 @@
 body {
-    background-image: url("img/Waves.png");
+    
+	background-image: url("../../public/img/.png");
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
@@ -10,20 +11,20 @@ body {
 }
 
 form {
-	width: 400px;
-	height: 590;
+	/*width: 400px;
+	height: 590;*/
 	border: 2px solid #ccc;
 	padding: 30px;
 	background: rgba(255, 255, 255, 0.411);
 	border-radius: 15px;
 	position: absolute;
-	left: 55%;
+	/*left: 55%;*/
 }
 
 input {
 	display: block;
 	border: 2px solid #ccc;
-	width: 95%;
+	width: 100%;
 	padding: 10px;
 	margin: 10px auto;
 	border-radius: 5px;

@@ -42,7 +42,7 @@
 			<div class="fas fa-eye verPassword" onclick="vista()" id="verPassword"></div>
 		</div>
 
-		<a class="btn btn-link" href="vista/login/recuperacion.php">Olvidé mi contraseña</a>
+		<a class="btn btn-link text-dark" href="vista/login/recuperacion.php">Olvidé mi contraseña</a>
 
 		<input name="btningresar" class="btn btn-secondary" title="click para ingresar" type="submit" value="INICIAR SESION">
 		<input onclick="location.href='vista/login/registrate.php'" name="" class="btn btn-dark" title="click para registrar un nuevo usuario" type="dark" value="REGISTRATE">

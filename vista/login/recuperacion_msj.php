@@ -6,23 +6,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 	<!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-	<link rel="stylesheet" type="text/css" href="../../public/style.css">
+	<link rel="stylesheet" type="text/css" href="styleRecuperar.css">
 	<link rel="shortcut icon" href="../../public/img/Logo.png">
 </head>
 <body>
 
-    <form action="recuperacion_msj.php" method="post" class="signup-form" id="form">
-		<img class="img" src="../../public/img/AVATAR.png" />
-     	<h2>Recuperar Contraseña</h2>
-
+    <form action="recuperacion_msj.php" method="post" class="col-4 p-3 m-auto" id="form">
+		<h3 class="text-center text-secundary" >RECUPERAR CONTRASEÑA</h3>
          <?php
                 include "../../modelo/conexion.php";
                 include "../../controlador/recuperacion_msj.php";
         ?> 	
 
-        <div class="seleccione_pregunta">
-			<label>Seleccione la pregunta: 
-			<select name = "id_pregunta" id = "id_pregunta">
+			<div class="mb-2">
+			<label for="formGroupExampleInput" class="form-label">Preguntas</label>
+			<select class="form-select" aria-label="Default select example" name = "id_pregunta" id = "id_pregunta">
 
 				<option value = "0" >Seleccione la pregunta:</option>
 			
@@ -36,22 +34,30 @@
 			</select></label>
 		</div>
 
-		<div class="respuesta">
-		<label>Respuesta: </label>
-            <input id="respuesta" type="text"  class="input"
+		<div class="mb-2">
+		<label class="form-label">Respuesta:</label>
+            <input id="respuesta" type="text"  class="form-control"
 				name="respuesta" title="respuesta" value="" >
-
-			<label>Contraseña nueva: </label>
-                <input type="text" id="nueva" class="input"
+		</div>
+		<div class="mb-2">
+		<label>Contraseña nueva: </label>
+                <input type="text" id="nueva" class="form-control"
 				name="nueva" title="contrasena_nueva" >
-
-			<label>Confirmar contraseña: </label>
-                <input type="respuesta" id="confirmar" class="input"
+		</div>
+		<div class="mb-2">
+		<label>Confirmar contraseña: </label>
+                <input type="respuesta" id="confirmar" class="form-control"
 				name="confirmar" title="confirmar_contrasena" >
 		</div>
+
+		
 		<input name="btnaceptar" id="btnaceptar" class="btn btn-secondary" title="click para aceptar" type="submit" value="Aceptar" >
 		<input name="btnsiguiente" id="btnsiguiente" class="btn btn-secondary" title="click para siguiente" type="submit" value="Siguiente" >
-        <input name="btnautogenerar" id="btnautogenerar" class="btn btn-secondary" title="click para autogenrar" type="submit" value="autogenerar">
+        <input name="btnautogenerar" id="btnautogenerar" class="btn btn-secondary" title="click para autogenrar" type="submit" value="Autogenerar">
+		
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+		<button type="button" class="btn btn-outline-danger" onclick="location.href='recuperacion.php'" >Salir</button>
+		</div>
    </form>
 	
 	<script src="js/bootstrap.js"></script>
