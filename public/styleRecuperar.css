@@ -1,0 +1,47 @@
+body {
+    background-image: url("img/Waves.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+form {
+	width: 400px;
+	height: 590;
+	border: 2px solid #ccc;
+	padding: 30px;
+	background: rgba(255, 255, 255, 0.411);
+	border-radius: 15px;
+	position: absolute;
+	left: 55%;
+}
+
+input {
+	display: block;
+	border: 2px solid #ccc;
+	width: 95%;
+	padding: 10px;
+	margin: 10px auto;
+	border-radius: 5px;
+}
+
+label {
+	color: #888;
+	font-size: 20px;
+	padding: 10px;
+}
+
+img{
+	width:150px;
+	height:150px;
+	justify-content: center;
+	align-items: center;
+	display: block;
+    margin: 0px auto;
+	margin-bottom: 15px;
+}
+

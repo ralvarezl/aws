@@ -29,17 +29,17 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
 
-                <li class="nav-item p-3">
+                <li class="btn btn-dark p-2">
                     <a class="nav-link" href="#"><i class="fa-solid fa-users-gear"></i>  ADMINISTRADOR DE USUARIOS</a>
                 </li>
-                <li class="nav-item p-3">
+                <li class="btn btn-dark p-2">
                     <a class="nav-link" href="#">ADMINISTRADOR </a>
                 </li>
-                <li class="nav-item p-3">
+                <li class="btn btn-dark p-2">
                     <a class="nav-link" href="#">ADMINISTRADOR </a>
                 </li>
 
-                <li class="nav-item dropdown p-3">
+                <li class="btn btn-dark p-2">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Dropdown
                     </a>

@@ -12,17 +12,17 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../../public/img/Logo.png">
+    <link rel="stylesheet" href="actualizar_usuarios.css">
     <title>Actualizar Usuario</title>
 </head>
 <body>
     <form class="col-3 p-2 m-auto" method="POST">
-            <br></br>
-            <h3 class="text-center text-secundary">ACTUALIZAR USUARIO</h3>
+            <img class="img" src="../../public/img/avatar_actualizar.png" />
+            <h3 class="text-center text-secundary" >ACTUALIZAR USUARIO</h3>
             <!--Imput que se oculta para almacenar el usuario para enviarlo a la BD-->
             <input type="hidden" name="id_usuario" value="<?= $_GET["id_usuario"] ?>"> 
             <?php
             include "../../controlador/administracion_usuarios.php";
-            
             //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE NOMBRE-->
@@ -61,96 +61,53 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <label for="formGroupExampleInput" class="form-label">Correo</label>
             <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo" value="<?= $datos->CORREO ?>">
             </div>
-            <?php }
-            ?>
                                     <!--CAMPOS COMBOBOX-->
-            <!--GENERO-->                        
-            <?php
-            include "../../modelo/conexion.php";
-            $id_usuario=$_GET["id_usuario"];    //Guardamos el id usuario desde el boton editar
-            $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuario ");
-            ?>
-             <?php
-            include_once "../../controlador/administracion_usuarios.php";
-            //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
-            while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Genero</label>
             <select class="form-select" aria-label="Default select example" name="genero">
-            <option>Seleccione genero</option>
-              <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
-            <option selected value="<?= $datos->GENERO ?>"><?= $datos->GENERO ?></option>
+            <option selected>Seleccione genero</option>
             <?php 
             include "../../modelo/conexion.php";
-            $sql=$conexion->query("select genero from tbl_ms_genero where genero<>'$datos->GENERO'" );
+            $sql=$conexion->query("select genero from tbl_ms_genero");
                 //Mostrar los roles creados en la base de datos
                 while($datos=mysqli_fetch_array($sql)){
-                    echo '<option value="'.$datos['genero'].'" >'.$datos['genero'].'</option>';
+                    echo '<option value="'.$datos['genero'].'">'.$datos['genero'].'</option>';
                 }
             ?>
             </select>
             </div>
-            <?php }
-            ?>
-            <!--ESTADO-->
-            <!--SELECCIONE ESTADO-->
-            <?php
-            include "../../modelo/conexion.php";
-            $id_usuario=$_GET["id_usuario"];    //Guardamos el id usuario desde el boton editar
-            $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuario ");
-            ?>
-             <?php
-            include_once "../../controlador/administracion_usuarios.php";
-            //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
-            while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE ESTADO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Estado</label>
             <select class="form-select" aria-label="Default select example" name="estado">
-            <option>Seleccione estado</option>
-              <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
-            <option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>
+            <option selected>Seleccione estado</option>
             <?php 
             include "../../modelo/conexion.php";
-            $sql=$conexion->query("select estado from tbl_ms_estado where estado<>'$datos->ESTADO'" );
+            $sql=$conexion->query("select estado from tbl_ms_estado");
                 //Mostrar los roles creados en la base de datos
                 while($datos=mysqli_fetch_array($sql)){
-                    echo '<option value="'.$datos['estado'].'" >'.$datos['estado'].'</option>';
+                    echo '<option value="'.$datos['estado'].'">'.$datos['estado'].'</option>';
                 }
             ?>
             </select>
             </div>
-            <?php }
-            ?>
-            <!--ROL-->
-            <!--SELECCIONE ROL-->
-            <?php
-            include "../../modelo/conexion.php";
-            $id_usuario=$_GET["id_usuario"];    //Guardamos el id usuario desde el boton editar
-            $sql=$conexion->query(" select u.id_rol ,r.rol  from tbl_ms_usuario u join tbl_ms_roles r on r.id_rol=u.id_rol where id_usuario=$id_usuario ");
-            ?>
-             <?php
-            include_once "../../controlador/administracion_usuarios.php";
-            //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
-            while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE ROL-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
             <select class="form-select" aria-label="Default select example" name="id_rol">
-            <option>Seleccione rol</option>
-              <!--SELECCIONA EL ROL YA ESTABLECIDO EN LA BACE-->
-            <option selected value="<?= $datos->id_rol ?>"><?= $datos->rol ?></option>
+            <option selected>Seleccione rol</option>
             <?php 
             include "../../modelo/conexion.php";
-            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles where id_rol<>'$datos->id_rol'" );
+            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles");
                 //Mostrar los roles creados en la base de datos
                 while($datos=mysqli_fetch_array($sql)){
-                    echo '<option value="'.$datos['id_rol'].'" >'.$datos['rol'].'</option>';
+                    echo '<option value="'.$datos['id_rol'].'">'.$datos['rol'].'</option>';
                 }
             ?>
             </select>
             </div>
+                
             <?php }
             ?>
             
