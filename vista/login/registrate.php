@@ -6,14 +6,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 	<!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-	<link rel="stylesheet" type="text/css" href="../../public/style.css">
+	<link rel="stylesheet" type="text/css" href="style_default.css">
 	<link rel="shortcut icon" href="../../public/img/Logo.png">
 </head>
 <body>
-
-    <form action="registrate.php" method="post">
-		<img class="img" src="../../public/img/AVATAR.png" />
-     	<h2>REGISTRO DE USUARIO</h2>
+  
+    <form action="registrate.php" class="col-4 p-3 m-auto" method="post">
+		<!--<img class="img" src="../../public/img/AVATAR.png" />-->
+        <h3 class="text-center text-secundary" >REGISTRO DE USUARIO</h3>
 		 <?php
                 include "../../modelo/conexion.php";       
                 include "../../controlador/registrate.php";  
@@ -78,12 +78,14 @@
             </div>
 
 
-		<input name="btnregistrate" class="btn btn-dark" title="click para ingresar" type="submit" value="REGISTRATE">
-		<input onclick="location.href='../../login.php'" name="" class="btn btn-danger" title="click para ingresar" type="danger" value="SALIR">
+            <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-dark" name="btnregistrate" value="ok">REGISTRATE</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='../../login.php'" >SALIR</button>
+            </div>
 
-   </form>
-	
-	<script src="js/bootstrap.js"></script>
-    <script src="js/bootstrap.bundle.js"></script>  
+
+   </form> 
+
 </body>
 </html>

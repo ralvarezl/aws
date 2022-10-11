@@ -16,7 +16,7 @@ function usuario_existe($usuario,&$validar){
     include "../../modelo/conexion.php";
     $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario'");//consultar por el usuario
     if ($datos=$sql->fetch_object()) { //si existe
-        echo"<div class='alert alert-danger'>Usuario existente</div>"; //Usuario no existe
+        echo"<div class='alert alert-danger text-center'>Usuario existente</div>"; //Usuario no existe
         $validar=false;
         return $validar;
     }else {
@@ -56,7 +56,7 @@ function usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$tele
             header("location:administracion_usuarios.php");
             //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
         } else {
-            echo '<div class="alert alert-danger">Error al actualizar el usuario</div>';//Error al ingresar usuario
+            echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
         }
         $validar=false;
         return $validar;
@@ -77,7 +77,7 @@ function actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$tele
             header("location:administracion_usuarios.php");
             //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
         } else {
-            echo '<div class="alert alert-danger">Error al actualizar el usuario</div>';//Error al ingresar usuario
+            echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
         }
 }
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
@@ -101,9 +101,9 @@ if (!empty($_POST["btnregistrar"])) {
             if($validar==true){
                 usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
                 if($validar==true){
-                    echo '<div class="alert alert-success">Usuario registrado correctamente</div>';//Usuario ingresado 
+                    echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
                 }else{
-                    echo '<div class="alert alert-danger">Error al registrar usuario</div>';//Error al ingresar usuario
+                    echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
                 }
             }
         }

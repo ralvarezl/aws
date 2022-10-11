@@ -10,7 +10,7 @@ function Campo_vacio($usuario,&$validar){
         return $validar; 
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Favor ingrese su usuario</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -36,7 +36,7 @@ function Contar_Cadena($usuario,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Nombre De Usuario Muy Grande</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Nombre De Usuario Muy Grande</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -47,7 +47,7 @@ function Validar_Espacio($usuario,&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger'>Usuario Tiene Espacio</div>";
+        echo"<div class='alert alert-danger text-center'>Usuario Tiene Espacio</div>";
         return $validar;
     }
 
@@ -109,7 +109,7 @@ if (!empty($_POST["btnrecuperar"])){
                         }
                      
                     }else{
-                        echo "<div class='alert alert-danger'>No Existe El Usuario</div>";
+                        echo "<div class='alert alert-danger text-center'>No Existe El Usuario</div>";
                     }
                 }
         }
@@ -133,7 +133,7 @@ if (!empty($_POST["btnrecuperar_mjs"])){
                 if ($datos=$sql->fetch_object()){
                     header("location:recuperacion_msj.php");//Entra al sistema de administrador.
                 }else{
-                    echo "<div class='alert alert-danger'>No Existe El Usuario</div>";
+                    echo "<div class='alert alert-danger text-center'>No Existe El Usuario</div>";
                 }
             }
         }

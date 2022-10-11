@@ -5,7 +5,7 @@ function campo_vacio_login($usuario,$password,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>"; //Campos vacios
+        echo"<div class='alert alert-danger text-center'>Favor Rellenar Campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -18,7 +18,7 @@ function usuario_existe_login($usuario,$password,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Usuario no existe</div>"; //Usuario no existe
+        echo"<div class='alert alert-danger text-center'>Usuario no existe</div>"; //Usuario no existe
         return $validar;
     }
 }
@@ -30,7 +30,7 @@ function contrasenia($password,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Acceso Denegado</div>"; //Contraseña erronea
+        echo"<div class='alert alert-danger text-center'>Acceso Denegado</div>"; //Contraseña erronea
         return $validar;
     }
 }
@@ -45,7 +45,7 @@ function estado_usuario($usuario,$password,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>USUARIO $estado</div>"; //Usuario no activo, bloqueado o nuevo
+        echo"<div class='alert alert-danger text-center'>USUARIO $estado</div>"; //Usuario no activo, bloqueado o nuevo
         return $validar;
     }
 }

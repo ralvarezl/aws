@@ -1,0 +1,22 @@
+/*.imagen_fondo{
+    background-image: url(../../public/img/fo_recuperar.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 20em;
+}*/
+
+body{
+    background-image: url(../../public/img/fo_recuperar.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 20em;
+}
+
+form{
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.947);
+    margin: 10px;
+}

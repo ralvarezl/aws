@@ -7,7 +7,7 @@ function campo_vacio_respuesta($respuestas,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Favor Rellenar Campos</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -17,7 +17,7 @@ function campo_vacio1($nuevapassword,$confirmarpassword,$respuestas,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Favor Rellenar Campos</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -36,7 +36,7 @@ function Comparar_respuesta($id_pregunta, $respuesta, &$validar){
             return $validar;
         }else {
             $validar=false;
-            echo"<div class='alert alert-danger'>Respuestas Incorectas</div>"; //Campos sin uso
+            echo"<div class='alert alert-danger text-center'>Respuestas Incorectas</div>"; //Campos sin uso
             return $validar;
         }
     }
@@ -61,7 +61,7 @@ function Comparar_Pass(&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger'>Las Contraseñas no Coinciden</div>"; //Campos no coinciden
+        echo"<div class='alert alert-danger text-center'>Las Contraseñas no Coinciden</div>"; //Campos no coinciden
         return $validar;
     }
 }
@@ -75,7 +75,7 @@ function Contar_Cadena($nuevapassword,$confirmarpassword,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Contraseña solo permite 20 caracteres</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Contraseña solo permite 20 caracteres</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -104,7 +104,7 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
                     echo "<div class='alert alert-danger'>Respuesta Correcta</div>";
                         //header("location:vista/login/recuperacion.php");                     //Entra al sistema de recuperacion
                 }else{
-                    echo"<div class='alert alert-danger'>Respuesta Incorecta</div>"; //Campos sin uso
+                    echo"<div class='alert alert-danger text-center'>Respuesta Incorecta</div>"; //Campos sin uso
                 }   
             }  
         }
@@ -147,7 +147,7 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
                     echo '<script language="javascript">alert("Tu Contraseña es: '.$token .'");;window.location.href="../../login.php"</script>';
 
             }else{
-                echo"<div class='alert alert-danger'>Respuesta Incorecta</div>"; //Campos sin uso
+                echo"<div class='alert alert-danger text-center'>Respuesta Incorecta</div>"; //Campos sin uso
             }
         }    
     }
@@ -186,7 +186,7 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
 
                             echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
                     }else{
-                        echo"<div class='alert alert-danger'>Respuesta Incorecta</div>"; //Campos sin uso
+                        echo"<div class='alert alert-danger text-center'>Respuesta Incorecta</div>"; //Campos sin uso
                     }
                 }
             }

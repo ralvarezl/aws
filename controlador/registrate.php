@@ -14,7 +14,7 @@ function usuario_existe_registrate($usuario,&$validar){
     include "../../modelo/conexion.php";
     $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario'");//consultar por el usuario
     if ($datos=$sql->fetch_object()) { //si existe
-        echo"<div class='alert alert-danger'>Usuario existente</div>"; //Usuario no existe
+        echo"<div class='alert alert-danger text-center'>Usuario existente</div>"; //Usuario no existe
         $validar=false;
         return $validar;
     }else {
@@ -28,7 +28,7 @@ function contrasenia($password,$r_password,&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-warning'>Ambas Contraseñas Deben Ser Iguales</div>";//CONTRASEÑAS DISTINTAS
+        echo"<div class='alert alert-warning text-center'>Ambas Contraseñas Deben Ser Iguales</div>";//CONTRASEÑAS DISTINTAS
         return $validar;
     }
 
@@ -47,7 +47,7 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
     $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, genero, telefono, direccion, correo, fecha_creacion, estado,id_rol,fecha_vencimiento) value ( '$nombres', '$identidad', '$usuario', '$password','$genero','$telefono','$direccion','$correo','$mifecha','NUEVO', 3,'$fecha_vencimiento')");
 
     if ($sql==1) {
-        echo"<div class='alert alert-success'>Usuario Creado Exitosamente</div>";//CREACIÓN EXITOSA
+        echo"<div class='alert alert-success text-center'>Usuario Creado Exitosamente</div>";//CREACIÓN EXITOSA
         return $validar;
     } else {
         $validar=false;

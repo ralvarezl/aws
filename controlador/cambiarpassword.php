@@ -8,7 +8,7 @@ function Campo_vacio($usuario,$nuevacontraseña,$confirmarcontraseña,&$validar)
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Favor Rellenar Campos</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Favor Rellenar Campos</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -24,7 +24,7 @@ function Contraseña_Anterior($usuario,$password_usu,&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger'>La Contraseña Anterio No Es Valida</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>La Contraseña Anterio No Es Valida</div>"; //Campos sin uso
         return $validar;
     }
 
@@ -60,7 +60,7 @@ function Comparar_Pass(&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger'>La Contraseñas no Coinciden</div>"; //Campos no coinciden
+        echo"<div class='alert alert-danger text-center'>La Contraseñas no Coinciden</div>"; //Campos no coinciden
         return $validar;
     }
 }
@@ -74,7 +74,7 @@ function Contar_Cadena($nuevacontraseña,$confirmarcontraseña,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger'>Contraseña Muy Grande</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Contraseña Muy Grande</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -100,7 +100,7 @@ function Guardar_Pass ($usuario){
 function Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confirmarcontraseña, &$validar){
     if (ctype_graph (/*$usuario and $password_usu and*/ $nuevacontraseña and $confirmarcontraseña)){
         $validar=false;
-        echo"<div class='alert alert-danger'>Campo Con Espacios No Validos</div>";
+        echo"<div class='alert alert-danger text-center'>Campo Con Espacios No Validos</div>";
         return $validar;
     }else{
         return $validar;
