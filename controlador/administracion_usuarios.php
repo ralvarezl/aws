@@ -1,8 +1,8 @@
 <?php
 
 //Funcion para validar campos vacios
-function campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,&$validar){
-    if (!empty($_POST["nombres"] and $_POST["usuario"] and $_POST["password"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $_POST["direccion"] and $_POST["correo"] and $_POST["estado"] and $_POST["id_rol"]) and $validar=true) { //Campos llenos
+function campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,&$validar){
+    if (!empty($_POST["nombres"] and $_POST["usuario"] and $_POST["password"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $_POST["direccion"] and $_POST["correo"] and $_POST["id_rol"]) and $validar=true) { //Campos llenos
         return $validar;
     }else {
         $validar=false;
@@ -25,7 +25,7 @@ function usuario_existe($usuario,&$validar){
 }
 
 //Funcion para insertar los registros
-function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,&$validar){
+function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,&$validar){
     include "../../modelo/conexion.php";
     date_default_timezone_set("America/Tegucigalpa");
                 $mifecha = date('Y-m-d');
@@ -33,7 +33,7 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
                 $row=mysqli_fetch_array($sql);
                 $fecha_vencimiento=$row[0];
                 //Envio de los datos a ingresar por la query
-                $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , '$estado' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
+                $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , 'NUEVO' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
                 if ($sql==1) {
                     return $validar;
                 } else {
@@ -92,14 +92,13 @@ if (!empty($_POST["btnregistrar"])) {
     $telefono=$_POST["telefono"];
     $direccion=$_POST["direccion"];
     $correo=$_POST["correo"];
-    $estado=$_POST["estado"];
     $id_rol=$_POST["id_rol"];
     //Validar que no hayan campos vacios
-    campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
+    campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
         if($validar==true){
             usuario_existe($usuario,$validar);
             if($validar==true){
-                usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
+                usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
                 if($validar==true){
                     echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
                 }else{

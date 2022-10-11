@@ -120,7 +120,8 @@
             <label for="formGroupExampleInput" class="form-label">Correo</label>
             <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
             </div>
-            <!--SELECCIONE ESTADO-->
+
+            <!--SELECCIONE ESTADO COMENTADO PORQUE EL ESTADO DEBE IRSE NUEVO
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Estado</label>
             <select class="form-select" aria-label="Default select example" name="estado">
@@ -134,7 +135,7 @@
                 }
             ?>
             </select>
-            </div>
+            </div>-->
             <!--SELECCIONE ROL-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
