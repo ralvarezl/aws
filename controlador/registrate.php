@@ -48,6 +48,7 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
 
     if ($sql==1) {
         echo"<div class='alert alert-success text-center'>Usuario Creado Exitosamente</div>";//CREACIÓN EXITOSA
+        header("location:respuestas_usuario.php");
         return $validar;
     } else {
         $validar=false;
