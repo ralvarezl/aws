@@ -50,6 +50,36 @@ function estado_usuario($usuario,$password,&$validar){
     }
 }
 
+//Validar si usuario es defautl
+function estado_usuario_default($usuario,$password,&$validar){
+    include "modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
+    $row=mysqli_fetch_array($sql);
+    $estado=$row[0]; //Guardamos el estado
+    if ($estado=='DEFAULT') { //si es activo 
+        $validar=false;
+        header("location:vista/login/cambiarpassword.php");//Entra a contestar preguntas
+        return $validar;
+    }else {
+        return $validar;
+    }
+}
+
+//Validar si usuario es nuevo
+function estado_usuario_nuevo($usuario,$password,&$validar){
+    include "modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
+    $row=mysqli_fetch_array($sql);
+    $estado=$row[0]; //Guardamos el estado
+    if ($estado=='NUEVO') { //si es activo 
+        $validar=false;
+        header("location:vista/login/respuestas_usuario.php");//Entra a contestar preguntas
+        return $validar;
+    }else {
+        return $validar;
+    }
+}
+
 //Funcion para saber si es admnistrador
 function administrador($usuario,$password,&$validar){
     include "modelo/conexion.php";
@@ -64,21 +94,9 @@ function administrador($usuario,$password,&$validar){
 //Funcion para saber si es empleado
 function empleado($usuario,$password,&$validar){
     include "modelo/conexion.php";
-    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=2");
+    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and estado='ACIVO' and id_rol=2");
     if ($datos=$sql->fetch_object()) {
         header("location:vista/facturacion.php");//Entra al sistema de facturacion.
-        }else{
-            $validar=false;
-            return $validar; 
-        }
-}
-
-//Funcion para saber si es nuevo
-function empleado_nuevo($usuario,$password,&$validar){
-    include "modelo/conexion.php";
-    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=3");
-    if ($datos=$sql->fetch_object()) {
-        header("location:vista/preguntas.php");//Entra al sistema de facturacion.
         }else{
             $validar=false;
             return $validar; 
@@ -122,17 +140,23 @@ if (!empty($_POST["btningresar"])){
                 contrasenia($password,$validar);
                 if($validar==true){
                     //validar estado
-                    estado_usuario($usuario,$password,$validar);
+                    estado_usuario_default($usuario,$password,$validar);
                     if($validar==true){
-                        //Validar RESET
-                        usuario_resert($usuario,$password,$validar);
+                        estado_usuario_nuevo($usuario,$password,$validar);
                         if($validar==true){
-                            //Dirigirlo dependiendo el tipo de usuario
-                            administrador($usuario,$password,$validar);
-                            empleado($usuario,$password,$validar);
-                            empleado_nuevo($usuario,$password,$validar);
+                            estado_usuario($usuario,$password,$validar);
+                                if($validar==true){
+                                    //Dirigirlo dependiendo el tipo de usuario
+                                    usuario_resert($usuario,$password,$validar);
+                                        if($validar==true){
+                                            //Si el usuario no es nuevo mandarlo al sistema
+                                            administrador($usuario,$password,$validar);
+                                            empleado($usuario,$password,$validar);
+                                        }
+                                }
                         }
                     }
+
                 }
             }
         }

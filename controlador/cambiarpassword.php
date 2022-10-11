@@ -13,6 +13,19 @@ function Campo_vacio($usuario,$nuevacontraseña,$confirmarcontraseña,&$validar)
     }
 }
 
+//Funcion para validar que existe el usuario
+function usuario_existe_cambiar($usuario,&$validar){
+    include "../../modelo/conexion.php";
+    $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario'");//consultar por el usuario
+    if ($datos=$sql->fetch_object()) { //si existe
+        return $validar;
+    }else {
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Usuario no existe</div>"; //Usuario no existe
+        return $validar;
+    }
+}
+
 //--validar la contraseña anterior
 function Contraseña_Anterior($usuario,$password_usu,&$validar){
     include "../../modelo/conexion.php";
@@ -88,7 +101,7 @@ function Guardar_Pass ($usuario){
     $id_usuario=$row[0];
     $password=$_POST["confirmarcontraseña"];
 
-    $modificar=("update tbl_ms_usuario set password='$password' where id_usuario='$id_usuario'");
+    $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
     $resultado = mysqli_query($conexion,$modificar);
     
     $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
@@ -122,17 +135,20 @@ if (!empty($_POST["btnnuevacontraseña"])){
     
     Campo_vacio($usuario,$nuevacontraseña,$confirmarcontraseña,$validar);
     if($validar==true){
-        Contraseña_Anterior($usuario,$password_usu,$validar);
+        usuario_existe_cambiar($usuario,$validar);
         if($validar==true){
-            Contar_Cadena($nuevacontraseña,$confirmarcontraseña,$validar);         
+            Contraseña_Anterior($usuario,$password_usu,$validar);
             if($validar==true){
-                Comparar_Pass($validar);
+                Contar_Cadena($nuevacontraseña,$confirmarcontraseña,$validar);         
                 if($validar==true){
-                    Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confirmarcontraseña, $validar);
+                    Comparar_Pass($validar);
                     if($validar==true){
-                        if ($datos=$sql -> fetch_object()){                 
-                            Guardar_Pass($usuario);
-                            echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                        Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confirmarcontraseña, $validar);
+                        if($validar==true){
+                            if ($datos=$sql -> fetch_object()){                 
+                                Guardar_Pass($usuario);
+                                echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                            }
                         }
                     }
                 }

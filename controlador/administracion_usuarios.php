@@ -33,7 +33,7 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
                 $row=mysqli_fetch_array($sql);
                 $fecha_vencimiento=$row[0];
                 //Envio de los datos a ingresar por la query
-                $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , 'NUEVO' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
+                $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , 'DEFAULT' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
                 if ($sql==1) {
                     return $validar;
                 } else {
@@ -80,7 +80,10 @@ function actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$tele
             echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
         }
 }
+
+
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
+
 //Crear Nuevo Usuario Al Presionar Boton
 if (!empty($_POST["btnregistrar"])) {
     $validar=true;
@@ -100,6 +103,7 @@ if (!empty($_POST["btnregistrar"])) {
             if($validar==true){
                 usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
                 if($validar==true){
+                    //AQUI LUIS
                     echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
                 }else{
                     echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
