@@ -50,6 +50,22 @@ function estado_usuario($usuario,$password,&$validar){
     }
 }
 
+//Funcion para validar el rol default
+function rol_usuario($usuario,&$validar){
+    include "modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select r.rol  from tbl_ms_usuario u join tbl_ms_roles r on r.id_rol=u.id_rol where usuario='$usuario'"); //preguntar el estado del usuario
+    $row=mysqli_fetch_array($sql);
+    $rol=$row[0]; //Guardamos el estado
+    if ($rol=='SIN ASIGNAR') { //si es activo 
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>ROL $rol, COMUNIQUESE CON UN ADMINISTRADOR</div>"; //Usuario no activo, bloqueado o nuevo
+        return $validar;
+    }else {
+        
+        return $validar;
+    }
+}
+
 //Validar si usuario es defautl
 function estado_usuario_default($usuario,$password,&$validar){
     include "modelo/conexion.php";
@@ -85,6 +101,10 @@ function administrador($usuario,$password,&$validar){
     include "modelo/conexion.php";
     $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=1"); //Consultar el rol del usuario
     if ($datos=$sql->fetch_object()) {
+        include "modelo/conexion.php";
+        date_default_timezone_set("America/Tegucigalpa");
+        $mifecha = date('Y-m-d');
+        $sql=$conexion->query(" update tbl_ms_usuario set fecha_ultima_conexion='$mifecha' where usuario='$usuario'");
         header("location:vista/administracion/administracion_usuarios.php");//Entra al sistema de administrador.
         }else{
             $validar=false;
@@ -94,8 +114,12 @@ function administrador($usuario,$password,&$validar){
 //Funcion para saber si es empleado
 function empleado($usuario,$password,&$validar){
     include "modelo/conexion.php";
-    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and estado='ACIVO' and id_rol=2");
+    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario' and password='$password' and id_rol=2");
     if ($datos=$sql->fetch_object()) {
+        include "modelo/conexion.php";
+        date_default_timezone_set("America/Tegucigalpa");
+        $mifecha = date('Y-m-d');
+        $sql=$conexion->query(" update tbl_ms_usuario set fecha_ultima_conexion='$mifecha' where usuario='$usuario'");
         header("location:vista/facturacion.php");//Entra al sistema de facturacion.
         }else{
             $validar=false;
@@ -145,18 +169,23 @@ if (!empty($_POST["btningresar"])){
                         estado_usuario_nuevo($usuario,$password,$validar);
                         if($validar==true){
                             estado_usuario($usuario,$password,$validar);
+                            if($validar==true){
+                                //Validar el rol del usuario no sea default 
+                                rol_usuario($usuario,$validar);
                                 if($validar==true){
-                                    //Dirigirlo dependiendo el tipo de usuario
-                                    usuario_resert($usuario,$password,$validar);
-                                        if($validar==true){
-                                            //Si el usuario no es nuevo mandarlo al sistema
-                                            administrador($usuario,$password,$validar);
-                                            empleado($usuario,$password,$validar);
-                                        }
+                                    if($validar==true){
+                                        //Dirigirlo dependiendo el tipo de usuario
+                                        usuario_resert($usuario,$password,$validar);
+                                            if($validar==true){
+                                                //Si el usuario no es nuevo mandarlo al sistema
+                                                administrador($usuario,$password,$validar);
+                                                empleado($usuario,$password,$validar);
+                                            }
+                                    } 
                                 }
+                            }      
                         }
                     }
-
                 }
             }
         }

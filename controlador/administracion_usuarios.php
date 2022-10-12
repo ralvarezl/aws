@@ -11,6 +11,17 @@ function campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$d
     }
 }
 
+//Funcion para validar campos vacios en actualizar
+function campo_vacio_actualizar($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,&$validar){
+    if (!empty($_POST["nombres"] and $_POST["usuario"] and $_POST["password"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $_POST["direccion"] and $_POST["correo"] and $_POST["estado"] and $_POST["id_rol"]) and $validar=true) { //Campos llenos
+        return $validar;
+    }else {
+        $validar=false;
+        echo"<div align='center' class='alert alert-danger' >Favor Rellenar Campos</div>"; //Campos vacios
+        return $validar;
+    }
+}
+
 //Funcion para validar que el usuario no exista
 function usuario_existe($usuario,&$validar){
     include "../../modelo/conexion.php";
@@ -152,7 +163,7 @@ if (!empty($_POST["btnactualizar"])) {
         $id_rol=$_POST["id_rol"];
 
         //Validar que no hayan campos vacios
-        campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
+        campo_vacio_actualizar($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
         if($validar==true){
             usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$id_usuario,$validar);
             if($validar==true){
