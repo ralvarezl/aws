@@ -50,9 +50,10 @@
 
 
 	
-
+        <!--BOTONERIA-->
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="submit" class="btn btn-secondary" name="btnnuevacontraseña" id="btnnuevacontraseña" value="ok">Guardar Contraseña</button>
+        <button type="button" class="btn btn-danger" onclick="location.href='../../login.php'" >Salir</button>
         </div>
    </form>
 	

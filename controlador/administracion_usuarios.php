@@ -93,7 +93,7 @@ function Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,&$validar){
     
     $titulo="Usuario Nuevo";  
     $asunto="Usuario y contraseña - Sistema de Usuarios";
-    $bodyphp="Estimad@ ". $nombres.": <br/><br/> Se le a registrado en el sistema Andre's Coffee <br/><br/>Su USUARIO es: [".$usuario."] y su contraseña temporal es: [".$password."].<br/><br/> Favor ingrese al sistema para hacer el cambio de su contraseña y configurar su usuario.";
+    $bodyphp="Estimad@ ". $nombres.": <br/><br/> Se le a registrado en el sistema Andre's Coffee <br/><br/>Su USUARIO es: ".$usuario." y su contraseña temporal es: ".$password.".<br/><br/> Favor ingrese al sistema para hacer el cambio de su contraseña y configurar su usuario.";
     
     $enviado = $mailSend->metEnviar($titulo,$usuario,$correo,$asunto,$bodyphp);
              

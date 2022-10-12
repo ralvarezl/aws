@@ -50,6 +50,7 @@
 				name="confirmar" title="confirmar_contrasena" >
 		</div>
 
+		<!--BOTONERIA-->
 		<div class="d-grid">
 		<input name="btnaceptar" id="btnaceptar" class="btn btn-secondary mb-2" title="click para aceptar" type="submit" value="Aceptar" >
 		<input name="btnsiguiente" id="btnsiguiente" class="btn btn-secondary mb-2" title="click para siguiente" type="submit" value="Siguiente" >
