@@ -47,7 +47,7 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
     $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, genero, telefono, direccion, correo, fecha_creacion, estado,id_rol,fecha_vencimiento) value ( '$nombres', '$identidad', '$usuario', '$password','$genero','$telefono','$direccion','$correo','$mifecha','NUEVO', 3,'$fecha_vencimiento')");
 
     if ($sql==1) {
-        echo"<div class='alert alert-success text-center'>Usuario Creado Exitosamente</div>";//CREACIÓN EXITOSA
+        header("location:respuestas_usuario.php");//Entra a contestar preguntas
         return $validar;
     } else {
         $validar=false;
