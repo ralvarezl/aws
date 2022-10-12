@@ -80,7 +80,31 @@ function actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$tele
             echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
         }
 }
+//Funcion para enviar el correo.
+function Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,&$validar){
+    require_once ("../../PHPMailer/clsMail.php");
+    include "../../modelo/conexion.php";
 
+    $mailSend = new clsMail();
+ 
+    $sql=mysqli_query($conexion, "select rol from tbl_ms_roles where id_rol='$id_rol'");
+    $row=mysqli_fetch_array($sql);
+    $rol=$row[0];
+    
+    $titulo="Usuario Nuevo";  
+    $asunto="Usuario y contraseña - Sistema de Usuarios";
+    $bodyphp="Estimad@ ". $nombres.": <br/><br/> Se le a registrado en el sistema Andre's Coffee <br/><br/>Su USUARIO es: [".$usuario."] y su contraseña temporal es: [".$password."].<br/><br/> Favor ingrese al sistema para hacer el cambio de su contraseña y configurar su usuario.";
+    
+    $enviado = $mailSend->metEnviar($titulo,$usuario,$correo,$asunto,$bodyphp);
+             
+    if($enviado){
+        return $validar;
+    }else{
+        $validar=false;
+        echo '<div class="alert alert-danger text-center">La direccion de correo electronico no existe o no tienes.</div>';
+        return $validar;
+    }
+}
 
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
@@ -103,7 +127,7 @@ if (!empty($_POST["btnregistrar"])) {
             if($validar==true){
                 usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
                 if($validar==true){
-                    //AQUI LUIS
+                    Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,$validar);
                     echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
                 }else{
                     echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
