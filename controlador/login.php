@@ -143,6 +143,15 @@ function administrador($usuario,$password,&$validar){
         date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
         $sql=$conexion->query(" update tbl_ms_usuario set fecha_ultima_conexion='$mifecha' where usuario='$usuario'");
+            
+        $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+        $row=mysqli_fetch_array($sql);
+        $id_usuario=$row[0];
+
+        //Modificamos el parametro adminintentos en la tabla TBL_MS_PARAMETRO
+        $modificar2=("update tbl_ms_parametros set valor='0' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
+        $resultado2 = mysqli_query($conexion,$modificar2);
+
         header("location:vista/administracion/administracion_usuarios.php");//Entra al sistema de administrador.
         }else{
             $validar=false;
@@ -158,6 +167,15 @@ function empleado($usuario,$password,&$validar){
         date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
         $sql=$conexion->query(" update tbl_ms_usuario set fecha_ultima_conexion='$mifecha' where usuario='$usuario'");
+
+        $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+        $row=mysqli_fetch_array($sql);
+        $id_usuario=$row[0];
+        
+        //Modificamos el parametro adminintentos en la tabla TBL_MS_PARAMETRO
+        $modificar2=("update tbl_ms_parametros set valor='0' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
+        $resultado2 = mysqli_query($conexion,$modificar2);
+
         header("location:vista/facturacion.php");//Entra al sistema de facturacion.
         }else{
             $validar=false;
