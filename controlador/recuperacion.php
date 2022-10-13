@@ -53,6 +53,21 @@ function Validar_Espacio($usuario,&$validar){
 
 }
 
+//funcion para validar el estado de BLOQUEO
+function estado_bloquiado_password($usuario,&$validar){
+    include "../../modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
+    $row=mysqli_fetch_array($sql);
+    $estado=$row[0]; //Guardamos el estado
+    if ($estado=='BLOQUEADO') { //si es BLOQUEDO
+        $validar=false;
+        return $validar;
+    }else {
+        return $validar;
+    }
+}
+
+
 //=================================BOTON DE RECUPERACION DE CONTRASEÑA POR EMAIL=========================
 
 if (!empty($_POST["btnrecuperar"])){
@@ -93,8 +108,22 @@ if (!empty($_POST["btnrecuperar"])){
                             date_default_timezone_set("America/Tegucigalpa");
                             $fecha_actual=date("Y-m-d");
                             
-                            $modificar=("update tbl_ms_usuario set password='$token', estado='DEFAULT' where id_usuario='$id_usuario'");
-                            $resultado1 = mysqli_query($conexion,$modificar);
+                            estado_bloquiado_password($usuario,$validar);
+                            //Validamos si el usuario esta BLOQUEADO
+                            if($validar==true){
+                                include "../../modelo/conexion.php";
+                                //Modificamos la contraseña y estado en la tabla TBL_MS_USUARIO
+                                $modificar=("update tbl_ms_usuario set password='$token', estado='DEFAULT' where id_usuario='$id_usuario'");
+                                $resultado = mysqli_query($conexion,$modificar);
+                            }else{
+                                include "../../modelo/conexion.php";
+                                //Modificamos la contraseña y estado en la tabla TBL_MS_USUARIO
+                                $modificar1=("update tbl_ms_usuario set password='$token', estado='ACTIVO' where id_usuario='$id_usuario'");
+                                $resultado1 = mysqli_query($conexion,$modificar1);
+                                //Modificamos el parametro adminintentos en la tabla TBL_MS_PARAMETRO
+                                $modificar2=("update tbl_ms_parametros set valor='0' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
+                                $resultado2 = mysqli_query($conexion,$modificar2);
+                            }
                             
                             $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
                             $resultado2 = mysqli_query($conexion,$insertar);

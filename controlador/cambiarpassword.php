@@ -92,23 +92,6 @@ function Contar_Cadena($nuevacontraseña,$confirmarcontraseña,&$validar){
     }
 }
 
-//--guardar contraseña
-function Guardar_Pass ($usuario){
-    
-    include "../../modelo/conexion.php";
-    $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
-    $row=mysqli_fetch_array($sql);
-    $id_usuario=$row[0];
-    $password=$_POST["confirmarcontraseña"];
-
-    $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
-    $resultado = mysqli_query($conexion,$modificar);
-    
-    $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
-    $resultado3 = mysqli_query($conexion,$modificar1);
-
-}
-
 //--ver si hay espacios
 function Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confirmarcontraseña, &$validar){
     if (ctype_graph (/*$usuario and $password_usu and*/ $nuevacontraseña and $confirmarcontraseña)){
@@ -145,8 +128,35 @@ if (!empty($_POST["btnnuevacontraseña"])){
                     if($validar==true){
                         Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confirmarcontraseña, $validar);
                         if($validar==true){
-                            if ($datos=$sql -> fetch_object()){                 
-                                Guardar_Pass($usuario);
+                            if ($datos=$sql -> fetch_object()){ 
+                                
+                                $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
+                                $row=mysqli_fetch_array($sql);
+                                $estado=$row[0]; //Guardamos el estado
+
+                                $sql1=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'"); //preguntar el ID del usuario
+                                $row1=mysqli_fetch_array($sql1);
+                                $id_usuario=$row1[0]; //Guardamos el ID_USUARIO
+
+                                $password=$_POST["confirmarcontraseña"];//Guardamos la contraseña de lavor confirmar
+
+                                if ($estado=='DEFAULT') { //Validamos el estado del usuario si es DEFAULT
+                                    //Modifiacmos el estado de DEFAULT a NUEVO
+                                    $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
+                                    $resultado = mysqli_query($conexion,$modificar);
+                                    //Modificamos el valor en la tabla TBL_MS_PARAMETROS
+                                    $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
+                                    $resultado3 = mysqli_query($conexion,$modificar1);
+                                
+                                }else{
+                                    //Modifiacmos cualquier estado a ACTIVO
+                                    $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
+                                    $resultado1 = mysqli_query($conexion,$modificar);
+                                    //Modificamos el valor en la tabla TBL_MS_PARAMETROS
+                                    $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
+                                    $resultado3 = mysqli_query($conexion,$modificar1);
+                                }
+                                //Mensaje de confirmacion de cambio de contraseña.
                                 echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
                             }
                         }
