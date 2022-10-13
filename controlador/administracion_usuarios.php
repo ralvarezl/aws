@@ -135,13 +135,14 @@ if (!empty($_POST["btnregistrar"])) {
     campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
         if($validar==true){
             usuario_existe($usuario,$validar);
-            if($validar==true){
-                usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
+            if($validar==true){Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,$validar);
                 if($validar==true){
-                    Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,$validar);
-                    echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
-                }else{
-                    echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
+                    usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
+                    if($validar==true){
+                        echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
+                    }else{
+                        echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
+                    }
                 }
             }
         }

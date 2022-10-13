@@ -93,10 +93,10 @@ if (!empty($_POST["btnrecuperar"])){
                             date_default_timezone_set("America/Tegucigalpa");
                             $fecha_actual=date("Y-m-d");
                             
-                            $modificar=("update tbl_ms_usuario set password='$token' where id_usuario='$id_usuario'");
+                            $modificar=("update tbl_ms_usuario set password='$token', estado='DEFAULT' where id_usuario='$id_usuario'");
                             $resultado1 = mysqli_query($conexion,$modificar);
                             
-                            $insertar=("insert into tbl_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
+                            $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
                             $resultado2 = mysqli_query($conexion,$insertar);
                             
                             $modificar1=("update tbl_ms_parametros set valor='RESET' where id_usuario='$id_usuario' and parametro='Admin_Reset'");

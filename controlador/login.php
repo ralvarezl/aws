@@ -23,14 +23,52 @@ function usuario_existe_login($usuario,$password,&$validar){
     }
 }
 //Funcion para validar que la contraseña este bien
-function contrasenia($password,&$validar){
+function contrasenia($usuario,$password,&$validar){
     include "modelo/conexion.php";
     $sql=$conexion->query("select usuario from tbl_ms_usuario where password='$password'");//Validar sea la contraseña sea la del usuario
     if ($datos=$sql->fetch_object()) {
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Acceso Denegado</div>"; //Contraseña erronea
+
+        $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+        $row=mysqli_fetch_array($sql);
+        $id_usuario=$row[0];
+
+        $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
+        $row=mysqli_fetch_array($sql);
+        $valor=$row[0];
+        
+        if($valor<1){
+            echo"<div class='alert alert-danger text-center'>Acceso Denegado, restan 2 intentos</div>"; //Contraseña erronea
+            $contador=$valor;
+            $contador=($contador+1);
+
+            $modificar=("update tbl_ms_parametros set valor='$contador' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
+            $resultado = mysqli_query($conexion,$modificar);
+            
+        }elseif($valor==1){
+            echo"<div class='alert alert-danger text-center'>Te queda un intento antes que tu usuario sea bloqueado</div>"; //Usuario bloqueado
+            $contador=$valor;
+            $contador=($contador+1);
+
+            $modificar=("update tbl_ms_parametros set valor='$contador' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
+            $resultado = mysqli_query($conexion,$modificar);
+        }elseif($valor==2){
+            echo"<div class='alert alert-danger text-center'>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
+
+            $contador=$valor;
+            $contador=($contador+1);
+
+            $modificar=("update tbl_ms_parametros set valor='$contador' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
+            $resultado = mysqli_query($conexion,$modificar);
+
+            $modificar1=("update tbl_ms_usuario set estado='BLOQUEADO' where id_usuario='$id_usuario'");
+            $resultado1 = mysqli_query($conexion,$modificar1);
+        }elseif($valor>2){
+            echo"<div class='alert alert-danger text-center'>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
+            //echo "$valor";
+        }
         return $validar;
     }
 }
@@ -147,6 +185,23 @@ function usuario_resert($usuario, $password, &$validar){
         return $validar; 
     }
 }
+//validar que el estado este bloqueado
+function estado_usuario_bloquiado($usuario,$password,&$validar){
+    include "modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
+    $row=mysqli_fetch_array($sql);
+    $estado=$row[0]; //Guardamos el estado
+    if ($estado=='BLOQUEADO') { //si es activo 
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
+        return $validar;
+    }else {
+        return $validar;
+    }
+}
+
+/////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
+
 
 //Al presionar el boton
 if (!empty($_POST["btningresar"])){
@@ -161,29 +216,33 @@ if (!empty($_POST["btningresar"])){
             usuario_existe_login($usuario,$password,$validar);
             if($validar==true){
                 //validar contraseña
-                contrasenia($password,$validar);
+                contrasenia($usuario,$password,$validar);
                 if($validar==true){
                     //validar estado
                     estado_usuario_default($usuario,$password,$validar);
                     if($validar==true){
                         estado_usuario_nuevo($usuario,$password,$validar);
                         if($validar==true){
-                            estado_usuario($usuario,$password,$validar);
+                            estado_usuario_bloquiado($usuario,$password,$validar);
                             if($validar==true){
-                                //Validar el rol del usuario no sea default 
-                                rol_usuario($usuario,$validar);
+                                estado_usuario($usuario,$password,$validar);
                                 if($validar==true){
+                                    //Validar el rol del usuario no sea default 
+                                    rol_usuario($usuario,$validar);
                                     if($validar==true){
-                                        //Dirigirlo dependiendo el tipo de usuario
-                                        usuario_resert($usuario,$password,$validar);
-                                            if($validar==true){
-                                                //Si el usuario no es nuevo mandarlo al sistema
-                                                administrador($usuario,$password,$validar);
-                                                empleado($usuario,$password,$validar);
-                                            }
-                                    } 
-                                }
-                            }      
+                                        if($validar==true){
+                                            //Dirigirlo dependiendo el tipo de usuario
+                                            usuario_resert($usuario,$password,$validar);
+                                                if($validar==true){
+                                                    //Si el usuario no es nuevo mandarlo al sistema
+                                                    administrador($usuario,$password,$validar);
+                                                    empleado($usuario,$password,$validar);
+                                                }
+                                        } 
+                                    }
+                                } 
+                            }     
+
                         }
                     }
                 }
