@@ -152,6 +152,16 @@ function administrador($usuario,$password,&$validar){
         $modificar2=("update tbl_ms_parametros set valor='0' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
         $resultado2 = mysqli_query($conexion,$modificar2);
 
+        //Primer Ingreso
+        $sql=mysqli_query($conexion, "select primer_ingreso from tbl_ms_usuario where usuario='$usuario'");
+        $row=mysqli_fetch_array($sql);
+        $primer_ingreso=$row[0];
+        //Si no tiene entonces actualizar su fecha
+        if($primer_ingreso==''){
+            $sql=$conexion->query(" update tbl_ms_usuario set primer_ingreso='$mifecha' where usuario='$usuario'");
+        }
+
+
         header("location:vista/administracion/administracion_usuarios.php");//Entra al sistema de administrador.
         }else{
             $validar=false;
@@ -175,6 +185,15 @@ function empleado($usuario,$password,&$validar){
         //Modificamos el parametro adminintentos en la tabla TBL_MS_PARAMETRO
         $modificar2=("update tbl_ms_parametros set valor='0' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
         $resultado2 = mysqli_query($conexion,$modificar2);
+
+        //Primer Ingreso
+        $sql=mysqli_query($conexion, "select primer_ingreso from tbl_ms_usuario where usuario='$usuario'");
+        $row=mysqli_fetch_array($sql);
+        $primer_ingreso=$row[0];
+        //Si no tiene entonces actualizar su fecha
+        if($primer_ingreso==''){
+        $sql=$conexion->query(" update tbl_ms_usuario set primer_ingreso='$mifecha' where usuario='$usuario'");
+        }
 
         header("location:vista/facturacion.php");//Entra al sistema de facturacion.
         }else{
