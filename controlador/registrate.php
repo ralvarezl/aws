@@ -47,6 +47,18 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
     $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, genero, telefono, direccion, correo, fecha_creacion, estado,id_rol,fecha_vencimiento) value ( '$nombres', '$identidad', '$usuario', '$password','$genero','$telefono','$direccion','$correo','$mifecha','NUEVO', 3,'$fecha_vencimiento')");
 
     if ($sql==1) {
+        include "../../modelo/conexion.php";
+                    
+        $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+        $row=mysqli_fetch_array($sql);
+        $id_usuario=$row[0];
+
+        $insertar1=("insert into tbl_ms_parametros (PARAMETRO,VALOR,ID_USUARIO) VALUES( 'ADMIN_RESET','ACTIVO','$id_usuario')");
+        $resultado1 = mysqli_query($conexion,$insertar1);
+
+        $insertar2=("insert into tbl_ms_parametros (PARAMETRO,VALOR,ID_USUARIO) VALUES( 'ADMIN_INTENTOS','0','$id_usuario')");
+        $resultado2 = mysqli_query($conexion,$insertar2);
+
         header("location:respuestas_usuario.php");//Entra a contestar preguntas
         return $validar;
     } else {

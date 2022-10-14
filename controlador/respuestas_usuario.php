@@ -74,7 +74,7 @@ function Guardar_pregunta_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,&$validar){
     $modificar1=("update tbl_ms_usuario set estado='ACTIVO' where id_usuario='$id_usuario'");
     $resultado4 = mysqli_query($conexion,$modificar1);
 
-    echo"<div class='alert alert-danger text-center'>RESPUESTAS GUARDADAS CON EXITO</div>";
+    echo '<script language="javascript">alert("PREGUNTAS GUARDADAS CON EXITO");;window.location.href="../../login.php"</script>';
 
     return $validar;
 

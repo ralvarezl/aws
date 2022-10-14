@@ -145,7 +145,7 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                     $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
                                     $resultado = mysqli_query($conexion,$modificar);
                                     //Modificamos el valor en la tabla TBL_MS_PARAMETROS
-                                    $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
+                                    $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
                                     $resultado3 = mysqli_query($conexion,$modificar1);
                                 
                                 }else{
@@ -153,7 +153,7 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                     $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
                                     $resultado1 = mysqli_query($conexion,$modificar);
                                     //Modificamos el valor en la tabla TBL_MS_PARAMETROS
-                                    $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
+                                    $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
                                     $resultado3 = mysqli_query($conexion,$modificar1);
                                 }
                                 //Mensaje de confirmacion de cambio de contraseña.

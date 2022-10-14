@@ -141,7 +141,7 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
                     $insertar=("insert into tbl_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
                     $resultado2 = mysqli_query($conexion,$insertar);
 
-                    $modificar1=("update tbl_ms_parametros set valor='R' where id_usuario='$id_usuario' and parametro='Admin_Reset'");
+                    $modificar1=("update tbl_ms_parametros set valor='R' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
                     $resultado3 = mysqli_query($conexion,$modificar1);
 
                     echo '<script language="javascript">alert("Tu Contraseña es: '.$token .'");;window.location.href="../../login.php"</script>';
