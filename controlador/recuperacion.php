@@ -92,11 +92,11 @@ if (!empty($_POST["btnrecuperar"])){
 
     Campo_vacio($usuario,$validar);
     if($validar==true){
-        estado_inactivo_password($usuario,$validar);
+        Validar_Espacio($usuario,$validar);
         if($validar==true){
             Contar_Cadena($usuario,$validar);
             if($validar==true){
-                Validar_Espacio($usuario,$validar);
+                estado_inactivo_password($usuario,$validar);
                 if($validar==true){
                     if ($datos=$sql -> fetch_object()){ 
                             
@@ -171,11 +171,11 @@ if (!empty($_POST["btnrecuperar_mjs"])){
     $validar=true;
     Campo_vacio($usuario,$validar);
     if($validar==true){
-        estado_inactivo_password($usuario,$validar);
+        Validar_Espacio($usuario,$validar);
         if($validar==true){
             Contar_Cadena($usuario,$validar);
             if($validar==true){
-                Validar_Espacio($usuario,$validar);
+                estado_inactivo_password($usuario,$validar);
                 if($validar==true){
                     if ($datos=$sql->fetch_object()){
                         header("location:recuperacion_msj.php");//Entra al sistema de administrador.

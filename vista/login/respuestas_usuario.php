@@ -14,33 +14,33 @@
     <br></br>
     <form action="respuestas_usuario.php" class="col-3 p-3 m-auto" method="post">
         <h3 class="text-center text-secundary" >Login Inicial</h3>
-        <!--<?php
+        <?php
                 include "../../modelo/conexion.php";
-                include "../../controlador/cambiarpassword.php";
-        ?> 	-->
+                include "../../controlador/respuestas_usuario.php";
+        ?> 
         <!--MUESTRO USUARIO debe mostrar usuario que hizo el registro-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">USUARIO</label>
-            <input type="text" class="form-control" name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
+            <input type="text" class="form-control" name="usuario" onKeyUp="this.value=this.value.toUpperCase();">
         </div>
         <!--PRIMERA PREGUNTA-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">¿COMO SE LLAMA TU MASCOTA?</label>
-            <input type="text" class="form-control" name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
+            <input type="text" class="form-control" name="Pgt_1" onKeyUp="this.value=this.value.toUpperCase();">
         </div>
         <!--SEGUNDA PREGUNTA-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">¿CUAL ES TU COLOR FAVORITO?</label>
-            <input type="text" class="form-control" name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
+            <input type="text" class="form-control" name="Pgt_2" onKeyUp="this.value=this.value.toUpperCase();">
         </div>
         <!--TERCERA PREGUNTA-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">¿PRIMER NOMBRE DE TU ABUELO?</label>
-            <input type="text" class="form-control" name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
+            <input type="text" class="form-control" name="Pgt_3" onKeyUp="this.value=this.value.toUpperCase();">
         </div>
         <!--BOTONERIA-->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn btn-dark" name="logininicial" value="ok">GUARDAR</button>
+            <button type="submit" class="btn btn-dark" name="btnguardar" id="btnguardar" value="ok">GUARDAR</button>
             <button type="button" class="btn btn-danger" onclick="location.href='../../login.php'" >SALIR</button>
         </div>
     </form>
