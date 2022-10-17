@@ -50,7 +50,6 @@
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Genero</label>
             <select class="form-select" aria-label="Default select example" name="genero">
-            <option selected>Seleccione genero</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select genero from tbl_ms_genero");

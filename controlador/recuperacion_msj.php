@@ -101,7 +101,7 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
             Comparar_respuesta($id_pregunta, $respuesta, $validar);
             if($validar==true){
                 if ($datos=$query -> fetch_object()){ 
-                    echo "<div class='alert alert-danger'>Respuesta Correcta</div>";
+                    echo "<div class='alert alert-success text-center'>Respuesta Correcta</div>";
                         //header("location:vista/login/recuperacion.php");                     //Entra al sistema de recuperacion
                 }else{
                     echo"<div class='alert alert-danger text-center'>Respuesta Incorecta</div>"; //Campos sin uso

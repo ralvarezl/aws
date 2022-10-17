@@ -1,6 +1,10 @@
 body {
-    background: #f1f1f127;
+    
+    background-image: url("../../public/img/fondo_menu.png");
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+ 
 }
-
 
 .nav-link:hover{color:rgb(214, 146, 107) !important}

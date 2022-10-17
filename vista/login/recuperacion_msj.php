@@ -12,6 +12,7 @@
 <body>
 	<br></br>
     <form action="recuperacion_msj.php" method="post" class="col-4 p-3 m-auto" id="form">
+	<img src="../../public/img/pregunta.png" class="img-fluid rounded mx-auto d-block"/>
 		<h3 class="text-center text-secundary" >RECUPERAR CONTRASEÑA</h3>
          <?php
                 include "../../modelo/conexion.php";

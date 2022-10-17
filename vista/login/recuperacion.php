@@ -12,7 +12,7 @@
 <body>
 	<br></br>
     <form action="recuperacion.php" class="col-3 p-2 m-auto" method="post">
-		<!--<img class="img" src="../../public/img/recuperar.png" />-->
+	<img src="../../public/img/recuperar_contraseña.png" class="img-fluid rounded mx-auto d-block"/>
 		<h3 class="text-center text-secundary" >RECUPERAR CONTRASEÑA</h3>
 		<?php
                 include "../../modelo/conexion.php";

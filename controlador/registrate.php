@@ -40,23 +40,23 @@ function validar_password($password,&$validar){
     //validar tenga minusculas
     if (!preg_match('/[a-z]/',$password)){
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>La clave debe tener al menos una letra minúscula</div>";
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos una letra minúscula</div>";
         //return $validar;
     } else {
         //Validar tenga mayusculas
         if (!preg_match('/[A-Z]/',$password)){
             $validar=false;
-            echo"<div class='alert alert-danger text-center'>La clave debe tener al menos una letra mayuscula</div>";
+            echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos una letra mayuscula</div>";
         } else{
             //Validar tenga numeros
             if (!preg_match('/[0-9]/',$password)){
                 $validar=false;
-                echo"<div class='alert alert-danger text-center'>La clave debe tener al menos un caracter numérico</div>"; 
+                echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos un caracter numérico</div>"; 
             } else {
                 //Validar tenga caracter especial
                 if (!preg_match('/[^a-zA-Z\d]/',$password)){
                     $validar=false;
-                echo"<div class='alert alert-danger text-center'>La clave debe tener al menos un caracter especial</div>"; 
+                echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos un caracter especial</div>"; 
                 }else {
                     return $validar;
                 }
