@@ -20,7 +20,7 @@
                 include "controlador/login.php";
 				include "controlador/cambiarpassword.php";
                 ?> 		
-		<!--INGRESE NOMBRE-->
+		<!--INGRESE USUARIO-->
 		<div class="mb-3">
 			<label for="formGroupExampleInput" class="form-label">Usuario</label>
 			<input id="usuario" type="text"

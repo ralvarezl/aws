@@ -1,4 +1,5 @@
 <?php
+
 //Funcion para validar campos vacios
 function campo_vacio_login($usuario,$password,&$validar){
     if (!empty($_POST["usuario"] and $_POST["password"]) and $validar=true) { //Campos llenos
@@ -242,6 +243,10 @@ function estado_usuario_bloquiado($usuario,$password,&$validar){
 
 //Al presionar el boton
 if (!empty($_POST["btningresar"])){
+    session_start();
+
+    $_SESSION['usuario_login'] = $_REQUEST['usuario'];
+
     $validar=true;
     $usuario=$_POST["usuario"];
     $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'");
@@ -285,13 +290,5 @@ if (!empty($_POST["btningresar"])){
                 }
             }
         }
-    
-    
-    
-    
-    
-    
-    
-    
 }
 ?>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -33,7 +36,7 @@
                     <a class="nav-link" href="#"><i class="fa-solid fa-users-gear"></i>  ADMINISTRADOR DE USUARIOS</a>
                 </li>
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="#">ADMINISTRADOR </a>
+                    <a class="nav-link" href="#">Bienvenido </a>
                 </li>
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="#">ADMINISTRADOR </a>
@@ -120,22 +123,6 @@
             <label for="formGroupExampleInput" class="form-label">Correo</label>
             <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
             </div>
-
-            <!--SELECCIONE ESTADO COMENTADO PORQUE EL ESTADO DEBE IRSE NUEVO
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
-            <select class="form-select" aria-label="Default select example" name="estado">
-            <option selected>Seleccione estado</option>
-            <?php 
-            include "../../modelo/conexion.php";
-            $sql=$conexion->query("select estado from tbl_ms_estado");
-                //Mostrar los roles creados en la base de datos
-                while($datos=mysqli_fetch_array($sql)){
-                    echo '<option value="'.$datos['estado'].'">'.$datos['estado'].'</option>';
-                }
-            ?>
-            </select>
-            </div>-->
             <!--SELECCIONE ROL-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
@@ -158,6 +145,7 @@
                 <?php
                 include "../../modelo/conexion.php";
                 include "../../controlador/eliminar_usuario.php";
+                echo "Nombre de usuario recuperado de la variable de sesión:" . $_SESSION['usuario_login'];
                 ?>
                     <table class="table" style="text-align:center;" >
                         <thead class="table-dark">
@@ -182,28 +170,54 @@
                             <?php
                             //Llamado a la base de datos
                             include "../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_usuario, nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where estado <> 'INACTIVO' order by id_usuario asc");
-                            while($u = $sql->fetch_assoc()){ ?>
-                            <tr>
-                                <td><?php echo $u['id_usuario']; ?></td>
-                                <td><?php echo $u['nombres']; ?></td>
-                                <td><?php echo $u['usuario']; ?></td>
-                                <td><?php echo $u['password']; ?></td>
-                                <td><?php echo $u['identidad']; ?></td>
-                                <td><?php echo $u['genero']; ?></td>
-                                <td><?php echo $u['telefono']; ?></td>
-                                <td><?php echo $u['direccion']; ?></td>
-                                <td><?php echo $u['correo']; ?></td>
-                                <td><?php echo $u['estado']; ?></td>
-                                <td><?php echo $u['rol']; ?></td>
-                                <td>
-                                    <a href="actualizar_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
-                                </td>
-                                <td>
-                                    <a href="administracion_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
-                                </td>
-                            </tr>
-                            <?php }
+                            //Si es el usuario SUPER ADMIN mostrara los usuarios inactivos
+                            if($_SESSION["usuario_login"]=='ADMIN'){
+                                $sql=$conexion->query("select id_usuario, nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
+                                while($u = $sql->fetch_assoc()){ ?>
+                                    <tr>
+                                        <td><?php echo $u['id_usuario']; ?></td>
+                                        <td><?php echo $u['nombres']; ?></td>
+                                        <td><?php echo $u['usuario']; ?></td>
+                                        <td><?php echo $u['password']; ?></td>
+                                        <td><?php echo $u['identidad']; ?></td>
+                                        <td><?php echo $u['genero']; ?></td>
+                                        <td><?php echo $u['telefono']; ?></td>
+                                        <td><?php echo $u['direccion']; ?></td>
+                                        <td><?php echo $u['correo']; ?></td>
+                                        <td><?php echo $u['estado']; ?></td>
+                                        <td><?php echo $u['rol']; ?></td>
+                                        <td>
+                                            <a href="actualizar_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="administracion_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php }
+                            }else{ //Si es un usuario admin simple mostrata todos los usuario menos los inactivos
+                                $sql= $conexion->query("select id_usuario, nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where estado <> 'INACTIVO' and usuario <> 'ADMIN' order by id_usuario asc");
+                                while($u = $sql->fetch_assoc()){ ?>
+                                    <tr>
+                                        <td><?php echo $u['id_usuario']; ?></td>
+                                        <td><?php echo $u['nombres']; ?></td>
+                                        <td><?php echo $u['usuario']; ?></td>
+                                        <td><?php echo $u['password']; ?></td>
+                                        <td><?php echo $u['identidad']; ?></td>
+                                        <td><?php echo $u['genero']; ?></td>
+                                        <td><?php echo $u['telefono']; ?></td>
+                                        <td><?php echo $u['direccion']; ?></td>
+                                        <td><?php echo $u['correo']; ?></td>
+                                        <td><?php echo $u['estado']; ?></td>
+                                        <td><?php echo $u['rol']; ?></td>
+                                        <td>
+                                            <a href="actualizar_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="administracion_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
+                                        </td>
+                                    </tr>
+                                    <?php }
+                            }
                             ?>
                         </tbody>
                     </table>

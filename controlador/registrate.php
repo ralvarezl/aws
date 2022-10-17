@@ -1,4 +1,5 @@
 <?php
+//Funcion para validar campos vacios
 function campo_vacio_registrate($nombres,$usuario,$password,$r_password,$identidad,$genero,$telefono,$direccion,$correo,&$validar){
     if (!empty($_POST["nombres"] and $_POST["usuario"] and $_POST["password"] and $_POST["r_password"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $_POST["direccion"] and $_POST["correo"]) and $validar=true) { //Campos llenos
         return $validar;
@@ -32,6 +33,36 @@ function contrasenia($password,$r_password,&$validar){
         return $validar;
     }
 
+}
+
+//Validar contraseña robusta
+function validar_password($password,&$validar){
+    //validar tenga minusculas
+    if (!preg_match('/[a-z]/',$password)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La clave debe tener al menos una letra minúscula</div>";
+        //return $validar;
+    } else {
+        //Validar tenga mayusculas
+        if (!preg_match('/[A-Z]/',$password)){
+            $validar=false;
+            echo"<div class='alert alert-danger text-center'>La clave debe tener al menos una letra mayuscula</div>";
+        } else{
+            //Validar tenga numeros
+            if (!preg_match('/[0-9]/',$password)){
+                $validar=false;
+                echo"<div class='alert alert-danger text-center'>La clave debe tener al menos un caracter numérico</div>"; 
+            } else {
+                //Validar tenga caracter especial
+                if (!preg_match('/[^a-zA-Z\d]/',$password)){
+                    $validar=false;
+                echo"<div class='alert alert-danger text-center'>La clave debe tener al menos un caracter especial</div>"; 
+                }else {
+                    return $validar;
+                }
+            }
+        }
+    }
 }
 
 //Funcion para crear Usuario
@@ -68,7 +99,6 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
 }
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
-
 //Validacion para el registro
 if (!empty($_POST["btnregistrate"])){     
         $nombres=$_POST["nombres"];
@@ -88,7 +118,10 @@ if (!empty($_POST["btnregistrate"])){
                 if($validar==true){
                     contrasenia($password,$r_password,$validar);
                     if($validar==true){
-                        crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
+                        validar_password($password,$validar);
+                        if($validar==true){
+                            crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
+                        }
                     }
                 }
             } 
