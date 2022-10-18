@@ -103,7 +103,6 @@ session_start();
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Genero</label>
             <select class="form-select" aria-label="Default select example" name="genero">
-            <option selected>Seleccione genero</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select genero from tbl_ms_genero");
@@ -133,7 +132,6 @@ session_start();
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
             <select class="form-select" aria-label="Default select example" name="id_rol">
-            <option selected>Seleccione rol</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select id_rol, rol from tbl_ms_roles");
@@ -151,7 +149,7 @@ session_start();
                 <?php
                 include "../../modelo/conexion.php";
                 include "../../controlador/eliminar_usuario.php";
-                echo "Nombre de usuario recuperado de la variable de sesión:" . $_SESSION['usuario_login'];
+                //echo "Nombre de usuario recuperado de la variable de sesión:" . $_SESSION['usuario_login'];
                 ?>
                     <table class="table" style="text-align:center;" >
                         <thead class="table-dark">
@@ -228,7 +226,7 @@ session_start();
                         </tbody>
                     </table>
                     <!--BOTON PROVISIONAL SALIDA-->
-                    <input onclick="location.href='../../login.php'" name="" class="btn btn-danger" title="click para registrar un nuevo usuario" type="dark" value="Salir">
+                    <input onclick="location.href='../../login.php'" name="btn_salir_administracion_usuarios" class="btn btn-danger" title="click para registrar un nuevo usuario" type="dark" value="Salir">
                 </div>
                     
     </div>

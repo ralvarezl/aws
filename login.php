@@ -11,7 +11,7 @@
 	<link rel="shortcut icon" href="public/img/Logo.png">
 </head>
 <body>
-
+	<BR></BR>
     <form action="login.php" class="col-3 p-3 m-auto" method="post">
 		<img src="public/img/AVATAR.png" class="img-fluid rounded mx-auto d-block"/>
 		<h2 class="text-center text-secundary" >BIENVENIDO</h2>

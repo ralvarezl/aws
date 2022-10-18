@@ -42,12 +42,12 @@
 		</div>
 		<div class="mb-3">
 		<label>Contraseña nueva: </label>
-                <input type="text" id="nueva" class="form-control"
+                <input type="password" id="nueva" class="form-control"
 				name="nueva" title="contrasena_nueva" >
 		</div>
 		<div class="mb-3">
 		<label>Confirmar contraseña: </label>
-                <input type="respuesta" id="confirmar" class="form-control"
+                <input type="password" id="confirmar" class="form-control"
 				name="confirmar" title="confirmar_contrasena" >
 		</div>
 

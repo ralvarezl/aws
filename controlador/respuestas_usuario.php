@@ -5,7 +5,7 @@
 //--validacion que no existan campos vacios
 function Campo_vacio_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,&$validar){
 
-    if (!empty($_POST["usuario"]and $_POST["Pgt_1"] and $_POST["Pgt_2"] and $_POST["Pgt_3"]) and $validar=true) {    //Campos en uso
+    if (!empty($_POST["Pgt_1"] and $_POST["Pgt_2"] and $_POST["Pgt_3"]) and $validar=true) {    //Campos en uso
         return $validar; 
     }else {
         $validar=false;
@@ -76,6 +76,7 @@ function Guardar_pregunta_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,&$validar){
 
     echo '<script language="javascript">alert("PREGUNTAS GUARDADAS CON EXITO");;window.location.href="../../login.php"</script>';
 
+
     return $validar;
 
 
@@ -87,7 +88,10 @@ function Guardar_pregunta_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,&$validar){
 
 if (!empty($_POST["btnguardar"])){
 
+    session_destroy();
     include "../../modelo/conexion.php";
+    
+
 
     $usuario=$_POST["usuario"];      
     $sql=$conexion -> query("select * from tbl_ms_usuario where usuario='$usuario'");

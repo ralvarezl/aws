@@ -187,6 +187,12 @@ if (!empty($_POST["btnactualizar"])) {
             }
         }
 }
+
+
+if (!empty($_POST["btn_salir_administracion_usuarios"])) {
+    session_destroy();
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ?>

@@ -3,8 +3,8 @@
 //++++++++++++++++++++++++++++++++++++++++FUNCIONES DE RECUPERACION+++++++++++++++++++++++++++++++++++/
 
 //--validacion que no existan campos vacios
-function Campo_vacio($usuario,$nuevacontraseña,$confirmarcontraseña,&$validar){
-    if (!empty($_POST["usuario"] and $_POST["nuevacontraseña"] and $_POST["confirmarcontraseña"]) and $validar=true){ //Campos en uso
+function Campo_vacio($password_usu,$nuevacontraseña,$confirmarcontraseña,&$validar){
+    if (!empty($_POST["contraseñaanterior"] and $_POST["nuevacontraseña"] and $_POST["confirmarcontraseña"]) and $validar=true){ //Campos en uso
         return $validar;
     }else {
         $validar=false;
@@ -82,7 +82,7 @@ function Comparar_Pass(&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>La Contraseñas no Coinciden</div>"; //Campos no coinciden
+        echo"<div class='alert alert-danger text-center'>Las Contraseñas No Coinciden</div>"; //Campos no coinciden
         return $validar;
     }
 }
@@ -116,7 +116,8 @@ function Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confir
 
 
 if (!empty($_POST["btnnuevacontraseña"])){
-    
+    session_destroy();
+
     $errors = array();
     $validar=true;
     $usuario=$_POST["usuario"];
@@ -126,7 +127,7 @@ if (!empty($_POST["btnnuevacontraseña"])){
     $confirmarcontraseña=$_POST["confirmarcontraseña"];
     $password_usu=$_POST["contraseñaanterior"];
     $error_clave = "";
-    Campo_vacio($usuario,$nuevacontraseña,$confirmarcontraseña,$validar);
+    Campo_vacio($password_usu,$nuevacontraseña,$confirmarcontraseña,$validar);
     if($validar==true){
         usuario_existe_cambiar($usuario,$validar);
         if($validar==true){
@@ -178,5 +179,11 @@ if (!empty($_POST["btnnuevacontraseña"])){
             }
         }
     }
+}
+
+//=================================BOTON SALIR=========================
+
+if (!empty($_POST["btn_salir_cambiar_password"])){
+    session_destroy();
 }
 ?>

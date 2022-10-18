@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +25,7 @@
         <!--MUESTRO USUARIO debe mostrar usuario que hizo el registro-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">USUARIO</label>
-            <input type="text" class="form-control" name="usuario" onKeyUp="this.value=this.value.toUpperCase();">
+            <input type="text" class="form-control" name="usuario" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $_SESSION['usuario_login'] ?>">
         </div>
         <!--PRIMERA PREGUNTA-->
         <div class="mb-3">

@@ -26,8 +26,13 @@ function usuario_existe_login($usuario,$password,&$validar){
 //Funcion para validar que la contraseña este bien
 function contrasenia($usuario,$password,&$validar){
     include "modelo/conexion.php";
-    $sql=$conexion->query("select usuario from tbl_ms_usuario where password='$password'");//Validar sea la contraseña sea la del usuario
-    if ($datos=$sql->fetch_object()) {
+    //$sql=$conexion->query("select usuario from tbl_ms_usuario where password='$password'");//Validar sea la contraseña sea la del usuario
+
+    $sql2=mysqli_query($conexion, "select password from tbl_ms_usuario where usuario='$usuario'");
+    $row2=mysqli_fetch_array($sql2);
+    $password_1=$row2[0];
+    
+    if ($password_1==$password) {
         return $validar;
     }else {
         $validar=false;

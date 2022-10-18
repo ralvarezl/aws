@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,26 +29,26 @@
             <label for="formGroupExampleInput" class="form-label">Usuario</label>
             <input id="usuario" type="text" 
             class="form-control" name="usuario"
-                title="ingrese su usuario" autocomplete="usuario" value="" onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
+                title="ingrese su usuario" autocomplete="usuario" value="<?= $_SESSION['usuario_login'] ?>">
         </div>
         <!--INGRESE CONTRASEÑA ANTERIOR-->
         <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Contraseña Anterior</label>
-            <input id="contraseñaanterior" type="text"
+            <label for="" class="form-label">Contraseña Anterior</label>
+            <input id="contraseñaanterior" type="password"
             class="form-control" name="contraseñaanterior"
                 title="ingrese su contraseña anterior" autocomplete="contraseñaanterior" value="" >
         </div>
         <!--INGRESE NUEVA CONTRASEÑA-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Nueva contraseña</label>
-            <input id="nuevacontraseña" type="text"
+            <input id="nuevacontraseña" type="password"
             class="form-control" name="nuevacontraseña"
                 title="ingrese su nueva contraseña" autocomplete="nuevacontraseña" value="" >
         </div>
         <!--INGRESE CONFIRMAR CONTRASEÑA-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Confirmar contraseña</label>
-            <input id="confirmarcontraseña" type="text"
+            <input id="confirmarcontraseña" type="password"
             class="form-control" name="confirmarcontraseña"
                 title="ingrese su confirmación de contraseña" autocomplete="confirmarcontraseña" value="" >
 
@@ -53,7 +59,7 @@
         <!--BOTONERIA-->
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="submit" class="btn btn-secondary" name="btnnuevacontraseña" id="btnnuevacontraseña" value="ok">Guardar Contraseña</button>
-        <button type="button" class="btn btn-danger" onclick="location.href='../../login.php'" >Salir</button>
+        <button type="button" class="btn btn-danger" name="btn_salir_cambiar_password" onclick="location.href='../../login.php'" >Salir</button>
         </div>
    </form>
 	
