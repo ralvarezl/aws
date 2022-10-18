@@ -100,7 +100,10 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
 //Validacion para el registro
-if (!empty($_POST["btnregistrate"])){     
+if (!empty($_POST["btnregistrate"])){  
+        //session_start();
+        //$_SESSION['usuario_registrate'] = $_REQUEST['usuario'];
+
         $nombres=$_POST["nombres"];
         $identidad=$_POST["identidad"];
         $usuario=$_POST["usuario"];

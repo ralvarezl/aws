@@ -296,4 +296,10 @@ if (!empty($_POST["btningresar"])){
             }
         }
 }
+
+//=================================BOTON SALIR=========================
+
+if (!empty($_POST["btn_registrate"])){
+    session_destroy();
+}
 ?>
