@@ -33,10 +33,10 @@ $usuario_msj= $_SESSION['usuario_msj'];
         ?> 	
 
 			<div class="mb-3">
-			<label for="formGroupExampleInput" class="form-label">Preguntas</label>
+			<label for="formGroupExampleInput" class="form-label">Seleccione la pregunta:</label>
 			<select class="form-select" aria-label="Default select example" name = "id_pregunta" id = "id_pregunta">
 
-				<option value = "" >Seleccione la pregunta:</option>
+				<!--<option value = "" ></option>-->
 			
 			<?php foreach($ejecutar as $opciones): ?> 	
 			
@@ -66,12 +66,12 @@ $usuario_msj= $_SESSION['usuario_msj'];
 					?> 
 		<div class="mb-3">
 		<label>Contraseña nueva: </label>
-                <input type="text" id="nueva" class="form-control"
+                <input type="password" id="nueva" class="form-control"
 				name="nueva" title="contrasena_nueva" >
 		</div>
 		<div class="mb-3">
 		<label>Confirmar contraseña: </label>
-                <input type="respuesta" id="confirmar" class="form-control"
+                <input type="password" id="confirmar" class="form-control"
 				name="confirmar" title="confirmar_contrasena" >
 		</div>
 		

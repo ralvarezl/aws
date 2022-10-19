@@ -22,6 +22,7 @@ function campo_vacio1($nuevapassword,$confirmarpassword,&$validar){
     }
 }
 
+
 function Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, &$validar){
     
     include "../../modelo/conexion.php";
