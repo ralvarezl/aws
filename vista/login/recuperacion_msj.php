@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+$usuario_msj= $_SESSION['usuario_msj'];
+?>
 <!DOCTYPE html>	
 <html>
 <head>
@@ -17,13 +22,21 @@
          <?php
                 include "../../modelo/conexion.php";
                 include "../../controlador/recuperacion_msj.php";
+				$sql=mysqli_query($conexion, "select   p.valor 
+				from tbl_ms_usuario u 
+				join tbl_ms_parametros p on p.id_usuario=u.id_usuario
+				where  usuario='$usuario_msj' and parametro='ADMIN_PREGUNTAS'");
+        		$row=mysqli_fetch_array($sql);
+        		$valor=$row[0];
+				
+					if($valor==0){//if
         ?> 	
 
 			<div class="mb-3">
 			<label for="formGroupExampleInput" class="form-label">Preguntas</label>
 			<select class="form-select" aria-label="Default select example" name = "id_pregunta" id = "id_pregunta">
 
-				<option value = "0" >Seleccione la pregunta:</option>
+				<option value = "" >Seleccione la pregunta:</option>
 			
 			<?php foreach($ejecutar as $opciones): ?> 	
 			
@@ -40,24 +53,38 @@
             <input id="respuesta" type="text"  class="form-control"
 				name="respuesta" title="respuesta" value="" onKeyUp="this.value=this.value.toUpperCase();">
 		</div>
+
+		<!--BOTONERIA-->
+		<div class="d-grid">
+		<input name="btnsiguiente" id="btnsiguiente" class="btn btn-secondary mb-2" title="click para siguiente" type="submit" value="Siguiente" >
+		<button type="button" name="btn_salir_msj" class="btn btn-danger mb-2" onclick="location.href='recuperacion.php'" >Salir</button>
+		</div>
+		<?php
+			}
+			else{
+				if($valor==1){//if
+					?> 
 		<div class="mb-3">
 		<label>Contraseña nueva: </label>
-                <input type="password" id="nueva" class="form-control"
+                <input type="text" id="nueva" class="form-control"
 				name="nueva" title="contrasena_nueva" >
 		</div>
 		<div class="mb-3">
 		<label>Confirmar contraseña: </label>
-                <input type="password" id="confirmar" class="form-control"
+                <input type="respuesta" id="confirmar" class="form-control"
 				name="confirmar" title="confirmar_contrasena" >
 		</div>
-
+		
 		<!--BOTONERIA-->
-		<div class="d-grid">
-		<input name="btnaceptar" id="btnaceptar" class="btn btn-secondary mb-2" title="click para aceptar" type="submit" value="Aceptar" >
-		<input name="btnsiguiente" id="btnsiguiente" class="btn btn-secondary mb-2" title="click para siguiente" type="submit" value="Siguiente" >
-        <input name="btnautogenerar" id="btnautogenerar" class="btn btn-secondary mb-2" title="click para autogenrar" type="submit" value="Autogenerar">
-		<button type="button" class="btn btn-danger mb-2" onclick="location.href='recuperacion.php'" >Salir</button>
-		</div>
+		<div class="d-grid">	
+		<input name="btnaceptar" id="btnaceptar" class="btn btn-secondary mb-2" title="Click para aceptar" type="submit" value="Aceptar" >
+        <input name="btnautogenerar" id="btnautogenerar" class="btn btn-secondary mb-2" title="Click para autogenrar" type="submit" value="Autogenerar">
+		<input name="btn_salir_msj_uno" id="btn_salir_msj_uno" class="btn btn-danger mb-2" title="Click para salir" type="submit" value="Salir">
+		<?php
+				}//If
+
+			}//else
+		?> 
    </form>
 	
 	<script src="js/bootstrap.js"></script>

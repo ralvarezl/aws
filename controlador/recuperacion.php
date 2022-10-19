@@ -164,6 +164,9 @@ if (!empty($_POST["btnrecuperar"])){
 //=================================BOTON DE RECUPERACION DE CONTRASEÑA POR MENSAJE=========================
 
 if (!empty($_POST["btnrecuperar_mjs"])){
+    session_start();
+    $_SESSION['usuario_msj'] = $_REQUEST['usuario'];
+
     $usuario=$_POST["usuario"];      
     $sql=$conexion -> query("select * from tbl_ms_usuario where usuario='$usuario'");
 
