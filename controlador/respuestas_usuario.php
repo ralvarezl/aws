@@ -42,14 +42,15 @@ function Validar_Espacio_mjs($usuario,&$validar){
 function Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,&$validar){
 
     include "../../modelo/conexion.php";
-
+    date_default_timezone_set("America/Tegucigalpa");
+    $mifecha = date('Y-m-d');
     //Buscar Id del usuario
     $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
     $row=mysqli_fetch_array($sql);
     $id_usuario=$row[0];
 
     //Guarda la pregunta
-    $insertar=("insert into tbl_ms_preguntas_usuario (ID_PREGUNTA,RESPUESTA,ID_USUARIO) VALUES( '$select_pregunta','$respuesta_pregunta','$id_usuario')");
+    $insertar=("insert into tbl_ms_preguntas_usuario (ID_PREGUNTA,RESPUESTA,CREADO_POR,FECHA_CREACION,ID_USUARIO) VALUES( '$select_pregunta','$respuesta_pregunta','$usuario','$mifecha','$id_usuario')");
     $resultado = mysqli_query($conexion,$insertar);
 
     //Cambiar el estado a ACTIVO

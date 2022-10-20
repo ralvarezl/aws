@@ -117,7 +117,8 @@ function Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confir
 
 if (!empty($_POST["btnnuevacontraseña"])){
     session_destroy();
-
+    date_default_timezone_set("America/Tegucigalpa");
+    $fecha_actual=date("Y-m-d");
     $errors = array();
     $validar=true;
     $usuario=$_POST["usuario"];
@@ -160,6 +161,9 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                         //Modificamos el valor en la tabla TBL_MS_PARAMETROS
                                         $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
                                         $resultado3 = mysqli_query($conexion,$modificar1);
+                                        //Llenar el historial de contraseña
+                                        $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
+                                        $resultado = mysqli_query($conexion,$insertar);
                                     
                                     }else{
                                         //Modifiacmos cualquier estado a ACTIVO
@@ -168,6 +172,9 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                         //Modificamos el valor en la tabla TBL_MS_PARAMETROS
                                         $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
                                         $resultado3 = mysqli_query($conexion,$modificar1);
+                                        //Llenar el historial de contraseña
+                                        $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
+                                        $resultado = mysqli_query($conexion,$insertar);
                                     }
                                     //Mensaje de confirmacion de cambio de contraseña.
                                     echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';

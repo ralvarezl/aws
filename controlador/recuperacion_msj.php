@@ -183,6 +183,8 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
         $validar=true;
         $nuevapassword=$_POST["nueva"];
         $confirmarpassword=$_POST["confirmar"];
+        date_default_timezone_set("America/Tegucigalpa");
+        $fecha_actual=date("Y-m-d");
         
             campo_vacio1($nuevapassword,$confirmarpassword,$validar);
             if($validar==true){
@@ -205,7 +207,10 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
                                 $row=mysqli_fetch_array($sql);
                                 $id_usuario_parametro=$row[0];
                                 $sql=$conexion->query(" update tbl_ms_parametros set valor=0 where id_usuario = $id_usuario_parametro and parametro='admin_preguntas'");
-                                
+                                //Llenar el historial de contraseña
+                                $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$confirmarpassword','$usuario_msj','$fecha_actual',$id_usuario)");
+                                $resultado = mysqli_query($conexion,$insertar);
+
                                 echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
                         }
                     }
