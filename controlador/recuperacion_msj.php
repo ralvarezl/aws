@@ -83,6 +83,35 @@ function Contar_Cadena($nuevapassword,$confirmarpassword,&$validar){
     }
 }
 
+//Validar contraseña robusta
+function validar_clave_msj($confirmarpassword,&$validar){
+    //validar tenga minusculas
+    if (!preg_match('/[a-z]/',$confirmarpassword)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos una letra minúscula</div>";
+        return $validar;
+    } else {
+        //Validar tenga mayusculas
+        if (!preg_match('/[A-Z]/',$confirmarpassword)){
+            $validar=false;
+            echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos una letra mayuscula</div>";
+        } else{
+            //Validar tenga numeros
+            if (!preg_match('/[0-9]/',$confirmarpassword)){
+                $validar=false;
+                echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos un caracter numérico</div>"; 
+            } else {
+                //Validar tenga caracter especial
+                if (!preg_match('/[^a-zA-Z\d]/',$confirmarpassword)){
+                    $validar=false;
+                echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos un caracter especial</div>"; 
+                }else {
+                    return $validar;
+                }
+            }
+        }
+    }
+}
 
 ///////////////////////////////////////////----EJECUCIÓN DE COMBOBOX----///////////////////////////////////////////
 
@@ -120,27 +149,27 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
 
     if (!empty($_POST["btnautogenerar"])){
 
-                    $token = Generar_token();
+        $token = Generar_token();
 
-                    $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario_msj'");
-                    $row=mysqli_fetch_array($sql);
-                    $id_usuario=$row[0];
+        $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario_msj'");
+        $row=mysqli_fetch_array($sql);
+        $id_usuario=$row[0];
 
-                    date_default_timezone_set("America/Tegucigalpa");
-                    $fecha_actual=date("Y-m-d");
+        date_default_timezone_set("America/Tegucigalpa");
+        $fecha_actual=date("Y-m-d");
 
-                    $modificar=("update tbl_ms_usuario set password='$token' , estado='ACTIVO' where id_usuario='$id_usuario'");
-                    $resultado1 = mysqli_query($conexion,$modificar);
+        $modificar=("update tbl_ms_usuario set password='$token' , estado='ACTIVO' where id_usuario='$id_usuario'");
+        $resultado1 = mysqli_query($conexion,$modificar);
 
-                    $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
-                    $resultado2 = mysqli_query($conexion,$insertar);
+        $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
+        $resultado2 = mysqli_query($conexion,$insertar);
 
-                    $modificar1=("update tbl_ms_parametros set valor='RESET' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
-                    $resultado3 = mysqli_query($conexion,$modificar1);
+        $modificar1=("update tbl_ms_parametros set valor='RESET' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
+        $resultado3 = mysqli_query($conexion,$modificar1);
 
-                    echo '<script language="javascript">alert("Tu Contraseña es: '.$token .'");;window.location.href="../../login.php"</script>';
+        echo '<script language="javascript">alert("Tu Contraseña es: '.$token .'");;window.location.href="../../login.php"</script>';
 
-            }
+    }
 
     if (!empty($_POST["btnaceptar"])){
     
@@ -154,23 +183,24 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
                 if($validar==true){
                     Contar_Cadena($nuevapassword,$confirmarpassword,$validar);
                     if($validar==true){
-                        
-                            //Sacams el id del usuario
-                            $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario_msj'");
-                            $row=mysqli_fetch_array($sql);
-                            $id_usuario=$row[0];//almacenamos el id
-                            //Mandamos a actualizar contraseña
-                            $modificar=("update tbl_ms_usuario set password='$confirmarpassword', estado='ACTIVO' where id_usuario='$id_usuario'");
-                            $resultado = mysqli_query($conexion,$modificar);
-                            //Actualizar el Parametro
-                            $sql=mysqli_query($conexion, "select p.id_usuario from tbl_ms_usuario u join tbl_ms_parametros p on p.id_usuario=u.id_usuario where  usuario='$usuario_msj' and parametro='ADMIN_PREGUNTAS'");
-                            $row=mysqli_fetch_array($sql);
-        		            $id_usuario_parametro=$row[0];
-                            $sql=$conexion->query(" update tbl_ms_parametros set valor=0 where id_usuario = $id_usuario_parametro and parametro='admin_preguntas'");
+                        validar_clave_msj($confirmarpassword,$validar);
+                        if($validar==true){
                             
-                            echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
-                    }else{
-                        echo"<div class='alert alert-danger text-center'>Respuesta Incorecta</div>"; //Campos sin uso
+                                //Sacams el id del usuario
+                                $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario_msj'");
+                                $row=mysqli_fetch_array($sql);
+                                $id_usuario=$row[0];//almacenamos el id
+                                //Mandamos a actualizar contraseña
+                                $modificar=("update tbl_ms_usuario set password='$confirmarpassword', estado='ACTIVO' where id_usuario='$id_usuario'");
+                                $resultado = mysqli_query($conexion,$modificar);
+                                //Actualizar el Parametro
+                                $sql=mysqli_query($conexion, "select p.id_usuario from tbl_ms_usuario u join tbl_ms_parametros p on p.id_usuario=u.id_usuario where  usuario='$usuario_msj' and parametro='ADMIN_PREGUNTAS'");
+                                $row=mysqli_fetch_array($sql);
+                                $id_usuario_parametro=$row[0];
+                                $sql=$conexion->query(" update tbl_ms_parametros set valor=0 where id_usuario = $id_usuario_parametro and parametro='admin_preguntas'");
+                                
+                                echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                        }
                     }
                 }
             }

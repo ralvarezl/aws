@@ -58,6 +58,9 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
                     $insertar2=("insert into tbl_ms_parametros (PARAMETRO,VALOR,ID_USUARIO) VALUES( 'ADMIN_INTENTOS','0','$id_usuario')");
                     $resultado2 = mysqli_query($conexion,$insertar2);
 
+                    $insertar3=("insert into tbl_ms_parametros (PARAMETRO,VALOR,ID_USUARIO) VALUES( 'ADMIN_PREGUNTAS','0','$id_usuario')");
+                    $resultado3 = mysqli_query($conexion,$insertar3);
+
                     return $validar;
                 } else {
                     $validar=false;
