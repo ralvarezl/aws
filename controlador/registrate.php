@@ -75,7 +75,7 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
     $row=mysqli_fetch_array($sql);
     $fecha_vencimiento=$row[0];
 
-    $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, genero, telefono, direccion, correo, fecha_creacion, estado,id_rol,fecha_vencimiento) value ( '$nombres', '$identidad', '$usuario', '$password','$genero','$telefono','$direccion','$correo','$mifecha','NUEVO', 3,'$fecha_vencimiento')");
+    $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, genero, telefono, direccion, correo, creado_por, fecha_creacion, estado,id_rol,fecha_vencimiento) value ( '$nombres', '$identidad', '$usuario', '$password','$genero','$telefono','$direccion','$correo','$usuario','$mifecha','NUEVO', 3,'$fecha_vencimiento')");
 
     if ($sql==1) {
         include "../../modelo/conexion.php";
