@@ -102,7 +102,7 @@ function rol_usuario($usuario,&$validar){
     $rol=$row[0]; //Guardamos el estado
     if ($rol=='SIN ASIGNAR') { //si es activo 
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>ROL $rol, COMUNIQUESE CON UN ADMINISTRADOR</div>"; //Usuario no activo, bloqueado o nuevo
+        echo"<div class='alert alert-danger text-center'>Acceso denegado, comuniquese con un administrador</div>"; //Usuario no activo, bloqueado o nuevo
         return $validar;
     }else {
         

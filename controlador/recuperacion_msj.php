@@ -30,19 +30,25 @@ function Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, &$validar){
     $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario_msj'");
     $row=mysqli_fetch_array($sql);
     $id_usuario=$row[0];
-    //Obtenemos la respuesta del usuario y su pregunta
+
+    $sql2=mysqli_query($conexion, "select respuesta from tbl_ms_preguntas_usuario where id_pregunta=$id_pregunta and id_usuario=$id_usuario and respuesta='$respuesta'");
+    $row2=mysqli_fetch_array($sql2);
+    
+    if (is_null($row2)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Respuesta Incorecta</div>";
+        return $validar;
+    }else{
+        //Obtenemos la respuesta del usuario y su pregunta
         $sql1=mysqli_query($conexion, "select respuesta from tbl_ms_preguntas_usuario where id_pregunta=$id_pregunta and id_usuario=$id_usuario");
         $row1=mysqli_fetch_array($sql1);
         $respuesta_usuario=$row1[0];
         
         if($respuesta_usuario==$respuesta){
             return $validar;
-        }else {
-            $validar=false;
-            echo"<div class='alert alert-danger text-center'>Respuesta Incorecta</div>"; //Campos sin uso
-            return $validar;
-        }
-    //}
+        }  
+    }
+    
 }
 
 function Generar_token (){
@@ -131,6 +137,7 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
         if($validar==true){
             Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, $validar);
             if($validar==true){
+                
                 if ($datos=$query -> fetch_object()){ 
                 echo "<div class='alert alert-success text-center'>Respuesta Correcta</div>";
                 //ACTUALIZAR EL PARAMETRO

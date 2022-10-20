@@ -3,9 +3,9 @@
 
 
 //--validacion que no existan campos vacios
-function Campo_vacio_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,&$validar){
+function Campo_vacio_msj($usuario,$respuesta_pregunta,&$validar){
 
-    if (!empty($_POST["Pgt_1"] and $_POST["Pgt_2"] and $_POST["Pgt_3"]) and $validar=true) {    //Campos en uso
+    if (!empty($_POST["usuario"] and $_POST["respuesta_pregunta"] and $validar=true)) {    //Campos en uso
         return $validar; 
     }else {
         $validar=false;
@@ -39,7 +39,7 @@ function Validar_Espacio_mjs($usuario,&$validar){
 
 }
 
-function Guardar_pregunta_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,&$validar){
+function Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,&$validar){
 
     include "../../modelo/conexion.php";
 
@@ -47,29 +47,11 @@ function Guardar_pregunta_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,&$validar){
     $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
     $row=mysqli_fetch_array($sql);
     $id_usuario=$row[0];
-    //Buscar el ID de la primera pregunta
-    $sql=mysqli_query($conexion, "select id_pregunta from tbl_ms_preguntas where pregunta='¿COMO SE LLAMA TU MASCOTA?'");
-    $row=mysqli_fetch_array($sql);
-    $id_pregunta1=$row[0];
-    //Buscar el ID de la segunda pregunta
-    $sql=mysqli_query($conexion, "select id_pregunta from tbl_ms_preguntas where pregunta='¿CUAL ES TU COLOR FAVORITO?'");
-    $row=mysqli_fetch_array($sql);
-    $id_pregunta2=$row[0];
-    //Buscar el ID de la tercera pregunta
-    $sql=mysqli_query($conexion, "select id_pregunta from tbl_ms_preguntas where pregunta='¿PRIMER NOMBRE DE TU ABUELO?'");
-    $row=mysqli_fetch_array($sql);
-    $id_pregunta3=$row[0];
 
+    //Guarda la pregunta
+    $insertar=("insert into tbl_ms_preguntas_usuario (ID_PREGUNTA,RESPUESTA,ID_USUARIO) VALUES( '$select_pregunta','$respuesta_pregunta','$id_usuario')");
+    $resultado = mysqli_query($conexion,$insertar);
 
-    //Guarda la primera pregunta
-    $insertar1=("insert into tbl_ms_preguntas_usuario (ID_PREGUNTA,RESPUESTA,ID_USUARIO) VALUES( '$id_pregunta1','$Pgt_1','$id_usuario')");
-    $resultado1 = mysqli_query($conexion,$insertar1);
-    //Guarda la segunda pregunta
-    $insertar2=("insert into tbl_ms_preguntas_usuario (ID_PREGUNTA,RESPUESTA,ID_USUARIO) VALUES( '$id_pregunta2','$Pgt_2','$id_usuario')");
-    $resultado2 = mysqli_query($conexion,$insertar2);
-    //Guarda la tercera pregunta
-    $insertar3=("insert into tbl_ms_preguntas_usuario (ID_PREGUNTA,RESPUESTA,ID_USUARIO) VALUES( '$id_pregunta3','$Pgt_3','$id_usuario')");
-    $resultado3 = mysqli_query($conexion,$insertar3);
     //Cambiar el estado a ACTIVO
     $modificar1=("update tbl_ms_usuario set estado='ACTIVO' where id_usuario='$id_usuario'");
     $resultado4 = mysqli_query($conexion,$modificar1);
@@ -91,23 +73,20 @@ if (!empty($_POST["btnguardar"])){
     session_destroy();
     include "../../modelo/conexion.php";
     
-
-
     $usuario=$_POST["usuario"];      
     $sql=$conexion -> query("select * from tbl_ms_usuario where usuario='$usuario'");
-
-    $Pgt_1=$_POST["Pgt_1"];
-    $Pgt_2=$_POST["Pgt_2"];
-    $Pgt_3=$_POST["Pgt_3"];
-    
+    //Respuesta del input
+    $respuesta_pregunta=$_POST["respuesta_pregunta"];
+    //Selección del combobox
+    $select_pregunta=$_POST["select_pregunta"];
     $validar=true;
-    Campo_vacio_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,$validar);
+    Campo_vacio_msj($usuario,$respuesta_pregunta,$validar);
     if($validar==true){
         usuario_existe_mjs($usuario,$validar);
         if($validar==true){
             Validar_Espacio_mjs($usuario,$validar);
             if($validar==true){
-                Guardar_pregunta_msj($usuario,$Pgt_1,$Pgt_2,$Pgt_3,$validar);
+                Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,$validar);
             }
         }
     }

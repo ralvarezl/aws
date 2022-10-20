@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -21,27 +22,42 @@ session_start();
         <?php
                 include "../../modelo/conexion.php";
                 include "../../controlador/respuestas_usuario.php";
+                $sql=$conexion->query(" select * from tbl_ms_preguntas");
         ?> 
         <!--MUESTRO USUARIO debe mostrar usuario que hizo el registro-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">USUARIO</label>
             <input type="text" class="form-control" name="usuario" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $_SESSION['usuario_login'] ?>">
         </div>
-        <!--PRIMERA PREGUNTA-->
-        <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">¿COMO SE LLAMA TU MASCOTA?</label>
-            <input type="text" class="form-control" name="Pgt_1" onKeyUp="this.value=this.value.toUpperCase();">
-        </div>
-        <!--SEGUNDA PREGUNTA-->
-        <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">¿CUAL ES TU COLOR FAVORITO?</label>
-            <input type="text" class="form-control" name="Pgt_2" onKeyUp="this.value=this.value.toUpperCase();">
-        </div>
-        <!--TERCERA PREGUNTA-->
-        <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">¿PRIMER NOMBRE DE TU ABUELO?</label>
-            <input type="text" class="form-control" name="Pgt_3" onKeyUp="this.value=this.value.toUpperCase();">
-        </div>
+
+        <!--COMBOBOX PREGUNTAS-->
+        <?php
+            //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
+            while ($datos=$sql->fetch_object()) {?>                       
+            <!--SELECCIONE GENERO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">SELECCIONE PREGUNTA:</label>
+            <select class="form-select" aria-label="Default select example" name="select_pregunta">
+            <option>Seleccione pregunta</option>
+              <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
+            <?php 
+            include "../../modelo/conexion.php";
+            $sql=$conexion->query("select * from tbl_ms_preguntas" );
+                //Mostrar los roles creados en la base de datos
+                while($datos=mysqli_fetch_array($sql)){
+                    echo '<option value="'.$datos['ID_PREGUNTA'].'" >'.$datos['PREGUNTA'].'</option>';
+                }
+            ?>
+            </select>
+            </div>
+            <?php }
+            ?>
+            <!--PRIMERA PREGUNTA-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">RESPUESTA:</label>
+            <input type="text" class="form-control" name="respuesta_pregunta" onKeyUp="this.value=this.value.toUpperCase();">
+            </div>
+
         <!--BOTONERIA-->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-dark" name="btnguardar" id="btnguardar" value="ok">GUARDAR</button>

@@ -40,7 +40,7 @@ $usuario_msj= $_SESSION['usuario_msj'];
 			
 			<?php foreach($ejecutar as $opciones): ?> 	
 			
-				<option value = "<?php echo $opciones['ID_PREGUNTA'] ?>" id="pregunta" name="pregunta"><?php echo $opciones['PREGUNTA'] ?> </option>
+				<option value = "<?php echo $opciones['ID_PREGUNTA'] ?>"><?php echo $opciones['PREGUNTA'] ?> </option>
 			
 			<?php endforeach ?>
 
@@ -63,6 +63,7 @@ $usuario_msj= $_SESSION['usuario_msj'];
 			}
 			else{
 				if($valor==1){//if
+			
 					?> 
 		<div class="mb-3">
 		<label>Contraseña nueva: </label>
