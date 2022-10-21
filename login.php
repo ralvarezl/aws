@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,11 +51,9 @@
 		</div>
 		<!--BOTONERIA-->
 		<div class="d-grid">
-            <button type="submit" class="btn btn-secondary mb-2" name="btningresar" value="ok">INICIAR SESION</button>
+            <button type="submit" class="btn btn-secondary mb-2" id="btningresar" name="btningresar" value="ok">INICIAR SESION</button>
             <button type="button" class="btn btn-dark mb-2" name="btn_registrate" onclick="location.href='vista/login/registrate.php'" >REGISTRATE</button>
-        </div>
-
    </form>
-
+   		
 </body>
 </html>
