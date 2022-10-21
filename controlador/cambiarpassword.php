@@ -158,9 +158,6 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                         //Modifiacmos el estado de DEFAULT a NUEVO
                                         $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
                                         $resultado = mysqli_query($conexion,$modificar);
-                                        //Modificamos el valor en la tabla TBL_MS_PARAMETROS
-                                        $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
-                                        $resultado3 = mysqli_query($conexion,$modificar1);
                                         //Llenar el historial de contraseña
                                         $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
                                         $resultado = mysqli_query($conexion,$insertar);
@@ -169,9 +166,7 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                         //Modifiacmos cualquier estado a ACTIVO
                                         $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
                                         $resultado1 = mysqli_query($conexion,$modificar);
-                                        //Modificamos el valor en la tabla TBL_MS_PARAMETROS
-                                        $modificar1=("update tbl_ms_parametros set valor='ACTIVO' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
-                                        $resultado3 = mysqli_query($conexion,$modificar1);
+
                                         //Llenar el historial de contraseña
                                         $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
                                         $resultado = mysqli_query($conexion,$insertar);

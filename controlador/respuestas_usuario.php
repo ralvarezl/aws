@@ -57,9 +57,6 @@ function Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,&$va
     $modificar1=("update tbl_ms_usuario set estado='ACTIVO' where id_usuario='$id_usuario'");
     $resultado4 = mysqli_query($conexion,$modificar1);
 
-    echo '<script language="javascript">alert("PREGUNTAS GUARDADAS CON EXITO");;window.location.href="../../login.php"</script>';
-
-
     return $validar;
 
 
@@ -71,7 +68,7 @@ function Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,&$va
 
 if (!empty($_POST["btnguardar"])){
 
-    session_destroy();
+    //session_destroy();
     include "../../modelo/conexion.php";
     
     $usuario=$_POST["usuario"];      
@@ -81,6 +78,9 @@ if (!empty($_POST["btnguardar"])){
     //Selección del combobox
     $select_pregunta=$_POST["select_pregunta"];
     $validar=true;
+
+    
+
     Campo_vacio_msj($usuario,$respuesta_pregunta,$validar);
     if($validar==true){
         usuario_existe_mjs($usuario,$validar);
@@ -88,6 +88,25 @@ if (!empty($_POST["btnguardar"])){
             Validar_Espacio_mjs($usuario,$validar);
             if($validar==true){
                 Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,$validar);
+                if(isset($_SESSION["respuestas"]) == true){
+                    //Entonces que le sume uno
+                    $_SESSION["respuestas"]++;
+                    $intentos= $_SESSION["respuestas"];
+                    //Sacar el valor del parametro de preguntas
+                    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='2'");
+                    $row=mysqli_fetch_array($sql);
+                    $valor=$row[0];
+                    //Si respuestas son iguales al valor del parametro
+                    if($intentos==$valor){
+                        echo '<script language="javascript">alert("PREGUNTAS GUARDADAS CON EXITO");;window.location.href="../../login.php"</script>';
+                        session_destroy();
+                    }
+                }else{
+                    // Si no existe que la cree
+                    $_SESSION["respuestas"] = 1;
+                    
+                }
+                
             }
         }
     }
