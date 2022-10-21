@@ -58,8 +58,26 @@ function Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,&$va
     $resultado4 = mysqli_query($conexion,$modificar1);
 
     return $validar;
+}
 
+function Validar_pregunta($select_pregunta,$usuario,&$validar){
+    include "../../modelo/conexion.php";
 
+    $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+    $row=mysqli_fetch_array($sql);
+    $id_usuario=$row[0];
+
+    $sql1=mysqli_query($conexion, "select id_pregunta from tbl_ms_preguntas_usuario where id_usuario='$id_usuario'");
+    $row1=mysqli_fetch_array($sql1);
+    $id_pregunta=$row[0];
+
+    if ($id_pregunta==$select_pregunta) { //si existe
+        return $validar;
+    }else {
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Pregunta Ya contestada, seleccione otra pregunta</div>"; //Usuario no existe
+        return $validar;
+    }
 }
 
 
@@ -87,24 +105,30 @@ if (!empty($_POST["btnguardar"])){
         if($validar==true){
             Validar_Espacio_mjs($usuario,$validar);
             if($validar==true){
-                Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,$validar);
-                if(isset($_SESSION["respuestas"]) == true){
-                    //Entonces que le sume uno
-                    $_SESSION["respuestas"]++;
-                    $intentos= $_SESSION["respuestas"];
-                    //Sacar el valor del parametro de preguntas
-                    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='2'");
-                    $row=mysqli_fetch_array($sql);
-                    $valor=$row[0];
-                    //Si respuestas son iguales al valor del parametro
-                    if($intentos==$valor){
-                        echo '<script language="javascript">alert("PREGUNTAS GUARDADAS CON EXITO");;window.location.href="../../login.php"</script>';
-                        session_destroy();
+                Validar_pregunta($select_pregunta,$usuario,$validar);
+                if($validar==true){
+                    Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,$validar);
+                    if(isset($_SESSION["respuestas"]) == true){
+                        
+
+                        
+                        //Entonces que le sume uno
+                        $_SESSION["respuestas"]++;
+                        $intentos= $_SESSION["respuestas"];
+                        //Sacar el valor del parametro de preguntas
+                        $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='2'");
+                        $row=mysqli_fetch_array($sql);
+                        $valor=$row[0];
+                        //Si respuestas son iguales al valor del parametro
+                        if($intentos==$valor){
+                            echo '<script language="javascript">alert("PREGUNTAS GUARDADAS CON EXITO");;window.location.href="../../login.php"</script>';
+                            session_destroy();
+                        }
+                    }else{
+                        // Si no existe que la cree
+                        $_SESSION["respuestas"] = 1;
+                        
                     }
-                }else{
-                    // Si no existe que la cree
-                    $_SESSION["respuestas"] = 1;
-                    
                 }
                 
             }

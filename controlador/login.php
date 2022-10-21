@@ -211,6 +211,9 @@ if (!empty($_POST["btningresar"])){
                 contrasenia($usuario,$password,$validar);
                 if($validar==true){
                     //validar estado
+                    //Si el usuario no es nuevo mandarlo al sistema
+                    $intentos=0;
+                    $_SESSION['usuario_login'] = $_REQUEST['usuario'];
                     estado_usuario_default($usuario,$password,$validar);
                     if($validar==true){
                         estado_usuario_nuevo($usuario,$password,$validar);
@@ -225,9 +228,6 @@ if (!empty($_POST["btningresar"])){
                                         
                                         if($validar==true){
                                             //Dirigirlo dependiendo el tipo de usuario
-                                                    //Si el usuario no es nuevo mandarlo al sistema
-                                                    $intentos=0;
-                                                    $_SESSION['usuario_login'] = $_REQUEST['usuario'];
                                                     administrador($usuario,$password,$intentos,$validar);
                                                     empleado($usuario,$password,$validar);
                                                     
