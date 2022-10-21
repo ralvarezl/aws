@@ -250,8 +250,6 @@ function estado_usuario_bloquiado($usuario,$password,&$validar){
 if (!empty($_POST["btningresar"])){
     session_start();
 
-    $_SESSION['usuario_login'] = $_REQUEST['usuario'];
-
     $validar=true;
     $usuario=$_POST["usuario"];
     $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'");
@@ -282,6 +280,7 @@ if (!empty($_POST["btningresar"])){
                                             usuario_resert($usuario,$password,$validar);
                                                 if($validar==true){
                                                     //Si el usuario no es nuevo mandarlo al sistema
+                                                    $_SESSION['usuario_login'] = $_REQUEST['usuario'];
                                                     administrador($usuario,$password,$validar);
                                                     empleado($usuario,$password,$validar);
                                                 }
