@@ -17,36 +17,36 @@ session_start();
 </head>
 
 <body>
+    <!--INICIO DEL NAVBAR-->
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" >
-                <img src="../../public/img/Ac.png">
+                AWS Andres's Coffee
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
-                <h1 class="fas fa-user-circle" style='font-size:36px' id="offcanvasDarkNavbarLabel"> 
+                <h1 class="fas fa-user-circle"></h1>
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
                 <!--MOSTRAR EL USUARIO LOGUEADO-->
-                <?php
-                include "../../modelo/conexion.php";
-                include "../../controlador/eliminar_usuario.php";
-                echo $_SESSION['usuario_login'];
-                ?> </h1>
+                <?=
+                "BIENVENIDO ".$_SESSION['usuario_login'];
+                ?></h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
-
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-users-gear"></i>  ADMINISTRADOR DE USUARIOS</a>
+                    <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> INICIO </a>
                 </li>
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="#">Bienvenido </a>
+                    <a class="nav-link" href="#"><i class="fa-solid fa-users-gear"></i> ADMINISTRADOR DE USUARIOS</a>
                 </li>
+                
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="#">ADMINISTRADOR </a>
+                    <a class="nav-link" href="../../controlador/cerrar_sesion.php"><i class="fa-solid fa-person-walking-arrow-right"></i> SALIR DEL SISTEMA</a>
                 </li>
 
                 <li class="btn btn-dark p-2">
@@ -67,9 +67,9 @@ session_start();
             </div>
         </div>
         </nav>
+        <!--FIN DEL NAVBAR-->
 
-
-    <h1 class="text-center p-3">USUARIOS</h1>
+    <!--INICIO DEL FORM REGISTRO USUARIOS-->
     <div class="container-fluid row">
         <form class="col-2 p-3" method="POST">
             <br></br>
@@ -146,6 +146,9 @@ session_start();
             <!--BOTON NUEVO USUARIO-->
             <button type="submit" class="btn btn-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
         </form>
+        <!--FIN DEL FORM REGISTRO USUARIOS-->
+
+                <!--INICIO DE LA TABLE USUARIOS-->
                 <div class="col-9 p-4">
                 <?php
                 include "../../modelo/conexion.php";
@@ -226,8 +229,10 @@ session_start();
                             ?>
                         </tbody>
                     </table>
-                    <!--BOTON PROVISIONAL SALIDA-->
-                    <input onclick="location.href='../../login.php'" name="btn_salir_administracion_usuarios" class="btn btn-danger" title="click para registrar un nuevo usuario" type="dark" value="Salir">
+                    <!--FIN DE LA TABLE USUARIOS-->
+
+                    <!--BOTON PROVISIONAL SALIDA
+                    <input onclick="location.href='../../login.php'" name="btn_salir_administracion_usuarios" class="btn btn-danger" title="click para registrar un nuevo usuario" type="dark" value="Salir">-->
                 </div>
                     
     </div>

@@ -38,7 +38,7 @@ session_start();
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">SELECCIONE PREGUNTA:</label>
             <select class="form-select" aria-label="Default select example" name="select_pregunta">
-            <option>Seleccione pregunta</option>
+            <!--<option>Seleccione pregunta</option>-->
               <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
             <?php 
             include "../../modelo/conexion.php";
