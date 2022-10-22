@@ -85,6 +85,38 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
         return $validar;
     }
 }
+
+//Validar maximo y minimo de contraseña
+function Validar_Parametro_resgistrate($password,$r_password, &$validar){
+
+    include "../../modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
+    $row=mysqli_fetch_array($sql);
+    $Max_pass=$row[0];
+
+    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=5");
+    $row1=mysqli_fetch_array($sql1);
+    $Min_pass=$row1[0];
+
+    $Longitud1=strlen($password);
+    $Longitud2=strlen($r_password);
+    $conta=0;
+
+    if($Longitud1>=$Min_pass && $Longitud1<=$Max_pass){
+        $conta=1;
+    }
+    if($Longitud2>=$Min_pass && $Longitud2<=$Max_pass){
+        $conta=2;
+    }
+
+    if ($conta==2){
+        return $validar;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener mas de 5 caracteres y menor de 10</div>";
+        return $validar;
+    }
+}
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
 //Validacion para el registro
@@ -111,7 +143,10 @@ if (!empty($_POST["btnregistrate"])){
                     if($validar==true){
                         validar_password($password,$validar);
                         if($validar==true){
-                            crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
+                            Validar_Parametro_resgistrate($password,$r_password,$validar);
+                            if($validar==true){
+                                crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
+                            }
                         }
                     }
                 }

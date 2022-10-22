@@ -197,13 +197,14 @@ if (!empty($_POST["btningresar"])){
     $usuario=$_POST["usuario"];
     $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'");
     $password=$_POST["password"];
-    //Sacar id del usuario
-    $sql_user=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
-    $row_user=mysqli_fetch_array($sql_user);
-    $id_usuario=$row_user[0];
+    
    //validar campos vacios
     campo_vacio_login($usuario,$password,$validar);
         if($validar==true){
+            //Sacar id del usuario
+            $sql_user=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+            $row_user=mysqli_fetch_array($sql_user);
+            $id_usuario=$row_user[0];
             //validar si existe usuario
             usuario_existe_login($usuario,$password,$validar);
             if($validar==true){

@@ -72,10 +72,10 @@ function Validar_pregunta($select_pregunta,$usuario,&$validar){
     $id_pregunta=$row[0];
 
     if ($id_pregunta==$select_pregunta) { //si existe
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Pregunta ya contestada, seleccione otra pregunta</div>";
         return $validar;
     }else {
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>Pregunta Ya contestada, seleccione otra pregunta</div>"; //Usuario no existe
         return $validar;
     }
 }
@@ -109,9 +109,6 @@ if (!empty($_POST["btnguardar"])){
                 if($validar==true){
                     Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,$validar);
                     if(isset($_SESSION["respuestas"]) == true){
-                        
-
-                        
                         //Entonces que le sume uno
                         $_SESSION["respuestas"]++;
                         $intentos= $_SESSION["respuestas"];
@@ -121,7 +118,7 @@ if (!empty($_POST["btnguardar"])){
                         $valor=$row[0];
                         //Si respuestas son iguales al valor del parametro
                         if($intentos==$valor){
-                            echo '<script language="javascript">alert("PREGUNTAS GUARDADAS CON EXITO");;window.location.href="../../login.php"</script>';
+                            echo '<script language="javascript">alert("RESPONDIO LAS PREGUNTAS");;window.location.href="../../login.php"</script>';
                             session_destroy();
                         }
                     }else{

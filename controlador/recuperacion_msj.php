@@ -45,6 +45,7 @@ function Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, &$validar){
         $respuesta_usuario=$row1[0];
         
         if($respuesta_usuario==$respuesta){
+            echo "<div class='alert alert-success text-center'>Respuesta Correcta</div>";
             return $validar;
         }  
     }
@@ -119,6 +120,48 @@ function validar_clave_msj($confirmarpassword,&$validar){
     }
 }
 
+//--ver si hay espacios
+function Validar_Espacio_msj($nuevacontraseña, $confirmarcontraseña, &$validar){
+    if (ctype_graph ($nuevacontraseña and $confirmarcontraseña)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Campo Con Espacios No Validos</div>";
+        return $validar;
+    }else{
+        return $validar;
+    }
+}
+
+function Validar_Parametro_msj($nuevapassword,$confirmarpassword, &$validar){
+
+    include "../../modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
+    $row=mysqli_fetch_array($sql);
+    $Max_pass=$row[0];
+
+    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=5");
+    $row1=mysqli_fetch_array($sql1);
+    $Min_pass=$row1[0];
+
+    $Longitud1=strlen($nuevapassword);
+    $Longitud2=strlen($confirmarpassword);
+    $conta=0;
+
+    if($Longitud1>=$Min_pass && $Longitud1<=$Max_pass){
+        $conta=1;
+    }
+    if($Longitud2>=$Min_pass && $Longitud2<=$Max_pass){
+        $conta=2;
+    }
+
+    if ($conta==2){
+        return $validar;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener mas de 5 caracteres y menor de 10</div>";
+        return $validar;
+    }
+}
+
 ///////////////////////////////////////////----EJECUCIÓN DE COMBOBOX----///////////////////////////////////////////
 
 
@@ -137,20 +180,24 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
         if($validar==true){
             Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, $validar);
             if($validar==true){
-                
-                if ($datos=$query -> fetch_object()){ 
-                echo "<div class='alert alert-success text-center'>Respuesta Correcta</div>";
-                //ACTUALIZAR EL PARAMETRO
-                $sql=mysqli_query($conexion, "select p.id_usuario from tbl_ms_usuario u join tbl_ms_parametros p on p.id_usuario=u.id_usuario where  usuario='$usuario_msj' and parametro='ADMIN_PREGUNTAS'");
-        		$row=mysqli_fetch_array($sql);
-        		$id_usuario1=$row[0];
-                    $sql=$conexion->query(" update tbl_ms_parametros set valor=1 where id_usuario = $id_usuario1 and parametro='admin_preguntas'");
-                    header("location:recuperacion_msj.php");
-                        //header("location:vista/login/recuperacion.php");                     //Entra al sistema de recuperacion
+                //Validar con el parametro
+                if(isset($_SESSION["respuestas_r"]) == true){
+                    //Entonces que le sume uno
+                    $_SESSION["respuestas_r"]++;
+                    $respuestas_r= $_SESSION["respuestas_r"];
+                    //Sacar el valor del parametro de preguntas
+                    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='3'");
+                    $row=mysqli_fetch_array($sql);
+                    $valor=$row[0];
+                    //Si respuestas son iguales al valor del parametro
+                    if($respuestas_r==$valor){
+                        header("location:recuperacion_msj_contra.php");
+                    }
                 }else{
-                    echo"<div class='alert alert-danger text-center'>Respuesta Incorecta</div>"; //Campos sin uso
-                }   
-            }  
+                    // Si no existe que la cree
+                    $_SESSION["respuestas_r"] = 1;
+                } 
+            }
         }
     }
 
@@ -171,15 +218,12 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
         $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
         $resultado2 = mysqli_query($conexion,$insertar);
 
-        $modificar1=("update tbl_ms_parametros set valor='RESET' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
-        $resultado3 = mysqli_query($conexion,$modificar1);
-
         echo '<script language="javascript">alert("Tu Contraseña es: '.$token .'");;window.location.href="../../login.php"</script>';
 
     }
 
     if (!empty($_POST["btnaceptar"])){
-    
+        
         $validar=true;
         $nuevapassword=$_POST["nueva"];
         $confirmarpassword=$_POST["confirmar"];
@@ -192,31 +236,32 @@ $ejecutar = mysqli_query($conexion,$consulta) or die(mysqli_error($conexion));
                 if($validar==true){
                     Contar_Cadena($nuevapassword,$confirmarpassword,$validar);
                     if($validar==true){
-                        validar_clave_msj($confirmarpassword,$validar);
-                        if($validar==true){
-                            
-                                //Sacams el id del usuario
-                                $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario_msj'");
-                                $row=mysqli_fetch_array($sql);
-                                $id_usuario=$row[0];//almacenamos el id
-                                //Mandamos a actualizar contraseña
-                                $modificar=("update tbl_ms_usuario set password='$confirmarpassword', estado='ACTIVO' where id_usuario='$id_usuario'");
-                                $resultado = mysqli_query($conexion,$modificar);
-                                //Actualizar el Parametro
-                                $sql=mysqli_query($conexion, "select p.id_usuario from tbl_ms_usuario u join tbl_ms_parametros p on p.id_usuario=u.id_usuario where  usuario='$usuario_msj' and parametro='ADMIN_PREGUNTAS'");
-                                $row=mysqli_fetch_array($sql);
-                                $id_usuario_parametro=$row[0];
-                                $sql=$conexion->query(" update tbl_ms_parametros set valor=0 where id_usuario = $id_usuario_parametro and parametro='admin_preguntas'");
-                                //Llenar el historial de contraseña
-                                $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$confirmarpassword','$usuario_msj','$fecha_actual',$id_usuario)");
-                                $resultado = mysqli_query($conexion,$insertar);
-
-                                echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                            validar_clave_msj($confirmarpassword,$validar);
+                            if($validar==true){
+                                Validar_Espacio_msj($nuevapassword, $confirmarpassword,$validar);
+                                if($validar==true){
+                                    Validar_Parametro_msj($nuevapassword,$confirmarpassword,$validar);
+                                    if($validar==true){
+                                    //Sacams el id del usuario
+                                    $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario_msj'");
+                                    $row=mysqli_fetch_array($sql);
+                                    $id_usuario=$row[0];//almacenamos el id
+                                    //Mandamos a actualizar contraseña
+                                    $modificar=("update tbl_ms_usuario set password='$confirmarpassword', estado='ACTIVO' where id_usuario='$id_usuario'");
+                                    $resultado = mysqli_query($conexion,$modificar);
+                                    //Llenar el historial de contraseña
+                                    $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$confirmarpassword','$usuario_msj','$fecha_actual',$id_usuario)");
+                                    $resultado = mysqli_query($conexion,$insertar);
+                                    session_destroy();
+                                    echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
-        }    
+            
 
 if (!empty($_POST["btn_salir_msj"])) {
     session_destroy();
@@ -224,10 +269,7 @@ if (!empty($_POST["btn_salir_msj"])) {
 
 if (!empty($_POST["btn_salir_msj_uno"])) {
     session_destroy();
-    $sql=mysqli_query($conexion, "select p.id_usuario from tbl_ms_usuario u join tbl_ms_parametros p on p.id_usuario=u.id_usuario where  usuario='$usuario_msj' and parametro='ADMIN_PREGUNTAS'");
-    $row=mysqli_fetch_array($sql);
-    $id_usuario_parametro=$row[0];
-    $sql=$conexion->query(" update tbl_ms_parametros set valor=0 where id_usuario = $id_usuario_parametro and parametro='admin_preguntas'");
+
     header("location:recuperacion.php");
     
 }

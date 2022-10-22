@@ -116,7 +116,7 @@ function Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confir
 
 
 if (!empty($_POST["btnnuevacontraseña"])){
-    session_destroy();
+    
     date_default_timezone_set("America/Tegucigalpa");
     $fecha_actual=date("Y-m-d");
     $errors = array();
@@ -171,6 +171,7 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                         $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
                                         $resultado = mysqli_query($conexion,$insertar);
                                     }
+                                    session_destroy();
                                     //Mensaje de confirmacion de cambio de contraseña.
                                     echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
                                 }

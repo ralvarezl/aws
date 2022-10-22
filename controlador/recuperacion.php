@@ -156,9 +156,6 @@ if (!empty($_POST["btnrecuperar"])){
                                 $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
                                 $resultado2 = mysqli_query($conexion,$insertar);
                                     
-                                $modificar1=("update tbl_ms_parametros set valor='RESET' where id_usuario='$id_usuario' and parametro='ADMIN_RESET'");
-                                $resultado3 = mysqli_query($conexion,$modificar1);
-                                    
                                 echo '<script language="javascript">alert("CORREO ENVIADO");;window.location.href="../../login.php"</script>';
                                     
                             }else{
