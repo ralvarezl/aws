@@ -1,5 +1,6 @@
 <?php
 
+
 //++++++++++++++++++++++++++++++++++++++++FUNCIONES DE RECUPERACION+++++++++++++++++++++++++++++++++++/
 
 //--validacion que no existan campos vacios
@@ -92,7 +93,7 @@ function Contar_Cadena($nuevacontraseña,$confirmarcontraseña,&$validar){
     
     $Longitud1=strlen($nuevacontraseña);
     $Longitud2=strlen($confirmarcontraseña);
-    if($Longitud1<=20 && $Longitud2<=20){
+    if($Longitud1<=15 && $Longitud2<=15){
         return $validar;
     }else {
         $validar=false;
@@ -102,8 +103,8 @@ function Contar_Cadena($nuevacontraseña,$confirmarcontraseña,&$validar){
 }
 
 //--ver si hay espacios
-function Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confirmarcontraseña, &$validar){
-    if (ctype_graph (/*$usuario and $password_usu and*/ $nuevacontraseña and $confirmarcontraseña)){
+function Validar_Espacio($nuevacontraseña, $confirmarcontraseña, &$validar){
+    if (ctype_graph ($nuevacontraseña and $confirmarcontraseña)){
         $validar=false;
         echo"<div class='alert alert-danger text-center'>Campo Con Espacios No Validos</div>";
         return $validar;
@@ -112,11 +113,42 @@ function Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confir
     }
 }
 
+function Validar_Parametro($nuevacontraseña,$confirmarcontraseña, &$validar){
+
+    include "../../modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
+    $row=mysqli_fetch_array($sql);
+    $Max_pass=$row[0];
+
+    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=5");
+    $row1=mysqli_fetch_array($sql1);
+    $Min_pass=$row1[0];
+
+    $Longitud1=strlen($nuevacontraseña);
+    $Longitud2=strlen($confirmarcontraseña);
+    $conta=0;
+
+    if($Longitud1>=$Min_pass && $Longitud1<=$Max_pass){
+        $conta=1;
+    }
+    if($Longitud2>=$Min_pass && $Longitud2<=$Max_pass){
+        $conta=2;
+    }
+
+    if ($conta==2){
+        return $validar;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener mas de 5 caracteres y menor de 10</div>";
+        return $validar;
+    }
+}
+
 //=================================BOTON DE GUARDAR CONTRASEÑA=========================
 
 
 if (!empty($_POST["btnnuevacontraseña"])){
-    
+
     date_default_timezone_set("America/Tegucigalpa");
     $fecha_actual=date("Y-m-d");
     $errors = array();
@@ -138,42 +170,45 @@ if (!empty($_POST["btnnuevacontraseña"])){
                 if($validar==true){
                     Comparar_Pass($validar);
                     if($validar==true){
-                        Validar_Espacio(/*$usuario, $password_usu,*/ $nuevacontraseña, $confirmarcontraseña, $validar);
+                        Validar_Espacio($nuevacontraseña, $confirmarcontraseña, $validar);
                         if($validar==true){
                             validar_clave($nuevacontraseña,$validar);
                             if($validar==true){
-                                if ($datos=$sql -> fetch_object()){ 
-                                
-                                    $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
-                                    $row=mysqli_fetch_array($sql);
-                                    $estado=$row[0]; //Guardamos el estado
-    
-                                    $sql1=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'"); //preguntar el ID del usuario
-                                    $row1=mysqli_fetch_array($sql1);
-                                    $id_usuario=$row1[0]; //Guardamos el ID_USUARIO
-    
-                                    $password=$_POST["confirmarcontraseña"];//Guardamos la contraseña de lavor confirmar
-    
-                                    if ($estado=='DEFAULT') { //Validamos el estado del usuario si es DEFAULT
-                                        //Modifiacmos el estado de DEFAULT a NUEVO
-                                        $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
-                                        $resultado = mysqli_query($conexion,$modificar);
-                                        //Llenar el historial de contraseña
-                                        $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
-                                        $resultado = mysqli_query($conexion,$insertar);
-                                    
-                                    }else{
-                                        //Modifiacmos cualquier estado a ACTIVO
-                                        $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
-                                        $resultado1 = mysqli_query($conexion,$modificar);
+                                Validar_Parametro($nuevacontraseña,$confirmarcontraseña, $validar);
+                                if($validar==true){
+                                    if ($datos=$sql -> fetch_object()){ 
+                      
+                                        $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
+                                        $row=mysqli_fetch_array($sql);
+                                        $estado=$row[0]; //Guardamos el estado
+        
+                                        $sql1=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'"); //preguntar el ID del usuario
+                                        $row1=mysqli_fetch_array($sql1);
+                                        $id_usuario=$row1[0]; //Guardamos el ID_USUARIO
+        
+                                        $password=$_POST["confirmarcontraseña"];//Guardamos la contraseña de lavor confirmar
+        
+                                        if ($estado=='DEFAULT') { //Validamos el estado del usuario si es DEFAULT
+                                            //Modifiacmos el estado de DEFAULT a NUEVO
+                                            $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
+                                            $resultado = mysqli_query($conexion,$modificar);
+                                            //Llenar el historial de contraseña
+                                            $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
+                                            $resultado = mysqli_query($conexion,$insertar);
+                                        
+                                        }else{
+                                            //Modifiacmos cualquier estado a ACTIVO
+                                            $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
+                                            $resultado1 = mysqli_query($conexion,$modificar);
 
-                                        //Llenar el historial de contraseña
-                                        $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
-                                        $resultado = mysqli_query($conexion,$insertar);
+                                            //Llenar el historial de contraseña
+                                            $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
+                                            $resultado = mysqli_query($conexion,$insertar);
+                                        }
+                                        session_destroy();
+                                        //Mensaje de confirmacion de cambio de contraseña.
+                                        echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
                                     }
-                                    session_destroy();
-                                    //Mensaje de confirmacion de cambio de contraseña.
-                                    echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
                                 }
                             }
                         }
