@@ -37,7 +37,7 @@ $usuario_msj= $_SESSION['usuario_msj'];
 		<!--BOTONERIA-->
 		<div class="d-grid">	
 		<input name="btnaceptar" id="btnaceptar" class="btn btn-secondary mb-2" title="Click para aceptar" type="submit" value="Aceptar" >
-        <input name="btnautogenerar" id="btnautogenerar" class="btn btn-secondary mb-2" title="Click para autogenrar" type="submit" value="Autogenerar">
+        <input name="btnautogenerar" id="btnautogenerar" class="btn btn-secondary mb-2" title="Click para autogenerar" type="submit" value="Autogenerar">
 		<input name="btn_salir_msj_uno" id="btn_salir_msj_uno" class="btn btn-danger mb-2" title="Click para salir" type="submit" value="Salir">
    </form>
 	

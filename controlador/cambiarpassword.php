@@ -105,10 +105,11 @@ function Contar_Cadena($nuevacontraseña,$confirmarcontraseña,&$validar){
 //--ver si hay espacios
 function Validar_Espacio($nuevacontraseña, $confirmarcontraseña, &$validar){
     if (ctype_graph ($nuevacontraseña and $confirmarcontraseña)){
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>Campo Con Espacios No Validos</div>";
+        
         return $validar;
     }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Campo Con Espacios No Validos</div>";
         return $validar;
     }
 }
@@ -195,6 +196,10 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                             //Llenar el historial de contraseña
                                             $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
                                             $resultado = mysqli_query($conexion,$insertar);
+                                            //Llenar la bitacora
+                                            date_default_timezone_set("America/Tegucigalpa");
+                                            $fecha = date('Y-m-d h:i:s');
+                                            $sql=$conexion->query("insert into tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Cambiar contraseña', 'Cambiar contraseña creada por administrador','$usuario')");
                                         
                                         }else{
                                             //Modifiacmos cualquier estado a ACTIVO
@@ -204,6 +209,12 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                             //Llenar el historial de contraseña
                                             $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
                                             $resultado = mysqli_query($conexion,$insertar);
+
+                                            //Llenar la bitacora
+                                            date_default_timezone_set("America/Tegucigalpa");
+                                            $fecha = date('Y-m-d h:i:s');
+                                            $sql=$conexion->query("insert into tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Cambiar contraseña', 'Cambia contraseña','$usuario')");
+                                        
                                         }
                                         session_destroy();
                                         //Mensaje de confirmacion de cambio de contraseña.

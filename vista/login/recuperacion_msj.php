@@ -22,10 +22,6 @@ $usuario_msj= $_SESSION['usuario_msj'];
          <?php
                 include "../../modelo/conexion.php";
                 include "../../controlador/recuperacion_msj.php";
-				$sql=mysqli_query($conexion, "select valor 
-				from tbl_ms_parametros where id_parametro=3");
-        		$row=mysqli_fetch_array($sql);
-        		$valor=$row[0];
         ?> 	
 
 			<div class="mb-3">
@@ -55,30 +51,6 @@ $usuario_msj= $_SESSION['usuario_msj'];
 		<input name="btnsiguiente" id="btnsiguiente" class="btn btn-secondary mb-2" title="click para siguiente" type="submit" value="Siguiente" >
 		<button type="button" name="btn_salir_msj" class="btn btn-danger mb-2" onclick="location.href='recuperacion.php'" >Salir</button>
 		</div>
-		<?php
-				
-				if($valor==4){//if
-			
-					?> 
-		<div class="mb-3">
-		<label>Contraseña nueva: </label>
-                <input type="password" id="nueva" class="form-control"
-				name="nueva" title="contrasena_nueva" >
-		</div>
-		<div class="mb-3">
-		<label>Confirmar contraseña: </label>
-                <input type="password" id="confirmar" class="form-control"
-				name="confirmar" title="confirmar_contrasena" >
-		</div>
-		
-		<!--BOTONERIA-->
-		<div class="d-grid">	
-		<input name="btnaceptar" id="btnaceptar" class="btn btn-secondary mb-2" title="Click para aceptar" type="submit" value="Aceptar" >
-        <input name="btnautogenerar" id="btnautogenerar" class="btn btn-secondary mb-2" title="Click para autogenrar" type="submit" value="Autogenerar">
-		<input name="btn_salir_msj_uno" id="btn_salir_msj_uno" class="btn btn-danger mb-2" title="Click para salir" type="submit" value="Salir">
-		<?php
-				}//If
-		?> 
    </form>
 	
 	<script src="js/bootstrap.js"></script>

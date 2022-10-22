@@ -85,7 +85,7 @@ function Validar_pregunta($select_pregunta,$usuario,&$validar){
 //=================================BOTON DE GUARDAR PREGUNTAS=========================
 
 if (!empty($_POST["btnguardar"])){
-
+   
     //session_destroy();
     include "../../modelo/conexion.php";
     
@@ -118,6 +118,10 @@ if (!empty($_POST["btnguardar"])){
                         $valor=$row[0];
                         //Si respuestas son iguales al valor del parametro
                         if($intentos==$valor){
+                            //Llenar la bitacora
+                            date_default_timezone_set("America/Tegucigalpa");
+                            $fecha = date('Y-m-d h:i:s');
+                            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Contestar Preguntas', 'Usuario respondio preguntas de seguridad','$usuario')");
                             echo '<script language="javascript">alert("RESPONDIO LAS PREGUNTAS");;window.location.href="../../login.php"</script>';
                             session_destroy();
                         }

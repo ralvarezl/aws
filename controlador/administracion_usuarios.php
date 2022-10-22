@@ -64,6 +64,10 @@ function usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$tele
         //Actualiza si no se cambio el usuario pero si los demas campos
         $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', password='$password', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
         if ($sql==1) {
+            //Guardar en bitacora
+            date_default_timezone_set("America/Tegucigalpa");
+            $fecha = date('Y-m-d h:i:s');
+            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar', 'Administrador modifico datos de usuario','$sesion_usuario')");
             header("location:administracion_usuarios.php");
             //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
         } else {
@@ -84,7 +88,12 @@ function actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$tele
         include "../../modelo/conexion.php";
         //Envio de los datos a ingresar por la query
         $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario',password='$password', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+    
         if ($sql==1) {
+            //Guardar en bitacora
+            date_default_timezone_set("America/Tegucigalpa");
+            $fecha = date('Y-m-d h:i:s');
+            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar', 'Administrador modifico datos de usuario','$sesion_usuario')");
             header("location:administracion_usuarios.php");
             //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
         } else {
@@ -140,6 +149,11 @@ if (!empty($_POST["btnregistrar"])) {
                 if($validar==true){
                     usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
                     if($validar==true){
+                        //Guardar en bitacora 
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha = date('Y-m-d h:i:s');
+                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
+                        //Mensaje de confirmacion
                         echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
                     }else{
                         echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario

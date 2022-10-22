@@ -158,7 +158,10 @@ if (!empty($_POST["btnrecuperar"])){
                                 $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
                                 $resultado2 = mysqli_query($conexion,$insertar);
 
-                                    
+                                //Llenar la bitacora
+                                date_default_timezone_set("America/Tegucigalpa");
+                                $fecha = date('Y-m-d h:i:s');
+                                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Recuperar contraseña', 'Usuario entro a recuperar contraseña via correo','$usuario')");    
                                 echo '<script language="javascript">alert("CORREO ENVIADO");;window.location.href="../../login.php"</script>';
                                     
                             }else{
@@ -197,15 +200,19 @@ if (!empty($_POST["btnrecuperar_mjs"])){
                     estado_inactivo_password($usuario,$validar);
                     if($validar==true){
                         if ($datos=$sql->fetch_object()){
-                            header("location:recuperacion_msj.php");//Entra al sistema de administrador.
+                            //Llenar la bitacora
+                            date_default_timezone_set("America/Tegucigalpa");
+                            $fecha = date('Y-m-d h:i:s');
+                            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Recuperar contraseña', 'Usuario entro a recuperar contraseña via pregunta secreta','$usuario')");
+                            header("location:recuperacion_msj.php");//Entra a recuperar contraseña.
                         }else{
                             echo "<div class='alert alert-danger text-center'>No Existe El Usuario</div>";
                         }
                     }
                 }
             }
-        }
-    }
+        }
+    }
 }
 
 ?>

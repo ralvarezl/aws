@@ -109,14 +109,11 @@ function administrador($usuario,$password,&$validar){
         date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
         $sql=$conexion->query(" update tbl_ms_usuario set fecha_ultima_conexion='$mifecha' where usuario='$usuario'");
-            
+        
+        //Sacar el id del usuario
         $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
         $row=mysqli_fetch_array($sql);
         $id_usuario=$row[0];
-
-        //Modificamos el parametro adminintentos en la tabla TBL_MS_PARAMETRO
-        //$modificar2=("update tbl_ms_parametros set valor='0' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
-        //$resultado2 = mysqli_query($conexion,$modificar2);
 
         //Primer Ingreso
         $sql=mysqli_query($conexion, "select primer_ingreso from tbl_ms_usuario where usuario='$usuario'");
@@ -231,7 +228,10 @@ if (!empty($_POST["btningresar"])){
                                             //Dirigirlo dependiendo el tipo de usuario
                                                     administrador($usuario,$password,$intentos,$validar);
                                                     empleado($usuario,$password,$validar);
-                                                    
+                                                    //Guardar en bitacora 
+                                                    date_default_timezone_set("America/Tegucigalpa");
+                                                    $fecha = date('Y-m-d h:i:s');
+                                                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Login', 'Ingreso al sistema','$usuario')");
                                         } 
                                     }
                                 } 
