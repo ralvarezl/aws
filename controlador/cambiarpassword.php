@@ -104,13 +104,19 @@ function Contar_Cadena($nuevacontraseña,$confirmarcontraseña,&$validar){
 
 //--ver si hay espacios
 function Validar_Espacio($nuevacontraseña, $confirmarcontraseña, &$validar){
-    if (ctype_graph ($nuevacontraseña and $confirmarcontraseña)){
-        
+    if (strpos($confirmarcontraseña, " ")){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Contraseña Con Espacios No Validos</div>";
         return $validar;
     }else{
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>Campo Con Espacios No Validos</div>";
-        return $validar;
+        if (ctype_graph ($confirmarcontraseña)){        
+            return $validar;    
+        }
+        else{        
+            $validar=false;        
+            echo"<div class='alert alert-danger text-center'>Contraseña Con Espacios No Validos</div>";        
+            return $validar;    
+        }
     }
 }
 
@@ -140,7 +146,7 @@ function Validar_Parametro($nuevacontraseña,$confirmarcontraseña, &$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>La contraseña debe tener mas de 5 caracteres y menor de 10</div>";
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener mas de ".$Min_pass." caracteres y menor de ".$Max_pass."</div>";
         return $validar;
     }
 }

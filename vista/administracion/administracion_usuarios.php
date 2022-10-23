@@ -119,7 +119,7 @@ if(empty($_SESSION['usuario_login'])){
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono">
+            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono">
             </div>
             <!--INGRESE DIRECCIÓN-->
             <div class="mb-3">

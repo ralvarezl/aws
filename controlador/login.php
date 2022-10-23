@@ -18,7 +18,7 @@ function usuario_existe_login($usuario,$password,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Usuario no existe</div>"; //Usuario no existe
+        echo"<div class='alert alert-danger text-center'>Usuario / contraseña invalidos</div>"; //Usuario no existe
         return $validar;
     }
 }
@@ -80,7 +80,7 @@ function estado_usuario_default($usuario,$password,&$validar){
         $validar=false;
         header("location:vista/login/cambiarpassword.php");//Entra a contestar preguntas
         return $validar;
-    }else {
+    }else{
         return $validar;
     }
 }
@@ -88,15 +88,28 @@ function estado_usuario_default($usuario,$password,&$validar){
 //Validar si usuario es nuevo
 function estado_usuario_nuevo($usuario,$password,&$validar){
     include "modelo/conexion.php";
+
     $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
     $row=mysqli_fetch_array($sql);
     $estado=$row[0]; //Guardamos el estado
-    if ($estado=='NUEVO') { //si es activo 
-        $validar=false;
-        header("location:vista/login/respuestas_usuario.php");//Entra a contestar preguntas
-        return $validar;
-    }else {
-        return $validar;
+
+    if ($estado=='NUEVO'){ //si es activo 
+
+        $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+        $row=mysqli_fetch_array($sql);
+        $id_usuario=$row[0];
+
+        $sql=$conexion->query("select * from tbl_ms_preguntas_usuario where id_usuario='$id_usuario'"); //preguntar si el usuario tiene preguntas contestadas
+        if ($datos=$sql->fetch_object()){
+            //Modifiacmos cualquier estado a ACTIVO
+            $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
+            $resultado1 = mysqli_query($conexion,$modificar);
+            return $validar;
+        }else{
+            $validar=false;
+            header("location:vista/login/respuestas_usuario.php");//Entra a contestar preguntas
+            return $validar;
+        }
     }
 }
 
@@ -189,7 +202,6 @@ function estado_usuario_bloquiado($usuario,$password,&$validar){
 if (!empty($_POST["btningresar"])){
  
     //Comprobar numero de intentos
-    
     $validar=true;
     $usuario=$_POST["usuario"];
     $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'");
@@ -198,13 +210,13 @@ if (!empty($_POST["btningresar"])){
    //validar campos vacios
     campo_vacio_login($usuario,$password,$validar);
         if($validar==true){
-            //Sacar id del usuario
-            $sql_user=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
-            $row_user=mysqli_fetch_array($sql_user);
-            $id_usuario=$row_user[0];
             //validar si existe usuario
             usuario_existe_login($usuario,$password,$validar);
             if($validar==true){
+                //Sacar id del usuario
+                $sql_user=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+                $row_user=mysqli_fetch_array($sql_user);
+                $id_usuario=$row_user[0];
                 //validar contraseña
                 contrasenia($usuario,$password,$validar);
                 if($validar==true){

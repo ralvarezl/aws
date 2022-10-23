@@ -67,11 +67,12 @@ function Validar_pregunta($select_pregunta,$usuario,&$validar){
     $row=mysqli_fetch_array($sql);
     $id_usuario=$row[0];
 
-    $sql1=mysqli_query($conexion, "select id_pregunta from tbl_ms_preguntas_usuario where id_usuario='$id_usuario'");
-    $row1=mysqli_fetch_array($sql1);
+    $sql1=mysqli_query($conexion, "select id_pregunta from tbl_ms_preguntas_usuario where id_pregunta='$select_pregunta' and id_usuario='$id_usuario'");
+    $row1=mysqli_fetch_array($sql1); 
     $id_pregunta=$row[0];
 
-    if ($id_pregunta==$select_pregunta) { //si existe
+    $sql=$conexion->query("select id_pregunta from tbl_ms_preguntas_usuario where id_pregunta='$select_pregunta' and id_usuario='$id_usuario'");
+    if ($datos=$sql->fetch_object()){
         $validar=false;
         echo"<div class='alert alert-danger text-center'>Pregunta ya contestada, seleccione otra pregunta</div>";
         return $validar;

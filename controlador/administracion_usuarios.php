@@ -38,9 +38,12 @@ function usuario_existe($usuario,&$validar){
 //Funcion para insertar los registros 
 function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,&$validar){
     include "../../modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='6'");
+    $row=mysqli_fetch_array($sql);
+    $valor_parm=$row[0];
     date_default_timezone_set("America/Tegucigalpa");
                 $mifecha = date('Y-m-d');
-                $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL 365 DAY)"); //Fecha de Vencimiento
+                $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL $valor_parm DAY)"); //Fecha de Vencimiento
                 $row=mysqli_fetch_array($sql);
                 $fecha_vencimiento=$row[0];
                 //Envio de los datos a ingresar por la query
@@ -101,15 +104,11 @@ function actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$tele
         }
 }
 //Funcion para enviar el correo.
-function Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,&$validar){
+function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     require_once ("../../PHPMailer/clsMail.php");
     include "../../modelo/conexion.php";
 
     $mailSend = new clsMail();
- 
-    $sql=mysqli_query($conexion, "select rol from tbl_ms_roles where id_rol='$id_rol'");
-    $row=mysqli_fetch_array($sql);
-    $rol=$row[0];
     
     $titulo="Usuario Nuevo";  
     $asunto="Usuario y contraseña - Sistema de Usuarios";
@@ -123,6 +122,99 @@ function Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,&$validar){
         $validar=false;
         echo '<div class="alert alert-danger text-center">La direccion de correo electronico no existe o no tienes.</div>';
         return $validar;
+    }
+}
+
+//--ver si hay espacios
+function Validar_Espacio_admin($usuario, $password, $correo, &$validar){
+    //Validar que el Usuario tenga espacio
+
+    $Cont=0;
+
+    if(strpos($usuario, " ")){
+        echo"<div class='alert alert-danger text-center'>No se permiten espacios en el usuario</div>";
+    }else{
+        if (ctype_graph ($usuario)){        
+            $Cont=$Cont+1;    
+        }
+        else{        
+            echo"<div class='alert alert-danger text-center'>No se permiten espacios en el usuario</div>";            
+        }
+    }
+    //Validar que la contraseña no tenga espacio
+    if(strpos($password, " ")){
+        echo"<div class='alert alert-danger text-center'>No se permiten espacios en la contraseña</div>";
+    }else{
+        if (ctype_graph ($password)){        
+            $Cont=$Cont+1;    
+        }
+        else{               
+            echo"<div class='alert alert-danger text-center'>No se permiten espacios en la contraseña</div>";         
+        }
+    }
+
+    if(strpos($correo, " ")){
+        echo"<div class='alert alert-danger text-center'>No se permiten espacios en el correo</div>";
+    }else{
+        if (ctype_graph ($correo)){        
+            $Cont=$Cont+1;    
+        }
+        else{              
+            echo"<div class='alert alert-danger text-center'>No se permiten espacios en el correo</div>";        
+        }
+    }
+
+    if($Cont==3){
+        return $validar;
+    }else{
+        $validar=false;
+        return $validar;
+    }
+}
+
+function Validar_Parametro_adm($password, &$validar){
+
+    include "../../modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
+    $row=mysqli_fetch_array($sql);
+    $Max_pass=$row[0];
+
+    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=5");
+    $row1=mysqli_fetch_array($sql1);
+    $Min_pass=$row1[0];
+
+    $Longitud1=strlen($password);
+    $conta=0;
+
+    if($Longitud1>=$Min_pass && $Longitud1<=$Max_pass){
+        return $validar;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener mas de ".$Min_pass." caracteres y menor de ".$Max_pass."</div>";
+        return $validar;
+    }
+}
+
+function Valida_nombre($nombres,&$validar){
+    //Validar tenga numeros
+    if (preg_match('/[0-9]/',$nombres)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
+    } else {
+        //Validar tenga caracter especial
+        if (preg_match('/[^a-zA-Z\d]/',$nombres)){
+            $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
+        }else {
+            $Longitud1=strlen($nombres);
+            if($Longitud1<=60){
+                return $validar;
+            }else {
+                $validar=false;
+                echo"<div class='alert alert-danger text-center'>Nombre muy extenso</div>"; //Campos sin uso
+                return $validar;
+            }
+        }
     }
 }
 
@@ -145,18 +237,28 @@ if (!empty($_POST["btnregistrar"])) {
     campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
         if($validar==true){
             usuario_existe($usuario,$validar);
-            if($validar==true){Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,$validar);
+            if($validar==true){
+                Valida_nombre($nombres,$validar);
                 if($validar==true){
-                    usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
+                    Validar_Espacio_admin($usuario, $password, $correo, $validar);
                     if($validar==true){
-                        //Guardar en bitacora 
-                        date_default_timezone_set("America/Tegucigalpa");
-                        $fecha = date('Y-m-d h:i:s');
-                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
-                        //Mensaje de confirmacion
-                        echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
-                    }else{
-                        echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
+                        Validar_Parametro_adm($password,$validar);
+                        if($validar==true){
+                            Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,$validar);
+                            if($validar==true){
+                                usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
+                                if($validar==true){
+                                    //Guardar en bitacora 
+                                    date_default_timezone_set("America/Tegucigalpa");
+                                    $fecha = date('Y-m-d h:i:s');
+                                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
+                                    //Mensaje de confirmacion
+                                    echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
+                                }else{
+                                    echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -182,11 +284,17 @@ if (!empty($_POST["btnactualizar"])) {
         //Validar que no hayan campos vacios
         campo_vacio_actualizar($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
         if($validar==true){
-            usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+            Validar_Espacio_admin($usuario, $password, $correo, $validar);
             if($validar==true){
-                usuario_existe($usuario,$validar);
+                Validar_Parametro_adm($password,$validar);
                 if($validar==true){
-                    actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+                    usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+                    if($validar==true){
+                        usuario_existe($usuario,$validar);
+                        if($validar==true){
+                            actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+                        }
+                    }
                 }
             }
         }

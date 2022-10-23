@@ -16,12 +16,12 @@ $usuario_msj= $_SESSION['usuario_msj'];
 </head>
 <body>
 	<br></br>
-    <form action="recuperacion_msj.php" method="post" class="col-4 p-3 m-auto" id="form">
+    <form action="recuperacion_msj_contra.php" method="post" class="col-4 p-3 m-auto" id="form">
 	<img src="../../public/img/pregunta.png" class="img-fluid rounded mx-auto d-block"/>
 		<h3 class="text-center text-secundary" >RECUPERAR CONTRASEÑA</h3>
          <?php
                 include "../../modelo/conexion.php";
-                include "../../controlador/recuperacion_msj.php";
+                include "../../controlador/recuperacion_msj_contra.php";
         ?> 	
 		<div class="mb-3">
 		<label>Contraseña nueva: </label>
