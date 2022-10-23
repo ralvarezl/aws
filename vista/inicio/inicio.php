@@ -23,6 +23,9 @@ session_start();
             <a class="navbar-brand" href="#" >
                 AWS Andres's Coffee
             </a>
+            <a class="navbar-brand text-right" href="#" >
+                <i class="fa-solid fa-house"></i> INICIO
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -70,11 +73,31 @@ session_start();
         <!--FIN DEL NAVBAR-->
 
     <!--INICIO DEL FORM REGISTRO USUARIOS-->
-    <div class="container-fluid row">
-        
-                    
-    </div>
+    <div class="container-fluid px-4">
+        <div class="row g-3 my-5">
+        <h3 class="text-center text-secundary">BIENVENIDO AL SISTEMA</h3>
+            <div class="col-md-3">
+                <div class="btn p-3 bg-danger shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                    <h3 class="fs-2">USUARIOS</h3>
+                    <p class="fs-5">Administracion de Usuarios</p>
+                    </div>
+                    <i class="fa-solid fa-users fs-1 rounded-full p-3"></i>
+                </div>
+            </div>
 
+            <div class="col-md-3">
+                <div class="btn p-3 bg-danger shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                    <h3 class="fs-2">PRODUCTOS</h3>
+                    <p class="fs-5">Administracion de Productos</p>
+                    </div>
+                    <i class="fa-solid fa-mug-saucer fs-1 rounded-full p-3"></i>
+                </div>
+            </div>
+
+        </div>                   
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
