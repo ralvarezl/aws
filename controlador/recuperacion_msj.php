@@ -34,8 +34,18 @@ function Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, &$validar){
         $respuesta_usuario=$row1[0];
         
         if($respuesta_usuario==$respuesta){
-           //Confirmacion
-            return $validar;
+            //Validar si ya habia respondido la misma pregunta antes
+            $sql=$conexion->query("select * from tbl_ms_preg_user_temporal where id_pregunta='$id_pregunta'");
+            if ($datos=$sql->fetch_object()) {
+                echo"<div class='alert alert-danger text-center'>Pregunta ya contestada, escoga una diferente </div>";
+                $validar=false;
+                return $validar;
+            }else{
+                $sql=$conexion->query("INSERT INTO tbl_ms_preg_user_temporal (id_pregunta ) value ('$id_pregunta')");
+
+                //Confirmacion
+                 return $validar;
+            } 
         }  
     }
     
@@ -126,7 +136,9 @@ if (!empty($_POST["btnsiguiente"])){
      
 
 if (!empty($_POST["btn_salir_msj"])) {
+    $sql=mysqli_query($conexion,"truncate table tbl_ms_preg_user_temporal");
     session_destroy();
+    header("location:recuperacion.php");
 }
 
 ?>

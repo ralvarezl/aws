@@ -81,6 +81,10 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
     $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, genero, telefono, direccion, correo, creado_por, fecha_creacion, estado,id_rol,fecha_vencimiento) value ( '$nombres', '$identidad', '$usuario', '$password','$genero','$telefono','$direccion','$correo','$usuario','$mifecha','NUEVO', 3,'$fecha_vencimiento')");
 
     if ($sql==1) {
+        //Llenar la bitacora
+        date_default_timezone_set("America/Tegucigalpa");
+        $fecha = date('Y-m-d h:i:s');
+        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Autoregistro', 'Usuario se autoregistro','$usuario')");   
         header("location:respuestas_usuario.php");//Entra a contestar preguntas
         return $validar;
     } else {
@@ -169,38 +173,6 @@ function Validar_Espacio_registrate($usuario, $password, $r_password, $correo,&$
     }
 }
 
-
-function Validar_Parametro_rgt($password,$r_password, &$validar){
-
-    include "../../modelo/conexion.php";
-    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
-    $row=mysqli_fetch_array($sql);
-    $Max_pass=$row[0];
-
-    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=5");
-    $row1=mysqli_fetch_array($sql1);
-    $Min_pass=$row1[0];
-
-    $Longitud1=strlen($password);
-    $Longitud2=strlen($r_password);
-    $conta=0;
-
-    if($Longitud1>=$Min_pass && $Longitud1<=$Max_pass){
-        $conta=1;
-    }
-    if($Longitud2>=$Min_pass && $Longitud2<=$Max_pass){
-        $conta=2;
-    }
-
-    if ($conta==2){
-        //header("location:recuperacion_msj_contra.php");
-        return $validar;
-    }else{
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>La contraseña debe tener mas de ".$Min_pass." caracteres y menor de ".$Max_pass."</div>";
-        return $validar;
-    }
-}
 //registrate
 function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     require_once ("../../PHPMailer/clsMail.php");
@@ -276,8 +248,6 @@ if (!empty($_POST["btnregistrate"])){
                                 if($validar==true){
                                     Validar_Espacio_registrate($usuario, $password, $r_password, $correo,$validar);
                                     if($validar==true){
-                                        Validar_Parametro_rgt($password,$r_password, $validar);
-                                        if($validar==true){
                                             Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
                                             if($validar==true){
                                                 crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
@@ -290,6 +260,4 @@ if (!empty($_POST["btnregistrate"])){
                     }
                 }
             } 
-}
-
 ?>

@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if(empty($_SESSION['usuario_login'])){
+    header("location:../../login.php");
+}
 include "../../modelo/conexion.php";
 $id_usuario=$_GET["id_usuario"];    //Guardamos el id usuario desde el boton editar
 $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuario ");

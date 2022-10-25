@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(empty($_SESSION['usuario_msj'])){
+    header("location:../../login.php");
+}
 $usuario_msj= $_SESSION['usuario_msj'];
 
 ?>

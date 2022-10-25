@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(empty($_SESSION['usuario_msj'])){
+    header("location:../../login.php");
+}
 $usuario_msj= $_SESSION['usuario_msj'];
 
 ?>
@@ -49,7 +52,7 @@ $usuario_msj= $_SESSION['usuario_msj'];
 		<!--BOTONERIA-->
 		<div class="d-grid">
 		<input name="btnsiguiente" id="btnsiguiente" class="btn btn-secondary mb-2" title="click para siguiente" type="submit" value="Siguiente" >
-		<button type="button" name="btn_salir_msj" class="btn btn-danger mb-2" onclick="location.href='recuperacion.php'" >Salir</button>
+		<input name="btn_salir_msj" id="btn_salir_msj" class="btn btn-danger mb-2" title="click para siguiente" type="submit" value="Salir" >
 		</div>
    </form>
 	

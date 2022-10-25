@@ -164,11 +164,11 @@ if (!empty($_POST["btnautogenerar"])){
 
 if (!empty($_POST["btnaceptar"])){
     
-$validar=true;
-$nuevapassword=$_POST["nueva"];
-$confirmarpassword=$_POST["confirmar"];
-date_default_timezone_set("America/Tegucigalpa");
-$fecha_actual=date("Y-m-d");
+    $validar=true;
+    $nuevapassword=$_POST["nueva"];
+    $confirmarpassword=$_POST["confirmar"];
+    date_default_timezone_set("America/Tegucigalpa");
+    $fecha_actual=date("Y-m-d");
     
     campo_vacio1($nuevapassword,$confirmarpassword,$validar);
     if($validar==true){
@@ -212,8 +212,7 @@ if (!empty($_POST["btn_salir_msj_uno"])) {
     header("location:recuperacion.php"); 
 }
 
-
-
-
+//Vaciar la tabla temporal
+$sql=mysqli_query($conexion,"truncate table tbl_ms_preg_user_temporal");
 
 ?>
