@@ -46,17 +46,12 @@ function Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, &$validar){
 function Validar_Espacio_rmjs($respuesta,&$validar){
     //Validar que el Usuario tenga espacio
 
-    if(strpos($respuesta, "  ")){
+    if(strpos($respuesta,"  ")){
         echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";
         $validar=false;
         return $validar;
     }else{
-        if (ctype_graph($respuesta)){        
-            echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";            
-            $validar=false;
-            return $validar;   
-        }
-        elseif(!ctype_graph($respuesta)){        
+        if(ctype_graph($respuesta)){        
             return $validar;
         }
     }
@@ -64,13 +59,8 @@ function Validar_Espacio_rmjs($respuesta,&$validar){
 
 
 function Valida_resp($respuesta,&$validar){
-    //Validar tenga numeros
-    if (preg_match('/[0-9]/',$respuesta)){
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>La respuesta no debe tener caracteres numéricos</div>"; 
-    } else {
         //Validar tenga caracter especial
-        if (preg_match('/[^a-zA-Z\d]/',$respuesta)){
+        if (preg_match('/[!"#$%&()_=?\+[]}{-@¡¿]/',$respuesta)){
             $validar=false;
         echo"<div class='alert alert-danger text-center'>La respuesta no debe tener caracteres especiales</div>"; 
         }else {
@@ -83,7 +73,6 @@ function Valida_resp($respuesta,&$validar){
                 return $validar;
             }
         }
-    }
 }
 ///////////////////////////////////////////----EJECUCIÓN DE COMBOBOX----///////////////////////////////////////////
 
@@ -103,9 +92,9 @@ if (!empty($_POST["btnsiguiente"])){
         if($validar==true){
             Validar_Espacio_rmjs($respuesta,$validar);
             if($validar==true){
-                Valida_resp($respuesta,$validar);
+                Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta,$validar);
                 if($validar==true){
-                    Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta,$validar);
+                    Valida_resp($respuesta,$validar);
                     if($validar==true){
                         //Validar con el parametro
                         if(isset($_SESSION["respuesta_resp"]) == true){

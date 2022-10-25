@@ -230,9 +230,9 @@ function Valida_nombre($nombres,&$validar){
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
     } else {
         //Validar tenga caracter especial
-        if (preg_match('/[^a-zA-Z\d]/',$nombres)){
+        if (preg_match('/[!"#$%&()_=?\+[]}{-@¡¿]/',$nombres)){
             $validar=false;
-        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
+            echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
         }else {
             $Longitud1=strlen($nombres);
             if($Longitud1<=60){
