@@ -25,9 +25,12 @@ function Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, &$validar){
     
     if (is_null($row2)){
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Respuesta Incorecta </div>";
+        echo"<div class='alert alert-danger text-center'>Respuesta incorecta</br>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>";
+        $modificar=("update tbl_ms_usuario set estado='BLOQUEADO' where id_usuario='$id_usuario'");
+        $resultado2 = mysqli_query($conexion,$modificar);
+        //header("location:recuperacion.php");
         return $validar;
-    }else{
+    }/*else{
         //Obtenemos la respuesta del usuario y su pregunta
         $sql1=mysqli_query($conexion, "select respuesta from tbl_ms_preguntas_usuario where id_pregunta=$id_pregunta and id_usuario=$id_usuario");
         $row1=mysqli_fetch_array($sql1);
@@ -46,8 +49,8 @@ function Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, &$validar){
                 //Confirmacion
                  return $validar;
             } 
-        }  
-    }
+        }
+    }*/
     
 }
 
@@ -106,37 +109,39 @@ if (!empty($_POST["btnsiguiente"])){
                 if($validar==true){
                     Valida_resp($respuesta,$validar);
                     if($validar==true){
-                        //Validar con el parametro
+                        /*//Validar con el parametro
                         if(isset($_SESSION["respuesta_resp"]) == true){
-                            //Entonces que le sume uno
-                            $_SESSION["respuesta_resp"]++;
-                            $respuesta_resp= $_SESSION["respuesta_resp"];
-                            //Sacar el valor del parametro de preguntas
-                            $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='3'");
-                            $row=mysqli_fetch_array($sql);
-                            $valor=$row[0];
+                        //Entonces que le sume uno
+                        $_SESSION["respuesta_resp"]++;
+                        $respuesta_resp= $_SESSION["respuesta_resp"];
+                        //Sacar el valor del parametro de preguntas
+                        $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='3'");
+                        $row=mysqli_fetch_array($sql);
+                        $valor=$row[0];
                             
-                            //Si respuestas son iguales al valor del parametro
-                            if($respuesta_resp==$valor){
+                        //Si respuestas son iguales al valor del parametro
+                        if($respuesta_resp==$valor){
                                                     
-                            header("location:recuperacion_msj_contra.php");
-                            }
-                            }else{
-                                // Si no existe que la cree
-                                $_SESSION["respuesta_resp"] = 1;
-                            } 
-                            echo "<div class='alert alert-success text-center'>Respuesta Correcta</div>";
-                        }else{
-                            $_SESSION["respuestas_resp"]=0;
+                        
                         }
+                        }else{
+                            // Si no existe que la cree
+                            $_SESSION["respuesta_resp"] = 1;
+                        }*/
+                    echo "<div class='alert alert-success text-center'>Respuesta Correcta</div>";
+                    header("location:recuperacion_msj_contra.php");
+                        /*}else{
+                            $_SESSION["respuestas_resp"]=0;
+                        }*/
                     }
                 }
+            }
         }
 }
      
 
 if (!empty($_POST["btn_salir_msj"])) {
-    $sql=mysqli_query($conexion,"truncate table tbl_ms_preg_user_temporal");
+    /*$sql=mysqli_query($conexion,"truncate table tbl_ms_preg_user_temporal");*/
     session_destroy();
     header("location:recuperacion.php");
 }

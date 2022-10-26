@@ -211,8 +211,8 @@ if (!empty($_POST["btn_salir_msj_uno"])) {
     session_destroy();
     header("location:recuperacion.php"); 
 }
-
+/*
 //Vaciar la tabla temporal
 $sql=mysqli_query($conexion,"truncate table tbl_ms_preg_user_temporal");
-
+*/
 ?>
