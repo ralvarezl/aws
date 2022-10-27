@@ -68,7 +68,7 @@ function validar_password($password,&$validar){
 //Funcion para crear Usuario
 function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,&$validar){
     include "../../modelo/conexion.php";
-    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='6'");
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='5'");
     $row=mysqli_fetch_array($sql);
     $valor_parm=$row[0];
     date_default_timezone_set("America/Tegucigalpa");
@@ -97,11 +97,11 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
 function Validar_Parametro_resgistrate($password,$r_password, &$validar){
 
     include "../../modelo/conexion.php";
-    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=3");
     $row=mysqli_fetch_array($sql);
     $Max_pass=$row[0];
 
-    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=5");
+    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
     $row1=mysqli_fetch_array($sql1);
     $Min_pass=$row1[0];
 
@@ -124,7 +124,6 @@ function Validar_Parametro_resgistrate($password,$r_password, &$validar){
         return $validar;
     }
 }
-
 
 //--ver si hay espacios
 function Validar_Espacio_registrate($usuario, $password, $r_password, $correo,&$validar){
@@ -173,7 +172,7 @@ function Validar_Espacio_registrate($usuario, $password, $r_password, $correo,&$
     }
 }
 
-//registrate
+//Enviar correo al registrarse
 function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     require_once ("../../PHPMailer/clsMail.php");
 
@@ -195,6 +194,7 @@ function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     }
 }
 
+//Validar nombres aun no funciona
 function Valida_nombre($nombres,&$validar){
     //Validar tenga numeros
     if (preg_match('/[0-9]/',$nombres)){

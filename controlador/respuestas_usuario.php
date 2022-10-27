@@ -48,7 +48,7 @@ function Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,&$va
     $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
     $row=mysqli_fetch_array($sql);
     $id_usuario=$row[0];
-
+    
     //Guarda la pregunta
     $insertar=("insert into tbl_ms_preguntas_usuario (ID_PREGUNTA,RESPUESTA,CREADO_POR,FECHA_CREACION,ID_USUARIO) VALUES( '$select_pregunta','$respuesta_pregunta','$usuario','$mifecha','$id_usuario')");
     $resultado = mysqli_query($conexion,$insertar);

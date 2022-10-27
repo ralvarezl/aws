@@ -54,7 +54,6 @@ function Comparar_respuesta($usuario_msj,$id_pregunta, $respuesta, &$validar){
     
 }
 
-
 //--ver si hay espacios
 function Validar_Espacio_rmjs($respuesta,&$validar){
     //Validar que el Usuario tenga espacio
@@ -69,7 +68,6 @@ function Validar_Espacio_rmjs($respuesta,&$validar){
         }
     }
 }
-
 
 function Valida_resp($respuesta,&$validar){
         //Validar tenga caracter especial

@@ -50,7 +50,6 @@ function Validar_Espacio($usuario,&$validar){
         echo"<div class='alert alert-danger text-center'>Usuario Tiene Espacio</div>";
         return $validar;
     }
-
 }
 
 //funcion para validar el estado de BLOQUEO
@@ -150,9 +149,6 @@ if (!empty($_POST["btnrecuperar"])){
                                     //Modificamos la contraseña y estado en la tabla TBL_MS_USUARIO
                                     $modificar1=("update tbl_ms_usuario set password='$token', estado='ACTIVO' where id_usuario='$id_usuario'");
                                     $resultado1 = mysqli_query($conexion,$modificar1);
-                                    //Modificamos el parametro adminintentos en la tabla TBL_MS_PARAMETRO
-                                    $modificar2=("update tbl_ms_parametros set valor='0' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
-                                    $resultado2 = mysqli_query($conexion,$modificar2);
                                 }
                                     
                                 $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
@@ -186,7 +182,6 @@ if (!empty($_POST["btnrecuperar_mjs"])){
 
     $usuario=$_POST["usuario"];      
     $sql=$conexion -> query("select * from tbl_ms_usuario where usuario='$usuario'");
-
     
     $validar=true;
     Campo_vacio($usuario,$validar);

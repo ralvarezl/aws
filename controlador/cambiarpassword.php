@@ -123,11 +123,11 @@ function Validar_Espacio($nuevacontraseña, $confirmarcontraseña, &$validar){
 function Validar_Parametro($nuevacontraseña,$confirmarcontraseña, &$validar){
 
     include "../../modelo/conexion.php";
-    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=3");
     $row=mysqli_fetch_array($sql);
     $Max_pass=$row[0];
 
-    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=5");
+    $sql1=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=4");
     $row1=mysqli_fetch_array($sql1);
     $Min_pass=$row1[0];
 

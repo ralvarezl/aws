@@ -157,10 +157,6 @@ function empleado($usuario,$password,&$validar){
         $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
         $row=mysqli_fetch_array($sql);
         $id_usuario=$row[0];
-        
-        //Modificamos el parametro adminintentos en la tabla TBL_MS_PARAMETRO
-        $modificar2=("update tbl_ms_parametros set valor='0' where id_usuario='$id_usuario' and parametro='ADMIN_INTENTOS'");
-        $resultado2 = mysqli_query($conexion,$modificar2);
 
         //Primer Ingreso
         $sql=mysqli_query($conexion, "select primer_ingreso from tbl_ms_usuario where usuario='$usuario'");
@@ -177,8 +173,6 @@ function empleado($usuario,$password,&$validar){
             return $validar; 
         }
 }
-
-//Funcion para saber si el usuario esta en RESET
 
 //validar que el estado este bloqueado
 function estado_usuario_bloquiado($usuario,$password,&$validar){
