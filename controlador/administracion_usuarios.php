@@ -38,7 +38,7 @@ function usuario_existe($usuario,&$validar){
 //Funcion para insertar los registros 
 function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,&$validar){
     include "../../modelo/conexion.php";
-    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='6'");
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='5'");
     $row=mysqli_fetch_array($sql);
     $valor_parm=$row[0];
     date_default_timezone_set("America/Tegucigalpa");
@@ -49,6 +49,11 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
                 //Envio de los datos a ingresar por la query
                 $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, creado_por, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , 'DEFAULT' , '$sesion_usuario' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
                 if ($sql==1) {
+                        //Crear el evento FECHA DE VENCIMIENTO
+                        $sql_evento=$conexion->query("CREATE EVENT IF NOT EXISTS $usuario
+                        ON SCHEDULE AT DATE_ADD(NOW(), INTERVAL $valor_parm DAY)
+                        DO
+                        UPDATE tbl_ms_usuario  SET estado = 'BLOQUEADO' where  usuario='$usuario'");
                     return $validar;
                 } else {
                     $validar=false;
@@ -202,7 +207,7 @@ function Valida_nombre($nombres,&$validar){
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
     } else {
         //Validar tenga caracter especial
-        if (preg_match('/[^a-zA-Z\d]/',$nombres)){
+        if (preg_match('/[!"#$%&()_=?\+[]}{-@¡¿]/',$nombres)){
             $validar=false;
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
         }else {
@@ -244,7 +249,7 @@ if (!empty($_POST["btnregistrar"])) {
                     if($validar==true){
                         Validar_Parametro_adm($password,$validar);
                         if($validar==true){
-                            Enviar_Correo($id_rol,$nombres,$usuario,$password,$correo,$validar);
+                            Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
                             if($validar==true){
                                 usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
                                 if($validar==true){

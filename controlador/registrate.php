@@ -74,6 +74,7 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
     date_default_timezone_set("America/Tegucigalpa");
     $mifecha = date('Y-m-d');
 
+    //Meter la fecha de vencimiento sumada con el parametro
     $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL $valor_parm DAY)"); //preguntar el estado del usuario
     $row=mysqli_fetch_array($sql);
     $fecha_vencimiento=$row[0];
@@ -81,10 +82,18 @@ function crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,
     $sql=$conexion->query("INSERT INTO tbl_ms_usuario (nombres, identidad, usuario, password, genero, telefono, direccion, correo, creado_por, fecha_creacion, estado,id_rol,fecha_vencimiento) value ( '$nombres', '$identidad', '$usuario', '$password','$genero','$telefono','$direccion','$correo','$usuario','$mifecha','NUEVO', 3,'$fecha_vencimiento')");
 
     if ($sql==1) {
+ 
+        //Crear el evento FECHA DE VENCIMIENTO
+        $sql_evento=$conexion->query("CREATE EVENT IF NOT EXISTS $usuario
+        ON SCHEDULE AT DATE_ADD(NOW(), INTERVAL $valor_parm DAY)
+        DO
+        UPDATE tbl_ms_usuario  SET estado = 'BLOQUEADO' where  usuario='$usuario'");
+
         //Llenar la bitacora
         date_default_timezone_set("America/Tegucigalpa");
         $fecha = date('Y-m-d h:i:s');
-        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Autoregistro', 'Usuario se autoregistro','$usuario')");   
+        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Autoregistro', 'Usuario se autoregistro','$usuario')");
+
         header("location:respuestas_usuario.php");//Entra a contestar preguntas
         return $validar;
     } else {
@@ -248,6 +257,8 @@ if (!empty($_POST["btnregistrate"])){
                                 if($validar==true){
                                     Validar_Espacio_registrate($usuario, $password, $r_password, $correo,$validar);
                                     if($validar==true){
+                                        Valida_nombre($nombres,$validar);
+                                        if($validar==true){
                                             Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
                                             if($validar==true){
                                                 crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
@@ -259,5 +270,6 @@ if (!empty($_POST["btnregistrate"])){
                         }
                     }
                 }
-            } 
+            }
+        }     
 ?>

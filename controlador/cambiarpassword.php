@@ -202,6 +202,10 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                             //Llenar el historial de contraseña
                                             $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
                                             $resultado = mysqli_query($conexion,$insertar);
+
+                                            //Borrar el evento  
+                                            $sql=$conexion->query("DROP EVENT IF EXISTS tiempo_token");
+
                                             //Llenar la bitacora
                                             date_default_timezone_set("America/Tegucigalpa");
                                             $fecha = date('Y-m-d h:i:s');

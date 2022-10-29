@@ -135,7 +135,7 @@ if (!empty($_POST["btnrecuperar"])){
                                 $row=mysqli_fetch_array($sql);
                                 $id_usuario=$row[0];
                                 date_default_timezone_set("America/Tegucigalpa");
-                                $fecha_actual=date("Y-m-d");
+                                $fecha_tiempo=date('Y-m-d h:i:s');
                                     
                                 estado_bloquiado_password($usuario,$validar);
                                 //Validamos si el usuario esta BLOQUEADO
@@ -150,10 +150,21 @@ if (!empty($_POST["btnrecuperar"])){
                                     $modificar1=("update tbl_ms_usuario set password='$token', estado='ACTIVO' where id_usuario='$id_usuario'");
                                     $resultado1 = mysqli_query($conexion,$modificar1);
                                 }
-                                    
+                                //crear evento de la contraseña
+                                $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=10");
+                                $row=mysqli_fetch_array($sql);
+                                $valor=$row[0];
+                                $fecha_actual = strtotime ( '+'.$valor.' hour' , strtotime ($fecha_tiempo) ) ; 
+                                $fecha_actual = date ( 'Y-m-d H:i:s' , $fecha_actual);     
                                 $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
                                 $resultado2 = mysqli_query($conexion,$insertar);
-
+                               
+                                //Crear el evento
+                                $sql_evento=$conexion->query("CREATE EVENT IF NOT EXISTS $token
+                                ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL $valor HOUR
+                                DO
+                                UPDATE tbl_ms_usuario  SET password = '' where id_usuario=$id_usuario and usuario='$usuario'");
+                                
                                 //Llenar la bitacora
                                 date_default_timezone_set("America/Tegucigalpa");
                                 $fecha = date('Y-m-d h:i:s');

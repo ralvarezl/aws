@@ -1,6 +1,9 @@
 <?php
 session_start();
-if(empty($_SESSION['usuario_login']) or empty($_SESSION['usuario_msj']) ){
+if(empty($_SESSION['usuario_login'])){
+    header("location:../../login.php");
+}
+if(empty($_SESSION['usuario_login']) and empty($_SESSION['usuario_msj'])){
     header("location:../../login.php");
 }
 ?>

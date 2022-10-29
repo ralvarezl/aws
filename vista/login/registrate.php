@@ -28,7 +28,7 @@
             <!--INGRESE USUARIO-->
             <div class="mb-3">
 			<label for="formGroupExampleInput" class="form-label">Usuario</label>
-			<input id="usuario" type="text" class="form-control" name="usuario" 
+			<input id="usuario" type="text" class="form-control" name="usuario" maxlength="20"
                 title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="this.value=this.value.toUpperCase();">
 		    </div>
             <!--INGRESE CONTRASEÑA-->
@@ -44,7 +44,7 @@
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
+            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad" maxlength="12">
             </div>
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
@@ -63,7 +63,7 @@
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono">
+            <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono" maxlength="8">
             </div>
             <!--INGRESE DIRECCIÓN-->
             <div class="mb-3">
