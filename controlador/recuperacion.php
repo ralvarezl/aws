@@ -121,8 +121,6 @@ if (!empty($_POST["btnrecuperar"])){
                             $correo=$row[0];
                             $token = Generar_token();
 
-                            //$url="http://".$_SERVER['localhost']."vista/login/cambiarpassword.php?usuario='$usuario'"; 
-                            //$url1="<a href='../../vista/login/cambiarpassword.php?usuario='$usuario'";
                             $titulo="Recuperacion de Contraseña";  
                             $asunto="Solicitud de restablecimiento de contraseña";
                             $bodyphp="<div class='form-container'><form>Estimado/a <b>". $usuario.".</b> <br/><br/> <b>Ha solicitado un reinicio de contraseña.</b><br/><br/><br/> Por los momentos su contraseña es: <b>".$token."</b><br/> Para restaurar la contraseña visit@ la pagina principal y cambia tu contraseña.<br/></br><br/><br/> <div align='center'><h1>Andress Coffiee</h1><h4>La Paz, La Paz, Honduras</h4></div></form></div>";
