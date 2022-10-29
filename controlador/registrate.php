@@ -129,7 +129,7 @@ function Validar_Parametro_resgistrate($password,$r_password, &$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>La contraseña debe tener mas de 5 caracteres y menor de 10</div>";
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener más de ".$Min_pass." caracteres y menos de ".$Max_pass."</div>";
         return $validar;
     }
 }

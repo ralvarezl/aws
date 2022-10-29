@@ -158,9 +158,12 @@ if (!empty($_POST["btnrecuperar"])){
                                 $fecha_actual = date ( 'Y-m-d H:i:s' , $fecha_actual);     
                                 $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
                                 $resultado2 = mysqli_query($conexion,$insertar);
-                               
-                                //Crear el evento
-                                $sql_evento=$conexion->query("CREATE EVENT IF NOT EXISTS $token
+                                
+                                //Borrar si ya existe uno anteriormente
+                                $sql=$conexion->query("DROP EVENT IF EXISTS ".$id_usuario."A");
+ 
+                                //crear el evento para el token
+                                $sql_evento=$conexion->query("CREATE EVENT IF NOT EXISTS ".$id_usuario."A
                                 ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL $valor HOUR
                                 DO
                                 UPDATE tbl_ms_usuario  SET password = '' where id_usuario=$id_usuario and usuario='$usuario'");

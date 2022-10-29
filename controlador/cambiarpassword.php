@@ -204,7 +204,7 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                             $resultado = mysqli_query($conexion,$insertar);
 
                                             //Borrar el evento  
-                                            $sql=$conexion->query("DROP EVENT IF EXISTS tiempo_token");
+                                            $sql=$conexion->query("DROP EVENT IF EXISTS ".$id_usuario."A");
 
                                             //Llenar la bitacora
                                             date_default_timezone_set("America/Tegucigalpa");

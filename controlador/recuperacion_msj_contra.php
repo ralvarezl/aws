@@ -161,10 +161,11 @@ if (!empty($_POST["btnautogenerar"])){
     $insertar=("insert into tbl_ms_token (TOKEN,FECHA_VENCIMIENTO,ID_USUARIO) VALUES( '$token','$fecha_actual','$id_usuario')");
     $resultado2 = mysqli_query($conexion,$insertar);
 
-
+    //Borrar cualquier evento si existe
+    $sql=$conexion->query("DROP EVENT IF EXISTS ".$id_usuario."A");
  
-     //Crear el evento
-     $sql_evento=$conexion->query("CREATE EVENT IF NOT EXISTS $token
+    //Crear el evento
+     $sql_evento=$conexion->query("CREATE EVENT IF NOT EXISTS ".$id_usuario."A
      ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL $valor HOUR
      DO
      UPDATE tbl_ms_usuario  SET password = '' where id_usuario=$id_usuario and usuario='$usuario_msj'");
