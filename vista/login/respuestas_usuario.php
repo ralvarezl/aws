@@ -19,7 +19,7 @@ if(empty($_SESSION['usuario_login'])){
 </head>
 <body>
     <br></br>
-    <form action="respuestas_usuario.php" class="col-3 p-3 m-auto" method="post">
+    <form action="respuestas_usuario.php" class="col-3 p-3 m-auto" method="post" autocomplete="off">
         <h3 class="text-center text-secundary" >Login Inicial</h3>
         <?php
                 include "../../modelo/conexion.php";

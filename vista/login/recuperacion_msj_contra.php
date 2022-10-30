@@ -28,14 +28,37 @@ $usuario_msj= $_SESSION['usuario_msj'];
         ?> 	
 		<div class="mb-3">
 		<label>Contraseña nueva: </label>
-                <input type="password" id="nueva" class="form-control"
+                <input type="password" id="InputPassword" class="form-control"
 				name="nueva" title="contrasena_nueva" >
+				<input type="checkbox" onclick="myFuction()"> ver contraseña
 		</div>
+		<script type="text/javascript">
+			function myFuction(){
+				var x = document.getElementById("InputPassword");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+        </script>
+
 		<div class="mb-3">
 		<label>Confirmar contraseña: </label>
-                <input type="password" id="confirmar" class="form-control"
+                <input type="password" id="InputPassword1" class="form-control"
 				name="confirmar" title="confirmar_contrasena" >
+				<input type="checkbox" onclick="myFuction1()"> ver contraseña
 		</div>
+		<script type="text/javascript">
+			function myFuction1(){
+				var x = document.getElementById("InputPassword1");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+        </script>
 		
 		<!--BOTONERIA-->
 		<div class="d-grid">	

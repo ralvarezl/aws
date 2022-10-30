@@ -21,7 +21,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
 </head>
 <body>
     
-<form class="col-3 p-2 m-auto" method="POST">
+<form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
             <br></br>
             <h3 class="text-center text-secundary">ACTUALIZAR USUARIO</h3>
             <!--Imput que se oculta para almacenar el usuario para enviarlo a la BD-->
@@ -46,8 +46,19 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <!--INGRESE CONTRASEÑA-->
             <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" placeholder="Ingrese contraseña" name="password" value="<?= $datos->PASSWORD ?>">
+            <input type="password" class="form-control" placeholder="Ingrese contraseña" name="password" id="InputPassword" value="<?= $datos->PASSWORD ?>">
+            <input type="checkbox" onclick="myFuction()"> ver contraseña
             </div>
+            <script type="text/javascript">
+			function myFuction(){
+				var x = document.getElementById("InputPassword");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+            </script>
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
@@ -56,7 +67,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono" value="<?= $datos->TELEFONO ?>">
+            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono" value="<?= $datos->TELEFONO ?>">
             </div>
             <!--INGRESE DIRECCIÓN-->
             <label for="formGroupExampleInput" class="form-label">Dirección</label>

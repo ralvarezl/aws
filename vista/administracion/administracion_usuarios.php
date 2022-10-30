@@ -73,7 +73,7 @@ if(empty($_SESSION['usuario_login'])){
 
     <!--INICIO DEL FORM REGISTRO USUARIOS-->
     <div class="container-fluid row">
-        <form class="col-2 p-3" method="POST">
+        <form class="col-2 p-3" method="POST" autocomplete="off">
             <br></br>
             <h3 class="text-center text-secundary">REGISTRO DE USUARIOS</h3>
             <?php
@@ -95,8 +95,19 @@ if(empty($_SESSION['usuario_login'])){
             <!--INGRESE CONTRASEÑA-->
             <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" placeholder="Ingrese contraseña" name="password">
+            <input type="password" class="form-control" placeholder="Ingrese contraseña" id="InputPassword" name="password">
+            <input type="checkbox" onclick="myFuction()"> ver contraseña
             </div>
+            <script type="text/javascript">
+			function myFuction(){
+				var x = document.getElementById("InputPassword");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+            </script>
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>

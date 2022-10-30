@@ -72,7 +72,7 @@ session_start();
         </nav>
         <!--FIN DEL NAVBAR-->
 
-    <!--INICIO DEL FORM REGISTRO USUARIOS-->
+    <!--INICIO-->
     <div class="container-fluid px-4">
         <div class="row g-3 my-5">
         <h3 class="text-center text-secundary">BIENVENIDO AL SISTEMA</h3>

@@ -11,7 +11,7 @@
 </head>
 <body>
   
-    <form action="registrate.php" class="col-4 p-3 m-auto" method="post">
+    <form action="registrate.php" class="col-4 p-3 m-auto" method="post" autocomplete="off">
 		<!--<img class="img" src="../../public/img/AVATAR.png" />-->
         <h3 class="text-center text-secundary" >REGISTRO DE USUARIO</h3>
 		 <?php
@@ -51,7 +51,18 @@
             <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Repita Contraseña</label>
             <input type="password" id="InputPassword1" class="form-control" placeholder="Repita contraseña" name="r_password">
+            <input type="checkbox" onclick="myFuction1()"> ver contraseña
             </div>
+            <script type="text/javascript">
+			function myFuction1(){
+				var x = document.getElementById("InputPassword1");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+            </script>
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
@@ -74,7 +85,7 @@
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="text" class="form-control" placeholder="Ingrese telefono" name="telefono" maxlength="8">
+            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono" maxlength="8">
             </div>
             <!--INGRESE DIRECCIÓN-->
             <div class="mb-3">
