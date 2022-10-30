@@ -59,9 +59,9 @@ function estado_bloquiado_password($usuario,&$validar){
     $row=mysqli_fetch_array($sql);
     $estado=$row[0]; //Guardamos el estado
     if ($estado=='BLOQUEADO') { //si es BLOQUEDO
-        $validar=false;
         return $validar;
     }else {
+        $validar=false;
         return $validar;
     }
 }

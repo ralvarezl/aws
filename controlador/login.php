@@ -203,15 +203,17 @@ if (!empty($_POST["btningresar"])){
     
    //validar campos vacios
     campo_vacio_login($usuario,$password,$validar);
+    if($validar==true){
+        //validar si existe usuario
+        usuario_existe_login($usuario,$password,$validar);
         if($validar==true){
-            //validar si existe usuario
-            usuario_existe_login($usuario,$password,$validar);
-            if($validar==true){
-                //Sacar id del usuario
-                $sql_user=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
-                $row_user=mysqli_fetch_array($sql_user);
-                $id_usuario=$row_user[0];
-                //validar contraseña
+            //Sacar id del usuario
+            $sql_user=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+            $row_user=mysqli_fetch_array($sql_user);
+            $id_usuario=$row_user[0];
+            //validar contraseña
+            estado_usuario_bloquiado($usuario,$password,$validar);
+            if($validar==true){    
                 contrasenia($usuario,$password,$validar);
                 if($validar==true){
                     //validar estado
@@ -222,29 +224,22 @@ if (!empty($_POST["btningresar"])){
                     if($validar==true){
                         estado_usuario_nuevo($usuario,$password,$validar);
                         if($validar==true){
-                            estado_usuario_bloquiado($usuario,$password,$validar);
+                            estado_usuario($usuario,$password,$validar);
                             if($validar==true){
-                                estado_usuario($usuario,$password,$validar);
+                                //Validar el rol del usuario no sea default 
+                                rol_usuario($usuario,$validar);
                                 if($validar==true){
-                                    //Validar el rol del usuario no sea default 
-                                    rol_usuario($usuario,$validar);
-                                    if($validar==true){
-                                        
-                                        if($validar==true){
-                                            //Dirigirlo dependiendo el tipo de usuario
-                                                    administrador($usuario,$password,$intentos,$validar);
-                                                    empleado($usuario,$password,$validar);
-                                                    //Guardar en bitacora 
-                                                    date_default_timezone_set("America/Tegucigalpa");
-                                                    $fecha = date('Y-m-d h:i:s');
-                                                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Login', 'Ingreso al sistema','$usuario')");
-                                        } 
-                                    }
+                                    //Dirigirlo dependiendo el tipo de usuario
+                                    administrador($usuario,$password,$intentos,$validar);
+                                    empleado($usuario,$password,$validar);
+                                    //Guardar en bitacora 
+                                    date_default_timezone_set("America/Tegucigalpa");
+                                    $fecha = date('Y-m-d h:i:s');
+                                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Login', 'Ingreso al sistema','$usuario')");
                                 } 
-                            }     
-
-                        }
-                    }
+                            }
+                        } 
+                    }     
                 }else{ //Si la contraseña es incorrecta
                     if(isset($_SESSION["intentos"]) == true){
                         //Entonces que le sume uno
@@ -272,6 +267,7 @@ if (!empty($_POST["btningresar"])){
                 }
             }
         }
+    }
 }
 
 //=================================BOTON SALIR=========================

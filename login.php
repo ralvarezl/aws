@@ -32,19 +32,23 @@ session_start();
 		</div>
 		<!--INGRESE CONTRASEÑA-->
 		<div class="mb-3">
-			<div class="i">
-				<i class="fas fa-lock"></i>
-			</div>
 			<div class="div">
 				<label for="formGroupExampleInput" class="form-label">Contraseña</label>
-				<input type="password" id="input" class="form-control"
-					name="password" title="ingrese su clave para ingresar" autocomplete="current-password">
+				<input type="password" id="InputPassword" class="form-control"
+					name="password" title="ingrese su clave para ingresar">		
+				<input type="checkbox" onclick="myFuction()"> ver contraseña	
 			</div>
 		</div>
-
-		<div class="view">
-			<div class="fas fa-eye verPassword" onclick="vista()" id="verPassword"></div>
-		</div>
+		<script type="text/javascript">
+			function myFuction(){
+				var x = document.getElementById("InputPassword");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+		}
+		</script>
 		<!--MODULO RECUPERAR CONTRASEÑA-->
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 		<a class="btn btn-link text-dark mb-2" href="vista/login/recuperacion.php">Olvidé mi contraseña</a>
