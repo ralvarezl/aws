@@ -195,7 +195,11 @@ if (!empty($_POST["btnnuevacontraseña"])){
         
                                         $password=$_POST["confirmarcontraseña"];//Guardamos la contraseña de lavor confirmar
         
-                                        if ($estado=='DEFAULT') { //Validamos el estado del usuario si es DEFAULT
+                                        $sql2=mysqli_query($conexion, "select preguntas_contestadas from tbl_ms_usuario where id_usuario='$id_usuario'"); //preguntar el ID del usuario
+                                        $row2=mysqli_fetch_array($sql2);
+                                        $preguntas=$row2[0]; //Guardamos las preguntas contestas
+
+                                        if ($estado=='DEFAULT' && is_null($preguntas)) { //Validamos el estado del usuario si es DEFAULT
                                             //Modifiacmos el estado de DEFAULT a NUEVO
                                             $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
                                             $resultado = mysqli_query($conexion,$modificar);

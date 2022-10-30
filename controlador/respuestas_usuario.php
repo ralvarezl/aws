@@ -122,6 +122,14 @@ if (!empty($_POST["btnguardar"])){
                             //Llenar la bitacora
                             date_default_timezone_set("America/Tegucigalpa");
                             $fecha = date('Y-m-d h:i:s');
+
+                            $sql2=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'"); //preguntar el ID del usuario
+                            $row2=mysqli_fetch_array($sql2);
+                            $id_usuario=$row1[0]; //Guardamos el ID_USUARIO
+    
+                            $modificar=("update tbl_ms_usuario set preguntas_contestadas=$intentos where id_usuario='$id_usuario'");
+                            $resultado = mysqli_query($conexion,$modificar);
+                            
                             $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Contestar Preguntas', 'Usuario respondio preguntas de seguridad','$usuario')");
                             echo '<script language="javascript">alert("RESPONDIO LAS PREGUNTAS");;window.location.href="../../login.php"</script>';
                             session_destroy();
