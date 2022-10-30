@@ -203,7 +203,7 @@ function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     }
 }
 
-//Validar nombres aun no funciona
+//Validar nombre
 function Valida_nombre($nombres,&$validar){
     //Validar tenga numeros
     if (preg_match('/[0-9]/',$nombres)){
@@ -224,6 +224,33 @@ function Valida_nombre($nombres,&$validar){
                 return $validar;
             }
         }
+    }
+}
+
+//Validar identida y telefono 
+function Validar_id_tel($identidad,$telefono, &$validar){
+
+    $Longitud1=strlen($identidad);
+    $Longitud2=strlen($telefono);
+    $conta=0;
+
+    if($Longitud1>=13 && $Longitud1<=13){
+        $conta=1;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La identidad debe tener 13 caracteres numericos</div>";
+        return $validar;
+    }
+    if($Longitud2>=8 && $Longitud2<=8){
+        $conta=2;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El telefono debe tener 8 caracteres numericos</div>";
+        return $validar;
+    }
+
+    if ($conta==2){
+        return $validar;
     }
 }
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
@@ -259,9 +286,12 @@ if (!empty($_POST["btnregistrate"])){
                                     if($validar==true){
                                         Valida_nombre($nombres,$validar);
                                         if($validar==true){
-                                            Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
+                                            Validar_id_tel($identidad,$telefono, $validar);
                                             if($validar==true){
-                                                crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
+                                                Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
+                                                if($validar==true){
+                                                    crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
+                                                }
                                             }
                                         }
                                     }

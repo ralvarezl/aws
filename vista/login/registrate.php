@@ -66,7 +66,7 @@
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad" max="14">
+            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
             </div>
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
@@ -85,7 +85,7 @@
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono"  max="8">
+            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono" >
             </div>
             <!--INGRESE DIRECCIÓN-->
             <div class="mb-3">
