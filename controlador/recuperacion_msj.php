@@ -7,7 +7,7 @@ function campo_vacio_respuesta($respuestas,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Favor Rellenar Campos</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Favor rellenar campos</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -87,7 +87,7 @@ if (!empty($_POST["btnsiguiente"])){
                 if($validar==true){
                     Valida_resp($respuesta,$validar);
                     if($validar==true){
-                    echo "<div class='alert alert-success text-center'>Respuesta Correcta</div>";
+                    echo "<div class='alert alert-success text-center'>Respuesta correcta</div>";
                     header("location:recuperacion_msj_contra.php");
                     }
                 }

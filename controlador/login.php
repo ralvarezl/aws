@@ -5,7 +5,7 @@ function campo_vacio_login($usuario,$password,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Favor Rellenar Campos</div>"; //Campos vacios
+        echo"<div class='alert alert-danger text-center'>Favor rellenar campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -49,7 +49,7 @@ function estado_usuario($usuario,$password,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>USUARIO $estado</div>"; //Usuario no activo, bloqueado o nuevo
+        echo"<div class='alert alert-danger text-center'>Usuario $estado</div>"; //Usuario no activo, bloqueado o nuevo
         return $validar;
     }
 }
@@ -182,7 +182,7 @@ function estado_usuario_bloquiado($usuario,$password,&$validar){
     $estado=$row[0]; //Guardamos el estado
     if ($estado=='BLOQUEADO') { //si es activo 
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
+        echo"<div class='alert alert-danger text-center'>Usuario bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
         return $validar;
     }else {
         return $validar;

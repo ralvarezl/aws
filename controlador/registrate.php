@@ -5,7 +5,7 @@ function campo_vacio_registrate($nombres,$usuario,$password,$r_password,$identid
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor Rellenar Campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -29,7 +29,7 @@ function contrasenia($password,$r_password,&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-warning text-center'>Ambas Contraseñas Deben Ser Iguales</div>";//CONTRASEÑAS DISTINTAS
+        echo"<div class='alert alert-warning text-center'>Ambas contraseñas deben ser iguales</div>";//CONTRASEÑAS DISTINTAS
         return $validar;
     }
 
@@ -191,6 +191,7 @@ function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     $titulo="Usuario Nuevo";  
     $asunto="Usuario y contraseña - Sistema de Usuarios";
     $bodyphp="Estimad@ ". $nombres.": <br/><br/> Se le ha registrado en el sistema Andre's Coffee <br/><br/>Su USUARIO es: ".$usuario." y su contraseña es: ".$password."<br/><br/> Favor abóquese con un administardor para poder ingresar al sistemas o marque al telefono (+504)8989-8366.";
+    $bodyphp="<div class='form-container'><form>Estimado/a <b>". $usuario.".</b> <br/><br/> <b>Se a registrado en el sistema Andre's Coffee.</b><br/><br/><br/>Su usuario es: ".$usuario." y su contraseña es: ".$password."</b><br/>Gracias por registrate al sistema, comunicate con un administrador para que se le asigne un rol.<br/></br><br/><br/> <div align='center'><h1>Andress Coffiee</h1><h4>La Paz, La Paz, Honduras</h4></div></form></div>";
     
     $enviado = $mailSend->metEnviar($titulo,$usuario,$correo,$asunto,$bodyphp);
              

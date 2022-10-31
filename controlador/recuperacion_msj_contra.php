@@ -6,7 +6,7 @@ function campo_vacio1($nuevapassword,$confirmarpassword,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Favor Rellenar Campos</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Favor rellenar campos</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -31,7 +31,7 @@ function Comparar_Pass(&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Las Contraseñas no Coinciden</div>"; //Campos no coinciden
+        echo"<div class='alert alert-danger text-center'>Las contraseñas no coinciden</div>"; //Campos no coinciden
         return $validar;
     }
 }

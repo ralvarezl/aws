@@ -5,7 +5,7 @@ function campo_vacio($id_parametro, $valor, &$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor Rellenar Campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
         return $validar;
     }
 }

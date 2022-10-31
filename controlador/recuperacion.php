@@ -36,7 +36,7 @@ function Contar_Cadena($usuario,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Nombre De Usuario Muy Grande</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Nombre de usuario muy grande</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -47,7 +47,7 @@ function Validar_Espacio($usuario,&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Usuario Tiene Espacio</div>";
+        echo"<div class='alert alert-danger text-center'>Usuario tiene espacio</div>";
         return $validar;
     }
 }
@@ -60,7 +60,7 @@ function estado_inactivo_password($usuario,&$validar){
     $estado=$row[0]; //Guardamos el estado
     if ($estado=='INACTIVO') { //si es INACTIVO
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>USUARIO INACTIVO</div>";
+        echo"<div class='alert alert-danger text-center'>Usuario inactivo</div>";
         return $validar;
     }else {
         return $validar;
@@ -156,7 +156,7 @@ if (!empty($_POST["btnrecuperar"])){
                             }
                             
                         }else{
-                            echo "<div class='alert alert-danger text-center'>No Existe El Usuario</div>";
+                            echo "<div class='alert alert-danger text-center'>No existe el usuario</div>";
                         }
                     }
                 }
@@ -192,7 +192,7 @@ if (!empty($_POST["btnrecuperar_mjs"])){
                             $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Recuperar contraseña', 'Usuario entro a recuperar contraseña via pregunta secreta','$usuario')");
                             header("location:recuperacion_msj.php");//Entra a recuperar contraseña.
                         }else{
-                            echo "<div class='alert alert-danger text-center'>No Existe El Usuario</div>";
+                            echo "<div class='alert alert-danger text-center'>No existe el usuario</div>";
                         }
                     }
                 }

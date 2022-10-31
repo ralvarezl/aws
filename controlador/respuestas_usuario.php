@@ -9,7 +9,7 @@ function Campo_vacio_msj($usuario,$respuesta_pregunta,&$validar){
         return $validar; 
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Favor Rellene Los Campos</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Favor rellene los campos</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -33,7 +33,7 @@ function Validar_Espacio_mjs($usuario,&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Usuario Tiene Espacio</div>";
+        echo"<div class='alert alert-danger text-center'>Usuario tiene espacio</div>";
         return $validar;
     }
 

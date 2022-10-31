@@ -6,7 +6,7 @@ function campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$d
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor Rellenar Campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -17,7 +17,7 @@ function campo_vacio_actualizar($nombres,$usuario,$password,$identidad,$genero,$
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor Rellenar Campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -117,7 +117,7 @@ function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     
     $titulo="Usuario Nuevo";  
     $asunto="Usuario y contraseña - Sistema de Usuarios";
-    $bodyphp="Estimad@ ". $nombres.": <br/><br/> Se le a registrado en el sistema Andre's Coffee <br/><br/>Su USUARIO es: ".$usuario." y su contraseña temporal es: ".$password."<br/><br/> Favor ingrese al sistema para hacer el cambio de su contraseña y configurar su usuario.";
+    $bodyphp="<div class='form-container'><form>Estimado/a <b>". $usuario.".</b> <br/><br/> <b>Se le a registrado en el sistema Andre's Coffee.</b><br/><br/><br/>Su usuario es: ".$usuario." y su contraseña temporal es: ".$password."</b><br/>Favor ingrese al sistema para hacer el cambio de su contraseña y configurar su usuario.<br/></br><br/><br/> <div align='center'><h1>Andress Coffiee</h1><h4>La Paz, La Paz, Honduras</h4></div></form></div>";
     
     $enviado = $mailSend->metEnviar($titulo,$usuario,$correo,$asunto,$bodyphp);
              
@@ -222,6 +222,31 @@ function Valida_nombre($nombres,&$validar){
         }
     }
 }
+function Validar_id_tel_admin($identidad,$telefono, &$validar){
+
+    $Longitud1=strlen($identidad);
+    $Longitud2=strlen($telefono);
+    $conta=0;
+
+    if($Longitud1>=13 && $Longitud1<=13){
+        $conta=1;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La identidad debe tener 13 caracteres numericos</div>";
+        return $validar;
+    }
+    if($Longitud2>=8 && $Longitud2<=8){
+        $conta=2;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El telefono debe tener 8 caracteres numericos</div>";
+        return $validar;
+    }
+
+    if ($conta==2){
+        return $validar;
+    }
+}
 
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
@@ -249,18 +274,21 @@ if (!empty($_POST["btnregistrar"])) {
                     if($validar==true){
                         Validar_Parametro_adm($password,$validar);
                         if($validar==true){
-                            Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
+                            Validar_id_tel_admin($identidad,$telefono, $validar);
                             if($validar==true){
-                                usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
+                                Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
                                 if($validar==true){
-                                    //Guardar en bitacora 
-                                    date_default_timezone_set("America/Tegucigalpa");
-                                    $fecha = date('Y-m-d h:i:s');
-                                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
-                                    //Mensaje de confirmacion
-                                    echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
-                                }else{
-                                    echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
+                                    usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
+                                    if($validar==true){
+                                        //Guardar en bitacora 
+                                        date_default_timezone_set("America/Tegucigalpa");
+                                        $fecha = date('Y-m-d h:i:s');
+                                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
+                                        //Mensaje de confirmacion
+                                        echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
+                                    }else{
+                                        echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
+                                    }
                                 }
                             }
                         }

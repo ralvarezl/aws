@@ -9,7 +9,7 @@ function Campo_vacio($password_usu,$nuevacontraseña,$confirmarcontraseña,&$val
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Favor Rellenar Campos</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Favor rellenar campos</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -28,17 +28,17 @@ function usuario_existe_cambiar($usuario,&$validar){
 }
 
 //--validar la contraseña anterior
-function Contraseña_Anterior($usuario,$password_usu,&$validar){
+function Contraseña_Anterior($usuario,$confirmarcontraseña,&$validar){
     include "../../modelo/conexion.php";
     $sql=mysqli_query($conexion, "select password from tbl_ms_usuario where usuario='$usuario'");
     $row=mysqli_fetch_array($sql);
     $password_vieja=$row[0];
 
-    if($password_usu==$password_vieja){
+    if($confirmarcontraseña==$password_vieja){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Contraseña ya utilizada</div>"; //Campos sin uso
         return $validar;
     }else{
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>La Contraseña Anterio No Es Valida</div>"; //Campos sin uso
         return $validar;
     }
 
@@ -83,7 +83,7 @@ function Comparar_Pass(&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Las Contraseñas No Coinciden</div>"; //Campos no coinciden
+        echo"<div class='alert alert-danger text-center'>Las contraseñas no coinciden</div>"; //Campos no coinciden
         return $validar;
     }
 }
@@ -97,7 +97,7 @@ function Contar_Cadena($nuevacontraseña,$confirmarcontraseña,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Contraseña Muy Grande</div>"; //Campos sin uso
+        echo"<div class='alert alert-danger text-center'>Contraseña muy grande</div>"; //Campos sin uso
         return $validar;
     }
 }
@@ -106,7 +106,7 @@ function Contar_Cadena($nuevacontraseña,$confirmarcontraseña,&$validar){
 function Validar_Espacio($nuevacontraseña, $confirmarcontraseña, &$validar){
     if (strpos($confirmarcontraseña, " ")){
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Contraseña Con Espacios No Validos</div>";
+        echo"<div class='alert alert-danger text-center'>Contraseña con espacios no validos</div>";
         return $validar;
     }else{
         if (ctype_graph ($confirmarcontraseña)){        
@@ -114,7 +114,7 @@ function Validar_Espacio($nuevacontraseña, $confirmarcontraseña, &$validar){
         }
         else{        
             $validar=false;        
-            echo"<div class='alert alert-danger text-center'>Contraseña Con Espacios No Validos</div>";        
+            echo"<div class='alert alert-danger text-center'>Contraseña con espacios no validos</div>";        
             return $validar;    
         }
     }
@@ -171,7 +171,7 @@ if (!empty($_POST["btnnuevacontraseña"])){
     if($validar==true){
         usuario_existe_cambiar($usuario,$validar);
         if($validar==true){
-            Contraseña_Anterior($usuario,$password_usu,$validar);
+            Contraseña_Anterior($usuario,$confirmarcontraseña,$validar);
             if($validar==true){
                 Contar_Cadena($nuevacontraseña,$confirmarcontraseña,$validar);         
                 if($validar==true){
