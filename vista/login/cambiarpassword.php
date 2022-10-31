@@ -38,27 +38,57 @@ if(empty($_SESSION['usuario_login']) and empty($_SESSION['usuario_msj'])){
         <!--INGRESE CONTRASEÑA ANTERIOR-->
         <div class="mb-3">
             <label for="" class="form-label">Contraseña Anterior</label>
-            <input id="contraseñaanterior" type="password"
+            <input id="InputPassword" type="password"
             class="form-control" name="contraseñaanterior"
-                title="ingrese su contraseña anterior" autocomplete="contraseñaanterior" value="" >
+            title="ingrese su contraseña anterior" autocomplete="contraseñaanterior" value="" >
+            <input type="checkbox" onclick="myFuction()"> ver contraseña
         </div>
+            <script type="text/javascript">
+			function myFuction(){
+				var x = document.getElementById("InputPassword");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+            </script>
         <!--INGRESE NUEVA CONTRASEÑA-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Nueva contraseña</label>
-            <input id="nuevacontraseña" type="password"
+            <input id="InputPassword1" type="password"
             class="form-control" name="nuevacontraseña"
-                title="ingrese su nueva contraseña" autocomplete="nuevacontraseña" value="" >
+            title="ingrese su nueva contraseña" autocomplete="nuevacontraseña" value="" >
+            <input type="checkbox" onclick="myFuction1()"> ver contraseña
         </div>
+            <script type="text/javascript">
+			function myFuction1(){
+				var x = document.getElementById("InputPassword1");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+            </script>
         <!--INGRESE CONFIRMAR CONTRASEÑA-->
         <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Confirmar contraseña</label>
-            <input id="confirmarcontraseña" type="password"
+            <input id="InputPassword2" type="password"
             class="form-control" name="confirmarcontraseña"
-                title="ingrese su confirmación de contraseña" autocomplete="confirmarcontraseña" value="" >
-
+            title="ingrese su confirmación de contraseña" autocomplete="confirmarcontraseña" value="" >
+            <input type="checkbox" onclick="myFuction2()"> ver contraseña
 		</div>
-
-
+            <script type="text/javascript">
+			function myFuction2(){
+				var x = document.getElementById("InputPassword2");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+            </script>
 	
         <!--BOTONERIA-->
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -25,6 +25,9 @@ if(empty($_SESSION['usuario_login'])){
             <a class="navbar-brand" href="#" >
                 AWS Andres's Coffee
             </a>
+            <a class="navbar-brand text-right" href="#" >
+                <i class="fa-solid fa-users-gear"></i> ADMINISTRACION DE USUARIOS
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -41,10 +44,17 @@ if(empty($_SESSION['usuario_login'])){
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> INICIO </a>
+                    <a class="nav-link" href="../inicio/inicio.php"><i class="fa-solid fa-house"></i> INICIO </a>
                 </li>
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="#"><i class="fa-solid fa-users-gear"></i> ADMINISTRADOR DE USUARIOS</a>
+                </li>
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="administracion_parametros.php"><i class="fa-solid fa-gears"></i> ADMINISTRADOR DE PARAMETROS</a>
+                </li>
+
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a>
                 </li>
                 
                 <li class="btn btn-dark p-2">

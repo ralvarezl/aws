@@ -138,7 +138,7 @@ function administrador($usuario,$password,&$validar){
         }
 
 
-        header("location:vista/administracion/administracion_usuarios.php");//Entra al sistema de administrador.
+        header("location:vista/inicio/inicio.php");//Entra al sistema de administrador.
         }else{
             $validar=false;
             return $validar; 
@@ -167,7 +167,7 @@ function empleado($usuario,$password,&$validar){
         $sql=$conexion->query(" update tbl_ms_usuario set primer_ingreso='$mifecha' where usuario='$usuario'");
         }
 
-        header("location:vista/facturacion.php");//Entra al sistema de facturacion.
+        header("location:vista/inicio/inicio.php");//Entra al sistema de facturacion.
         }else{
             $validar=false;
             return $validar; 
