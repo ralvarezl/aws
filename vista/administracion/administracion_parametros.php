@@ -44,10 +44,10 @@ if(empty($_SESSION['usuario_login'])){
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="../inicio/inicio.php"><i class="fa-solid fa-house"></i> INICIO </a>
+                    <a class="nav-link" href="../../controlador/bitacora_pantalla/inicio.php"><i class="fa-solid fa-house"></i> INICIO </a>
                 </li>
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="administracion_usuarios.php"><i class="fa-solid fa-users-gear"></i> ADMINISTRADOR DE USUARIOS</a>
+                    <a class="nav-link" href="../../controlador/bitacora_pantalla/admin_usuario.php"><i class="fa-solid fa-users-gear"></i> ADMINISTRADOR DE USUARIOS</a>
                 </li>
 
                 <li class="btn btn-dark p-2">
@@ -55,7 +55,7 @@ if(empty($_SESSION['usuario_login'])){
                 </li>
 
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a>
+                    <a class="nav-link" href="../../controlador/bitacora_pantalla/bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a>
                 </li>
                 
                 <li class="btn btn-dark p-2">
