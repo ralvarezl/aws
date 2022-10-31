@@ -99,7 +99,7 @@ function estado_usuario_nuevo($usuario,$password,&$validar){
         $row=mysqli_fetch_array($sql);
         $id_usuario=$row[0];
 
-        $sql=$conexion->query("select * from tbl_ms_preguntas_usuario where id_usuario='$id_usuario'"); //preguntar si el usuario tiene preguntas contestadas
+        $sql_con=$conexion->query("select preguntas_contestadas from tbl_ms_usuario where usuario='$usuario' and id_usuario=$id_usuario"); //preguntar si el usuario tiene preguntas contestadas
         if ($datos=$sql->fetch_object()){
             //Modifiacmos cualquier estado a ACTIVO
             $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
