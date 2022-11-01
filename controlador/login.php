@@ -241,29 +241,37 @@ if (!empty($_POST["btningresar"])){
                         } 
                     }     
                 }else{ //Si la contraseña es incorrecta
-                    if(isset($_SESSION["intentos"]) == true){
-                        //Entonces que le sume uno
-                        $_SESSION["intentos"]++;
-                    }else{
-                        // Si no existe que la cree
-                        $_SESSION["intentos"] = 1;
-                        
-                    }
-                    $intentos= $_SESSION["intentos"];
-                    //Llama el valor de parametros de intentos
-                    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='1'");
+                    //Saber el rol del usuario
+                    $sql=mysqli_query($conexion, "select usuario from tbl_ms_usuario where usuario='$usuario'");
                     $row=mysqli_fetch_array($sql);
-                    $valor=$row[0];
-                    //Cuando los intentos llegan al valor limite del parametro se bloquea
-                    if($intentos==$valor){
-                    $modificar=("update tbl_ms_usuario set estado='BLOQUEADO' where id_usuario='$id_usuario'");
-                    $resultado = mysqli_query($conexion,$modificar);
-                    echo"<div class='alert alert-danger text-center'>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
+                    $admin=$row[0];
+                    if($admin=='ADMIN'){
+                        //El admin no tine contador de intentos por error de contraseña
+                        echo"<div class='alert alert-danger text-center'>Acceso denegado</div>";
                     }else{
-                        //Intentos denegados
-                        echo"<div class='alert alert-danger text-center'>Acceso denegado, intentos $intentos/$valor </div>";
+                        if(isset($_SESSION["intentos"]) == true){
+                            //Entonces que le sume uno
+                            $_SESSION["intentos"]++;
+                        }else{
+                            // Si no existe que la cree
+                            $_SESSION["intentos"] = 1;
+                            
+                        }
+                        $intentos= $_SESSION["intentos"];
+                        //Llama el valor de parametros de intentos
+                        $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='1'");
+                        $row=mysqli_fetch_array($sql);
+                        $valor=$row[0];
+                        //Cuando los intentos llegan al valor limite del parametro se bloquea
+                        if($intentos==$valor){
+                        $modificar=("update tbl_ms_usuario set estado='BLOQUEADO' where id_usuario='$id_usuario'");
+                        $resultado = mysqli_query($conexion,$modificar);
+                        echo"<div class='alert alert-danger text-center'>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
+                        }else{
+                            //Intentos denegados
+                            echo"<div class='alert alert-danger text-center'>Acceso denegado, intentos $intentos/$valor </div>";
+                        }
                     }
-           
                 }
             }
         }
