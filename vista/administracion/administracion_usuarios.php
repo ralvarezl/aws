@@ -83,96 +83,11 @@ if(empty($_SESSION['usuario_login'])){
 
     <!--INICIO DEL FORM REGISTRO USUARIOS-->
     <div class="container-fluid row">
-        <form class="col-2 p-3" method="POST" autocomplete="off">
-            <br></br>
-            <h3 class="text-center text-secundary">REGISTRO DE USUARIOS</h3>
-            <?php
-            include "../../modelo/conexion.php";
-            include "../../controlador/administracion_usuarios.php";
-            ?>
-            <!--INGRESE NOMBRE-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Nombres</label>
-            <input type="text" class="form-control" placeholder="Ingrese nombres" 
-                name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
-            </div>
-            <!--INGRESE USUARIO-->
-            <div class="mb-3">
-			<label for="formGroupExampleInput" class="form-label">Usuario</label>
-			<input id="usuario" type="text" class="form-control" name="usuario" 
-                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="this.value=this.value.toUpperCase();">
-		    </div>
-            <!--INGRESE CONTRASEÑA-->
-            <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" placeholder="Ingrese contraseña" id="InputPassword" name="password">
-            <input type="checkbox" onclick="myFuction()"> ver contraseña
-            </div>
-            <script type="text/javascript">
-			function myFuction(){
-				var x = document.getElementById("InputPassword");
-				if (x.type==="password") {
-					x.type="text";
-				}else{
-					x.type="password";
-				}
-            }
-            </script>
-            <!--INGRESE IDENTIDAD-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
-            </div>
-            <!--SELECCIONE GENERO-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Genero</label>
-            <select class="form-select" aria-label="Default select example" name="genero">
-            <?php 
-            include "../../modelo/conexion.php";
-            $sql=$conexion->query("select genero from tbl_ms_genero");
-                //Mostrar los roles creados en la base de datos
-                while($datos=mysqli_fetch_array($sql)){
-                    echo '<option value="'.$datos['genero'].'">'.$datos['genero'].'</option>';
-                }
-            ?>
-            </select>
-            </div>
-            <!--INGRESE TELEFONO-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono">
-            </div>
-            <!--INGRESE DIRECCIÓN-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Dirección</label>
-            <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion" onKeyUp="this.value=this.value.toUpperCase();">
-            </div>
-            <!--INGRESE CORREO-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Correo</label>
-            <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
-            </div>
-            <!--SELECCIONE ROL-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Rol</label>
-            <select class="form-select" aria-label="Default select example" name="id_rol">
-            <?php 
-            include "../../modelo/conexion.php";
-            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles");
-                //Mostrar los roles creados en la base de datos
-                while($datos=mysqli_fetch_array($sql)){
-                    echo '<option value="'.$datos['id_rol'].'">'.$datos['rol'].'</option>';
-                }
-            ?>
-            </select>
-            </div>
-            <!--BOTON NUEVO USUARIO-->
-            <button type="submit" class="btn btn-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
-        </form>
-        <!--FIN DEL FORM REGISTRO USUARIOS-->
-
+        
                 <!--INICIO DE LA TABLE USUARIOS-->
                 <div class="col-9 p-4">
+                    <br><br>
+                <button type="button" class="btn btn-dark" onclick="location.href='nuevo_usuario.php'" >Nuevo Usuario</button>
                 <?php
                 include "../../modelo/conexion.php";
                 include "../../controlador/eliminar_usuario.php";
@@ -185,7 +100,6 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">ID</th>
                             <th scope="col">NOMBRES</th>
                             <th scope="col">USUARIO</th>
-                            <th scope="col">CONTRASEÑA</th>
                             <th scope="col">IDENTIDAD</th>
                             <th scope="col">GENERO</th>
                             <th scope="col">TELEFONO</th>
@@ -203,13 +117,12 @@ if(empty($_SESSION['usuario_login'])){
                             include "../../modelo/conexion.php";
                             //Si es el usuario SUPER ADMIN mostrara los usuarios inactivos
                             if($_SESSION["usuario_login"]=='ADMIN'){
-                                $sql=$conexion->query("select id_usuario, nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
+                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
                                 while($u = $sql->fetch_assoc()){ ?>
                                     <tr>
                                         <td><?php echo $u['id_usuario']; ?></td>
                                         <td><?php echo $u['nombres']; ?></td>
                                         <td><?php echo $u['usuario']; ?></td>
-                                        <td><?php echo $u['password']; ?></td>
                                         <td><?php echo $u['identidad']; ?></td>
                                         <td><?php echo $u['genero']; ?></td>
                                         <td><?php echo $u['telefono']; ?></td>
@@ -226,13 +139,12 @@ if(empty($_SESSION['usuario_login'])){
                                     </tr>
                                     <?php }
                             }else{ //Si es un usuario admin simple mostrata todos los usuario menos los inactivos
-                                $sql= $conexion->query("select id_usuario, nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where estado <> 'INACTIVO' and usuario <> 'ADMIN' order by id_usuario asc");
+                                $sql= $conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where estado <> 'INACTIVO' and usuario <> 'ADMIN' order by id_usuario asc");
                                 while($u = $sql->fetch_assoc()){ ?>
                                     <tr>
                                         <td><?php echo $u['id_usuario']; ?></td>
                                         <td><?php echo $u['nombres']; ?></td>
                                         <td><?php echo $u['usuario']; ?></td>
-                                        <td><?php echo $u['password']; ?></td>
                                         <td><?php echo $u['identidad']; ?></td>
                                         <td><?php echo $u['genero']; ?></td>
                                         <td><?php echo $u['telefono']; ?></td>

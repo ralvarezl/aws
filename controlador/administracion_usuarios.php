@@ -12,8 +12,8 @@ function campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$d
 }
 
 //Funcion para validar campos vacios en actualizar
-function campo_vacio_actualizar($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,&$validar){
-    if (!empty($_POST["nombres"] and $_POST["usuario"] and $_POST["password"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $_POST["direccion"] and $_POST["correo"] and $_POST["estado"] and $_POST["id_rol"]) and $validar=true) { //Campos llenos
+function campo_vacio_actualizar($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,&$validar){
+    if (!empty($_POST["nombres"] and $_POST["usuario"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $_POST["direccion"] and $_POST["correo"] and $_POST["estado"] and $_POST["id_rol"]) and $validar=true) { //Campos llenos
         return $validar;
     }else {
         $validar=false;
@@ -62,7 +62,7 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
 }
 
 //Funcion para saber si cambio el usuario 
-function usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,&$validar){
+function usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,&$validar){
     include "../../modelo/conexion.php";
     $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario' and id_usuario=$id_usuario");//consultar por el usuario
     if ($datos=$sql->fetch_object()) { //si existe
@@ -70,7 +70,7 @@ function usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$tele
         $mifecha = date('Y-m-d');
         include "../../modelo/conexion.php";
         //Actualiza si no se cambio el usuario pero si los demas campos
-        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', password='$password', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
         if ($sql==1) {
             //Guardar en bitacora
             date_default_timezone_set("America/Tegucigalpa");
@@ -89,13 +89,13 @@ function usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$tele
 }
 
 //Funcion para actualizar con usuario
-function actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,&$validar){
+function actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,&$validar){
     
     date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
         include "../../modelo/conexion.php";
         //Envio de los datos a ingresar por la query
-        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario',password='$password', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
     
         if ($sql==1) {
             //Guardar en bitacora
@@ -130,7 +130,7 @@ function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     }
 }
 
-//--ver si hay espacios
+//--ver si hay espacios registro usuario
 function Validar_Espacio_admin($usuario, $password, $correo, &$validar){
     //Validar que el Usuario tenga espacio
 
@@ -170,6 +170,42 @@ function Validar_Espacio_admin($usuario, $password, $correo, &$validar){
     }
 
     if($Cont==3){
+        return $validar;
+    }else{
+        $validar=false;
+        return $validar;
+    }
+}
+
+//--ver si hay espacios actualizar usuario
+function Validar_Espacio_admin_actualizar($usuario, $correo, &$validar){
+    //Validar que el Usuario tenga espacio
+
+    $Cont=0;
+
+    if(strpos($usuario, " ")){
+        echo"<div class='alert alert-danger text-center'>No se permiten espacios en el usuario</div>";
+    }else{
+        if (ctype_graph ($usuario)){        
+            $Cont=$Cont+1;    
+        }
+        else{        
+            echo"<div class='alert alert-danger text-center'>No se permiten espacios en el usuario</div>";            
+        }
+    }
+    
+    if(strpos($correo, " ")){
+        echo"<div class='alert alert-danger text-center'>No se permiten espacios en el correo</div>";
+    }else{
+        if (ctype_graph ($correo)){        
+            $Cont=$Cont+1;    
+        }
+        else{              
+            echo"<div class='alert alert-danger text-center'>No se permiten espacios en el correo</div>";        
+        }
+    }
+
+    if($Cont==2){
         return $validar;
     }else{
         $validar=false;
@@ -285,7 +321,7 @@ if (!empty($_POST["btnregistrar"])) {
                                         $fecha = date('Y-m-d h:i:s');
                                         $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
                                         //Mensaje de confirmacion
-                                        echo '<div class="alert alert-success text-center">Usuario registrado correctamente</div>';//Usuario ingresado 
+                                        echo '<script language="javascript">alert("Usuario registrado exitosamente");;window.location.href="administracion_usuarios.php"</script>';//Usuario ingresado 
                                     }else{
                                         echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
                                     }
@@ -305,7 +341,6 @@ if (!empty($_POST["btnactualizar"])) {
         $id_usuario=$_POST["id_usuario"];
         $nombres=$_POST["nombres"];
         $usuario=$_POST["usuario"];
-        $password=$_POST["password"];
         $identidad=$_POST["identidad"];
         $genero=$_POST["genero"];
         $telefono=$_POST["telefono"];
@@ -315,20 +350,17 @@ if (!empty($_POST["btnactualizar"])) {
         $id_rol=$_POST["id_rol"];
 
         //Validar que no hayan campos vacios
-        campo_vacio_actualizar($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
+        campo_vacio_actualizar($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
         if($validar==true){
-            Validar_Espacio_admin($usuario, $password, $correo, $validar);
+            Validar_Espacio_admin_actualizar($usuario, $correo, $validar);
             if($validar==true){
-                Validar_Parametro_adm($password,$validar);
+                usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
                 if($validar==true){
-                    usuario_modificado($usuario,$nombres,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
-                    if($validar==true){
                         usuario_existe($usuario,$validar);
                         if($validar==true){
-                            actualizar_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+                            actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
                         }
                     }
-                }
             }
         }
 }

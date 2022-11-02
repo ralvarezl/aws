@@ -43,22 +43,6 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
 			<input id="usuario" type="text" class="form-control" name="usuario" 
                 title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->USUARIO ?>">
 		    </div>
-            <!--INGRESE CONTRASEÑA-->
-            <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" placeholder="Ingrese contraseña" name="password" id="InputPassword" value="<?= $datos->PASSWORD ?>">
-            <input type="checkbox" onclick="myFuction()"> ver contraseña
-            </div>
-            <script type="text/javascript">
-			function myFuction(){
-				var x = document.getElementById("InputPassword");
-				if (x.type==="password") {
-					x.type="text";
-				}else{
-					x.type="password";
-				}
-            }
-            </script>
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
