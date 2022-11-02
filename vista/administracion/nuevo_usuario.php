@@ -55,6 +55,22 @@ if(empty($_SESSION['usuario_login'])){
 				}
             }
             </script>
+            <!--REPITA CONTRASEÑA-->
+            <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Repita Contraseña</label>
+            <input type="password" id="InputPassword1" class="form-control" placeholder="Repita contraseña" name="r_password">
+            <input type="checkbox" onclick="myFuction1()"> ver contraseña
+            </div>
+            <script type="text/javascript">
+			function myFuction1(){
+				var x = document.getElementById("InputPassword1");
+				if (x.type==="password") {
+					x.type="text";
+				}else{
+					x.type="password";
+				}
+            }
+            </script>
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
