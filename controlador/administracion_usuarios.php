@@ -47,7 +47,7 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
                 $row=mysqli_fetch_array($sql);
                 $fecha_vencimiento=$row[0];
                 //Envio de los datos a ingresar por la query
-                $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, creado_por, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , 'DEFAULT' , '$sesion_usuario' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
+                $sql=$conexion->query("insert into tbl_ms_usuario (nombres, usuario, password, identidad, genero, telefono, direccion, correo, estado, creado_por, id_rol, fecha_creacion, fecha_vencimiento) values ('$nombres', '$usuario', '$password', '$identidad', '$genero' , '$telefono', '$direccion', '$correo' , 'NUEVO' , '$sesion_usuario' , '$id_rol' , '$mifecha','$fecha_vencimiento')");
                 if ($sql==1) {
                         //Crear el evento FECHA DE VENCIMIENTO
                         $sql_evento=$conexion->query("CREATE EVENT IF NOT EXISTS $usuario
@@ -69,8 +69,8 @@ function usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$dire
         date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
         include "../../modelo/conexion.php";
-        //Actualiza si no se cambio el usuario pero si los demas campos
-        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+        //Actualiza si no se cambio el usuario ni correo pero si los demas campos
+        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
         if ($sql==1) {
             //Guardar en bitacora
             date_default_timezone_set("America/Tegucigalpa");
@@ -212,7 +212,7 @@ function Validar_Espacio_admin_actualizar($usuario, $correo, &$validar){
         return $validar;
     }
 }
-
+//Ancho y largo de contraseña
 function Validar_Parametro_adm($password, &$validar){
 
     include "../../modelo/conexion.php";
@@ -235,7 +235,7 @@ function Validar_Parametro_adm($password, &$validar){
         return $validar;
     }
 }
-
+//Caracteres especiales 
 function Valida_nombre($nombres,&$validar){
     //Validar tenga numeros
     if (preg_match('/[0-9]/',$nombres)){
@@ -258,6 +258,7 @@ function Valida_nombre($nombres,&$validar){
         }
     }
 }
+//validar extension de identidad y telefono
 function Validar_id_tel_admin($identidad,$telefono, &$validar){
 
     $Longitud1=strlen($identidad);
@@ -283,7 +284,32 @@ function Validar_id_tel_admin($identidad,$telefono, &$validar){
         return $validar;
     }
 }
+//Correo no se repita
+function Validar_correo($correo,&$validar){
+    include "../../modelo/conexion.php";
 
+    $sql2=mysqli_query($conexion, "select correo from tbl_ms_usuario where correo='$correo'");//consultar por correos
+    $row2=mysqli_fetch_array($sql2);
+    
+    if (is_null($row2)){
+        return $validar;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Correo ya existente</div>";
+        return $validar;  
+    }
+}
+//Funcion Validar contraseña sea correta
+function contrasenia($password,$r_password,&$validar){
+    if($password===$r_password){
+        return $validar;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-warning text-center'>Ambas contraseñas deben ser iguales</div>";//CONTRASEÑAS DISTINTAS
+        return $validar;
+    }
+
+}
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
 //Crear Nuevo Usuario Al Presionar Boton
@@ -312,20 +338,26 @@ if (!empty($_POST["btnregistrar"])) {
                         if($validar==true){
                             Validar_id_tel_admin($identidad,$telefono, $validar);
                             if($validar==true){
-                                Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
+                                Validar_correo($correo,$validar);
                                 if($validar==true){
-                                    usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
-                                    if($validar==true){
-                                        //Guardar en bitacora 
-                                        date_default_timezone_set("America/Tegucigalpa");
-                                        $fecha = date('Y-m-d h:i:s');
-                                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
-                                        //Mensaje de confirmacion
-                                        echo '<script language="javascript">alert("Usuario registrado exitosamente");;window.location.href="administracion_usuarios.php"</script>';//Usuario ingresado 
-                                    }else{
-                                        echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
-                                    }
-                                }
+                                    contrasenia($password,$r_password,$validar);
+                                        if($validar==true){
+                                            Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
+                                            if($validar==true){
+                                                usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
+                                                if($validar==true){
+                                                    //Guardar en bitacora 
+                                                    date_default_timezone_set("America/Tegucigalpa");
+                                                    $fecha = date('Y-m-d h:i:s');
+                                                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
+                                                    //Mensaje de confirmacion
+                                                    echo '<script language="javascript">alert("Usuario registrado exitosamente");;window.location.href="administracion_usuarios.php"</script>';//Usuario ingresado 
+                                                }else{
+                                                    echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
+                                                }
+                                            }
+                                        }
+                                }  
                             }
                         }
                     }
@@ -356,11 +388,14 @@ if (!empty($_POST["btnactualizar"])) {
             if($validar==true){
                 usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
                 if($validar==true){
-                        usuario_existe($usuario,$validar);
+                    usuario_existe($usuario,$validar);
+                    if($validar==true){
+                        Validar_correo($correo,$validar);
                         if($validar==true){
                             actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
                         }
                     }
+                }
             }
         }
 }

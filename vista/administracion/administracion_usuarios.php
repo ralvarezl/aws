@@ -107,6 +107,7 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">CORREO</th>
                             <th scope="col">ESTADO</th>
                             <th scope="col">ROL</th>
+                            <th scope="col">VENCIMIENTO</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                             </tr>
@@ -117,7 +118,7 @@ if(empty($_SESSION['usuario_login'])){
                             include "../../modelo/conexion.php";
                             //Si es el usuario SUPER ADMIN mostrara los usuarios inactivos
                             if($_SESSION["usuario_login"]=='ADMIN'){
-                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
+                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
                                 while($u = $sql->fetch_assoc()){ ?>
                                     <tr>
                                         <td><?php echo $u['id_usuario']; ?></td>
@@ -130,6 +131,7 @@ if(empty($_SESSION['usuario_login'])){
                                         <td><?php echo $u['correo']; ?></td>
                                         <td><?php echo $u['estado']; ?></td>
                                         <td><?php echo $u['rol']; ?></td>
+                                        <td><?php echo $u['fecha_vencimiento']; ?></td>
                                         <td>
                                             <a href="actualizar_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                         </td>
@@ -139,7 +141,7 @@ if(empty($_SESSION['usuario_login'])){
                                     </tr>
                                     <?php }
                             }else{ //Si es un usuario admin simple mostrata todos los usuario menos los inactivos
-                                $sql= $conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where estado <> 'INACTIVO' and usuario <> 'ADMIN' order by id_usuario asc");
+                                $sql= $conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol, fecha_vencimiento from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where estado <> 'INACTIVO' and usuario <> 'ADMIN' order by id_usuario asc");
                                 while($u = $sql->fetch_assoc()){ ?>
                                     <tr>
                                         <td><?php echo $u['id_usuario']; ?></td>
@@ -152,6 +154,7 @@ if(empty($_SESSION['usuario_login'])){
                                         <td><?php echo $u['correo']; ?></td>
                                         <td><?php echo $u['estado']; ?></td>
                                         <td><?php echo $u['rol']; ?></td>
+                                        <td><?php echo $u['fecha_vencimiento']; ?></td>
                                         <td>
                                             <a href="actualizar_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                         </td>

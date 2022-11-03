@@ -20,12 +20,12 @@ class clsMail{
     $this->mail->Host = "smtp.gmail.com";
     $this->mail->Port = 587;
 
-    $this->mail->Username="axelayala2222@gmail.com";                           
-    $this->mail->Password="bupgcormkrhugibc";
+    $this->mail->Username="coffeeandre1201@gmail.com";                           
+    $this->mail->Password="ekpclicimbweqqrc";
     }
 
     public function metEnviar(string $titulo, string $nombre, string $correo, string $asunto, string $bodyphp){ 
-        $this->mail->setFrom("axelayala2222@gmail.com", $titulo);
+        $this->mail->setFrom("coffeeandre1201@gmail.com", $titulo);
         $this->mail->addAddress($correo, $nombre);
         $this->mail->Subject=$asunto;
         $this->mail->Body=$bodyphp;
@@ -35,8 +35,5 @@ class clsMail{
         return $this->mail->send();
     }
 }
-
-
-
 
 ?>

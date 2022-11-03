@@ -102,7 +102,7 @@ function estado_usuario_nuevo($usuario,$password,&$validar){
         $sql_con=$conexion->query("select preguntas_contestadas from tbl_ms_usuario where usuario='$usuario' and id_usuario=$id_usuario"); //preguntar si el usuario tiene preguntas contestadas
         if ($datos=$sql->fetch_object()){
             //Modifiacmos cualquier estado a ACTIVO
-            $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
+            $modificar=("update tbl_ms_usuario set password='$password', estado='DEFAULT' where id_usuario='$id_usuario'");
             $resultado1 = mysqli_query($conexion,$modificar);
             return $validar;
         }else{
@@ -189,6 +189,45 @@ function estado_usuario_bloquiado($usuario,$password,&$validar){
     }
 }
 
+//Validar usuario
+function Valida_usuario($usuario,&$validar){
+    $cont=0;
+    //Validar tenga caracter especial
+    if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$usuario)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El usuario no debe tener caracteres especiales</div>";
+        return $validar;
+    }else{
+        $cont=1;
+    }
+    $Longitud1=strlen($usuario);
+    if($Longitud1<=20){
+        $cont=2;
+    }else {
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Usuario muy extenso</div>"; //Campos sin uso
+        return $validar;
+    }
+    if (strpos($usuario, " ")){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El usuario no puede tener espacios</div>";
+        return $validar;
+    }else{
+        if (ctype_graph ($usuario)){        
+            $cont=3;    
+        }
+        else{        
+            $validar=false;        
+            echo"<div class='alert alert-danger text-center'>El usuario no puede tener espacios</div>";        
+            return $validar;    
+        }
+    }
+
+    if($cont==3){
+        return $validar;    
+    }
+}
+
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
 
@@ -198,78 +237,82 @@ if (!empty($_POST["btningresar"])){
     //Comprobar numero de intentos
     $validar=true;
     $usuario=$_POST["usuario"];
-    $sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'");
+    //$sql=$conexion->query("select * from tbl_ms_usuario where usuario='$usuario'");
     $password=$_POST["password"];
     
    //validar campos vacios
     campo_vacio_login($usuario,$password,$validar);
     if($validar==true){
-        //validar si existe usuario
-        usuario_existe_login($usuario,$password,$validar);
+        //validar los caracteres especiales y longitud en el usuario
+        Valida_usuario($usuario,$validar);
         if($validar==true){
-            //Sacar id del usuario
-            $sql_user=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
-            $row_user=mysqli_fetch_array($sql_user);
-            $id_usuario=$row_user[0];
-            //validar contraseña
-            estado_usuario_bloquiado($usuario,$password,$validar);
-            if($validar==true){    
-                contrasenia($usuario,$password,$validar);
-                if($validar==true){
-                    //validar estado
-                    //Si el usuario no es nuevo mandarlo al sistema
-                    $intentos=0;
-                    $_SESSION['usuario_login'] = $_REQUEST['usuario'];
-                    estado_usuario_default($usuario,$password,$validar);
+            //validar si existe usuario
+            usuario_existe_login($usuario,$password,$validar);
+            if($validar==true){
+                //Sacar id del usuario
+                $sql_user=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+                $row_user=mysqli_fetch_array($sql_user);
+                $id_usuario=$row_user[0];
+                //validar contraseña
+                estado_usuario_bloquiado($usuario,$password,$validar);
+                if($validar==true){    
+                    contrasenia($usuario,$password,$validar);
                     if($validar==true){
-                        estado_usuario_nuevo($usuario,$password,$validar);
+                        //validar estado
+                        //Si el usuario no es nuevo mandarlo al sistema
+                        $intentos=0;
+                        $_SESSION['usuario_login'] = $_REQUEST['usuario'];
+                        estado_usuario_default($usuario,$password,$validar);
                         if($validar==true){
-                            estado_usuario($usuario,$password,$validar);
+                            estado_usuario_nuevo($usuario,$password,$validar);
                             if($validar==true){
-                                //Validar el rol del usuario no sea default 
-                                rol_usuario($usuario,$validar);
+                                estado_usuario($usuario,$password,$validar);
                                 if($validar==true){
-                                    //Dirigirlo dependiendo el tipo de usuario
-                                    administrador($usuario,$password,$intentos,$validar);
-                                    empleado($usuario,$password,$validar);
-                                    //Guardar en bitacora 
-                                    date_default_timezone_set("America/Tegucigalpa");
-                                    $fecha = date('Y-m-d h:i:s');
-                                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Login', 'Ingreso al sistema','$usuario')");
-                                } 
-                            }
-                        } 
-                    }     
-                }else{ //Si la contraseña es incorrecta
-                    //Saber el rol del usuario
-                    $sql=mysqli_query($conexion, "select usuario from tbl_ms_usuario where usuario='$usuario'");
-                    $row=mysqli_fetch_array($sql);
-                    $admin=$row[0];
-                    if($admin=='ADMIN'){
-                        //El admin no tine contador de intentos por error de contraseña
-                        echo"<div class='alert alert-danger text-center'>Acceso denegado</div>";
-                    }else{
-                        if(isset($_SESSION["intentos"]) == true){
-                            //Entonces que le sume uno
-                            $_SESSION["intentos"]++;
-                        }else{
-                            // Si no existe que la cree
-                            $_SESSION["intentos"] = 1;
-                            
-                        }
-                        $intentos= $_SESSION["intentos"];
-                        //Llama el valor de parametros de intentos
-                        $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='1'");
+                                    //Validar el rol del usuario no sea default 
+                                    rol_usuario($usuario,$validar);
+                                    if($validar==true){
+                                        //Dirigirlo dependiendo el tipo de usuario
+                                        administrador($usuario,$password,$intentos,$validar);
+                                        empleado($usuario,$password,$validar);
+                                        //Guardar en bitacora 
+                                        date_default_timezone_set("America/Tegucigalpa");
+                                        $fecha = date('Y-m-d h:i:s');
+                                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Login', 'Ingreso al sistema','$usuario')");
+                                    } 
+                                }
+                            } 
+                        }     
+                    }else{ //Si la contraseña es incorrecta
+                        //Saber el rol del usuario
+                        $sql=mysqli_query($conexion, "select usuario from tbl_ms_usuario where usuario='$usuario'");
                         $row=mysqli_fetch_array($sql);
-                        $valor=$row[0];
-                        //Cuando los intentos llegan al valor limite del parametro se bloquea
-                        if($intentos==$valor){
-                        $modificar=("update tbl_ms_usuario set estado='BLOQUEADO' where id_usuario='$id_usuario'");
-                        $resultado = mysqli_query($conexion,$modificar);
-                        echo"<div class='alert alert-danger text-center'>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
+                        $admin=$row[0];
+                        if($admin=='ADMIN'){
+                            //El admin no tine contador de intentos por error de contraseña
+                            echo"<div class='alert alert-danger text-center'>Acceso denegado</div>";
                         }else{
-                            //Intentos denegados
-                            echo"<div class='alert alert-danger text-center'>Acceso denegado, intentos $intentos/$valor </div>";
+                            if(isset($_SESSION["intentos"]) == true){
+                                //Entonces que le sume uno
+                                $_SESSION["intentos"]++;
+                            }else{
+                                // Si no existe que la cree
+                                $_SESSION["intentos"] = 1;
+                                
+                            }
+                            $intentos= $_SESSION["intentos"];
+                            //Llama el valor de parametros de intentos
+                            $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='1'");
+                            $row=mysqli_fetch_array($sql);
+                            $valor=$row[0];
+                            //Cuando los intentos llegan al valor limite del parametro se bloquea
+                            if($intentos>$valor){
+                            $modificar=("update tbl_ms_usuario set estado='BLOQUEADO' where id_usuario='$id_usuario'");
+                            $resultado = mysqli_query($conexion,$modificar);
+                            echo"<div class='alert alert-danger text-center'>Usuario Bloqueado, comuniquese con el administrador o haga cambio de contraseña</div>"; //Usuario bloqueado
+                            }else{
+                                //Intentos denegados
+                                echo"<div class='alert alert-danger text-center'>Acceso denegado, intentos $intentos/$valor </div>";
+                            }
                         }
                     }
                 }

@@ -254,6 +254,22 @@ function Validar_id_tel($identidad,$telefono, &$validar){
         return $validar;
     }
 }
+
+//Correo no se repita
+function Validar_correo($correo,&$validar){
+    include "../../modelo/conexion.php";
+
+    $sql2=mysqli_query($conexion, "select correo from tbl_ms_usuario where correo='$correo'");//consultar por correos
+    $row2=mysqli_fetch_array($sql2);
+    
+    if (is_null($row2)){
+        return $validar;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Correo ya existente</div>";
+        return $validar;  
+    }
+}
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
 //Validacion para el registro
@@ -289,9 +305,12 @@ if (!empty($_POST["btnregistrate"])){
                                         if($validar==true){
                                             Validar_id_tel($identidad,$telefono, $validar);
                                             if($validar==true){
-                                                Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
+                                                Validar_correo($correo,$validar);
                                                 if($validar==true){
-                                                    crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
+                                                    Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
+                                                    if($validar==true){
+                                                        crear_usuario($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$validar);
+                                                    }
                                                 }
                                             }
                                         }

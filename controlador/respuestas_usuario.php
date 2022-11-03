@@ -5,7 +5,7 @@
 //--validacion que no existan campos vacios
 function Campo_vacio_msj($usuario,$respuesta_pregunta,&$validar){
 
-    if (!empty($_POST["usuario"] and $_POST["respuesta_pregunta"] and $validar=true)) {    //Campos en uso
+    if (!empty($_POST["respuesta_pregunta"] and $validar=true)) {    //Campos en uso
         return $validar; 
     }else {
         $validar=false;
@@ -53,6 +53,7 @@ function Guardar_pregunta_msj($usuario,$select_pregunta,$respuesta_pregunta,&$va
     $insertar=("insert into tbl_ms_preguntas_usuario (ID_PREGUNTA,RESPUESTA,CREADO_POR,FECHA_CREACION,ID_USUARIO) VALUES( '$select_pregunta','$respuesta_pregunta','$usuario','$mifecha','$id_usuario')");
     $resultado = mysqli_query($conexion,$insertar);
 
+    echo '<div class="alert alert-success text-center">Pregunta registrada correctamente</div>';
     return $validar;
 }
 
@@ -86,7 +87,7 @@ if (!empty($_POST["btnguardar"])){
     //session_destroy();
     include "../../modelo/conexion.php";
     $validar=true;
-    $usuario=$_POST["usuario"];      
+    $usuario=$_SESSION['usuario_login'];      
     $sql=$conexion -> query("select * from tbl_ms_usuario where usuario='$usuario'");
     //Respuesta del input
     $respuesta_pregunta=$_POST["respuesta_pregunta"];
@@ -96,6 +97,7 @@ if (!empty($_POST["btnguardar"])){
     $sql2=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'"); //preguntar el ID del usuario
     $row2=mysqli_fetch_array($sql2);
     $id_usuario=$row2[0]; //Guardamos el ID_USUARIO
+
     $sql=$conexion->query("select * from tbl_ms_preguntas_usuario where id_usuario='$id_usuario'"); //preguntar si el usuario tiene preguntas contestadas
     if ($datos=$sql->fetch_object()){
         //Sacar cuantas preguntas ya ha contestado el usuario
@@ -133,15 +135,32 @@ if (!empty($_POST["btnguardar"])){
                             $row2=mysqli_fetch_array($sql2);
                             $id_usuario=$row2[0]; //Guardamos el ID_USUARIO
                             //Llenar datos de preguntas contestadas en el usuario y pasar a activo el usuario
-                            $modificar=("update tbl_ms_usuario set preguntas_contestadas=$intentos, estado='ACTIVO' where id_usuario='$id_usuario'");
-                            $resultado = mysqli_query($conexion,$modificar);
-                            //Si respuestas son iguales al valor del parametro
-                            //Llenar la bitacora
-                            date_default_timezone_set("America/Tegucigalpa");
-                            $fecha = date('Y-m-d h:i:s');
-                            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Contestar Preguntas', 'Usuario respondio preguntas de seguridad','$usuario')");
-                            echo '<script language="javascript">alert("RESPONDIO LAS PREGUNTAS");;window.location.href="../../login.php"</script>';
-                            session_destroy();
+                            //VER QUIEN CREO EL USUARIO
+                            $sql=mysqli_query($conexion, "select creado_por from tbl_ms_usuario where usuario='$usuario' and creado_por='$usuario'"); //preguntar el ID del usuario
+                            $row=mysqli_fetch_array($sql);
+                            $creado_por=$row[0]; //Guardamos las preguntas contestas
+                            if($creado_por==$usuario){
+                                $modificar=("update tbl_ms_usuario set preguntas_contestadas=$intentos, estado='ACTIVO' where id_usuario='$id_usuario'");
+                                $resultado = mysqli_query($conexion,$modificar);
+                                //Si respuestas son iguales al valor del parametro
+                                //Llenar la bitacora
+                                date_default_timezone_set("America/Tegucigalpa");
+                                $fecha = date('Y-m-d h:i:s');
+                                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Contestar Preguntas', 'Usuario respondio preguntas de seguridad','$usuario')");
+                                echo '<script language="javascript">alert("RESPONDIO LAS PREGUNTAS");</script>';
+                                session_destroy();
+                                header("location:../../login.php");//Entra al cambiar password
+                            }else{
+                                $modificar=("update tbl_ms_usuario set preguntas_contestadas=$intentos, estado='DEFAULT' where id_usuario='$id_usuario'");
+                                $resultado = mysqli_query($conexion,$modificar);
+                                //Si respuestas son iguales al valor del parametro
+                                //Llenar la bitacora
+                                date_default_timezone_set("America/Tegucigalpa");
+                                $fecha = date('Y-m-d h:i:s');
+                                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Contestar Preguntas', 'Usuario respondio preguntas de seguridad','$usuario')");
+                                echo '<script language="javascript">alert("RESPONDIO LAS PREGUNTAS");</script>';
+                                header("location:cambiarpassword.php");//Entra al cambiar password  
+                            }
                         }
                     }else{
                         // Si no existe que la cree

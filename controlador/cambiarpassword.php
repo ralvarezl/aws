@@ -195,41 +195,22 @@ if (!empty($_POST["btnnuevacontraseña"])){
         
                                         $password=$_POST["confirmarcontraseña"];//Guardamos la contraseña de lavor confirmar
         
-                                        $sql2=mysqli_query($conexion, "select preguntas_contestadas from tbl_ms_usuario where id_usuario='$id_usuario'"); //preguntar el ID del usuario
-                                        $row2=mysqli_fetch_array($sql2);
-                                        $preguntas=$row2[0]; //Guardamos las preguntas contestas
+                                        //Modifiacmos cualquier estado a ACTIVO
+                                        $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
+                                        $resultado1 = mysqli_query($conexion,$modificar);
 
-                                        if ($estado=='DEFAULT' && is_null($preguntas)) { //Validamos el estado del usuario si es DEFAULT
-                                            //Modifiacmos el estado de DEFAULT a NUEVO
-                                            $modificar=("update tbl_ms_usuario set password='$password', estado='NUEVO' where id_usuario='$id_usuario'");
-                                            $resultado = mysqli_query($conexion,$modificar);
-                                            //Llenar el historial de contraseña
-                                            $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
-                                            $resultado = mysqli_query($conexion,$insertar);
+                                        //Llenar el historial de contraseña
+                                        $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
+                                        $resultado = mysqli_query($conexion,$insertar);
 
-                                            //Borrar el evento  
-                                            $sql=$conexion->query("DROP EVENT IF EXISTS ".$id_usuario."A");
+                                        //Borrar el evento  
+                                        $sql=$conexion->query("DROP EVENT IF EXISTS ".$id_usuario."A");
 
-                                            //Llenar la bitacora
-                                            date_default_timezone_set("America/Tegucigalpa");
-                                            $fecha = date('Y-m-d h:i:s');
-                                            $sql=$conexion->query("insert into tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Cambiar contraseña', 'Cambiar contraseña creada por administrador','$usuario')");
-                                        
-                                        }else{
-                                            //Modifiacmos cualquier estado a ACTIVO
-                                            $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
-                                            $resultado1 = mysqli_query($conexion,$modificar);
-
-                                            //Llenar el historial de contraseña
-                                            $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
-                                            $resultado = mysqli_query($conexion,$insertar);
-
-                                            //Llenar la bitacora
-                                            date_default_timezone_set("America/Tegucigalpa");
-                                            $fecha = date('Y-m-d h:i:s');
-                                            $sql=$conexion->query("insert into tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Cambiar contraseña', 'Cambia contraseña','$usuario')");
-                                        
-                                        }
+                                        //Llenar la bitacora
+                                        date_default_timezone_set("America/Tegucigalpa");
+                                        $fecha = date('Y-m-d h:i:s');
+                                        $sql=$conexion->query("insert into tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Cambiar contraseña', 'Cambia contraseña','$usuario')");
+                                    
                                         session_destroy();
                                         //Mensaje de confirmacion de cambio de contraseña.
                                         echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';

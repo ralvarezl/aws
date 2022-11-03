@@ -3,9 +3,7 @@ session_start();
 if(empty($_SESSION['usuario_login'])){
     header("location:../../login.php");
 }
-if(empty($_SESSION['usuario_login']) and empty($_SESSION['usuario_msj'])){
-    header("location:../../login.php");
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -30,10 +28,9 @@ if(empty($_SESSION['usuario_login']) and empty($_SESSION['usuario_msj'])){
         ?> 		
         <!--INGRESE USUARIO-->
 		<div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Usuario</label>
-            <input id="usuario" type="text" 
+            <input  id="usuario" type="hidden"
             class="form-control" name="usuario"
-                title="ingrese su usuario" autocomplete="usuario" value="<?= $_SESSION['usuario_login'] ?>">
+             value="<?= $_SESSION['usuario_login'] ?>">
         </div>
         <!--INGRESE CONTRASEÑA ANTERIOR-->
         <div class="mb-3">

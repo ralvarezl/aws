@@ -9,7 +9,7 @@
             $fecha = date('Y-m-d h:i:s');
             $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Borrar usuario', 'Administrador borro un usuario del sistema','$sesion_usuario')");
             //Mensaje de confirmacion
-            echo '<script language="javascript">alert("Usuario eliminado correctamente");</script>';//Se elimino correctamente el usuario
+            echo '<script language="javascript">alert("Se ha inactivado el usuario");</script>';//Se elimino correctamente el usuario
         } else {
             echo '<div class="alert alert-danger text-center">Error al eliminar el usuario</div>';
         }

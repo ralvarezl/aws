@@ -26,11 +26,6 @@ if(empty($_SESSION['usuario_login'])){
                 include "../../controlador/respuestas_usuario.php";
                 $sql=$conexion->query(" select * from tbl_ms_preguntas");
         ?> 
-        <!--MUESTRO USUARIO debe mostrar usuario que hizo el registro-->
-        <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">USUARIO</label>
-            <input type="text" class="form-control" name="usuario" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $_SESSION['usuario_login'] ?>">
-        </div>
 
         <!--COMBOBOX PREGUNTAS-->
         <?php
