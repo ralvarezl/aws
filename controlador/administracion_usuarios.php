@@ -64,6 +64,7 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
 //Funcion para saber si cambio el usuario 
 function usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,&$validar){
     include "../../modelo/conexion.php";
+    
     $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario' and id_usuario=$id_usuario");//consultar por el usuario
     if ($datos=$sql->fetch_object()) { //si existe
         date_default_timezone_set("America/Tegucigalpa");
@@ -94,18 +95,31 @@ function actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$dire
     date_default_timezone_set("America/Tegucigalpa");
         $mifecha = date('Y-m-d');
         include "../../modelo/conexion.php";
-        //Envio de los datos a ingresar por la query
-        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+
+        $sql2=mysqli_query($conexion, "select correo from tbl_ms_usuario where correo='$correo'");//consultar por correos
+        $row2=mysqli_fetch_array($sql2);
     
-        if ($sql==1) {
-            //Guardar en bitacora
-            date_default_timezone_set("America/Tegucigalpa");
-            $fecha = date('Y-m-d h:i:s');
-            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar', 'Administrador modifico datos de usuario','$sesion_usuario')");
-            header("location:administracion_usuarios.php");
-            //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
-        } else {
-            echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
+        if(is_null($row2)){
+            //Envio de los datos a ingresar por la query
+            $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+        
+            if ($sql==1) {
+                //Guardar en bitacora
+                date_default_timezone_set("America/Tegucigalpa");
+                $fecha = date('Y-m-d h:i:s');
+                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar', 'Administrador modifico datos de usuario','$sesion_usuario')");
+                //header("location:administracion_usuarios.php");
+                //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
+                return $validar;
+            } else {
+                $validar=false;
+                echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
+                return $validar;
+            }
+        }else{
+            $validar=false;
+            echo '<div class="alert alert-danger text-center">Correo ya existente</div>';//Error al cambiar correo
+            return $validar;
         }
 }
 //Funcion para enviar el correo.
@@ -243,17 +257,23 @@ function Valida_nombre($nombres,&$validar){
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
     } else {
         //Validar tenga caracter especial
-        if (preg_match('/[!"#$%&()_=?\+[]}{-@¡¿]/',$nombres)){
+        if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$nombres) && preg_match('/[!"#$"%&()""_=?\+[]}{-@¡¿]/',$nombres)){
             $validar=false;
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
         }else {
-            $Longitud1=strlen($nombres);
-            if($Longitud1<=60){
+            if(strpos($nombres,"  ")){
+                echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";
+                $validar=false;
                 return $validar;
             }else {
-                $validar=false;
-                echo"<div class='alert alert-danger text-center'>Nombre muy extenso</div>"; //Campos sin uso
-                return $validar;
+                $Longitud1=strlen($nombres);
+                if($Longitud1<=60){
+                    return $validar;
+                }else {
+                    $validar=false;
+                    echo"<div class='alert alert-danger text-center'>Nombre muy extenso</div>"; //Campos sin uso
+                    return $validar;
+                }
             }
         }
     }
@@ -319,6 +339,7 @@ if (!empty($_POST["btnregistrar"])) {
     $nombres=$_POST["nombres"];
     $usuario=$_POST["usuario"];
     $password=$_POST["password"];
+    $r_password=$_POST["r_password"];
     $identidad=$_POST["identidad"];
     $genero=$_POST["genero"];
     $telefono=$_POST["telefono"];
@@ -393,6 +414,9 @@ if (!empty($_POST["btnactualizar"])) {
                         Validar_correo($correo,$validar);
                         if($validar==true){
                             actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+                            if($validar==true){
+                                echo '<script language="javascript">alert("Usuario actualizado correctamente");;window.location.href="administracion_usuarios.php"</script>';
+                            }
                         }
                     }
                 }
