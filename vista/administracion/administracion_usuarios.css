@@ -8,3 +8,25 @@ body {
 }
 
 .nav-link:hover{color:rgb(214, 146, 107) !important}
+
+/*=============== Estilos buscador ===============*/
+.form_search{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -o-flex;
+    display: flex;
+    float: right;
+    background: initial;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.form_search .btn_search{
+    background: #1faac8;
+    color: #fff;
+    padding: 5 20px;
+    border: 0;
+    cursor: pointer;
+    margin-left: 10px;
+}

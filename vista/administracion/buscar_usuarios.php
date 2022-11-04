@@ -83,11 +83,18 @@ if(empty($_SESSION['usuario_login'])){
 
     
     <div class="container-fluid row">
-        
+                <?php 
+                //Declaramos la variable busqueda para capturar que es lo que quiere buscar el usuario
+                $busqueda = strtoupper($_REQUEST['busqueda']);
+                if (empty($busqueda)) {
+                    //Si busqueda viene vacia que me regrese administracion usuarios
+                    header("location: administracion_usuarios.php");
+                }
+                ?>
+
                 <!--INICIO DE LA TABLE USUARIOS-->
                 <div class="col-9 p-4">
                     <br><br>
-
                 <div class="row p-2"> <!--Div que contiene nuevo usuario y la busqueda-->
                 <div class="col-auto mr-auto">
                 <button type="button" class="btn btn-dark" onclick="location.href='nuevo_usuario.php'" >Nuevo Usuario</button>
@@ -96,11 +103,11 @@ if(empty($_SESSION['usuario_login'])){
                 include "../../modelo/conexion.php";
                 include "../../controlador/eliminar_usuario.php";
                 //echo "Nombre de usuario recuperado de la variable de sesión:" . $_SESSION['usuario_login'];
-                ?>  
-                    <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
+                ?>
+                    <!--BUSQUEDA-->
                     <div class="col-auto">
                     <form action="buscar_usuarios.php" method="get" class="form_search">
-                        <input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
+                        <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda; ?>">
                         <input type="submit" value="Buscar" class="btn btn-secondary">
                     </form>
                     </div>
@@ -129,8 +136,32 @@ if(empty($_SESSION['usuario_login'])){
                             //Llamado a la base de datos
                             include "../../modelo/conexion.php";
                             //Si es el usuario SUPER ADMIN mostrara los usuarios inactivos
+                            //manejamos los roles que van con join por medio de esta funcion
+                            $rol = '';
+                            if ($busqueda == 'admin') {
+                                $rol = " or rol like '%1%' ";
+                            }elseif ($busqueda == 'empleado') {
+                                $rol = " or rol like '%2%' ";
+                            }elseif ($busqueda == 'sin asignar') {
+                                $rol = " or rol like '%3%' ";
+                            }
+
                             if($_SESSION["usuario_login"]=='ADMIN'){
-                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
+                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento 
+                                from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL 
+                                where usuario <> 'ADMIN'
+                                    and (id_usuario like '%$busqueda%' or 
+                                        nombres like '%$busqueda%' or
+                                        usuario like '%$busqueda%' or 
+                                        identidad like '%$busqueda%' or 
+                                        genero like '%$busqueda%' or 
+                                        telefono like '%$busqueda%' or 
+                                        direccion like '%$busqueda%' or 
+                                        correo like '%$busqueda%' or 
+                                        estado like '%$busqueda%' 
+                                        $rol or
+                                        fecha_vencimiento like '%$busqueda%')
+                                order by id_usuario asc");                                
                                 while($u = $sql->fetch_assoc()){ ?>
                                     <tr>
                                         <td><?php echo $u['id_usuario']; ?></td>
@@ -153,7 +184,21 @@ if(empty($_SESSION['usuario_login'])){
                                     </tr>
                                     <?php }
                             }else{ //Si es un usuario admin simple mostrata todos los usuario menos los inactivos
-                                $sql= $conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol, fecha_vencimiento from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where estado <> 'INACTIVO' and usuario <> 'ADMIN' order by id_usuario asc");
+                                $sql= $conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento 
+                                from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL 
+                                where usuario <> 'ADMIN' and estado <> 'inactivo' 
+                                    and (id_usuario like '%$busqueda%' or 
+                                        nombres like '%$busqueda%' or
+                                        usuario like '%$busqueda%' or 
+                                        identidad like '%$busqueda%' or 
+                                        genero like '%$busqueda%' or 
+                                        telefono like '%$busqueda%' or 
+                                        direccion like '%$busqueda%' or 
+                                        correo like '%$busqueda%' or 
+                                        estado like '%$busqueda%' 
+                                        $rol or
+                                        fecha_vencimiento like '%$busqueda%')
+                                order by id_usuario asc");
                                 while($u = $sql->fetch_assoc()){ ?>
                                     <tr>
                                         <td><?php echo $u['id_usuario']; ?></td>
