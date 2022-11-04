@@ -100,7 +100,7 @@ if(empty($_SESSION['usuario_login'])){
                     <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
                     <div class="col-auto">
                     <form action="buscar_usuarios.php" method="get" class="form_search">
-                        <input type="text" name="busqueda" id="busqueda" placeholder="Buscar">
+                        <input type="text" name="busqueda" id="busqueda" placeholder="">
                         <input type="submit" value="Buscar" class="btn btn-secondary">
                     </form>
                     </div>
