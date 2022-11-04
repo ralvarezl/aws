@@ -109,6 +109,7 @@ if(empty($_SESSION['usuario_login'])){
                     <form action="buscar_usuarios.php" method="get" class="form_search">
                         <input type="text" name="busqueda" id="busqueda" placeholder="Buscar" value="<?php echo $busqueda; ?>">
                         <input type="submit" value="Buscar" class="btn btn-secondary">
+                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_usuarios.php"></a>
                     </form>
                     </div>
                 </div>
