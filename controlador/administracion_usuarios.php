@@ -123,6 +123,15 @@ function usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$dire
         }
         
     }
+    if ($sql==1) {
+        //Guardar en bitacora
+        date_default_timezone_set("America/Tegucigalpa");
+        $fecha = date('Y-m-d h:i:s');
+        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar', 'Administrador modifico datos de usuario $usuario','$sesion_usuario')");
+        echo '<script language="javascript">alert("Usuario actualizado correctamente");;window.location.href="administracion_usuarios.php"</script>';
+    } else {
+        echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
+    }
 }
 
 //Funcion para enviar el correo.
