@@ -13,6 +13,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Administracion Usuarios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/style_inicio.css">
     <link rel="stylesheet" href="administracion_usuarios.css">
     <link rel="shortcut icon" href="../../public/img/Logo.png">
 
@@ -89,7 +90,7 @@ if(empty($_SESSION['usuario_login'])){
             "BIENVENIDO AL SISTEMA ".$_SESSION['usuario_login'];
             ?></h3>
             <div class="col-md-3">
-                <div class="btn p-3 bg-danger shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_usuario.php'">
+                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_usuario.php'">
                     <div>
                     <h3 class="fs-2">USUARIOS</h3>
                     <p class="fs-5">Administracion de Usuarios</p>
@@ -99,7 +100,7 @@ if(empty($_SESSION['usuario_login'])){
             </div>
 
             <div class="col-md-3">
-                <div class="btn p-3 bg-danger shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_parametros.php'">
+                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_parametros.php'">
                     <div>
                     <h3 class="fs-2">PARAMETROS</h3>
                     <p class="fs-5">Administracion de Parametros</p>
@@ -109,7 +110,7 @@ if(empty($_SESSION['usuario_login'])){
             </div>
 
             <div class="col-md-3">
-                <div class="btn p-3 bg-danger shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/bitacora.php'">
+                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/bitacora.php'">
                     <div>
                     <h3 class="fs-2">BITACORA</h3>
                     <p class="fs-5">Visualizacion de la Bitacora</p>

@@ -23,6 +23,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
     
 <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
             <br></br>
+            <img src="../../public/img/avatar_actualizar.png" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">ACTUALIZAR USUARIO</h3>
             <!--Imput que se oculta para almacenar el usuario para enviarlo a la BD-->
             <input type="hidden" name="id_usuario" value="<?= $_GET["id_usuario"] ?>"> 

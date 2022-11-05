@@ -21,7 +21,7 @@ if(empty($_SESSION['usuario_login'])){
 
     <!--INICIO DEL FORM REGISTRO USUARIOS-->
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
-            <br></br>
+            <img src="../../public/img/NUEVO.png" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">REGISTRO DE USUARIOS</h3>
             <?php
             include "../../modelo/conexion.php";

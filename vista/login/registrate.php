@@ -12,7 +12,7 @@
 <body>
   
     <form action="registrate.php" class="col-4 p-3 m-auto" method="post" autocomplete="off">
-		<!--<img class="img" src="../../public/img/AVATAR.png" />-->
+        <img src="../../public/img/NUEVO.png" class="img-fluid rounded mx-auto d-block"/>
         <h3 class="text-center text-secundary" >REGISTRO DE USUARIO</h3>
 		 <?php
                 include "../../modelo/conexion.php";       
