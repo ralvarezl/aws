@@ -13,6 +13,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Bitacora</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../../public/style_inicio.css">
     <link rel="stylesheet" href="administracion_usuarios.css">
     <link rel="shortcut icon" href="../../public/img/Logo.png">
 
@@ -88,7 +89,7 @@ if(empty($_SESSION['usuario_login'])){
                 include "../../modelo/conexion.php";
                 
                 ?>
-                    <table class="table" style="text-align:center;" >
+                    <table class="table table-dark table-striped" style="text-align:center;" >
                         <thead class="table-dark">
                         <br></br>
                             <tr>
