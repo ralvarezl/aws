@@ -64,64 +64,67 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
 //Funcion para saber si cambio el usuario 
 function usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,&$validar){
     include "../../modelo/conexion.php";
-    
+    date_default_timezone_set("America/Tegucigalpa");
+    $mifecha = date('Y-m-d');
+    //Consultar si cambio su usuario
     $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario' and id_usuario=$id_usuario");//consultar por el usuario
-    if ($datos=$sql->fetch_object()) { //si existe
-        date_default_timezone_set("America/Tegucigalpa");
-        $mifecha = date('Y-m-d');
-        include "../../modelo/conexion.php";
-        //Actualiza si no se cambio el usuario ni correo pero si los demas campos
-        $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
-        if ($sql==1) {
-            //Guardar en bitacora
-            date_default_timezone_set("America/Tegucigalpa");
-            $fecha = date('Y-m-d h:i:s');
-            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar', 'Administrador modifico datos de usuario','$sesion_usuario')");
-            header("location:administracion_usuarios.php");
-            //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
-        } else {
-            echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
+    //si es el mismo  
+    if ($datos=$sql->fetch_object()) {
+        //Consultar por el correo
+        $sql=mysqli_query($conexion, "select correo from tbl_ms_usuario where usuario='$usuario' and id_usuario=$id_usuario");
+        $row=mysqli_fetch_array($sql);
+        $correo_base=$row[0];
+
+        if($correo==$correo_base){
+            //Actualiza si no se cambio el usuario ni correo pero si los demas campos
+            $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+        }else{
+            //Si modifico correo validar que no exista en la base de datos
+            $sql=$conexion->query("select correo from tbl_ms_usuario where correo='$correo'");
+            if ($datos=$sql->fetch_object()) {
+                echo"<div align='center' class='alert alert-danger' >Correo Existente</div>";  
+                $validar=false;
+                return $validar;
+            }else{
+               //Actualiza si no se cambio el usuario 
+            $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo' ,estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario "); 
+            }
+    
         }
-        $validar=false;
-        return $validar;
-    }else {
-        return $validar;
+    }else{
+        //Consultar si existe ya un usuario con ese nombre
+        $sql=$conexion->query("select usuario from tbl_ms_usuario where usuario='$usuario'");//consultar por el usuario
+        //si existe, llenar sin usuario   
+        if ($datos=$sql->fetch_object()) {
+            echo"<div align='center' class='alert alert-danger' >Usuario Existente</div>";     
+            $validar=false;
+            return $validar;            
+        }else{
+            //Consultar por el correo
+            $sql1=mysqli_query($conexion, "select correo from tbl_ms_usuario where id_usuario=$id_usuario");
+            $row1=mysqli_fetch_array($sql1);
+            $correo_base=$row1[0];
+            if($correo==$correo_base){
+                //Actualiza si no se cambio el usuario ni correo pero si los demas campos
+                $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario' , identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
+            }else{
+                //Si modifico correo validar que no exista en la base de datos
+                $sql=$conexion->query("select correo from tbl_ms_usuario where correo='$correo'");
+                if ($datos=$sql->fetch_object()) {
+                    echo"<div align='center' class='alert alert-danger' >Correo Existente</div>";  
+                    $validar=false;
+                    return $validar;
+                }else{
+                   //Actualiza si no se cambio el usuario 
+                $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo' ,estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario "); 
+                }
+        
+            }
+        }
+        
     }
 }
 
-//Funcion para actualizar con usuario
-function actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,&$validar){
-    
-    date_default_timezone_set("America/Tegucigalpa");
-        $mifecha = date('Y-m-d');
-        include "../../modelo/conexion.php";
-
-        $sql2=mysqli_query($conexion, "select correo from tbl_ms_usuario where correo='$correo'");//consultar por correos
-        $row2=mysqli_fetch_array($sql2);
-    
-        if(is_null($row2)){
-            //Envio de los datos a ingresar por la query
-            $sql=$conexion->query(" update tbl_ms_usuario set nombres='$nombres', usuario='$usuario', identidad='$identidad', genero='$genero', telefono='$telefono', direccion='$direccion', correo='$correo', estado='$estado', modificado_por='$sesion_usuario' , id_rol='$id_rol', fecha_modificacion='$mifecha' where id_usuario = $id_usuario ");
-        
-            if ($sql==1) {
-                //Guardar en bitacora
-                date_default_timezone_set("America/Tegucigalpa");
-                $fecha = date('Y-m-d h:i:s');
-                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar', 'Administrador modifico datos de usuario','$sesion_usuario')");
-                //header("location:administracion_usuarios.php");
-                //echo '<div class="alert alert-success">Usuario actualizado correctamente</div>';//Usuario ingresado
-                return $validar;
-            } else {
-                $validar=false;
-                echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
-                return $validar;
-            }
-        }else{
-            $validar=false;
-            echo '<div class="alert alert-danger text-center">Correo ya existente</div>';//Error al cambiar correo
-            return $validar;
-        }
-}
 //Funcion para enviar el correo.
 function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     require_once ("../../PHPMailer/clsMail.php");
@@ -257,7 +260,7 @@ function Valida_nombre($nombres,&$validar){
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
     } else {
         //Validar tenga caracter especial
-        if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$nombres) && preg_match('/[!"#$"%&()""_=?\+[]}{-@¡¿]/',$nombres)){
+        if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$nombres) && preg_match('/[!"#$"%&()_=?\+[]}{-@¡¿]/',$nombres)){
             $validar=false;
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
         }else {
@@ -407,19 +410,24 @@ if (!empty($_POST["btnactualizar"])) {
         if($validar==true){
             Validar_Espacio_admin_actualizar($usuario, $correo, $validar);
             if($validar==true){
-                usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+                Valida_nombre($nombres,$validar);
                 if($validar==true){
-                    usuario_existe($usuario,$validar);
-                    if($validar==true){
-                        Validar_correo($correo,$validar);
-                        if($validar==true){
-                            actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
-                            if($validar==true){
-                                echo '<script language="javascript">alert("Usuario actualizado correctamente");;window.location.href="administracion_usuarios.php"</script>';
-                            }
-                        }
-                    }
+                    usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);   
                 }
+
+                //usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+                //if($validar==true){
+                    //usuario_existe($usuario,$validar);
+                    //if($validar==true){
+                        //Validar_correo($correo,$validar);
+                        //if($validar==true){
+                            //actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
+                            //if($validar==true){
+                                //echo '<script language="javascript">alert("Usuario actualizado correctamente");;window.location.href="administracion_usuarios.php"</script>';
+                            //}
+                        //}
+                    //}
+                //}
             }
         }
 }
