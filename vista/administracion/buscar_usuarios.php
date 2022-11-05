@@ -137,16 +137,7 @@ if(empty($_SESSION['usuario_login'])){
                             //Llamado a la base de datos
                             include "../../modelo/conexion.php";
                             //Si es el usuario SUPER ADMIN mostrara los usuarios inactivos
-                            //manejamos los roles que van con join por medio de esta funcion
-                            $rol = '';
-                            if ($busqueda == 'admin') {
-                                $rol = " or rol like '%1%' ";
-                            }elseif ($busqueda == 'empleado') {
-                                $rol = " or rol like '%2%' ";
-                            }elseif ($busqueda == 'sin asignar') {
-                                $rol = " or rol like '%3%' ";
-                            }
-
+                            
                             if($_SESSION["usuario_login"]=='ADMIN'){
                                 $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento 
                                 from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL 
@@ -159,8 +150,8 @@ if(empty($_SESSION['usuario_login'])){
                                         telefono like '%$busqueda%' or 
                                         direccion like '%$busqueda%' or 
                                         correo like '%$busqueda%' or 
-                                        estado like '%$busqueda%' 
-                                        $rol or
+                                        estado like '%$busqueda%' or
+                                        r.rol like '%$busqueda%' or
                                         fecha_vencimiento like '%$busqueda%')
                                 order by id_usuario asc");                                
                                 while($u = $sql->fetch_assoc()){ ?>
@@ -196,8 +187,8 @@ if(empty($_SESSION['usuario_login'])){
                                         telefono like '%$busqueda%' or 
                                         direccion like '%$busqueda%' or 
                                         correo like '%$busqueda%' or 
-                                        estado like '%$busqueda%' 
-                                        $rol or
+                                        estado like '%$busqueda%' or
+                                        r.rol like '%$busqueda%' or
                                         fecha_vencimiento like '%$busqueda%')
                                 order by id_usuario asc");
                                 while($u = $sql->fetch_assoc()){ ?>
