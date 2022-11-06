@@ -86,11 +86,11 @@ if(empty($_SESSION['usuario_login'])){
     <div class="container-fluid row">
         
                 <!--INICIO DE LA TABLE USUARIOS-->
-                <div class="col-9 p-4">
+                <div class="col-10 p-4">
                     <br><br>
 
                 <div class="row p-2"> <!--Div que contiene nuevo usuario y la busqueda-->
-                <div class="col-auto mr-auto">
+                <div class="ml-auto p-2">
                 <button type="button" class="btn btn-dark" onclick="location.href='nuevo_usuario.php'" >Nuevo Usuario</button>
                 </div>
                 <?php
@@ -99,13 +99,15 @@ if(empty($_SESSION['usuario_login'])){
                 //echo "Nombre de usuario recuperado de la variable de sesión:" . $_SESSION['usuario_login'];
                 ?>  
                     <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
-                    <div class="col-auto">
+                    <div class="align-items-end">
                     <form action="buscar_usuarios.php" method="get" class="form_search">
                         <input type="text" name="busqueda" id="busqueda" placeholder="">
                         <input type="submit" value="Buscar" class="btn btn-secondary">
+                        <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_adminstracion_usuarios.php"></a>
                     </form>
                     </div>
                 </div>
+                
 
                     <table class="table table-dark table-striped" style="text-align:center;" >
                         <thead class="table-dark">
