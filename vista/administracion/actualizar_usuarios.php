@@ -80,7 +80,6 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Genero</label>
             <select class="form-select" aria-label="Default select example" name="genero">
-            <option>Seleccione genero</option>
               <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
             <option selected value="<?= $datos->GENERO ?>"><?= $datos->GENERO ?></option>
             <?php 
@@ -110,8 +109,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Estado</label>
             <select class="form-select" aria-label="Default select example" name="estado">
-            <option>Seleccione estado</option>
-              <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
+            <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
             <option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>
             <?php 
             include "../../modelo/conexion.php";
@@ -140,8 +138,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
             <select class="form-select" aria-label="Default select example" name="id_rol">
-            <option>Seleccione rol</option>
-              <!--SELECCIONA EL ROL YA ESTABLECIDO EN LA BACE-->
+            <!--SELECCIONA EL ROL YA ESTABLECIDO EN LA BACE-->
             <option selected value="<?= $datos->id_rol ?>"><?= $datos->rol ?></option>
             <?php 
             include "../../modelo/conexion.php";
@@ -155,6 +152,11 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             </div>
             <?php }
             ?>
+            <!--INGRESE FECHA VENCIMIENTO(BLOQUEADO)-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Fecha de Vencimiento</label>
+            <input type="text" readonly="readonly" class="form-control" value="fecha" name="correo">
+            </div>
             
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -60,7 +60,6 @@ if(empty($_SESSION['usuario_login'])){
                 
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="../../controlador/cerrar_sesion.php"><i class="fa-solid fa-person-walking-arrow-right"></i> SALIR DEL SISTEMA</a>
-                </li>
 
                 <li class="btn btn-dark p-2">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -131,8 +130,7 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../modelo/conexion.php";
-                            //Si es el usuario SUPER ADMIN mostrara los usuarios inactivos
-                            if($_SESSION["usuario_login"]=='ADMIN'){
+                            
                                 $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
                                 while($u = $sql->fetch_assoc()){ ?>
                                     <tr>
@@ -155,31 +153,7 @@ if(empty($_SESSION['usuario_login'])){
                                         </td>
                                     </tr>
                                     <?php }
-                            }else{ //Si es un usuario admin simple mostrata todos los usuario menos los inactivos
-                                $sql= $conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol, fecha_vencimiento from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where estado <> 'INACTIVO' and usuario <> 'ADMIN' order by id_usuario asc");
-                                while($u = $sql->fetch_assoc()){ ?>
-                                    <tr>
-                                        <td><?php echo $u['id_usuario']; ?></td>
-                                        <td><?php echo $u['nombres']; ?></td>
-                                        <td><?php echo $u['usuario']; ?></td>
-                                        <td><?php echo $u['identidad']; ?></td>
-                                        <td><?php echo $u['genero']; ?></td>
-                                        <td><?php echo $u['telefono']; ?></td>
-                                        <td><?php echo $u['direccion']; ?></td>
-                                        <td><?php echo $u['correo']; ?></td>
-                                        <td><?php echo $u['estado']; ?></td>
-                                        <td><?php echo $u['rol']; ?></td>
-                                        <td><?php echo $u['fecha_vencimiento']; ?></td>
-                                        <td>
-                                            <a href="actualizar_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
-                                        </td>
-                                        <td>
-                                            <a href="administracion_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
-                                        </td>
-                                    </tr>
-                                    <?php }
-                            }
-                            ?>
+                                    ?>
                         </tbody>
                     </table>
                     <!--FIN DE LA TABLE USUARIOS-->

@@ -139,9 +139,7 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../modelo/conexion.php";
-                            //Si es el usuario SUPER ADMIN mostrara los usuarios inactivos
                             
-                            if($_SESSION["usuario_login"]=='ADMIN'){
                                 $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento 
                                 from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL 
                                 where usuario <> 'ADMIN'
@@ -178,46 +176,8 @@ if(empty($_SESSION['usuario_login'])){
                                         </td>
                                     </tr>
                                     <?php }
-                            }else{ //Si es un usuario admin simple mostrata todos los usuario menos los inactivos
-                                $sql= $conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento 
-                                from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL 
-                                where usuario <> 'ADMIN' and estado <> 'inactivo' 
-                                    and (id_usuario like '%$busqueda%' or 
-                                        nombres like '%$busqueda%' or
-                                        usuario like '%$busqueda%' or 
-                                        identidad like '%$busqueda%' or 
-                                        genero like '%$busqueda%' or 
-                                        telefono like '%$busqueda%' or 
-                                        direccion like '%$busqueda%' or 
-                                        correo like '%$busqueda%' or 
-                                        estado like '%$busqueda%' or
-                                        r.rol like '%$busqueda%' or
-                                        fecha_vencimiento like '%$busqueda%')
-                                order by id_usuario asc");
-                                while($u = $sql->fetch_assoc()){ ?>
-                                    <tr>
-                                        <td><?php echo $u['id_usuario']; ?></td>
-                                        <td><?php echo $u['nombres']; ?></td>
-                                        <td><?php echo $u['usuario']; ?></td>
-                                        <td><?php echo $u['identidad']; ?></td>
-                                        <td><?php echo $u['genero']; ?></td>
-                                        <td><?php echo $u['telefono']; ?></td>
-                                        <td><?php echo $u['direccion']; ?></td>
-                                        <td><?php echo $u['correo']; ?></td>
-                                        <td><?php echo $u['estado']; ?></td>
-                                        <td><?php echo $u['rol']; ?></td>
-                                        <td><?php echo $u['fecha_vencimiento']; ?></td>
-                                        <td>
-                                            <a href="actualizar_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
-                                        </td>
-                                        <td>
-                                            <a href="administracion_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
-                                        </td>
-                                    </tr>
-                                    <?php }
-                            }
-                            $_SESSION['busqueda'] = $busqueda;
-                            ?>
+                                    $_SESSION['busqueda'] = $busqueda;
+                                    ?>
                         </tbody>
                     </table>
                     <!--FIN DE LA TABLE USUARIOS-->

@@ -105,6 +105,11 @@ if(empty($_SESSION['usuario_login'])){
             <label for="formGroupExampleInput" class="form-label">Correo</label>
             <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
             </div>
+            <!--INGRESE ESTADO(BLOQUEADO)-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <input type="text" readonly="readonly" class="form-control" value="NUEVO" name="correo">
+            </div>
             <!--SELECCIONE ROL-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Rol</label>
@@ -119,6 +124,12 @@ if(empty($_SESSION['usuario_login'])){
             ?>
             </select>
             </div>
+            <!--INGRESE FECHA VENCIMIENTO(BLOQUEADO)-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Fecha de Vencimiento</label>
+            <input type="text" readonly="readonly" class="form-control" value="fecha" name="correo">
+            </div>
+
             <!--BOTON NUEVO USUARIO-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-outline-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
