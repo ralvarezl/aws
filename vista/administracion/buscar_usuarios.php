@@ -216,6 +216,7 @@ if(empty($_SESSION['usuario_login'])){
                                     </tr>
                                     <?php }
                             }
+                            $_SESSION['busqueda'] = $busqueda;
                             ?>
                         </tbody>
                     </table>
