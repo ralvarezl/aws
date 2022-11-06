@@ -14,7 +14,6 @@ if(empty($_SESSION['usuario_login'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../public/style_inicio.css">
-    <link rel="stylesheet" href="administracion_usuarios.css">
     <link rel="shortcut icon" href="../../public/img/Logo.png">
 
 </head>
@@ -174,8 +173,9 @@ if(empty($_SESSION['usuario_login'])){
                                         <td>
                                             <a href="administracion_usuarios.php?id_usuario=<?= $u['id_usuario'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                         </td>
-                                    </tr>
+                                    </tr>                                    
                                     <?php }
+                                    //Capturo la variable busqueda para utilizarla en el reporte de buscar
                                     $_SESSION['busqueda'] = $busqueda;
                                     ?>
                         </tbody>

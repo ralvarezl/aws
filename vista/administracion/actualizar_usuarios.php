@@ -151,11 +151,18 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             </select>
             </div>
             <?php }
+            $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='5'");
+            $row=mysqli_fetch_array($sql);
+            $valor_parm=$row[0];
+            
+            $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL $valor_parm DAY)"); 
+            $row=mysqli_fetch_array($sql);
+            $fecha_vencimiento=$row[0];
             ?>
             <!--INGRESE FECHA VENCIMIENTO(BLOQUEADO)-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Fecha de Vencimiento</label>
-            <input type="text" readonly="readonly" class="form-control" value="fecha" name="correo">
+            <input type="text" readonly="readonly" class="form-control" value="<?= $fecha_vencimiento?>" name="fecha_vencimiento">
             </div>
             
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->

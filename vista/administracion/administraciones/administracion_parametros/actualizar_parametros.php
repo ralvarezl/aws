@@ -1,9 +1,9 @@
 <?php
 session_start();
 if(empty($_SESSION['usuario_login'])){
-    header("location:../../login.php");
+    header("location:../../../../login.php");
 }
-include "../../modelo/conexion.php";
+include "../../../../modelo/conexion.php";
 $id_parametro=$_GET["id_parametro"];    //Guardamos el id usuario desde el boton editar
 $sql=$conexion->query(" select * from tbl_ms_parametros where id_parametro=$id_parametro ");
 ?>
@@ -16,7 +16,7 @@ $sql=$conexion->query(" select * from tbl_ms_parametros where id_parametro=$id_p
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../../public/img/Logo.png">
-    <link rel="stylesheet" href="actualizar_usuarios.css">
+    <link rel="stylesheet" href="../../actualizar_usuarios.css">
     <title>Actualizar Usuario</title>
 </head>
 <body>
@@ -27,7 +27,7 @@ $sql=$conexion->query(" select * from tbl_ms_parametros where id_parametro=$id_p
             <!--Imput que se oculta para almacenar el usuario para enviarlo a la BD-->
             <input type="hidden" name="id_parametro" value="<?= $_GET["id_parametro"] ?>"> 
             <?php
-            include "../../controlador/administraciones/administracion_actualizar_parametros.php";
+            include "../../../../controlador/administraciones/administracion_actualizar_parametros.php";
             
             //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
             while ($datos=$sql->fetch_object()) {?>

@@ -19,7 +19,7 @@ if (!empty($_POST["btnactualizarparametro"])) {
     campo_vacio($id_parametro, $valor, $validar);
         if ($validar==true) {
             $sql=$conexion->query(" update tbl_ms_parametros set valor='$valor' where id_parametro = $id_parametro ");   
-            header("location:../../vista/administracion/administracion_parametros.php");
+            header("location:administracion_parametros.php");
         }
         
 }

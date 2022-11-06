@@ -43,7 +43,8 @@ function usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,
     $valor_parm=$row[0];
     date_default_timezone_set("America/Tegucigalpa");
                 $mifecha = date('Y-m-d');
-                $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL $valor_parm DAY)"); //Fecha de Vencimiento
+                //Fecha de Vencimiento
+                $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL $valor_parm DAY)"); 
                 $row=mysqli_fetch_array($sql);
                 $fecha_vencimiento=$row[0];
                 //Envio de los datos a ingresar por la query

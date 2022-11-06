@@ -121,13 +121,21 @@ if(empty($_SESSION['usuario_login'])){
                 while($datos=mysqli_fetch_array($sql)){
                     echo '<option value="'.$datos['id_rol'].'">'.$datos['rol'].'</option>';
                 }
+
+                $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro='5'");
+                $row=mysqli_fetch_array($sql);
+                $valor_parm=$row[0];
+                
+                $sql=mysqli_query($conexion, "SELECT DATE_ADD(NOW(), INTERVAL $valor_parm DAY)"); 
+                $row=mysqli_fetch_array($sql);
+                $fecha_vencimiento=$row[0];
             ?>
             </select>
             </div>
             <!--INGRESE FECHA VENCIMIENTO(BLOQUEADO)-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Fecha de Vencimiento</label>
-            <input type="text" readonly="readonly" class="form-control" value="fecha" name="correo">
+            <input type="text" readonly="readonly" class="form-control" value="<?= $fecha_vencimiento?>" name="fecha_vencimiento">
             </div>
 
             <!--BOTON NUEVO USUARIO-->
