@@ -175,7 +175,7 @@ if (!empty($_POST["btnautogenerar"])){
     date_default_timezone_set("America/Tegucigalpa");
     $fecha = date('Y-m-d h:i:s');
     $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Recuperar contraseña', 'Usuario Autogenero la contraseña','$usuario_msj')");
-    echo '<script language="javascript">alert("Tu Contraseña es: '.$token .'");;window.location.href="../../login.php"</script>';
+    echo '<script language="javascript">alert("Tu token es: '.$token .'");;window.location.href="../../login.php"</script>';
 
 }
 

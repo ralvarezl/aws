@@ -129,7 +129,7 @@ function usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$dire
         date_default_timezone_set("America/Tegucigalpa");
         $fecha = date('Y-m-d h:i:s');
         $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar', 'Administrador modifico datos de usuario $usuario','$sesion_usuario')");
-        echo '<script language="javascript">alert("Usuario actualizado correctamente");;window.location.href="administracion_usuarios.php"</script>';
+        echo '<script language="javascript">setTimeout(() => alert("Usuario actualizado correctamente"), 1000);;window.location.href="administracion_usuarios.php"</script>';
     } else {
         echo '<div class="alert alert-danger text-center">Error al actualizar el usuario</div>';//Error al ingresar usuario
     }
@@ -138,13 +138,14 @@ function usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$dire
 //Funcion para enviar el correo.
 function Enviar_Correo($nombres,$usuario,$password,$correo,&$validar){
     require_once ("../../PHPMailer/clsMail.php");
-    include "../../modelo/conexion.php";
 
     $mailSend = new clsMail();
+
     
-    $titulo="Usuario Nuevo";  
+    $titulo="Andrees Coffees-Usuario Nuevo";  
     $asunto="Usuario y contraseña - Sistema de Usuarios";
-    $bodyphp="<div class='form-container'><form>Estimado/a <b>". $usuario.".</b> <br/><br/> <b>Se le a registrado en el sistema Andre's Coffee.</b><br/><br/><br/>Su usuario es: ".$usuario." y su contraseña temporal es: ".$password."</b><br/>Favor ingrese al sistema para hacer el cambio de su contraseña y configurar su usuario.<br/></br><br/><br/> <div align='center'><h1>Andress Coffiee</h1><h4>La Paz, La Paz, Honduras</h4></div></form></div>";
+    $bodyphp="Estimad@ ". $nombres.": <br/><br/> Se le ha registrado en el sistema Andre's Coffee <br/><br/>Su USUARIO es: ".$usuario." y su contraseña es: ".$password."<br/><br/> Favor abóquese con un administardor para poder ingresar al sistemas o marque al telefono (+504)8989-8366.";
+    $bodyphp="<div class='form-container'><form>Estimado/a <b>". $nombres.".</b> <br/><br/> <b>Se a registrado en el sistema Andre's Coffee.</b><br/><br/><br/>Su usuario es: ".$usuario." y su contraseña es: ".$password."</b><br/>Gracias por registrate al sistema, comunicate con un administrador para que se le asigne un rol.<br/></br><br/><br/> <div align='center'><h1>Andress Coffiee</h1><h4>La Paz, La Paz, Honduras</h4></div></form></div>";
     
     $enviado = $mailSend->metEnviar($titulo,$usuario,$correo,$asunto,$bodyphp);
              
@@ -343,6 +344,128 @@ function contrasenia($password,$r_password,&$validar){
     }
 
 }
+//Validar contraseña robusta
+function validar_clave_crear($r_password,&$validar){
+    //validar tenga minusculas
+    if (!preg_match('/[a-z]/',$r_password)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos una letra minúscula</div>";
+        return $validar;
+    } else {
+        //Validar tenga mayusculas
+        if (!preg_match('/[A-Z]/',$r_password)){
+            $validar=false;
+            echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos una letra mayuscula</div>";
+        } else{
+            //Validar tenga numeros
+            if (!preg_match('/[0-9]/',$r_password)){
+                $validar=false;
+                echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos un caracter numérico</div>"; 
+            } else {
+                //Validar tenga caracter especial
+                if (!preg_match('/[^a-zA-Z\d]/',$r_password)){
+                    $validar=false;
+                echo"<div class='alert alert-danger text-center'>La contraseña debe tener al menos un caracter especial</div>"; 
+                }else {
+                    return $validar;
+                }
+            }
+        }
+    }
+}
+
+//Validar nombre de actualizar
+function Valida_nombre_actu($nombres,&$validar){
+    $cont=0;
+    //Validar tenga caracter especial
+    if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$nombres)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>";
+        return $validar;
+    }else{
+        $cont=1;
+    }
+    $Longitud1=strlen($nombres);
+    if($Longitud1<=20){
+        $cont=2;
+    }else {
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>nombre muy extenso</div>"; //Campos sin uso
+        return $validar;
+    }
+    if (strpos($nombres, "  ")){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no puede tener espacios o caracteres especiales</div>";
+        return $validar;
+    }else{
+        $cont=3; 
+    }
+
+    //Validar tenga numeros
+    if (preg_match('/[0-9]/',$nombres)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
+        return $validar;
+    }else{
+        $cont=4;
+    }
+
+    if($cont==4){
+        return $validar;    
+    }
+}
+
+//Validar usuario
+function Valida_usuario($usuario,&$validar){
+    $cont=0;
+    //Validar tenga caracter especial
+    if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$usuario)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El usuario no debe tener caracteres especiales</div>";
+        return $validar;
+    }else{
+        $cont=1;
+    }
+    $Longitud1=strlen($usuario);
+    if($Longitud1<=20){
+        $cont=2;
+    }else {
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Usuario muy extenso</div>"; //Campos sin uso
+        return $validar;
+    }
+    if (strpos($usuario, " ")){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El usuario no puede tener espacios</div>";
+        return $validar;
+    }else{
+        if (ctype_graph ($usuario)){        
+            $cont=3;    
+        }
+        else{        
+            $validar=false;        
+            echo"<div class='alert alert-danger text-center'>El usuario no puede tener espacios</div>";        
+            return $validar;    
+        }
+    }
+
+    if($cont==3){
+        return $validar;    
+    }
+}
+
+function validar_email($correo,&$validar){
+    
+    if(false !== strpos($correo, "@") && false !== strpos($correo, ".")){
+        return $validar;
+    }else{
+        $validar=false;
+        echo '<div class="alert alert-danger text-center">La direccion de correo electronico no existe o no tienes.</div>';
+        return $validar;
+    }
+
+  }
+
 /////////////////////////////////////////***FIN FUNCIONES***/////////////////////////////////////////////////////
 
 //Crear Nuevo Usuario Al Presionar Boton
@@ -361,85 +484,83 @@ if (!empty($_POST["btnregistrar"])) {
     $id_rol=$_POST["id_rol"];
     //Validar que no hayan campos vacios
     campo_vacio($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$id_rol,$validar);
+    if($validar==true){
+        usuario_existe($usuario,$validar);
         if($validar==true){
-            usuario_existe($usuario,$validar);
+            Valida_nombre($nombres,$validar);
             if($validar==true){
-                Valida_nombre($nombres,$validar);
+                Validar_Espacio_admin($usuario, $password, $correo, $validar);
                 if($validar==true){
-                    Validar_Espacio_admin($usuario, $password, $correo, $validar);
+                    Validar_Parametro_adm($password,$validar);
                     if($validar==true){
-                        Validar_Parametro_adm($password,$validar);
+                        Validar_id_tel_admin($identidad,$telefono, $validar);
                         if($validar==true){
-                            Validar_id_tel_admin($identidad,$telefono, $validar);
+                            Validar_correo($correo,$validar);
                             if($validar==true){
-                                Validar_correo($correo,$validar);
+                                contrasenia($password,$r_password,$validar);
                                 if($validar==true){
-                                    contrasenia($password,$r_password,$validar);
+                                    validar_clave_crear($r_password,$validar);
+                                    if($validar==true){
+                                        Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
                                         if($validar==true){
-                                            Enviar_Correo($nombres,$usuario,$password,$correo,$validar);
+                                            usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
                                             if($validar==true){
-                                                usuario_crear($nombres,$usuario,$password,$identidad,$genero,$telefono,$direccion,$correo,$sesion_usuario,$id_rol,$validar);
-                                                if($validar==true){
-                                                    //Guardar en bitacora 
-                                                    date_default_timezone_set("America/Tegucigalpa");
-                                                    $fecha = date('Y-m-d h:i:s');
-                                                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
-                                                    //Mensaje de confirmacion
-                                                    echo '<script language="javascript">alert("Usuario registrado exitosamente");;window.location.href="administracion_usuarios.php"</script>';//Usuario ingresado 
-                                                }else{
-                                                    echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
-                                                }
+                                                //Guardar en bitacora 
+                                                date_default_timezone_set("America/Tegucigalpa");
+                                                $fecha = date('Y-m-d h:i:s');
+                                                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Crear usuario', 'Administrador creo un usuario nuevo','$sesion_usuario')");
+                                                //Mensaje de confirmacion
+                                                echo '<script language="javascript">alert("Usuario registrado exitosamente");;window.location.href="administracion_usuarios.php"</script>';//Usuario ingresado 
+                                            }else{
+                                            echo '<div class="alert alert-danger text-center">Error al registrar usuario</div>';//Error al ingresar usuario
                                             }
                                         }
-                                }  
-                            }
+                                    }
+                                }
+                            }  
                         }
                     }
                 }
             }
         }
+    }
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////
 //AL presionar el boton actualizar
 if (!empty($_POST["btnactualizar"])) {
-        $validar=true;
-        $sesion_usuario=$_SESSION['usuario_login'];
-        $id_usuario=$_POST["id_usuario"];
-        $nombres=$_POST["nombres"];
-        $usuario=$_POST["usuario"];
-        $identidad=$_POST["identidad"];
-        $genero=$_POST["genero"];
-        $telefono=$_POST["telefono"];
-        $direccion=$_POST["direccion"];
-        $correo=$_POST["correo"];
-        $estado=$_POST["estado"];
-        $id_rol=$_POST["id_rol"];
 
-        //Validar que no hayan campos vacios
-        campo_vacio_actualizar($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
+    $validar=true;
+    $sesion_usuario=$_SESSION['usuario_login'];
+    $id_usuario=$_POST["id_usuario"];
+    $nombres=$_POST["nombres"];
+    $usuario=$_POST["usuario"];
+    $identidad=$_POST["identidad"];
+    $genero=$_POST["genero"];
+    $telefono=$_POST["telefono"];
+    $direccion=$_POST["direccion"];
+    $correo=$_POST["correo"];
+    $estado=$_POST["estado"];
+    $id_rol=$_POST["id_rol"];
+
+    //Validar que no hayan campos vacios
+    campo_vacio_actualizar($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$id_rol,$validar);
+    if($validar==true){
+        Validar_Espacio_admin_actualizar($usuario, $correo, $validar);
         if($validar==true){
-            Validar_Espacio_admin_actualizar($usuario, $correo, $validar);
+            Valida_nombre_actu($nombres,$validar);
             if($validar==true){
-                Valida_nombre($nombres,$validar);
+                Valida_usuario($usuario,$validar);
                 if($validar==true){
-                    usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);   
+                    Validar_id_tel_admin($identidad,$telefono, $validar);
+                    if($validar==true){
+                        validar_email($correo,$validar);
+                        if($validar==true){
+                            usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);   
+                        }
+                    }
                 }
-
-                //usuario_modificado($usuario,$nombres,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
-                //if($validar==true){
-                    //usuario_existe($usuario,$validar);
-                    //if($validar==true){
-                        //Validar_correo($correo,$validar);
-                        //if($validar==true){
-                            //actualizar_usuario($nombres,$usuario,$identidad,$genero,$telefono,$direccion,$correo,$estado,$sesion_usuario,$id_rol,$id_usuario,$validar);
-                            //if($validar==true){
-                                //echo '<script language="javascript">alert("Usuario actualizado correctamente");;window.location.href="administracion_usuarios.php"</script>';
-                            //}
-                        //}
-                    //}
-                //}
             }
         }
+    }
 }
 
 

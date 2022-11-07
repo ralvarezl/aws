@@ -47,7 +47,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="text" class="form-control" placeholder="Ingrese numero de identidad" name="identidad" value="<?= $datos->IDENTIDAD ?>">
+            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad" value="<?= $datos->IDENTIDAD ?>">
             </div>
             <!--INGRESE TELEFONO-->
             <div class="mb-3">

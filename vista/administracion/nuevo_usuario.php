@@ -108,7 +108,7 @@ if(empty($_SESSION['usuario_login'])){
             <!--INGRESE ESTADO(BLOQUEADO)-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Estado</label>
-            <input type="text" readonly="readonly" class="form-control" value="NUEVO" name="correo">
+            <input type="text" readonly="readonly" class="form-control" value="NUEVO" name="estado">
             </div>
             <!--SELECCIONE ROL-->
             <div class="mb-3">
