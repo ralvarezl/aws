@@ -35,7 +35,7 @@ $sql=$conexion->query(" select * from tbl_ms_parametros where id_parametro=$id_p
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">VALOR</label>
             <input type="text" class="form-control" placeholder="Ingrese valor" 
-                name="valor" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->VALOR ?>">
+                name="valor" value="<?= $datos->VALOR ?>">
             </div>
             <?php }
             ?>

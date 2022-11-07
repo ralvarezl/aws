@@ -82,8 +82,10 @@ if(empty($_SESSION['usuario_login'])){
         </nav>
         <!--FIN DEL NAVBAR-->
         
-        <div class="container-fluid row ">
         <div class="col-9 p-4 m-auto">
+        <br><br>
+        <a class="btn btn-danger" href="reporte_bitacora.php"><i class="fa-solid fa-file-pdf btn btn-lg btn-danger"></i>Generar PDF</a>
+        
         <?php
                 include "../../../../modelo/conexion.php";
                 
@@ -115,7 +117,6 @@ if(empty($_SESSION['usuario_login'])){
                         </tbody>
                     </table>
 
-        </div>
         </div>
         
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
