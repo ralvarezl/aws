@@ -88,9 +88,9 @@ if(empty($_SESSION['usuario_login'])){
         <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
         <div class="ml-auto p-2">
             <form action="buscar_parametros.php" method="get" class="form_search">
-            <input type="text" name="busqueda" id="busqueda" placeholder="">
+            <input type="text" name="busqueda_parametros" id="busqueda_parametros" placeholder="">
             <input type="submit" value="Buscar" class="btn btn-secondary">
-            <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_adminstracion_usuarios.php"></a>
+            <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_administracion_parametros.php"></a>
             </form>
         </div>
 

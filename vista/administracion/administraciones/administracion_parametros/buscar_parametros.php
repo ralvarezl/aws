@@ -86,20 +86,20 @@ if(empty($_SESSION['usuario_login'])){
         <br><br>   
         <?php 
         //Declaramos la variable busqueda para capturar que es lo que quiere buscar el usuario
-        $busqueda = strtoupper($_REQUEST['busqueda']);
-        if (empty($busqueda)) {
+        $busqueda_parametros = strtoupper($_REQUEST['busqueda_parametros']);
+        if (empty($busqueda_parametros)) {
             //Si busqueda viene vacia que me regrese administracion usuarios
-            header("location: administracion_usuarios.php");
+            header("location: administracion_parametros.php");
         }
         ?>
 
         <!--BUSQUEDA-->
         <div class="ml-auto p-2">
-            <form action="buscar_usuarios.php" method="get" class="form_search">
-            <input type="text" name="busqueda" id="busqueda" placeholder="" value="<?php echo $busqueda; ?>">
+            <form action="buscar_parametros.php" method="get" class="form_search">
+            <input type="text" name="busqueda_parametros" id="busqueda_parametros" placeholder="" value="<?php echo $busqueda_parametros; ?>">
             <input type="submit" value="Buscar" class="btn btn-secondary">
-            <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_usuarios.php"></a>
-            <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_buscar_usuarios.php"></a>
+            <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_parametros.php"></a>
+            <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_buscar_parametros.php"></a>
             </form>
         </div>
 
@@ -121,7 +121,11 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_parametro, parametro, valor from tbl_ms_parametros");
+                            $sql= $conexion->query("select id_parametro, parametro, valor from tbl_ms_parametros
+                            where id_parametro like '%$busqueda_parametros%' or
+                                    parametro like '%$busqueda_parametros%' or
+                                    valor like '%$busqueda_parametros%' 
+                            order by id_parametro");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
                                 <td><?php echo $u['id_parametro']; ?></td>
@@ -133,6 +137,8 @@ if(empty($_SESSION['usuario_login'])){
                                 
                             </tr>
                             <?php }
+                            //Capturo la variable busqueda para utilizarla en el reporte de buscar
+                            $_SESSION['busqueda_parametros'] = $busqueda_parametros;
                             ?>
                         </tbody>
                     </table>
