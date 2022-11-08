@@ -23,9 +23,10 @@ if(empty($_SESSION['usuario_login'])){
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" >
-                AWS Andres's Coffee
+                <img src="../../../../public/img/aws_navbar.png"/>
+                Andrés Coffee
             </a>
-            <a class="navbar-brand text-right" href="#" >
+            <a class="navbar-brand" href="#" >
                 <i class="fa-solid fa-list-check"></i> BITACORA
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">

@@ -23,9 +23,10 @@ if(empty($_SESSION['usuario_login'])){
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" >
-                AWS Andres's Coffee
+            <img src="../../../../public/img/aws_navbar.png"/>
+                Andrés Coffee
             </a>
-            <a class="navbar-brand text-right" href="#" >
+            <a class="navbar-brand" href="#" >
                 <i class="fa-solid fa-gears"></i> ADMINISTRACION DE PARAMETROS
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
@@ -82,7 +83,7 @@ if(empty($_SESSION['usuario_login'])){
         </nav>
         <!--FIN DEL NAVBAR-->
             
-        <div class="col-9 p-2 m-auto">
+        <div class="col-9 p-3 m-auto">
         <br><br>   
 
         <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
