@@ -21,7 +21,7 @@ function Header()
     // Logo
     $this->Image('../../../../public/img/'.$logo_negocio.'',10,8,33);
     // Arial bold 15
-    $this->SetFont('Arial','B',20);
+    $this->SetFont('Arial','',20);
     // Movernos a la derecha
     $this->Cell(90);
     // Título
