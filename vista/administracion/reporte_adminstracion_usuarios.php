@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(empty($_SESSION['usuario_login'])){
+    header("location:../../login.php");
+}
 //Llamo el archivo del fpdf
 require('../../fpdf/fpdf.php');
 
@@ -7,27 +11,45 @@ class PDF extends FPDF
 // Cabecera de página
 function Header()
 {
+    require ('../../modelo/conexion.php');
+    //preguntar el valor del nombre del negocio
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=11"); 
+    $row=mysqli_fetch_array($sql);
+    $nombre_negocio=$row[0]; //Guardamos el nombre del negocio
+
+    //preguntar el valor del logo del negocio
+    $sql=mysqli_query($conexion, "select valor from tbl_ms_parametros where id_parametro=12"); 
+    $row=mysqli_fetch_array($sql);
+    $logo_negocio=$row[0]; //Guardamos el logo del negocio
+
     // Logo
-    $this->Image('../../public/img/Logo.png',10,8,33);
+    $this->Image('../../public/img/'.$logo_negocio.'',10,8,33);
     // Arial bold 15
     $this->SetFont('Arial','B',20);
     // Movernos a la derecha
     $this->Cell(110);
     // Título
-    $this->Cell(80,10,'Reporte Usuarios',0,0,'C');
+    $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
+    $this->Ln(10);
+    $this->Cell(300,10,'Reporte Usuarios',0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
 
 // Pie de página
 function Footer()
-{
+{   
+    //Guardo la fecha
+    date_default_timezone_set("America/Tegucigalpa");
+    $fecha = date('Y-m-d h:i');
+
     // Posición: a 1,5 cm del final
     $this->SetY(-15);
     // Arial italic 8
     $this->SetFont('Arial','I',8);
     // Número de página
     $this->Cell(0,10,'Pagina '.$this->PageNo().'/{nb}',0,0,'C');
+    $this->Cell(-30,10,'Fecha: '.$fecha.'',0,0,'C');
 }
 }
 
@@ -46,7 +68,7 @@ $pdf->AddPage();
 $pdf->SetFont('Arial','',8);
 
 //Imprimimos el header de la tabla
-    $pdf->Cell(5, 10, 'ID', 1, 0, 'C', 0);
+    $pdf->Cell(5, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
     $pdf->Cell(55, 10, 'NOMBRES', 1, 0, 'C', 0);
     $pdf->Cell(25, 10, 'USUARIO', 1, 0, 'C', 0);
     $pdf->Cell(25, 10, 'IDENTIDAD', 1, 0, 'C', 0);
@@ -59,18 +81,19 @@ $pdf->SetFont('Arial','',8);
     $pdf->Cell(22, 10, 'VENCIMIENTO', 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
+    $numero=0;
 while ($row = $resultado->fetch_assoc()) {
-    $pdf->Cell(5, 10, $row['id_usuario'], 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, $row['nombres'], 1, 0, 'C', 0);
-    $pdf->Cell(25, 10, $row['usuario'], 1, 0, 'C', 0);
-    $pdf->Cell(25, 10, $row['identidad'], 1, 0, 'C', 0);
-    $pdf->Cell(20, 10, $row['genero'], 1, 0, 'C', 0);
-    $pdf->Cell(17, 10, $row['telefono'], 1, 0, 'C', 0);
-    $pdf->Cell(35, 10, $row['direccion'], 1, 0, 'C', 0);
-    $pdf->Cell(40, 10, $row['correo'], 1, 0, 'C', 0);
-    $pdf->Cell(15, 10, $row['estado'], 1, 0, 'C', 0);
-    $pdf->Cell(20, 10, $row['rol'], 1, 0, 'C', 0);
-    $pdf->Cell(22, 10, $row['fecha_vencimiento'], 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(5, 10,$numero=$numero+1, 1, 0, 'C', 0);
+    $pdf->Cell(55, 10,utf8_decode( $row['nombres']), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode( $row['usuario']), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode( $row['identidad']), 1, 0, 'C', 0);
+    $pdf->Cell(20, 10,utf8_decode( $row['genero']), 1, 0, 'C', 0);
+    $pdf->Cell(17, 10,utf8_decode( $row['telefono']), 1, 0, 'C', 0);
+    $pdf->Cell(35, 10,utf8_decode( $row['direccion']), 1, 0, 'C', 0);
+    $pdf->Cell(40, 10,utf8_decode( $row['correo']), 1, 0, 'C', 0);
+    $pdf->Cell(15, 10,utf8_decode( $row['estado']), 1, 0, 'C', 0);
+    $pdf->Cell(20, 10,utf8_decode( $row['rol']), 1, 0, 'C', 0);
+    $pdf->Cell(22, 10,utf8_decode( $row['fecha_vencimiento']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida
