@@ -136,7 +136,7 @@ if (!empty($_POST["btnregistrarproducto"])) {
                     //Guardar la bitacora 
                     date_default_timezone_set("America/Tegucigalpa");
                     $fecha = date('Y-m-d h:i:s');
-                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo producto', 'Producto actualizado','$sesion_usuario')");
+                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo producto', 'Producto nuevo','$sesion_usuario')");
                     echo '<script language="javascript">alert("SE A GUARDADO EL PRODUCTO CON ÉXITOS");</script>';
                     header("location:administracion_producto.php");
                 }
