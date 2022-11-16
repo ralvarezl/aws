@@ -154,6 +154,16 @@ if(empty($_SESSION['usuario_login'])){
                 </div>
             </div>
 
+            <div class="col-md-3">
+                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/factura.php'">
+                    <div>
+                    <h3 class="fs-2">Factura</h3>
+                    <p class="fs-5">Visualizacion de la factura</p>
+                    </div>
+                    <i class="fa-solid fa-list-check fs-1 rounded-full p-3"></i>
+                </div>
+            </div>
+
         </div>                   
     </div>
 
