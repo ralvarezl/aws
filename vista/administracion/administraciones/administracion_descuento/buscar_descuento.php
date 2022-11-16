@@ -47,14 +47,51 @@ if(empty($_SESSION['usuario_login'])){
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="../../../../controlador/bitacora_pantalla/inicio.php"><i class="fa-solid fa-house"></i> INICIO </a>
                 </li>
+                <!--ADMINISTRADOR CIENTE-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_cliente.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE CLIENTE</a>
+                </li>
+                <!--ADMINISTRADOR PRODUCTO-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_producto.php"><i class="fa-solid fa-gears"></i> ADMINISTRADOR DE PRODUCTOS</a>
+                </li>
+                <!--ADMINISTRADOR PROMOCION-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_promocion.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE PROMOCION</a>
+                </li>
+                <!--ADMINISTRADOR DESCUENTO-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-gears"></i> ADMINISTRADOR DE DESCUENTO</a>
+                </li>
+                <!--ADMINISTRADOR TIPO PEDIDO-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_tipo_pedido.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE TIPO PEDIDO</a>
+                </li>
+                <!--ADMINISTRADOR DE SUCURSAL-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_sucursal.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE SUCURSAL</a>
+                </li>
+                <!--ADMINISTRADOR DE SUCURSAL PROMOCION-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_sucursal_promocion.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE SUCURSAL Y PROMOCION</a>
+                </li>
+                <!--ADMINISTRADOR DE CONFIGURACION CAI-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_configuracion_cai.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE CONFIGURACION CAI</a>
+                </li>
+                <!--ADMINISTRADOR DE USUARIO-->
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_usuario.php"><i class="fa-solid fa-users-gear"></i> ADMINISTRADOR DE USUARIOS</a>
                 </li>
-
+                <!--ADMINISTRADOR DE PARAMETROS-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_parametros.php"><i class="fa-solid fa-gears"></i> ADMINISTRADOR DE PARAMETROS</a>
+                </li>
+                <!--ADMINISTRADOR DE BITACORA-->
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="../../../../controlador/bitacora_pantalla/bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a>
                 </li>
-                
+                <!--SALIR DEL SITEMA-->
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="../../../../controlador/cerrar_sesion.php"><i class="fa-solid fa-person-walking-arrow-right"></i> SALIR DEL SISTEMA</a>
                 </li>

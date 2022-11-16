@@ -6,5 +6,5 @@
     $fecha = date('Y-m-d h:i:s');
     //Guardar la bitacora
     $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Administrador de descuento', 'Entro a Administración de descuento','$usuario')");
-    header("location:../../vista/administracion/administraciones/administracion_configuracion_cai/administracion_configuracion_cai.php");
+    header("location:../../vista/administracion/administraciones/administracion_descuento/administracion_descuento.php");
 ?>
