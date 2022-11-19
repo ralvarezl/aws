@@ -49,8 +49,15 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" 
+            <input type="number" class="form-control" placeholder="Ingrese número de identidad" 
                 name="identidad" value="<?= $datos->IDENTIDAD ?>">
+            </div>
+
+            <!--INGRESE TELEFONO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Telefono</label>
+            <input type="number" class="form-control" placeholder="Ingrese número de telefono" 
+                name="telefono" value="<?= $datos->TELEFONO ?>">
             </div>
 
             <!--CAMPOS COMBOBOX-->
@@ -81,16 +88,7 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
             </select>
             </div>
             <?php }
-            ?>
-
-            <!--INGRESE TELEFONO-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="number" class="form-control" placeholder="Ingrese numero de telefono" 
-                name="telefono" value="<?= $datos->TELEFONO ?>">
-            </div>
-
-            <?php }
+             }
             ?>
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

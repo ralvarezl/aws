@@ -128,7 +128,7 @@ if(empty($_SESSION['usuario_login'])){
 
         <div class="row p-2"> <!--Div que contiene nuevo usuario y la busqueda-->
         <div class="ml-auto p-2">
-            <button type="button" class="btn btn-dark" onclick="location.href='nuevo_cliente.php'">Nuevo producto</button>
+            <button type="button" class="btn btn-dark" onclick="location.href='nuevo_cliente.php'">Nuevo cliente</button>
         </div>
         <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
         <div class="ml-auto p-2">
