@@ -178,6 +178,7 @@ if (!empty($_POST["btnactualizarcliente"])) {
 
     //include "../../modelo/conexion.php";
     $validar=true;
+    $sesion_usuario=$_SESSION['usuario_login'];
     $id_cliente=$_POST["id_cliente"];
     $nombres=$_POST["nombres"];
     $apellidos=$_POST["apellidos"];

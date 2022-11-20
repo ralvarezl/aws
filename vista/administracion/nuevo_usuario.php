@@ -4,6 +4,18 @@ if(empty($_SESSION['usuario_login'])){
     header("location:../../login.php");
 }
 
+//Verificar permiso del rol
+include "../../modelo/conexion.php";
+$usuario_rol=$_SESSION['usuario_login'];
+$sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
+$row=mysqli_fetch_array($sql);
+$id_rol=$row[0];
+
+if($id_rol <> 2){
+    
+    echo '<script language="javascript">alert("Sin acceso");;window.location.href="administracion_usuarios.php"</script>';
+    
+}
 ?>
 
 <!DOCTYPE html>
