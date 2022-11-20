@@ -11,7 +11,7 @@ $sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$
 $row=mysqli_fetch_array($sql);
 $id_rol=$row[0];
 
-if($id_rol <> 2){
+if($id_rol <> 1){
     
     echo '<script language="javascript">alert("Sin acceso");;window.location.href="administracion_usuarios.php"</script>';
     
