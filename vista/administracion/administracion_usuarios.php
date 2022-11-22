@@ -22,7 +22,7 @@ if(empty($_SESSION['usuario_login'])){
     <!--INICIO DEL NAVBAR-->
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" >
+            <a class="navbar-brand" href="">
                 <img src="../../public/img/aws_navbar.png"/>
                 Andrés Coffee
             </a>
