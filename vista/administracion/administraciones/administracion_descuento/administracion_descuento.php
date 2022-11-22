@@ -10,7 +10,7 @@ if(empty($_SESSION['usuario_login'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion Descuento</title>
+    <title>Administración Descuento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
@@ -27,7 +27,7 @@ if(empty($_SESSION['usuario_login'])){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                <i class="fa-solid fa-gears"></i> ADMINISTRACION DE DESCUENTO
+                <i class="fa-solid fa-gears"></i> ADMINISTRACIÓN DE DESCUENTO
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -148,11 +148,11 @@ if(empty($_SESSION['usuario_login'])){
                         <thead class="table-dark">
                         
                             <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">N°</th>
                             <th scope="col">DESCUENTO</th>
                             <th scope="col">PORCENTAJE DESCUENTO</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th scope="col" style="width:10px"></th>
+                            <th scope="col" style="width:10px"></th>
                             </tr>
                         </thead>
                         <tbody>

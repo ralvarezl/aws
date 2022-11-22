@@ -77,7 +77,7 @@ $pdf->Cell(35);
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
     $pdf->Cell(55, 10, 'NOMBRE', 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, 'DIRECCION', 1, 1, 'C', 0);
+    $pdf->Cell(55, 10, utf8_decode('DIRECCIÓN'), 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;

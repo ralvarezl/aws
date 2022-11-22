@@ -10,7 +10,7 @@ if(empty($_SESSION['usuario_login'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion Usuarios</title>
+    <title>Administración Usuarios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../public/style_inicio.css">
@@ -27,7 +27,7 @@ if(empty($_SESSION['usuario_login'])){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                <i class="fa-solid fa-users-gear"></i> ADMINISTRACION DE USUARIOS
+                <i class="fa-solid fa-users-gear"></i> ADMINISTRACIÓN DE USUARIOS
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -150,13 +150,13 @@ if(empty($_SESSION['usuario_login'])){
                     <table class="table table-dark table-striped" style="text-align:center;" >
                         <thead class="table-dark">
                             <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">N°</th>
                             <th scope="col">NOMBRES</th>
                             <th scope="col">USUARIO</th>
                             <th scope="col">IDENTIDAD</th>
-                            <th scope="col">GENERO</th>
-                            <th scope="col">TELEFONO</th>
-                            <th scope="col">DIRECCION</th>
+                            <th scope="col">GÉNERO</th>
+                            <th scope="col">TELÉFONO</th>
+                            <th scope="col">DIRECCIÓN</th>
                             <th scope="col">CORREO</th>
                             <th scope="col">ESTADO</th>
                             <th scope="col">ROL</th>

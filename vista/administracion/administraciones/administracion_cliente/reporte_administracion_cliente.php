@@ -31,7 +31,7 @@ function Header()
     // Título
     $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(210,10,'Reporte de cliente',0,0,'C');
+    $this->Cell(210,10,'Reporte de Cliente',0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
@@ -74,8 +74,8 @@ $pdf->Cell(12);
     $pdf->Cell(42, 10, 'NOMBRES', 1, 0, 'C', 0);
     $pdf->Cell(42, 10, 'APELLIDOS', 1, 0, 'C', 0);
     $pdf->Cell(30, 10, 'IDENTIDAD', 1, 0, 'C', 0);
-    $pdf->Cell(25, 10, 'GENERO', 1, 0, 'C', 0);
-    $pdf->Cell(25, 10, 'TELEFONO', 1, 1, 'C', 0);
+    $pdf->Cell(25, 10, utf8_decode('GÉNERO'), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10, utf8_decode('TELÉFONO'), 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;

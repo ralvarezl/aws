@@ -14,7 +14,7 @@ if(empty($_SESSION['usuario_login'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
-    <link rel="shortcut icon" href="../../public/img/Logo.png">
+    <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 
 </head>
 
@@ -27,7 +27,7 @@ if(empty($_SESSION['usuario_login'])){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                <i class="fa-solid fa-list-check"></i> BITACORA
+                <i class="fa-solid fa-list-check"></i> BITÁCORA
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -89,7 +89,7 @@ if(empty($_SESSION['usuario_login'])){
                 </li>
                 <!--ADMINISTRADOR DE BITACORA-->
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-gears"></i>BITACORA</a>
+                    <a class="nav-link" href="#"><i class="fa-solid fa-gears"></i>BITÁCORA</a>
                 </li>
                 <!--SALIR DEL SITEMA-->
                 <li class="btn btn-dark p-2">
@@ -128,9 +128,9 @@ if(empty($_SESSION['usuario_login'])){
                         <thead class="table-dark">
                         <br></br>
                             <tr>
-                            <th scope="col">FECHA ACCION</th>
-                            <th scope="col">ACCION</th>
-                            <th scope="col">DESCRIPCION</th>
+                            <th scope="col">FECHA ACCIÓN</th>
+                            <th scope="col">ACCIÓN</th>
+                            <th scope="col">DESCRIPCIÓN</th>
                             <th scope="col">REALIZADO POR</th>
                             </tr>
                         </thead>

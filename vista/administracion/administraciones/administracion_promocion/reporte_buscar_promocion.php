@@ -31,7 +31,7 @@ function Header()
     // Título
     $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(210,10,'Reporte Promocion',0,0,'C');
+    $this->Cell(210,10,utf8_decode('Reporte de Promoción'),0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
@@ -78,7 +78,7 @@ $pdf->Cell(35);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
-    $pdf->Cell(42, 10, 'DESCRIPCION', 1, 0, 'C', 0);
+    $pdf->Cell(42, 10, utf8_decode('DESCRIPCIÓN'), 1, 0, 'C', 0);
     $pdf->Cell(25, 10, 'PRECIO', 1, 0, 'C', 0);
     $pdf->Cell(25, 10, 'FECHA INICIAL', 1, 0, 'C', 0);
     $pdf->Cell(25, 10, 'FECHA FINAL', 1, 1, 'C', 0);

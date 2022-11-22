@@ -31,7 +31,7 @@ function Header()
     // Título
     $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(210,10,'Reporte Parametros',0,0,'C');
+    $this->Cell(210,10,utf8_decode('Reporte Parámetros'),0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
@@ -71,7 +71,7 @@ $pdf->Cell(35);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, 'PARAMETRO', 1, 0, 'C', 0);
+    $pdf->Cell(55, 10, utf8_decode('PARÁMETRO'), 1, 0, 'C', 0);
     $pdf->Cell(55, 10, 'VALOR', 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD

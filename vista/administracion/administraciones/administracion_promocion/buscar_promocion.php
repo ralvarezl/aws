@@ -10,11 +10,11 @@ if(empty($_SESSION['usuario_login'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion Promocion</title>
+    <title>Administración Promoción</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
-    <link rel="shortcut icon" href="../../public/img/Logo.png">
+    <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 
 </head>
 
@@ -27,7 +27,7 @@ if(empty($_SESSION['usuario_login'])){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                <i class="fa-solid fa-gears"></i> ADMINISTRACION DE PROMOCION
+                <i class="fa-solid fa-gears"></i> ADMINISTRACIÓN DE PROMOCIÓN
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -128,7 +128,7 @@ if(empty($_SESSION['usuario_login'])){
         
         <div class="row p-2"> <!--Div que contiene nuevo usuario y la busqueda-->
                 <div class="ml-auto p-2">
-        <button type="button" class="btn btn-dark" onclick="location.href='nuevo_promocion.php'" >Nueva Promocion</button>
+        <button type="button" class="btn btn-dark" onclick="location.href='nuevo_promocion.php'" >Nueva Promoción</button>
         </div>
         
         <?php 
@@ -154,8 +154,8 @@ if(empty($_SESSION['usuario_login'])){
                         <thead class="table-dark">
                         <br></br>
                             <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">DESCRIPCION</th>
+                            <th scope="col">N°</th>
+                            <th scope="col">DESCRIPCIÓN</th>
                             <th scope="col">PRECIO</th>
                             <th scope="col">FECHA INICIAL</th>
                             <th scope="col">FECHA FINAL</th>

@@ -10,7 +10,7 @@ if(empty($_SESSION['usuario_login'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion Usuarios</title>
+    <title>Administraciones</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/21445fda3d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../public/style_inicio.css">
@@ -133,7 +133,7 @@ if(empty($_SESSION['usuario_login'])){
                 <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_usuario.php'">
                     <div>
                     <h3 class="fs-2">USUARIOS</h3>
-                    <p class="fs-5">Administracion de Usuarios</p>
+                    <p class="fs-5">Administración de Usuarios</p>
                     </div>
                     <i class="fa-solid fa-users-gear fs-1 rounded-full p-3"></i>
                 </div>
@@ -143,7 +143,7 @@ if(empty($_SESSION['usuario_login'])){
                 <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_parametros.php'">
                     <div>
                     <h3 class="fs-2">PARAMETROS</h3>
-                    <p class="fs-5">Administracion de Parametros</p>
+                    <p class="fs-5">Administración de Parametros</p>
                     </div>
                     <i class="fa-solid fa-gears fs-1 rounded-full p-3"></i>
                 </div>
@@ -153,7 +153,7 @@ if(empty($_SESSION['usuario_login'])){
                 <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/bitacora.php'">
                     <div>
                     <h3 class="fs-2">BITACORA</h3>
-                    <p class="fs-5">Visualizacion de la Bitacora</p>
+                    <p class="fs-5">Visualización de la Bitacora</p>
                     </div>
                     <i class="fa-solid fa-list-check fs-1 rounded-full p-3"></i>
                 </div>
@@ -163,7 +163,7 @@ if(empty($_SESSION['usuario_login'])){
                 <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/factura.php'">
                     <div>
                     <h3 class="fs-2">FACTURA</h3>
-                    <p class="fs-5">Visualizacion de la factura</p>
+                    <p class="fs-5">Visualización de la factura</p>
                     </div>
                     <i class="fa-solid fa-list-check fs-1 rounded-full p-3"></i>
                 </div>

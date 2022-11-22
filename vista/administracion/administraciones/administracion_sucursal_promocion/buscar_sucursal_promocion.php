@@ -10,7 +10,7 @@ if(empty($_SESSION['usuario_login'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion Sucursal Promocion</title>
+    <title>Administración Sucursal Promoción</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
@@ -26,7 +26,7 @@ if(empty($_SESSION['usuario_login'])){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                <i class="fa-solid fa-users-gear"></i> ADMINISTRACION DE SUCURSAL PROMOCION
+                <i class="fa-solid fa-users-gear"></i> ADMINISTRACIÓN DE SUCURSAL PROMOCIÓN
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -151,7 +151,7 @@ if(empty($_SESSION['usuario_login'])){
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">SUCURSAL</th>
-                        <th scope="col">PROMOCION</th>
+                        <th scope="col">PROMOCIÓN</th>
                         <th scope="col">ESTADO</th>
                         <th scope="col"style="width:15px"></th>
                     </tr>

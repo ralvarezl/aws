@@ -27,7 +27,7 @@ function Header()
     // Título
     $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(260,10,'Reporte Bitacora',0,0,'C');
+    $this->Cell(260,10,utf8_decode('Reporte Bitácora'),0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
@@ -67,8 +67,8 @@ $pdf->Cell(20);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(55, 10, 'FECHA', 1, 0, 'C', 0);
-    $pdf->Cell(40, 10, 'ACCION', 1, 0, 'C', 0);
-    $pdf->Cell(65, 10, 'DESCRIPCION', 1, 0, 'C', 0);
+    $pdf->Cell(40, 10, utf8_decode('ACCIÓN'), 1, 0, 'C', 0);
+    $pdf->Cell(65, 10, utf8_decode('DESCRIPCIÓN'), 1, 0, 'C', 0);
     $pdf->Cell(55, 10, 'HECHO POR', 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD

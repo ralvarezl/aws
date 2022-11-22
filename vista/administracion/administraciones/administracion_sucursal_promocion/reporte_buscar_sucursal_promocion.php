@@ -31,7 +31,7 @@ function Header()
     // Título
     $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(210,10,'Reporte Sucursal Promocion',0,0,'C');
+    $this->Cell(210,10,utf8_decode('Reporte Sucursal Promoción'),0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
@@ -76,7 +76,7 @@ $pdf->Cell(20);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(55, 10, 'SUCURSAL', 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, 'PROMOCION', 1, 0, 'C', 0);
+    $pdf->Cell(55, 10, utf8_decode('PROMOCIÓN'), 1, 0, 'C', 0);
     $pdf->Cell(55, 10, 'ESTADO', 1, 1, 'C', 0);
 //Hacemos el recorrido del resultado que se trae de la BD
 while ($row = $resultado->fetch_assoc()) {

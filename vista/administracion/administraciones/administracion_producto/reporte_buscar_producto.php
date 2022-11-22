@@ -31,7 +31,7 @@ function Header()
     // Título
     $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(210,10,'Reporte Producto',0,0,'C');
+    $this->Cell(210,10,'Reporte de Producto',0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }

@@ -31,7 +31,7 @@ function Header()
     // Título
     $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(210,10,'Reporte Configuracion Cai',0,0,'C');
+    $this->Cell(210,10,utf8_decode('Reporte Configuración Cai'),0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
@@ -81,7 +81,7 @@ $pdf->Cell(15);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
-    $pdf->Cell(25, 10, 'NUMERO CAI', 1, 0, 'C', 0);
+    $pdf->Cell(25, 10, utf8_decode('NÚMERO CAI'), 1, 0, 'C', 0);
     $pdf->Cell(35, 10, 'SECUENCIA INICIAL', 1, 0, 'C', 0);
     $pdf->Cell(35, 10, 'SECUENCIA ACTUAL', 1, 0, 'C', 0);
     $pdf->Cell(35, 10, 'SECUENCIA FINAL', 1, 0, 'C', 0);

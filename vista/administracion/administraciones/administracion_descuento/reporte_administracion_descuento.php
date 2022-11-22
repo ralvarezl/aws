@@ -74,7 +74,7 @@ $pdf->Cell(55);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
-    $pdf->Cell(35, 10, 'DESCRIPCION', 1, 0, 'C', 0);
+    $pdf->Cell(35, 10, utf8_decode('DESCRIPCIÓN'), 1, 0, 'C', 0);
     $pdf->Cell(45, 10, 'PORCENTAJE DESCUENTO', 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD

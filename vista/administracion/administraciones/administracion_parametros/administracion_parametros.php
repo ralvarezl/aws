@@ -10,11 +10,11 @@ if(empty($_SESSION['usuario_login'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion Parametros</title>
+    <title>Administración Parámetros</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
-    <link rel="shortcut icon" href="../../public/img/Logo.png">
+    <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 
 </head>
 
@@ -27,7 +27,7 @@ if(empty($_SESSION['usuario_login'])){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                <i class="fa-solid fa-gears"></i> ADMINISTRACION DE PARAMETROS
+                <i class="fa-solid fa-gears"></i> ADMINISTRACIÓN DE PARÁMETROS
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -134,10 +134,10 @@ if(empty($_SESSION['usuario_login'])){
                 ?>
                     <table class="table table-dark table-striped" style="text-align:center;" >
                         <thead class="table-dark">
-                        <br></br>
+                        
                             <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">PARAMETRO</th>
+                            <th scope="col">N°</th>
+                            <th scope="col">PARÁMETRO</th>
                             <th scope="col">VALOR</th>
                             <th scope="col"></th>
                             </tr>
