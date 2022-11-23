@@ -111,9 +111,9 @@ if(empty($_SESSION['usuario_login'])){
                 </ul>
                 
             </div>
-             <!--SALIR DEL SITEMA-->
-             <li class="btn btn-dark p-2">
-                    <a class="nav-link" href="../../controlador/cerrar_sesion.php"><i class="fas fa-sign-out-alt"> SALIR</i></a>
+           <!--SALIR DEL SITEMA-->
+           <li class="btn btn-dark p-2">
+                <a class="nav-link" href="../../../../controlador/cerrar_sesion.php"><i class="fas fa-sign-out-alt"></i> SALIR DEL SISTEMA</a>
             </li>
             </div>
         </div>
