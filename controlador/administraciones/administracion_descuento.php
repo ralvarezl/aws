@@ -24,12 +24,28 @@ function campo_vacio_actualizar($descripcion, $porcentaje_descuento, &$validar){
 //ACTUALIZAR DESCUENTO
 function actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" update tbl_descuento set descripcion= '$descripcion', porcentaje_descuento = '$porcentaje_descuento' where id_descuento = '$id_descuento';");   
-    if($sql==1){
-        return $validar;
+
+    //CONSULTAR LA DESCRIPCION
+    $sql1=mysqli_query($conexion, "select descripcion from tbl_descuento where id_descuento=$id_descuento");
+    $row=mysqli_fetch_array($sql1);
+    $objeto_base=$row[0];
+
+    if($descripcion==$objeto_base){
+        $sql=$conexion->query(" update tbl_descuento SET descripcion='$descripcion', porcentaje_descuento='$porcentaje_descuento' WHERE id_descuento = $id_descuento ");   
+        
     }else{
-        echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+        //consultar por el objeto
+        $sql=$conexion->query("select descripcion from tbl_descuento where descripcion='$descripcion'");
+        if ($datos=$sql->fetch_object()) { //si existe
+            echo"<div class='alert alert-danger text-center'>Este descuento ya existe</div>";
+            $validar=false;
+            return $validar;
+        }else {
+            $sql=$conexion->query(" update tbl_descuento SET descripcion='$descripcion', porcentaje_descuento='$porcentaje_descuento' WHERE id_descuento = $id_descuento ");   
+            return $validar;
+        }
     }
+
 }
 
 //NUEVO DESCUENTO
@@ -148,21 +164,19 @@ if (!empty($_POST["btn_actualizar_descuento"])) {
     
     campo_vacio_actualizar($descripcion, $porcentaje_descuento, $validar);
     if($validar==true){
-        validar_existe($descripcion, $validar);
+        validar_descripcion($descripcion, $validar);
         if($validar==true){
-            validar_descripcion($descripcion, $validar);
+            actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento, $validar);
             if($validar==true){
-                actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento, $validar);
-                if($validar==true){
-                    //Guardar la bitacora 
-                    date_default_timezone_set("America/Tegucigalpa");
-                    $fecha = date('Y-m-d h:i:s');
-                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Descuento', 'Creo descuento $descripcion','$sesion_usuario')");
-                    header("location:administracion_descuento.php");
+                //Guardar la bitacora 
+                date_default_timezone_set("America/Tegucigalpa");
+                $fecha = date('Y-m-d h:i:s');
+                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Descuento', 'Creo descuento $descripcion','$sesion_usuario')");
+                header("location:administracion_descuento.php");
                 }
             }  
         }
     }
-}
+
 
 ?>

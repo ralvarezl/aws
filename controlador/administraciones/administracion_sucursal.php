@@ -45,13 +45,26 @@ function usuario_crear($nombre_sucursal,$direccion_sucursal,&$validar){
 function sucursal_actualizar($id_sucursal,$nombre_sucursal,$direccion_sucursal,&$validar){
 include "../../../../modelo/conexion.php";
         
-    $sql=$conexion->query(" update tbl_sucursal SET nombre='$nombre_sucursal', direccion='$direccion_sucursal' WHERE id_sucursal = $id_sucursal ");   
-    if ($sql==1) {
-        return $validar;
+    //CONSULTAR EL OBJETO
+    $sql1=mysqli_query($conexion, "select nombre from tbl_sucursal where id_sucursal=$id_sucursal");
+    $row=mysqli_fetch_array($sql1);
+    $objeto_base=$row[0];
+
+    if($nombre_sucursal==$objeto_base){
+        $sql=$conexion->query(" update tbl_sucursal SET nombre='$nombre_sucursal', direccion='$direccion_sucursal' WHERE id_sucursal = $id_sucursal ");   
+        
+    }else{
+        //consultar por el objeto
+        $sql=$conexion->query("select nombre from tbl_sucursal where nombre='$nombre_sucursal'");
+        if ($datos=$sql->fetch_object()) { //si existe
+            echo"<div class='alert alert-danger text-center'>Esta sucursal ya existe</div>";
+            $validar=false;
+            return $validar;
         }else {
-        $validar=false;
-        return $validar;
+            $sql=$conexion->query(" update tbl_sucursal SET nombre='$nombre_sucursal', direccion='$direccion_sucursal' WHERE id_sucursal = $id_sucursal ");   
+            return $validar;
         }
+    }
 }
 
 
@@ -93,8 +106,6 @@ if (!empty($_POST["btnactualizar_sucursal"])) {
 
     campo_vacio($nombre_sucursal,$direccion_sucursal,$validar);
     if ($validar==true) {
-        sucursal_existe($nombre_sucursal,$validar);
-        if ($validar==true) {
             sucursal_actualizar($id_sucursal,$nombre_sucursal,$direccion_sucursal,$validar);
             if ($validar==true) {
                  //Guardar la bitacora 
@@ -109,5 +120,5 @@ if (!empty($_POST["btnactualizar_sucursal"])) {
         }
     }
 
-}
+
 ?>

@@ -14,13 +14,26 @@ function campo_vacio( $objeto, $descripcion, $tipo_objeto, &$validar){
 //ACTUALIZAR OBJETO
 function actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, &$validar){
     include "../../../../modelo/conexion.php";
+    
+    //CONSULTAR EL OBJETO
+    $sql1=mysqli_query($conexion, "select objeto from tbl_ms_objetos where id_objeto=$id_objeto");
+    $row=mysqli_fetch_array($sql1);
+    $objeto_base=$row[0];
+
+    if($objeto==$objeto_base){
+        $sql=$conexion->query(" update tbl_ms_objetos SET descripcion='$descripcion', tipo_objeto='$tipo_objeto' WHERE id_objeto = $id_objeto ");   
         
-    $sql=$conexion->query(" update tbl_ms_objetos SET objeto='$objeto', descripcion='$descripcion', tipo_objeto='$tipo_objeto' WHERE id_objeto = $id_objeto ");   
-    if ($sql==1) {
-        return $validar;
-    }else {
-    $validar=false;
-    return $validar;
+    }else{
+        //consultar por el objeto
+        $sql=$conexion->query("select objeto from tbl_ms_objetos where objeto='$objeto'");
+        if ($datos=$sql->fetch_object()) { //si existe
+            echo"<div class='alert alert-danger text-center'>Este objeto ya existe</div>";
+            $validar=false;
+            return $validar;
+        }else {
+            $sql=$conexion->query(" update tbl_ms_objetos SET objeto='$objeto', descripcion='$descripcion', tipo_objeto='$tipo_objeto' WHERE id_objeto = $id_objeto ");   
+            return $validar;
+        }
     }
 }
 
@@ -88,10 +101,8 @@ if (!empty($_POST["btnactualizar_objeto"])) {
     $objeto=$_POST["objeto"];
     $descripcion=$_POST["descripcion"];
     $tipo_objeto=$_POST["tipo_objeto"];
-    campo_vacio($id_objeto, $objeto, $descripcion, $tipo_objeto, $validar);
+    campo_vacio($objeto, $descripcion, $tipo_objeto, $validar);
         if ($validar==true) {
-            validar_existe($objeto, $validar);
-            if($validar==true){
                 actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, $validar);
                 if($validar==true){
                 //Guardar la bitacora 
@@ -101,11 +112,6 @@ if (!empty($_POST["btnactualizar_objeto"])) {
                 //Mensaje de confirmacion
                 echo '<script language="javascript">alert("Objeto actualizado exitosamente");;window.location.href="administracion_objeto.php"</script>';//objeto ingresado
                 }
-            }
-                
-        } 
+        }
     }
-
-
-
 ?>
