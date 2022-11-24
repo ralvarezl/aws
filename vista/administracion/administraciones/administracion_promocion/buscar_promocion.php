@@ -159,7 +159,8 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">PRECIO</th>
                             <th scope="col">FECHA INICIAL</th>
                             <th scope="col">FECHA FINAL</th>
-                            <th scope="col"></th>
+                            <th scope="col" style="width:10px"></th>
+                            <th scope="col" style="width:10px"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -182,6 +183,8 @@ if(empty($_SESSION['usuario_login'])){
                                 <td><?php echo $u['fecha_final']; ?></td>
                                 <td>
                                     <a href="actualizar_promocion.php?id_promocion=<?= $u['id_promocion'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                </td>
+                                <td>
                                     <a onclick="return eliminar()" href="administracion_promocion.php?id_promocion=<?= $u['id_promocion'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                                 

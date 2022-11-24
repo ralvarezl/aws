@@ -5,7 +5,7 @@ function campo_vacio($nombres,$identidad,$genero,$telefono,&$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger'>Por favor llene todos los campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -13,22 +13,22 @@ function campo_vacio($nombres,$identidad,$genero,$telefono,&$validar){
 //NUEVO CLIENTE
 function nuevo_cliente($nombres,$identidad,$genero,$telefono,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_cliente (nombres,identidad,genero,telefono) values ('$nombres',$identidad,'$genero',$telefono)"); 
+    $sql=$conexion->query("insert into tbl_cliente (nombres,identidad,genero,telefono) values ('$nombres',$identidad,'$genero',$telefono)"); 
     if($sql==1){
         return $validar;
     }else{
-        echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+        echo"<div align='center' class='alert alert-danger'>Error al registrar nuevo cliente</div>";
     }
 }
 
 //MODIFICAR CLIENTE
 function modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" update tbl_cliente SET nombres='$nombres', identidad= $identidad, genero = '$genero', telefono= $telefono WHERE id_cliente = $id_cliente "); 
+    $sql=$conexion->query("update tbl_cliente SET nombres='$nombres', identidad= $identidad, genero = '$genero', telefono= $telefono WHERE id_cliente = $id_cliente "); 
     if($sql==1){
         return $validar;
     }else{
-        echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+        echo"<div align='center' class='alert alert-danger'>Error al actualizar el cliente</div>";
     }
 }
 
@@ -43,14 +43,14 @@ function tamanio_identidad_telefono($identidad,$telefono, &$validar){
         $conta=1;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>La identidad debe tener 13 caracteres numericos</div>";
+        echo"<div class='alert alert-danger text-center'>La identidad debe tener 13 caracteres numéricos</div>";
         return $validar;
     }
     if($Longitud2>=8 && $Longitud2<=8){
         $conta=2;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>El telefono debe tener 8 caracteres numericos</div>";
+        echo"<div class='alert alert-danger text-center'>El teléfono debe tener 8 caracteres numéricos</div>";
         return $validar;
     }
 
@@ -62,21 +62,46 @@ function tamanio_identidad_telefono($identidad,$telefono, &$validar){
 //Caracteres especiales 
 function valida_nombre($nombres,&$validar){
     //Validar tenga numeros
+    if (preg_match('/[0-9]/',$nombre)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
+        return $validar;
+    } else {
+        //Validar tenga caracter especial
+        if (!preg_match("/^[a-zA-Z\s]*$/",$nombre)){
+            $validar=false;
+            echo"<div class='alert alert-danger text-center'>La nombre no debe tener caracteres especiales</div>"; 
+            return $validar;
+        }else {
+            //Validar tenga no tenga mas de 2 espacios
+            if(strpos($nombre,"  ")){
+                echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";
+                $validar=false;
+                return $validar;
+            }else{
+                return $validar;
+            }
+        }
+    }
+}
+
+function valida_nombre_actualizar($nombres,&$validar){
+    //Validar tenga numeros
     if (preg_match('/[0-9]/',$nombres)){
         $validar=false;
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
     } else {
         //Validar tenga caracter especial
-        if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$nombres) && preg_match('/[!"#$"%&()_=?\+[]}{-@¡¿]/',$nombres)){
+        if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$nombres) and preg_match('/[!"#$"%&()_=?\+[]}{-@¡¿]/',$nombres)){
             $validar=false;
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
         }else {
             if(strpos($nombres,"  ")){
-                echo"<div class='alert alert-danger text-center'>No se permiten más de un espacios</div>";
+                echo"<div class='alert alert-danger text-center'>No se permiten más de un espacio</div>";
                 $validar=false;
                 return $validar;
             }else {
-                if(!strpos($nombres,"=") && !strpos($nombres, '""') or !strpos($nombres, '"')){
+                if(strpos($nombres,"=") and strpos($nombres,'""') and strpos($nombres, '"')){
                     return $validar;
                 }else{
                     $validar=false;
@@ -103,7 +128,7 @@ function identidad($identidad,&$validar){
     }else{
 
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Identidad ya existente</div>";
+        echo"<div class='alert alert-danger text-center'>La identidad ya existe, ingrese una nueva</div>";
         return $validar;  
     }
 }
@@ -130,7 +155,7 @@ function identidad_actualizar($id_cliente,$identidad,&$validar){
         }else{
 
             $validar=false;
-            echo"<div class='alert alert-danger text-center'>Identidad ya existente</div>";
+            echo"<div class='alert alert-danger text-center'>La identidad ya existe, ingrese una nueva</div>";
             return $validar;  
         } 
     }
@@ -164,7 +189,7 @@ if (!empty($_POST["btnregistrarcliente"])) {
                         $fecha = date('Y-m-d h:i:s');
                         $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo cliente', 'Cliente nuevo','$sesion_usuario')");
                         //Mensaje de confirmacion
-                        echo '<script language="javascript">alert("Cliente actualizado exitosamente");;window.location.href="administracion_cliente.php"</script>';
+                        echo '<script language="javascript">alert("Cliente registrado exitosamente");;window.location.href="administracion_cliente.php"</script>';
                     }
                 }
             }
@@ -186,22 +211,24 @@ if (!empty($_POST["btnactualizarcliente"])) {
 
     campo_vacio($nombres,$identidad,$genero,$telefono,$validar);
     if($validar==true){
-        tamanio_identidad_telefono($identidad,$telefono, $validar);
-        if ($validar==true) {
-            identidad_actualizar($id_cliente,$identidad,$validar);
+        
+            tamanio_identidad_telefono($identidad,$telefono, $validar);
             if ($validar==true) {
-                modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,$validar);
+                identidad_actualizar($id_cliente,$identidad,$validar);
                 if ($validar==true) {
-                    //Guardar la bitacora 
-                    date_default_timezone_set("America/Tegucigalpa");
-                    $fecha = date('Y-m-d h:i:s');
-                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo cliente', 'Cliente actualizado','$sesion_usuario')");
-                    //Mensaje de confirmacion
-                    echo '<script language="javascript">alert("Cliente actualizado exitosamente");;window.location.href="administracion_cliente.php"</script>';
+                    modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,$validar);
+                    if ($validar==true) {
+                        //Guardar la bitacora 
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha = date('Y-m-d h:i:s');
+                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo cliente', 'Cliente actualizado','$sesion_usuario')");
+                        //Mensaje de confirmacion
+                        echo '<script language="javascript">alert("Cliente actualizado exitosamente");;window.location.href="administracion_cliente.php"</script>';
+                    }
                 }
             }
-        }
+    
+        
     }
 }
-
 ?>

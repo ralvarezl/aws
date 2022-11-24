@@ -162,7 +162,8 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">IDENTIDAD</th>
                             <th scope="col">GÉNERO</th>
                             <th scope="col">TELÉFONO</th>
-                            <th scope="col"></th>
+                            <th scope="col" style="width:10px"></th>
+                            <th scope="col" style="width:10px"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -180,6 +181,8 @@ if(empty($_SESSION['usuario_login'])){
                                 <td><?php echo $u['telefono']; ?></td>
                                 <td>
                                     <a href="actualizar_cliente.php?id_cliente=<?= $u['id_cliente'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                </td>
+                                <td>
                                     <a onclick="return eliminar()" href="administracion_cliente.php?id_cliente=<?= $u['id_cliente'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                                 

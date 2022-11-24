@@ -15,7 +15,7 @@ $sql=$conexion->query(" select * from tbl_producto where id_producto=$id_product
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="shortcut icon" href="../../public/img/Logo.png">
+    <link rel="shortcut icon" href="../../../../public/img/Logo.png">
     <link rel="stylesheet" href="../../actualizar_usuarios.css">
     <title>Actualizar Producto</title>
 </head>
@@ -49,14 +49,14 @@ $sql=$conexion->query(" select * from tbl_producto where id_producto=$id_product
             <!--INGRESE CANTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">CANTIDAD</label>
-            <input type="text" class="form-control" placeholder="Ingrese la cantidad" 
+            <input type="number" class="form-control" placeholder="Ingrese la cantidad" 
                 name="cantidad" value="<?= $datos->CANTIDAD ?>">
             </div>
 
             <!--INGRESE PRECIO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">PRECIO</label>
-            <input type="text" class="form-control" placeholder="Ingrese el precio" 
+            <input type="number" class="form-control" placeholder="Ingrese el precio" 
                 name="precio" value="<?= $datos->PRECIO ?>">
             </div>
             <?php }

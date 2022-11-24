@@ -43,15 +43,23 @@ function Valida_tipo($tipo,&$validar){
     //Validar tenga numeros
     if (preg_match('/[0-9]/',$tipo)){
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>El tipo no debe tener caracteres numéricos</div>"; 
+        echo"<div class='alert alert-danger text-center'>El tipo de producto no debe tener caracteres numéricos</div>"; 
+        return $validar;
     } else {
         //Validar tenga caracter especial
-        if (ctype_alpha($tipo)){
-            return $validar;
-        }else{
+        if (!preg_match("/^[a-zA-Z\s]*$/",$tipo)){
             $validar=false;
-            echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales ni espacios</div>"; 
+            echo"<div class='alert alert-danger text-center'>El tipo de producto no debe tener caracteres especiales</div>"; 
             return $validar;
+        }else {
+            //Validar tenga no tenga mas de 2 espacios
+            if(strpos($tipo,"  ")){
+                echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";
+                $validar=false;
+                return $validar;
+            }else{
+                return $validar;
+            }
         }
     }
 }

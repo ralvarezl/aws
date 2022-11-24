@@ -159,7 +159,8 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">TIPO</th>
                             <th scope="col">CANTIDAD</th>
                             <th scope="col">PRECIO</th>
-                            <th scope="col"></th>
+                            <th scope="col" style="width:10px"></th>
+                            <th scope="col" style="width:10px"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -182,6 +183,8 @@ if(empty($_SESSION['usuario_login'])){
                                 <td><?php echo $u['precio']; ?></td>
                                 <td>
                                     <a href="actualizar_producto.php?id_producto=<?= $u['id_producto'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                </td>
+                                <td>
                                     <a onclick="return eliminar()" href="administracion_producto.php?id_producto=<?= $u['id_producto'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                                 

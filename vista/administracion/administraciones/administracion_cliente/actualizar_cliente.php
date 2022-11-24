@@ -15,15 +15,15 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="shortcut icon" href="../../public/img/Logo.png">
+    <link rel="shortcut icon" href="../../../../public/img/Logo.png">
     <link rel="stylesheet" href="../../actualizar_usuarios.css">
-    <title>Actualizar Producto</title>
+    <title>Actualizar Cliente</title>
 </head>
 <body>
 
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
             <br></br>
-            <h3 class="text-center text-secundary">ACTUALIZAR PRODUCTO</h3>
+            <h3 class="text-center text-secundary">ACTUALIZAR CLIENTE</h3>
             <!--Imput que se oculta para almacenar el usuario para enviarlo a la BD-->
             <input type="hidden" name="id_cliente" value="<?= $_GET["id_cliente"] ?>"> 
             <?php
@@ -85,7 +85,7 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
             ?>
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn btn-dark" id="btnactualizar_producto" name="btnactualizarcliente" value="ok">Actualizar Cliente</button>
+            <button type="submit" class="btn btn-dark" id="btnactualizarcliente" name="btnactualizarcliente" value="ok">Actualizar Cliente</button>
             <button type="button" class="btn btn-outline-danger" onclick="location.href='administracion_cliente.php'" >Cancelar</button>
             </div>
             
