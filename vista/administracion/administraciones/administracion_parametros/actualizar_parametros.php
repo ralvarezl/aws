@@ -31,10 +31,18 @@ $sql=$conexion->query(" select * from tbl_ms_parametros where id_parametro=$id_p
             
             //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
             while ($datos=$sql->fetch_object()) {?>
+
+            <!--INGRESE PARAMETRO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">PARAMETRO</label>
+            <input type="text" class="form-control" placeholder="Ingrese valor" onKeyUp="this.value=this.value.toUpperCase();"
+                name="parametro" value="<?= $datos->PARAMETRO ?>">
+            </div>
+
             <!--INGRESE VALOR-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">VALOR</label>
-            <input type="text" class="form-control" placeholder="Ingrese valor" 
+            <input type="text" class="form-control" placeholder="Ingrese valor" onKeyUp="this.value=this.value.toUpperCase();"
                 name="valor" value="<?= $datos->VALOR ?>">
             </div>
             <?php }

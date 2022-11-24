@@ -14,13 +14,25 @@ function campo_vacio( $rol, $descripcion, &$validar){
 //ACTUALIZAR 
 function actualizar_rol($id_rol, $rol, $descripcion, &$validar){
     include "../../../../modelo/conexion.php";
-        
-    $sql=$conexion->query(" update tbl_ms_roles SET rol='$rol', descripcion='$descripcion' WHERE id_rol=$id_rol");
-    if ($sql==1) {
-        return $validar;
-    }else {
-    $validar=false;
-    return $validar;
+    
+    //CONSULTAR EL ROL
+    $sql1=mysqli_query($conexion, "select rol from tbl_ms_roles where id_rol=$id_rol");
+    $row=mysqli_fetch_array($sql1);
+    $rol_base=$row[0];
+
+    if($rol==$rol_base){
+        $sql=$conexion->query(" update tbl_ms_roles SET descripcion='$descripcion' WHERE id_rol=$id_rol");
+    }else{
+        //consultar por el rol
+        $sql=$conexion->query("select rol from tbl_ms_roles where rol='$rol'");
+        if ($datos=$sql->fetch_object()) { //si existe
+            echo"<div class='alert alert-danger text-center'>Este rol ya existe</div>";
+            $validar=false;
+            return $validar;
+        }else{
+            $sql=$conexion->query(" update tbl_ms_roles SET rol='$rol', descripcion='$descripcion' WHERE id_rol=$id_rol");
+            return $validar;
+        }
     }
 }
 
@@ -86,10 +98,8 @@ if (!empty($_POST["btnactualizar_rol"])) {
     $rol=$_POST["rol"];
     $descripcion=$_POST["descripcion"];
     
-    campo_vacio($id_rol, $rol, $descripcion, $validar);
+    campo_vacio($rol, $descripcion, $validar);
         if ($validar==true) {
-            validar_existe($rol, $validar);
-            if($validar==true){
                 actualizar_rol($id_rol, $rol, $descripcion, $validar);
                 if($validar==true){
                 //Guardar la bitacora 
@@ -99,10 +109,8 @@ if (!empty($_POST["btnactualizar_rol"])) {
                 //Mensaje de confirmacion
                 echo '<script language="javascript">alert("Rol actualizado exitosamente");;window.location.href="administracion_rol.php"</script>';//objeto ingresado
                 }
-            }
-                
-        } 
-    }
+        }
+}
 
 
 

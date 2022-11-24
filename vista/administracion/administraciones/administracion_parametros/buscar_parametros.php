@@ -132,6 +132,9 @@ if(empty($_SESSION['usuario_login'])){
 
         <!--BUSQUEDA-->
         <div class="ml-auto p-2">
+            <div class="ml-auto p-2">
+                    <button type="button" class="btn btn-dark" onclick="location.href='nuevo_parametro.php'" >Nuevo Parametro</button>
+            </div>
             <form action="buscar_parametros.php" method="get" class="form_search">
             <input type="text" name="busqueda_parametros" id="busqueda_parametros" placeholder="" value="<?php echo $busqueda_parametros; ?>">
             <input type="submit" value="Buscar" class="btn btn-secondary">
@@ -148,10 +151,11 @@ if(empty($_SESSION['usuario_login'])){
                         <thead class="table-dark">
                         
                             <tr>
-                            <th scope="col">N°</th>
+                            <th class="col-sm-1" scope="col">N°</th>
                             <th scope="col">PARÁMETRO</th>
                             <th scope="col">VALOR</th>
-                            <th scope="col"></th>
+                            <th scope="col"style="width:15px"></th>
+                            <th scope="col"style="width:15px"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -170,6 +174,9 @@ if(empty($_SESSION['usuario_login'])){
                                 <td><?php echo $u['valor']; ?></td>
                                 <td>
                                     <a href="actualizar_parametros.php?id_parametro=<?= $u['id_parametro'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                </td>
+                                <td>
+                                    <a onclick="return eliminar()" href="administracion_parametros.php?id_parametro=<?= $u['id_parametro'] ?>" class="btn btn-small btn-danger" name="btnborrar_parametro"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                                 
                             </tr>

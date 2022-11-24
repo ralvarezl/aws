@@ -1,7 +1,7 @@
 <?php
 //Funcion para validar campos vacios
-function campo_vacio($id_parametro, $valor, &$validar){
-    if (!empty($_POST["id_parametro"] and $_POST["valor"] and $validar=true)) { //Campos llenos
+function campo_vacio($parametro, $valor, &$validar){
+    if (!empty($_POST["parametro"] and $_POST["valor"] and $validar=true)) { //Campos llenos
         return $validar;
     }else {
         $validar=false;
@@ -10,17 +10,109 @@ function campo_vacio($id_parametro, $valor, &$validar){
     }
 }
 
-if (!empty($_POST["btnactualizarparametro"])) {
-
-    //include "../../modelo/conexion.php";
-    $validar=true;
-    $id_parametro=$_POST["id_parametro"];
-    $valor=$_POST["valor"];
-    campo_vacio($id_parametro, $valor, $validar);
-        if ($validar==true) {
-            $sql=$conexion->query(" update tbl_ms_parametros set valor='$valor' where id_parametro = $id_parametro ");   
-            header("location:administracion_parametros.php");
-        }
-        
+//Funcion para validar que el parametro no exista
+function parametro_existe($parametro,&$validar){
+    include "../../../../modelo/conexion.php";
+    //consultar por el parametro
+    $sql=$conexion->query("select parametro from tbl_ms_parametros where parametro='$parametro'");
+    if ($datos=$sql->fetch_object()) { //si existe
+        echo"<div class='alert alert-danger text-center'>Parametro existente</div>"; 
+        $validar=false;
+        return $validar;
+    }else {
+        return $validar;
+    }
 }
+
+//Funcion para insertar los registros 
+function parametro_crear($parametro,$valor,&$validar){
+    include "../../../../modelo/conexion.php";
+    
+    //Envio de los datos a ingresar por la query
+    $sql=$conexion->query("insert into tbl_ms_parametros (parametro,valor) values ('$parametro', '$valor')");
+    if ($sql==1) {
+    return $validar;
+    }else {
+    $validar=false;
+    return $validar;
+    }
+}
+
+//Funcion para validar si se actualizo
+
+function parametro_actualizar($id_parametro,$parametro,$valor,&$validar){
+    include "../../../../modelo/conexion.php";
+            
+        //CONSULTAR EL PARAMETRO
+        $sql1=mysqli_query($conexion, "select parametro from tbl_ms_parametros where id_parametro=$id_parametro");
+        $row=mysqli_fetch_array($sql1);
+        $objeto_base=$row[0];
+    
+        if($parametro==$objeto_base){
+            $sql=$conexion->query(" update tbl_ms_parametros SET parametro='$parametro', valor='$valor' WHERE id_parametro = $id_parametro ");   
+            
+        }else{
+            //consultar por el parametro
+            $sql=$conexion->query("select parametro from tbl_ms_parametros where parametro='$parametro'");
+            if ($datos=$sql->fetch_object()) { //si existe
+                echo"<div class='alert alert-danger text-center'>Este parametro ya existe</div>";
+                $validar=false;
+                return $validar;
+            }else {
+                $sql=$conexion->query(" update tbl_ms_parametros SET parametro='$parametro', valor='$valor' WHERE id_parametro = $id_parametro ");   
+                return $validar;
+            }
+        }
+    }
+
+
+
+//*****************************BOTONES***************************************//
+//Crear Nuevo parametro Al Presionar Boton
+if (!empty($_POST["btnregistrar_parametro"])) {
+    $validar=true;
+    $parametro=$_POST["parametro"];
+    $valor=$_POST["valor"];
+    $sesion_usuario=$_SESSION['usuario_login'];
+
+    campo_vacio($parametro,$valor,$validar);
+    if ($validar==true) {
+        parametro_existe($parametro,$validar);
+        if ($validar==true) {
+            parametro_crear($parametro,$valor,$validar);
+            if ($validar==true) {
+                //Guardar la bitacora 
+                date_default_timezone_set("America/Tegucigalpa");
+                $fecha = date('Y-m-d h:i:s');
+                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Parametro', 'Creo el parametro $parametro','$sesion_usuario')");
+                //Mensaje de confirmacion
+                echo '<script language="javascript">alert("Parametro registrado exitosamente");;window.location.href="administracion_parametros.php"</script>';//Parametro ingresado
+            }else{
+                echo '<div class="alert alert-danger text-center">Error al registrar parametro</div>';//Error al ingresar parametro
+                }
+        }
+    }
+}
+
+if (!empty($_POST["btnactualizarparametro"])) {
+    $validar=true;
+    $parametro=$_POST["parametro"];
+    $valor=$_POST["valor"];
+    $sesion_usuario=$_SESSION['usuario_login'];
+
+    campo_vacio($parametro,$valor,$validar);
+    if ($validar==true) {
+            parametro_actualizar($id_parametro,$parametro,$valor,$validar);
+            if ($validar==true) {
+                 //Guardar la bitacora 
+                 date_default_timezone_set("America/Tegucigalpa");
+                 $fecha = date('Y-m-d h:i:s');
+                 $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo Parametro', 'Actualizo el parametro $parametro','$sesion_usuario')");
+                //Mensaje de confirmacion
+                echo '<script language="javascript">alert("Parametro actualizado exitosamente");;window.location.href="administracion_parametros.php"</script>';//Sucursal ingresada
+            }else{
+                echo '<div class="alert alert-danger text-center">Error al actualizar parametro</div>';//Error al ingresar parametro
+                }
+        }
+    }
 ?>

@@ -124,12 +124,24 @@ if(empty($_SESSION['usuario_login'])){
         </div>
         </nav>
         <!--FIN DEL NAVBAR-->
+
+         <!--Funcion para confirmar si desea eliminar-->
+        <script>
+            function eliminar(){
+            var respuesta=confirm("Esta seguro que desea eliminar?");
+            return respuesta
+            }
+        </script>
             
         <div class="col-9 p-3 m-auto">
         <br><br>   
+        
 
         <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
         <div class="ml-auto p-2">
+            <div class="ml-auto p-2">
+                    <button type="button" class="btn btn-dark" onclick="location.href='nuevo_parametro.php'" >Nuevo Parametro</button>
+            </div>
             <form action="buscar_parametros.php" method="get" class="form_search">
             <input type="text" name="busqueda_parametros" id="busqueda_parametros" placeholder="">
             <input type="submit" value="Buscar" class="btn btn-secondary">
@@ -145,10 +157,11 @@ if(empty($_SESSION['usuario_login'])){
                         <thead class="table-dark">
                         
                             <tr>
-                            <th scope="col">N°</th>
+                            <th class="col-sm-1" scope="col">N°</th>
                             <th scope="col">PARÁMETRO</th>
                             <th scope="col">VALOR</th>
-                            <th scope="col"></th>
+                            <th scope="col"style="width:15px"></th>
+                            <th scope="col"style="width:15px"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -163,6 +176,9 @@ if(empty($_SESSION['usuario_login'])){
                                 <td><?php echo $u['valor']; ?></td>
                                 <td>
                                     <a href="actualizar_parametros.php?id_parametro=<?= $u['id_parametro'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                                </td>
+                                <td>
+                                    <a onclick="return eliminar()" href="administracion_parametros.php?id_parametro=<?= $u['id_parametro'] ?>" class="btn btn-small btn-danger" name="btnborrar_parametro"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                                 
                             </tr>
