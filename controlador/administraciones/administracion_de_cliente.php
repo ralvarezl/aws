@@ -163,8 +163,8 @@ if (!empty($_POST["btnregistrarcliente"])) {
                         date_default_timezone_set("America/Tegucigalpa");
                         $fecha = date('Y-m-d h:i:s');
                         $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo cliente', 'Cliente nuevo','$sesion_usuario')");
-                        echo '<script language="javascript">alert("SE A GUARDADO EL CLIENTE CON ÉXITOS");</script>';
-                        header("location:administracion_cliente.php");
+                        //Mensaje de confirmacion
+                        echo '<script language="javascript">alert("Cliente actualizado exitosamente");;window.location.href="administracion_cliente.php"</script>';
                     }
                 }
             }
@@ -196,8 +196,8 @@ if (!empty($_POST["btnactualizarcliente"])) {
                     date_default_timezone_set("America/Tegucigalpa");
                     $fecha = date('Y-m-d h:i:s');
                     $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo cliente', 'Cliente actualizado','$sesion_usuario')");
-                    echo '<script language="javascript">alert("SE A MODIFICADO EL CLIENTE CON ÉXITOS");</script>';
-                    header("location:administracion_cliente.php");
+                    //Mensaje de confirmacion
+                    echo '<script language="javascript">alert("Cliente actualizado exitosamente");;window.location.href="administracion_cliente.php"</script>';
                 }
             }
         }
