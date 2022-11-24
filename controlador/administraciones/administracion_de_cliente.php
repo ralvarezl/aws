@@ -1,7 +1,7 @@
 <?php
 //Funcion para validar campos vacios
-function campo_vacio($nombres,$apellidos,$identidad,$genero,$telefono,&$validar){
-    if (!empty($_POST["nombres"] and $_POST["apellidos"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $validar=true)) { //Campos llenos
+function campo_vacio($nombres,$identidad,$genero,$telefono,&$validar){
+    if (!empty($_POST["nombres"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $validar=true)) { //Campos llenos
         return $validar;
     }else {
         $validar=false;
@@ -11,9 +11,9 @@ function campo_vacio($nombres,$apellidos,$identidad,$genero,$telefono,&$validar)
 }
 
 //NUEVO CLIENTE
-function nuevo_cliente($nombres,$apellidos,$identidad,$genero,$telefono,&$validar){
+function nuevo_cliente($nombres,$identidad,$genero,$telefono,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_cliente (nombres,apellidos,identidad,genero,telefono) values ('$nombres','$apellidos',$identidad,'$genero',$telefono)"); 
+    $sql=$conexion->query(" insert into tbl_cliente (nombres,identidad,genero,telefono) values ('$nombres',$identidad,'$genero',$telefono)"); 
     if($sql==1){
         return $validar;
     }else{
@@ -22,9 +22,9 @@ function nuevo_cliente($nombres,$apellidos,$identidad,$genero,$telefono,&$valida
 }
 
 //MODIFICAR CLIENTE
-function modificar_cliente($id_cliente,$nombres,$apellidos,$identidad,$genero,$telefono,&$validar){
+function modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" update tbl_cliente SET nombres='$nombres', apellidos='$apellidos', identidad= $identidad, genero = '$genero', telefono= $telefono WHERE id_cliente = $id_cliente "); 
+    $sql=$conexion->query(" update tbl_cliente SET nombres='$nombres', identidad= $identidad, genero = '$genero', telefono= $telefono WHERE id_cliente = $id_cliente "); 
     if($sql==1){
         return $validar;
     }else{
@@ -60,18 +60,18 @@ function tamanio_identidad_telefono($identidad,$telefono, &$validar){
 }
 
 //Caracteres especiales 
-function valida_nombre_apellido($nombres,$apellidos,&$validar){
+function valida_nombre($nombres,&$validar){
     //Validar tenga numeros
-    if (preg_match('/[0-9]/',$nombres) or preg_match('/[0-9]/',$apellidos)){
+    if (preg_match('/[0-9]/',$nombres)){
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>El nombre y apellido no debe tener caracteres numéricos</div>"; 
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
     } else {
         //Validar tenga caracter especial
         if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$nombres) && preg_match('/[!"#$"%&()_=?\+[]}{-@¡¿]/',$nombres)){
             $validar=false;
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
         }else {
-            if(strpos($nombres,"  ") or strpos($apellidos,"  ") ){
+            if(strpos($nombres,"  ")){
                 echo"<div class='alert alert-danger text-center'>No se permiten más de un espacios</div>";
                 $validar=false;
                 return $validar;
@@ -80,7 +80,7 @@ function valida_nombre_apellido($nombres,$apellidos,&$validar){
                     return $validar;
                 }else{
                     $validar=false;
-                    echo '<div class="alert alert-danger text-center">El nombre y apellido no puede llevar caracteres especiales.</div>';
+                    echo '<div class="alert alert-danger text-center">El nombre no puede llevar caracteres especiales.</div>';
                     return $validar;
                 }
             }
@@ -145,20 +145,19 @@ if (!empty($_POST["btnregistrarcliente"])) {
     $sesion_usuario=$_SESSION['usuario_login'];
     $validar=true;
     $nombres=$_POST["nombres"];
-    $apellidos=$_POST["apellidos"];
     $identidad=$_POST["identidad"];
     $genero=$_POST["genero"];
     $telefono=$_POST["telefono"];
 
-    campo_vacio($nombres,$apellidos,$identidad,$genero,$telefono,$validar);
+    campo_vacio($nombres,$identidad,$genero,$telefono,$validar);
     if($validar==true){
-        valida_nombre_apellido($nombres,$apellidos,$validar);
+        valida_nombre($nombres,$validar);
         if($validar==true){
             tamanio_identidad_telefono($identidad,$telefono, $validar);
             if ($validar==true) {
                 identidad($identidad,$validar);
                 if ($validar==true) {
-                    nuevo_cliente($nombres,$apellidos,$identidad,$genero,$telefono,$validar);
+                    nuevo_cliente($nombres,$identidad,$genero,$telefono,$validar);
                     if ($validar==true) {
                         //Guardar la bitacora 
                         date_default_timezone_set("America/Tegucigalpa");
@@ -181,18 +180,17 @@ if (!empty($_POST["btnactualizarcliente"])) {
     $sesion_usuario=$_SESSION['usuario_login'];
     $id_cliente=$_POST["id_cliente"];
     $nombres=$_POST["nombres"];
-    $apellidos=$_POST["apellidos"];
     $identidad=$_POST["identidad"];
     $genero=$_POST["genero"];
     $telefono=$_POST["telefono"];
 
-    campo_vacio($nombres,$apellidos,$identidad,$genero,$telefono,$validar);
+    campo_vacio($nombres,$identidad,$genero,$telefono,$validar);
     if($validar==true){
         tamanio_identidad_telefono($identidad,$telefono, $validar);
         if ($validar==true) {
             identidad_actualizar($id_cliente,$identidad,$validar);
             if ($validar==true) {
-                modificar_cliente($id_cliente,$nombres,$apellidos,$identidad,$genero,$telefono,$validar);
+                modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,$validar);
                 if ($validar==true) {
                     //Guardar la bitacora 
                     date_default_timezone_set("America/Tegucigalpa");

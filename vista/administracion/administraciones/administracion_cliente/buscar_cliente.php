@@ -156,7 +156,6 @@ if(empty($_SESSION['usuario_login'])){
                             <tr>
                             <th scope="col">N°</th>
                             <th scope="col">NOMBRES</th>
-                            <th scope="col">APELLIDOS</th>
                             <th scope="col">IDENTIDAD</th>
                             <th scope="col">GÉNERO</th>
                             <th scope="col">TELÉFONO</th>
@@ -167,19 +166,18 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_cliente, nombres, apellidos, identidad, genero, telefono from tbl_cliente
+                            $sql= $conexion->query("select id_cliente, nombres, identidad, genero, telefono from tbl_cliente
                             where id_cliente like '%$busqueda_cliente%' or
                                 nombres like '%$busqueda_cliente%' or
-                                apellidos like '%$busqueda_cliente%' or
                                 identidad like '%$busqueda_cliente%' or
                                 genero like '%$busqueda_cliente%' or
                                 telefono like '%$busqueda_cliente%'
                             order by id_cliente");
+                            $numero=0;
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
-                                <td><?php echo $u['id_cliente']; ?></td>
+                                <td><?php echo $numero=$numero+1; ?></td>
                                 <td><?php echo $u['nombres']; ?></td>
-                                <td><?php echo $u['apellidos']; ?></td>
                                 <td><?php echo $u['identidad']; ?></td>
                                 <td><?php echo $u['genero']; ?></td>
                                 <td><?php echo $u['telefono']; ?></td>

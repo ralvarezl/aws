@@ -33,12 +33,7 @@ if(empty($_SESSION['usuario_login'])){
             <input type="text" class="form-control" placeholder="Ingrese sus nombres" 
                 name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
-            <!--INGRESE APELLIDO-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Apellidos</label>
-            <input type="text" class="form-control" placeholder="Ingrese sus apellidos" 
-                name="apellidos" onKeyUp="this.value=this.value.toUpperCase();">
-            </div>
+    
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>

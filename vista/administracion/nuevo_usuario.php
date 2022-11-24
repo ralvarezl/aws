@@ -152,7 +152,7 @@ if($id_rol <> 1){
 
             <!--BOTON NUEVO USUARIO-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn btn-outline-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
+            <button type="submit" class="btn btn-outline-dark" name="btnregistrar" value="ok">Registrar Cliente</button>
             <button type="button" class="btn btn-outline-danger" onclick="location.href='administracion_usuarios.php'" >Cancelar</button>
             </div>
         </form>

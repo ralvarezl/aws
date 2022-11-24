@@ -56,10 +56,9 @@ function Footer()
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
 $busqueda_cliente=$_SESSION['busqueda_cliente'];
-$consulta = "select id_cliente, nombres, apellidos, identidad, genero, telefono from tbl_cliente
+$consulta = "select id_cliente, nombres, identidad, genero, telefono from tbl_cliente
             where id_cliente like '%$busqueda_cliente%' or
                     nombres like '%$busqueda_cliente%' or
-                    apellidos like '%$busqueda_cliente%' or
                     identidad like '%$busqueda_cliente%' or
                     genero like '%$busqueda_cliente%' or
                     telefono like '%$busqueda_cliente%'
@@ -75,12 +74,11 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(12);
+$pdf->Cell(25);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
-        $pdf->Cell(42, 10, 'NOMBRES', 1, 0, 'C', 0);
-        $pdf->Cell(42, 10, 'APELLIDOS', 1, 0, 'C', 0);
+        $pdf->Cell(65, 10, 'NOMBRES', 1, 0, 'C', 0);
         $pdf->Cell(30, 10, 'IDENTIDAD', 1, 0, 'C', 0);
         $pdf->Cell(25, 10, utf8_decode('GÉNERO'), 1, 0, 'C', 0);
         $pdf->Cell(25, 10, utf8_decode('TELÉFONO'), 1, 1, 'C', 0);
@@ -88,10 +86,9 @@ $pdf->Cell(12);
     $numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(12);
+    $pdf->Cell(25);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
-    $pdf->Cell(42, 10,utf8_decode( $row['nombres']), 1, 0, 'C', 0);
-    $pdf->Cell(42, 10,utf8_decode( $row['apellidos']), 1, 0, 'C', 0);
+    $pdf->Cell(65, 10,utf8_decode( $row['nombres']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['identidad']), 1, 0, 'C', 0);
     $pdf->Cell(25, 10,utf8_decode( $row['genero']), 1, 0, 'C', 0);
     $pdf->Cell(25, 10,utf8_decode( $row['telefono']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea

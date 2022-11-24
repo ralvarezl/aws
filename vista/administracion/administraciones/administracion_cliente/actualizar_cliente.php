@@ -39,13 +39,6 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
                 name="nombres" value="<?= $datos->NOMBRES ?>">
             </div>
 
-            <!--INGRESE APELLIDOS-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">APELLIDOS</label>
-            <input type="text" class="form-control" placeholder="Ingrese sus apellidos" onKeyUp="this.value=this.value.toUpperCase(); "
-                name="apellidos" value="<?= $datos->APELLIDOS?>">
-            </div>
-
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
@@ -92,7 +85,7 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
             ?>
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn btn-dark" id="btnactualizar_producto" name="btnactualizarcliente" value="ok">Actualizar Producto</button>
+            <button type="submit" class="btn btn-dark" id="btnactualizar_producto" name="btnactualizarcliente" value="ok">Actualizar Cliente</button>
             <button type="button" class="btn btn-outline-danger" onclick="location.href='administracion_cliente.php'" >Cancelar</button>
             </div>
             
