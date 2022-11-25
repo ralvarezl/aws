@@ -17,18 +17,18 @@ function limite_cantidad_precio($cantidad,$precio, &$validar){
     $Longitud2=strlen($precio);
     $conta=0;
 
-    if($Longitud1>=4 && $Longitud1<=4){
+    if($Longitud1<=4){
         $conta=1;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>La cantidad debe tener solo 4 digitos</div>";
+        echo"<div class='alert alert-danger text-center'>La cantidad no debe de exceder los 4 digitos</div>";
         return $validar;
     }
-    if($Longitud2>=4 && $Longitud2<=4){
+    if($Longitud2<=7){
         $conta=2;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>El precio debe tener solo 4 digitos</div>";
+        echo"<div class='alert alert-danger text-center'>El precio no debe de exceder los 4 digitos</div>";
         return $validar;
     }
 
@@ -167,17 +167,18 @@ if (!empty($_POST["btnregistrarproducto"])) {
             Valida_tipo($tipo,$validar);
             if($validar==true){
                 limite_cantidad_precio($cantidad,$precio, $validar);
-                    if ($validar==true) { 
-                Validar_producto($nombre,$validar);
-                if ($validar==true) {
-                    
+                if ($validar==true) { 
+                    Validar_producto($nombre,$validar);
+                    if ($validar==true) {
                         nuevo_producto($nombre,$tipo,$cantidad,$precio,$validar);
-                        //Guardar la bitacora 
-                        date_default_timezone_set("America/Tegucigalpa");
-                        $fecha = date('Y-m-d h:i:s');
-                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo producto', 'Producto nuevo','$sesion_usuario')");
-                        echo '<script language="javascript">alert("SE A GUARDADO EL PRODUCTO CON ÉXITOS");</script>';
-                        header("location:administracion_producto.php");
+                        if ($validar==true) {
+                            //Guardar la bitacora 
+                            date_default_timezone_set("America/Tegucigalpa");
+                            $fecha = date('Y-m-d h:i:s');
+                            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo producto', 'Producto nuevo','$sesion_usuario')");
+                            echo '<script language="javascript">alert("SE A GUARDADO EL PRODUCTO CON ÉXITOS");</script>';
+                            header("location:administracion_producto.php");
+                        }
                     }
                 }
             }
@@ -203,14 +204,18 @@ if (!empty($_POST["btnactualizarproducto"])) {
         if($validar==true){
             Valida_tipo($tipo,$validar);
             if ($validar==true) {
-                modificar_producto($id_producto,$nombre,$tipo,$cantidad,$precio,$validar);
-                if ($validar==true) {
-                    //Guardar la bitacora 
-                    date_default_timezone_set("America/Tegucigalpa");
-                    $fecha = date('Y-m-d h:i:s');
-                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo producto', 'Producto actualizado','$sesion_usuario')");
-                    echo '<script language="javascript">alert("SE A MODIFICADO EL PRODUCTO CON ÉXITOS");</script>';
-                    header("location:administracion_producto.php");
+                limite_cantidad_precio($cantidad,$precio, $validar);
+                if ($validar==true) { 
+                    modificar_producto($id_producto,$nombre,$tipo,$cantidad,$precio,$validar);
+                    if ($validar==true) {
+                        //Guardar la bitacora 
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha = date('Y-m-d h:i:s');
+                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo producto', 'Producto actualizado','$sesion_usuario')");
+                        echo '<script language="javascript">alert("SE A MODIFICADO EL PRODUCTO CON ÉXITOS");</script>';
+                        header("location:administracion_producto.php");
+                    }
+                    
                 }
             }
         }

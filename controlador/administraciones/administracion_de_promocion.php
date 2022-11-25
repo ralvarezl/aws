@@ -10,6 +10,24 @@ function campo_vacio($descripcion,$precio,$fecha_inicial,$fecha_final, &$validar
     }
 }
 
+function limite_precio($precio, &$validar){
+
+    $Longitud1=strlen($precio);
+    $conta=0;
+
+    if($Longitud1<=7){
+        $conta=1;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El precio no debe de exceder los 4 digitos</div>";
+        return $validar;
+    }
+    
+    if ($conta==1){
+        return $validar;
+    }
+}
+
 //Caracteres especiales 
 function Valida_descripcion($descripcion,&$validar){
     //Validar tenga numeros
@@ -113,13 +131,18 @@ if (!empty($_POST["btnregistrarpromocion"])) {
         if($validar==true){
             Validar_promocion($descripcion,$validar);
             if ($validar==true) {
-                nuevo_promocion($descripcion,$precio,$fecha_inicial,$fecha_final,$validar);
-                //Guardar la bitacora 
-                date_default_timezone_set("America/Tegucigalpa");
-                $fecha = date('Y-m-d h:i:s');
-                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nueva promocion', 'Promocion nueva','$sesion_usuario')");
-                echo '<script language="javascript">alert("SE A GUARDADO LA PROMOCION CON ÉXITOS");</script>';
-                header("location:administracion_promocion.php");
+                limite_precio($precio, $validar);
+                if ($validar==true) {
+                    nuevo_promocion($descripcion,$precio,$fecha_inicial,$fecha_final,$validar);
+                    if ($validar==true) {
+                        //Guardar la bitacora 
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha = date('Y-m-d h:i:s');
+                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nueva promocion', 'Promocion nueva','$sesion_usuario')");
+                        echo '<script language="javascript">alert("SE A GUARDADO LA PROMOCION CON ÉXITOS");</script>';
+                        header("location:administracion_promocion.php");
+                    }
+                }    
             }
         }
     }
@@ -141,14 +164,17 @@ if (!empty($_POST["btnactualizar_promocion"])) {
         if ($validar==true) {
             Valida_descripcion($descripcion,$validar);
             if ($validar==true) {
-                modificar_producto($id_promocion,$descripcion,$precio,$fecha_inicial,$fecha_final,$validar);
+                limite_precio($precio, $validar);
                 if ($validar==true) {
-                        //Guardar la bitacora 
-                        date_default_timezone_set("America/Tegucigalpa");
-                        $fecha = date('Y-m-d h:i:s');
-                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo promocion', 'Promocion actualizado','$sesion_usuario')");
-                        echo '<script language="javascript">alert("SE A MODIFICADO LA PROMOCION CON ÉXITOS");</script>';
-                        header("location:administracion_promocion.php");
+                    modificar_producto($id_promocion,$descripcion,$precio,$fecha_inicial,$fecha_final,$validar);
+                    if ($validar==true) {
+                            //Guardar la bitacora 
+                            date_default_timezone_set("America/Tegucigalpa");
+                            $fecha = date('Y-m-d h:i:s');
+                            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizo promocion', 'Promocion actualizado','$sesion_usuario')");
+                            echo '<script language="javascript">alert("SE A MODIFICADO LA PROMOCION CON ÉXITOS");</script>';
+                            header("location:administracion_promocion.php");
+                    }        
                 }
             }
         }
