@@ -62,54 +62,25 @@ function tamanio_identidad_telefono($identidad,$telefono, &$validar){
 //Caracteres especiales 
 function valida_nombre($nombres,&$validar){
     //Validar tenga numeros
-    if (preg_match('/[0-9]/',$nombre)){
+    if (preg_match('/[0-9]/',$nombres)){
         $validar=false;
         echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
         return $validar;
     } else {
         //Validar tenga caracter especial
-        if (!preg_match("/^[a-zA-Z\s]*$/",$nombre)){
+        if (!preg_match("/^[a-zA-Z\s]*$/",$nombres)){
             $validar=false;
-            echo"<div class='alert alert-danger text-center'>La nombre no debe tener caracteres especiales</div>"; 
+            echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
             return $validar;
         }else {
             //Validar tenga no tenga mas de 2 espacios
-            if(strpos($nombre,"  ")){
-                echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";
+            if(strpos($nombres,"  ")){
+                echo"<div class='alert alert-danger text-center'>No se permite más de un espacio</div>";
                 $validar=false;
                 return $validar;
             }else{
                 return $validar;
             }
-        }
-    }
-}
-
-function valida_nombre_actualizar($nombres,&$validar){
-    //Validar tenga numeros
-    if (preg_match('/[0-9]/',$nombres)){
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
-    } else {
-        //Validar tenga caracter especial
-        if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$nombres) and preg_match('/[!"#$"%&()_=?\+[]}{-@¡¿]/',$nombres)){
-            $validar=false;
-        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
-        }else {
-            if(strpos($nombres,"  ")){
-                echo"<div class='alert alert-danger text-center'>No se permiten más de un espacio</div>";
-                $validar=false;
-                return $validar;
-            }else {
-                if(strpos($nombres,"=") and strpos($nombres,'""') and strpos($nombres, '"')){
-                    return $validar;
-                }else{
-                    $validar=false;
-                    echo '<div class="alert alert-danger text-center">El nombre no puede llevar caracteres especiales.</div>';
-                    return $validar;
-                }
-            }
-            
         }
     }
 }
@@ -211,7 +182,8 @@ if (!empty($_POST["btnactualizarcliente"])) {
 
     campo_vacio($nombres,$identidad,$genero,$telefono,$validar);
     if($validar==true){
-        
+        valida_nombre($nombres,$validar);
+        if($validar==true){
             tamanio_identidad_telefono($identidad,$telefono, $validar);
             if ($validar==true) {
                 identidad_actualizar($id_cliente,$identidad,$validar);
@@ -227,7 +199,7 @@ if (!empty($_POST["btnactualizarcliente"])) {
                     }
                 }
             }
-    
+        }
         
     }
 }

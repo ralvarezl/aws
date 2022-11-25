@@ -47,7 +47,7 @@ if(empty($_SESSION['usuario_login'])){
             <!--INGRESE PRECIO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Precio</label>
-            <input type="number" class="form-control" placeholder="Ingrese la fecha de incio" name="precio">
+            <input type="decimal" class="form-control" placeholder="Ingrese la fecha de incio" name="precio">
             </div>
 
             <!--BOTON NUEVO USUARIO-->

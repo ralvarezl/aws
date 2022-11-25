@@ -5,7 +5,7 @@ function campo_vacio($descripcion,$precio,$fecha_inicial,$fecha_final, &$validar
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger'>Por favor llene todos los campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -16,18 +16,18 @@ function Valida_descripcion($descripcion,&$validar){
 
     if (preg_match('/[0-9]/',$descripcion)){
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
+        echo"<div class='alert alert-danger text-center'>La descripción no debe tener caracteres numéricos</div>"; 
         return $validar;
     } else {
         //Validar tenga caracter especial
         if (!preg_match("/^[a-zA-Z\s]*$/",$descripcion)){
             $validar=false;
-            echo"<div class='alert alert-danger text-center'>La nombre no debe tener caracteres especiales</div>"; 
+            echo"<div class='alert alert-danger text-center'>La descripción no debe tener caracteres especiales</div>"; 
             return $validar;
         }else {
             //Validar tenga no tenga mas de 2 espacios
             if(strpos($descripcion,"  ")){
-                echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";
+                echo"<div class='alert alert-danger text-center'>No se permite más de un espacio</div>";
                 $validar=false;
                 return $validar;
             }else{
@@ -48,7 +48,7 @@ function Validar_promocion($descripcion,&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Promocion ya existente</div>";
+        echo"<div class='alert alert-danger text-center'>La promoción ya existe, ingrese una nueva</div>";
         return $validar;  
     }
 }
@@ -60,7 +60,7 @@ function nuevo_promocion($descripcion,$precio,$fecha_inicial,$fecha_final,&$vali
     if($sql==1){
         return $validar;
     }else{
-        echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+        echo"<div align='center' class='alert alert-danger'>Error al actualizar</div>";
     }
 }
 
@@ -80,7 +80,7 @@ function modificar_producto($id_promocion,$descripcion,$precio,$fecha_inicial,$f
         //Si modifico nombre validar que no exista en la base de datos
         $sql=$conexion->query("select descripcion from tbl_promocion where descripcion='$descripcion'");
         if ($datos=$sql->fetch_object()) {
-            echo"<div align='center' class='alert alert-danger'>Promocion existente</div>";  
+            echo"<div align='center' class='alert alert-danger'>La promoción ya existe, ingrese una nueva</div>";  
             $validar=false;
             return $validar;
         }else{
@@ -88,7 +88,7 @@ function modificar_producto($id_promocion,$descripcion,$precio,$fecha_inicial,$f
             if($sql==1){
                 return $validar;
             }else{
-                echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+                echo"<div align='center' class='alert alert-danger'>Error al actualizar</div>";
             }
         }
     }

@@ -29,7 +29,7 @@ if(empty($_SESSION['usuario_login'])){
             ?>
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Nombre</label>
+            <label for="formGroupExampleInput" class="form-label">Descripción</label>
             <input type="text" class="form-control" placeholder="Ingrese el nombre la promocion" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>

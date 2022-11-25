@@ -6,7 +6,33 @@ function campo_vacio($nombre,$tipo,$cantidad, $precio, &$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger'>Por favor llene todos los campos</div>"; //Campos vacios
+        return $validar;
+    }
+}
+
+function limite_cantidad_precio($cantidad,$precio, &$validar){
+
+    $Longitud1=strlen($cantidad);
+    $Longitud2=strlen($precio);
+    $conta=0;
+
+    if($Longitud1>=4 && $Longitud1<=4){
+        $conta=1;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La cantidad debe tener solo 4 digitos</div>";
+        return $validar;
+    }
+    if($Longitud2>=4 && $Longitud2<=4){
+        $conta=2;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El precio debe tener solo 4 digitos</div>";
+        return $validar;
+    }
+
+    if ($conta==2){
         return $validar;
     }
 }
@@ -23,12 +49,12 @@ function Valida_nombre($nombre,&$validar){
         //Validar tenga caracter especial
         if (!preg_match("/^[a-zA-Z\s]*$/",$nombre)){
             $validar=false;
-            echo"<div class='alert alert-danger text-center'>La nombre no debe tener caracteres especiales</div>"; 
+            echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
             return $validar;
         }else {
             //Validar tenga no tenga mas de 2 espacios
             if(strpos($nombre,"  ")){
-                echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";
+                echo"<div class='alert alert-danger text-center'>No se permite más de un espacio</div>";
                 $validar=false;
                 return $validar;
             }else{
@@ -54,7 +80,7 @@ function Valida_tipo($tipo,&$validar){
         }else {
             //Validar tenga no tenga mas de 2 espacios
             if(strpos($tipo,"  ")){
-                echo"<div class='alert alert-danger text-center'>No se permiten mas de un espacios</div>";
+                echo"<div class='alert alert-danger text-center'>No se permite más de un espacio</div>";
                 $validar=false;
                 return $validar;
             }else{
@@ -63,6 +89,8 @@ function Valida_tipo($tipo,&$validar){
         }
     }
 }
+
+
 
 //VALIDAR QUE NO SE REPIT EL PRODUCTO
 function Validar_producto($nombre,&$validar){
@@ -75,7 +103,7 @@ function Validar_producto($nombre,&$validar){
         return $validar;
     }else{
         $validar=false;
-        echo"<div class='alert alert-danger text-center'>Producto ya existente</div>";
+        echo"<div class='alert alert-danger text-center'>El producto ya existe, ingrese uno nuevo</div>";
         return $validar;  
     }
 }
@@ -87,7 +115,7 @@ function nuevo_producto($nombre,$tipo,$cantidad,$precio,&$validar){
     if($sql==1){
         return $validar;
     }else{
-        echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+        echo"<div align='center' class='alert alert-danger'>Error al actualizar</div>";
     }
 }
 
@@ -107,7 +135,7 @@ function modificar_producto($id_producto,$nombre,$tipo,$cantidad,$precio,&$valid
         //Si modifico nombre validar que no exista en la base de datos
         $sql=$conexion->query("select nombre from tbl_producto where nombre='$nombre'");
         if ($datos=$sql->fetch_object()) {
-            echo"<div align='center' class='alert alert-danger'>Producto existente</div>";  
+            echo"<div align='center' class='alert alert-danger'>El producto ya existe, ingrese uno nuevo</div>";  
             $validar=false;
             return $validar;
         }else{
@@ -138,15 +166,19 @@ if (!empty($_POST["btnregistrarproducto"])) {
         if($validar==true){
             Valida_tipo($tipo,$validar);
             if($validar==true){
+                limite_cantidad_precio($cantidad,$precio, $validar);
+                    if ($validar==true) { 
                 Validar_producto($nombre,$validar);
                 if ($validar==true) {
-                    nuevo_producto($nombre,$tipo,$cantidad,$precio,$validar);
-                    //Guardar la bitacora 
-                    date_default_timezone_set("America/Tegucigalpa");
-                    $fecha = date('Y-m-d h:i:s');
-                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo producto', 'Producto nuevo','$sesion_usuario')");
-                    echo '<script language="javascript">alert("SE A GUARDADO EL PRODUCTO CON ÉXITOS");</script>';
-                    header("location:administracion_producto.php");
+                    
+                        nuevo_producto($nombre,$tipo,$cantidad,$precio,$validar);
+                        //Guardar la bitacora 
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha = date('Y-m-d h:i:s');
+                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo producto', 'Producto nuevo','$sesion_usuario')");
+                        echo '<script language="javascript">alert("SE A GUARDADO EL PRODUCTO CON ÉXITOS");</script>';
+                        header("location:administracion_producto.php");
+                    }
                 }
             }
         }

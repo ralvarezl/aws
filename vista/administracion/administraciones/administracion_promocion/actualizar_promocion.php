@@ -34,7 +34,7 @@ $sql=$conexion->query(" select * from tbl_promocion where id_promocion=$id_promo
 
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">NOMBRE</label>
+            <label for="formGroupExampleInput" class="form-label">Descripción</label>
             <input type="text" class="form-control" placeholder="Ingrese la descripcion" onKeyUp="this.value=this.value.toUpperCase(); "
                 name="descripcion" value="<?= $datos->DESCRIPCION ?>">
             </div>
@@ -42,7 +42,7 @@ $sql=$conexion->query(" select * from tbl_promocion where id_promocion=$id_promo
             <!--INGRESE PRECIO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">PRECIO</label>
-            <input type="text" class="form-control" placeholder="Ingrese el precio" 
+            <input type="number" class="form-control" placeholder="Ingrese el precio" 
                 name="precio" value="<?= $datos->PRECIO ?>">
             </div>
 
