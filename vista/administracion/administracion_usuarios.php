@@ -167,8 +167,8 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">ESTADO</th>
                             <th scope="col">ROL</th>
                             <th scope="col">VENCIMIENTO</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th scope="col" style="width:10px"></th>
+                            <th scope="col" style="width:10px"></th>
                             </tr>
                         </thead>
                         <tbody>

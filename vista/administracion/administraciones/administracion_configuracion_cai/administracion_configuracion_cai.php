@@ -166,8 +166,8 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">SECUENCIA ACTUAL</th>
                             <th scope="col">SECUENCIA FINAL</th>
                             <th scope="col">VENCIMIENTO</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th scope="col" style="width:10px"></th>
+                            <th scope="col" style="width:10px"></th>
                             </tr>
                         </thead>
                         <tbody>
