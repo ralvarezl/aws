@@ -141,7 +141,7 @@ if(empty($_SESSION['usuario_login'])){
             <br><br>
             <?php
             include "../../../../modelo/conexion.php";
-            //include "../../../../controlador/administraciones/eliminar_pregunta.php";
+            include "../../../../controlador/administraciones/eliminar_pregunta.php";
             ?>  
             <div class="row p-2"> <!--Div que contiene nueva pregunta y la busqueda-->
                 <div class="ml-auto p-2">

@@ -151,6 +151,7 @@ if(empty($_SESSION['usuario_login'])){
 
         <?php
                 include "../../../../modelo/conexion.php";
+                include "../../../../controlador/administraciones/eliminar_parametro.php";
                 
                 ?>
                     <table class="table table-dark table-striped" style="text-align:center;" >

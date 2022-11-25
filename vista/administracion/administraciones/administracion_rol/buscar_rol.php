@@ -141,7 +141,7 @@ if(empty($_SESSION['usuario_login'])){
             <br><br>
             <?php
             include "../../../../modelo/conexion.php";
-            //include "../../../../controlador/administraciones/eliminar_rol.php";
+            include "../../../../controlador/administraciones/eliminar_rol.php";
             ?>  
             <div class="row p-2"> <!--Div que contiene nuevo rol y la busqueda-->
                 <div class="ml-auto p-2">
