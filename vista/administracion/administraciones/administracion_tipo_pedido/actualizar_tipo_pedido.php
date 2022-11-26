@@ -37,8 +37,32 @@ $sql=$conexion->query(" select * from tbl_tipo_pedido where id_tipo_pedido=$id_t
             <input type="text" class="form-control" placeholder="Describa el tipo de pedido" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->DESCRIPCION ?>">
             </div>
+            
+            <!--SELECCIONE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
+            <select class="form-select" aria-label="Default select example" name="estado" >
+              <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
+              <option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>
+            <!--SELECCIONE DIFERENTE ESTADO DEL QUE TIENE-->
+            <? 
+                $actualizar=$datos->ESTADO;
+                if($actualizar=='ACTIVO'){?>
+                        <option value="INACTIVO">INACTIVO</option>
+                    <? 
+                }else{?>
+                    <option value="ACTIVO">ACTIVO</option>
+                    <? 
+                }
+
+            ?>
+            </select>
+            </div>
             <?php }
             ?>
+
+            
+
             <!--BOTON ACTUALIZAR TIPO DE PEDIDO Y CANCELAR-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-dark" id="btnactualizartipopedido" name="btnactualizartipopedido" value="ok">Actualizar Parametro</button>

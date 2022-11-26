@@ -56,11 +56,12 @@ function Footer()
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
 $busqueda_objeto=$_SESSION['busqueda_objeto'];
-$consulta = "select id_objeto, objeto, descripcion, tipo_objeto from tbl_ms_objetos
+$consulta = "select id_objeto, objeto, descripcion, tipo_objeto, estado from tbl_ms_objetos
 where id_objeto like '%$busqueda_objeto%' or
         objeto like '%$busqueda_objeto%' or
         descripcion like '%$busqueda_objeto%' or 
-        tipo_objeto like '%$busqueda_objeto%' 
+        tipo_objeto like '%$busqueda_objeto%' or
+        estado like '%$busqueda_objeto%' 
 order by id_objeto";
 $resultado = $conexion->query($consulta);
 
@@ -73,23 +74,25 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(35);
+$pdf->Cell(10);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode('N°'), 1, 0, 'C', 0);
     $pdf->Cell(55, 10,utf8_decode('OBJETO'), 1, 0, 'C', 0);
     $pdf->Cell(75, 10,utf8_decode('DESCRIPCION'), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, 'TIPO OBJETO', 1, 1, 'C', 0);
+    $pdf->Cell(75, 10,utf8_decode('TIPO OBJETO'), 1, 0, 'C', 0);
+    $pdf->Cell(30, 10, 'ESTADO', 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(35);
+    $pdf->Cell(10);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
     $pdf->Cell(55, 10,utf8_decode( $row['objeto']), 1, 0, 'C', 0);
     $pdf->Cell(75, 10,utf8_decode( $row['descripcion']), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10,utf8_decode( $row['tipo_objeto']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(75, 10,utf8_decode( $row['tipo_objeto']), 1, 0, 'C', 0);
+    $pdf->Cell(30, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida

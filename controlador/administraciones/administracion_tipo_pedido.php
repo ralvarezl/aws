@@ -11,20 +11,39 @@ function campo_vacio($id_tipo_pedido,$descripcion, &$validar){
 }
 
 //ACTUALIZAR TIPO DE PEDIDO
-function actualizar_tipo_pedido($id_tipo_pedido,$descripcion, &$validar){
+function actualizar_tipo_pedido($id_tipo_pedido,$descripcion,$estado,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" update tbl_tipo_pedido set descripcion='$descripcion' where id_tipo_pedido = $id_tipo_pedido");   
-    if($sql==1){
-        return $validar;
+
+    //Consultar por la descripcion
+    $sql=mysqli_query($conexion, "select descripcion from tbl_tipo_pedido where id_tipo_pedido=$id_tipo_pedido");
+    $row=mysqli_fetch_array($sql);
+    $nombre_base=$row[0];
+
+    if($descripcion==$nombre_base){
+        //Actualiza si no se cambio la descripcion pero si los demas campos
+        $sql=$conexion->query("update tbl_tipo_pedido SET ESTADO='$estado' WHERE id_tipo_pedido = $id_tipo_pedido ");
     }else{
-        echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+        //Si modifico la descripcion validar que no exista en la base de datos
+        $sql=$conexion->query("select descripcion from tbl_tipo_pedido where descripcion='$descripcion'");
+        if ($datos=$sql->fetch_object()) {
+            echo"<div align='center' class='alert alert-danger'>El tipo pedido ya existe, ingrese uno nuevo</div>";  
+            $validar=false;
+            return $validar;
+        }else{
+            $sql=$conexion->query(" update tbl_tipo_pedido SET descripcion='$descripcion', estado='$estado' WHERE id_tipo_pedido = $id_tipo_pedido "); 
+            if($sql==1){
+                return $validar;
+            }else{
+                echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+            }
+        }
     }
 }
 
 //NUEVO TIPO DE PEDIDO
-function nuevo_tipo_pedido($descripcion, &$validar){
+function nuevo_tipo_pedido($descripcion, $estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_tipo_pedido (descripcion) values ('$descripcion') "); 
+    $sql=$conexion->query(" insert into tbl_tipo_pedido (descripcion, estado) values ('$descripcion','$estado') "); 
     if($sql==1){
         return $validar;
     }else{
@@ -102,6 +121,7 @@ if (!empty($_POST["btntipopedido"])) {
     //include "../../modelo/conexion.php";
     $validar=true;
     $descripcion=$_POST["descripcion"];
+    $estado=$_POST["estado"];
     if($descripcion==''){
         echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
         $validar=false;
@@ -112,7 +132,7 @@ if (!empty($_POST["btntipopedido"])) {
         if($validar==true){
             valida_descripcion($descripcion,$validar);
             if($validar==true){
-                nuevo_tipo_pedido($descripcion,$validar);
+                nuevo_tipo_pedido($descripcion,$estado,$validar);
                 if($validar==true){
                     //Guardar la bitacora 
                     date_default_timezone_set("America/Tegucigalpa");
@@ -132,23 +152,22 @@ if (!empty($_POST["btnactualizartipopedido"])) {
     $validar=true;
     $id_tipo_pedido=$_POST["id_tipo_pedido"];
     $descripcion=$_POST["descripcion"];
+    $estado=$_POST["estado"];
     campo_vacio($id_tipo_pedido,$descripcion, $validar);
         if ($validar==true) {
-            validar_existe($descripcion, $validar);
+            valida_descripcion($descripcion,$validar);
             if($validar==true){
-                valida_descripcion($descripcion,$validar);
+                actualizar_tipo_pedido($id_tipo_pedido,$descripcion,$estado, $validar);
                 if($validar==true){
-                    actualizar_tipo_pedido($id_tipo_pedido,$descripcion, $validar);
-                    if($validar==true){
-                        //Guardar la bitacora 
-                        date_default_timezone_set("America/Tegucigalpa");
-                        $fecha = date('Y-m-d h:i:s');
-                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar Tipo de Pedido', 'Actualizo tipo de pedido','$sesion_usuario')");
-                        header("location:administracion_tipo_pedido.php");
+                    //Guardar la bitacora 
+                    date_default_timezone_set("America/Tegucigalpa");
+                    $fecha = date('Y-m-d h:i:s');
+                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar Tipo de Pedido', 'Actualizo tipo de pedido','$sesion_usuario')");
+                    header("location:administracion_tipo_pedido.php");
                     }
                 }
                 
             } 
         }
-}
+
 ?>

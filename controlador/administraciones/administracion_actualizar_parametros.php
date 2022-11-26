@@ -25,11 +25,11 @@ function parametro_existe($parametro,&$validar){
 }
 
 //Funcion para insertar los registros 
-function parametro_crear($parametro,$valor,&$validar){
+function parametro_crear($parametro,$valor,$estado,&$validar){
     include "../../../../modelo/conexion.php";
     
     //Envio de los datos a ingresar por la query
-    $sql=$conexion->query("insert into tbl_ms_parametros (parametro,valor) values ('$parametro', '$valor')");
+    $sql=$conexion->query("insert into tbl_ms_parametros (parametro,valor,estado) values ('$parametro', '$valor','$estado')");
     if ($sql==1) {
     return $validar;
     }else {
@@ -40,7 +40,7 @@ function parametro_crear($parametro,$valor,&$validar){
 
 //Funcion para validar si se actualizo
 
-function parametro_actualizar($id_parametro,$parametro,$valor,&$validar){
+function parametro_actualizar($id_parametro,$parametro,$valor,$estado,&$validar){
     include "../../../../modelo/conexion.php";
             
         //CONSULTAR EL PARAMETRO
@@ -49,7 +49,7 @@ function parametro_actualizar($id_parametro,$parametro,$valor,&$validar){
         $objeto_base=$row[0];
     
         if($parametro==$objeto_base){
-            $sql=$conexion->query(" update tbl_ms_parametros SET parametro='$parametro', valor='$valor' WHERE id_parametro = $id_parametro ");   
+            $sql=$conexion->query(" update tbl_ms_parametros SET parametro='$parametro', valor='$valor', estado='$estado' WHERE id_parametro = $id_parametro ");   
             
         }else{
             //consultar por el parametro
@@ -59,7 +59,7 @@ function parametro_actualizar($id_parametro,$parametro,$valor,&$validar){
                 $validar=false;
                 return $validar;
             }else {
-                $sql=$conexion->query(" update tbl_ms_parametros SET parametro='$parametro', valor='$valor' WHERE id_parametro = $id_parametro ");   
+                $sql=$conexion->query(" update tbl_ms_parametros SET parametro='$parametro', valor='$valor', estado='$estado' WHERE id_parametro = $id_parametro ");   
                 return $validar;
             }
         }
@@ -73,13 +73,14 @@ if (!empty($_POST["btnregistrar_parametro"])) {
     $validar=true;
     $parametro=$_POST["parametro"];
     $valor=$_POST["valor"];
+    $estado=$_POST["estado"];
     $sesion_usuario=$_SESSION['usuario_login'];
 
     campo_vacio($parametro,$valor,$validar);
     if ($validar==true) {
         parametro_existe($parametro,$validar);
         if ($validar==true) {
-            parametro_crear($parametro,$valor,$validar);
+            parametro_crear($parametro,$valor,$estado,$validar);
             if ($validar==true) {
                 //Guardar la bitacora 
                 date_default_timezone_set("America/Tegucigalpa");
@@ -98,11 +99,12 @@ if (!empty($_POST["btnactualizarparametro"])) {
     $validar=true;
     $parametro=$_POST["parametro"];
     $valor=$_POST["valor"];
+    $estado=$_POST["estado"];
     $sesion_usuario=$_SESSION['usuario_login'];
 
     campo_vacio($parametro,$valor,$validar);
     if ($validar==true) {
-            parametro_actualizar($id_parametro,$parametro,$valor,$validar);
+            parametro_actualizar($id_parametro,$parametro,$valor,$estado,$validar);
             if ($validar==true) {
                  //Guardar la bitacora 
                  date_default_timezone_set("America/Tegucigalpa");

@@ -13,7 +13,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Administracion Objeto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_seguridad.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 </head>
 
@@ -155,6 +155,7 @@ if(empty($_SESSION['usuario_login'])){
                         <th scope="col">OBJETO</th>
                         <th scope="col">DESCRIPCION</th>
                         <th scope="col">TIPO DE OBJETO</th>
+                        <th scope="col">ESTADO</th>
                         <th scope="col"style="width:15px"></th>
                         <th scope="col"style="width:15px"></th>
                     </tr>
@@ -163,11 +164,12 @@ if(empty($_SESSION['usuario_login'])){
                     <?php
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select id_objeto, objeto, descripcion, tipo_objeto from tbl_ms_objetos
+                    $sql=$conexion->query("select id_objeto, objeto, descripcion, tipo_objeto, estado from tbl_ms_objetos
                     where id_objeto like '%$busqueda_objeto%' or
                             objeto like '%$busqueda_objeto%' or
                             descripcion like '%$busqueda_objeto%' or 
-                            tipo_objeto like '%$busqueda_objeto%' 
+                            tipo_objeto like '%$busqueda_objeto%' or
+                            estado like '%$busqueda_objeto%' 
                     order by id_objeto");
                     $numero=0;
                     while($u = $sql->fetch_assoc()){ ?>
@@ -176,6 +178,7 @@ if(empty($_SESSION['usuario_login'])){
                         <td><?php echo $u['objeto']; ?></td>
                         <td><?php echo $u['descripcion']; ?></td>
                         <td><?php echo $u['tipo_objeto']; ?></td>
+                        <td><?php echo $u['estado']; ?></td>
                         <td>
                             <a href="actualizar_objeto.php?id_objeto=<?= $u['id_objeto'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                         </td>

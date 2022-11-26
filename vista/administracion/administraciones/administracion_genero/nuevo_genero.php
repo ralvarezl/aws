@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(empty($_SESSION['usuario_login'])){
-    header("location:../../login.php");
+    header("location:../../../../login.php");
 }
 
 ?>
@@ -27,11 +27,21 @@ if(empty($_SESSION['usuario_login'])){
             include "../../../../modelo/conexion.php";
             include "../../../../controlador/administraciones/administracion_genero.php";
             ?>
-            <!--INGRESE ESTADO-->
+            <!--INGRESE GENERO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Genero</label>
             <input type="text" class="form-control" placeholder="" 
                 name="genero" onKeyUp="this.value=this.value.toUpperCase();">
+            </div>
+
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
+            <select class="form-select" aria-label="Default select example" name="estado">
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="INACTIVO">INACTIVO</option>
+            </select>
+                        
             </div>
             
             <!--BOTON NUEVO ESTADO-->

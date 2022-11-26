@@ -11,22 +11,39 @@ function campo_vacio($id_estado,$estado, &$validar){
 }
 
 //ACTUALIZAR ESTADO
-function actualizar_estado($id_estado,$estado, &$validar){
+function actualizar_estado($id_estado,$estado,$estado1, &$validar){
     include "../../../../modelo/conexion.php";
         
-    $sql=$conexion->query(" update tbl_ms_estado SET estado='$estado' WHERE id_estado = $id_estado ");   
-    if ($sql==1) {
-        return $validar;
-    }else {
-    $validar=false;
-    return $validar;
+    //Consultar por la descripcion
+    $sql=mysqli_query($conexion, "select estado from tbl_ms_estado where id_estado=$id_estado");
+    $row=mysqli_fetch_array($sql);
+    $nombre_base=$row[0];
+
+    if($estado==$nombre_base){
+        //Actualiza si no se cambio la descripcion pero si los demas campos
+        $sql=$conexion->query("update tbl_ms_estado SET ESTADO='$estado', ESTADO1='$estado1' WHERE id_estado = $id_estado ");
+    }else{
+        //Si modifico la descripcion validar que no exista en la base de datos
+        $sql=$conexion->query("select estado from tbl_ms_estado where estado='$estado'");
+        if ($datos=$sql->fetch_object()) {
+            echo"<div align='center' class='alert alert-danger'>El estado ya existe, ingrese uno nuevo</div>";  
+            $validar=false;
+            return $validar;
+        }else{
+            $sql=$conexion->query(" update tbl_ms_estado SET estado='$estado', estado1='$estado1' WHERE id_estado = $id_estado "); 
+            if($sql==1){
+                return $validar;
+            }else{
+                echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+            }
+        }
     }
 }
 
 //NUEVO ESTADO
-function nuevo_estado($estado, &$validar){
+function nuevo_estado($estado,$estado1, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_ms_estado (estado) values ('$estado') "); 
+    $sql=$conexion->query(" insert into tbl_ms_estado (estado, estado1) values ('$estado', '$estado1') "); 
     if($sql==1){
         return $validar;
     }else{
@@ -104,6 +121,7 @@ if (!empty($_POST["btnregistrar_estado"])) {
     //include "../../modelo/conexion.php";
     $validar=true;
     $estado=$_POST["estado"];
+    $estado1=$_POST["estado1"];
     if($estado==''){
         echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
         $validar=false;
@@ -114,7 +132,7 @@ if (!empty($_POST["btnregistrar_estado"])) {
         if($validar==true){
             valida_estado($estado,$validar);
             if($validar==true){
-                nuevo_estado($estado,$validar);
+                nuevo_estado($estado,$estado1,$validar);
                 if($validar==true){
                     //Guardar la bitacora 
                     date_default_timezone_set("America/Tegucigalpa");
@@ -135,13 +153,12 @@ if (!empty($_POST["btnactualizar_estado"])) {
     $validar=true;
     $id_estado=$_POST["id_estado"];
     $estado=$_POST["estado"];
+    $estado1=$_POST["estado1"];
     campo_vacio($id_estado,$estado, $validar);
         if ($validar==true) {
-            validar_existe($estado, $validar);
-            if($validar==true){
                 valida_estado($estado,$validar);
                 if($validar==true){
-                    actualizar_estado($id_estado,$estado, $validar);
+                    actualizar_estado($id_estado,$estado,$estado1, $validar);
                     if($validar==true){
                         //Guardar la bitacora 
                         date_default_timezone_set("America/Tegucigalpa");
@@ -154,7 +171,7 @@ if (!empty($_POST["btnactualizar_estado"])) {
                 
             } 
         }
-}
+
 
 
 ?>

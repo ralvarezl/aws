@@ -33,6 +33,15 @@ if(empty($_SESSION['usuario_login'])){
             <input type="text" class="form-control" placeholder="" 
                 name="pregunta" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
+            <select class="form-select" aria-label="Default select example" name="estado">
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="INACTIVO">INACTIVO</option>
+            </select>
+                        
+            </div>
             
             <!--BOTON NUEVO ESTADO-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

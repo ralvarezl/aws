@@ -56,9 +56,10 @@ function Footer()
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
 $busqueda_tipo_pedido=$_SESSION['busqueda_tipo_pedido'];
-$consulta = "select id_tipo_pedido, descripcion from tbl_tipo_pedido
+$consulta = "select id_tipo_pedido, descripcion, estado from tbl_tipo_pedido
             where id_tipo_pedido like '%$busqueda_tipo_pedido%' or
-            descripcion like '%$busqueda_tipo_pedido%' 
+            descripcion like '%$busqueda_tipo_pedido%' or
+            estado like '%$busqueda_tipo_pedido%'
             order by id_tipo_pedido";
 $resultado = $conexion->query($consulta);
 
@@ -71,19 +72,21 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(65);
+$pdf->Cell(40);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, utf8_decode('DESCRIPCIÓN'), 1, 1, 'C', 0);
+    $pdf->Cell(65, 10,utf8_decode( 'DESCRIPCIÓN'), 1, 0, 'C', 0);
+    $pdf->Cell(55, 10, utf8_decode('ESTADO'), 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(65);
+    $pdf->Cell(40);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
-    $pdf->Cell(55, 10,utf8_decode( $row['descripcion']), 1, 1, 'C', 0);//En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(65, 10,utf8_decode( $row['descripcion']), 1, 0, 'C', 0);
+    $pdf->Cell(55, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0);
 }
 
 //Genero la salida

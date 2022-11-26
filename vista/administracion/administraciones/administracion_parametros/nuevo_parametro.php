@@ -40,6 +40,16 @@ if(empty($_SESSION['usuario_login'])){
                 name="valor" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
 
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
+            <select class="form-select" aria-label="Default select example" name="estado">
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="INACTIVO">INACTIVO</option>
+            </select>
+                        
+            </div>
+
             <!--BOTON NUEVO PARAMETRO-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-outline-dark" name="btnregistrar_parametro" value="ok">Registrar Parametro</button>

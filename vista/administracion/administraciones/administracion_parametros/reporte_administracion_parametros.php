@@ -55,7 +55,7 @@ function Footer()
 
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
-$consulta = "select id_parametro, parametro, valor from tbl_ms_parametros";
+$consulta = "select id_parametro, parametro, valor, estado from tbl_ms_parametros";
 $resultado = $conexion->query($consulta);
 
 //Genero el pdf en vertical y tamaño carta
@@ -67,23 +67,31 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(35);
+$pdf->Cell(25);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
     $pdf->Cell(55, 10, utf8_decode('PARÁMETRO'), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, 'VALOR', 1, 1, 'C', 0);
+    $pdf->Cell(55, 10, utf8_decode('VALOR'), 1, 0, 'C', 0);
+    $pdf->Cell(30, 10, 'ESTADO', 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(35);
+    $pdf->Cell(25);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
     $pdf->Cell(55, 10,utf8_decode( $row['parametro']), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10,utf8_decode( $row['valor']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(55, 10,utf8_decode( $row['valor']), 1, 0, 'C', 0);
+    $pdf->Cell(30, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida
 $pdf->Output();
+
+//Guardar la bitacora
+$sesion_usuario=$_SESSION['usuario_login'];
+date_default_timezone_set("America/Tegucigalpa");
+$fecha = date('Y-m-d h:i:s');
+$sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Reporte Genero', 'Genero reporte de parametros','$sesion_usuario')");
 ?>

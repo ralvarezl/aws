@@ -41,6 +41,15 @@ if(empty($_SESSION['usuario_login'])){
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <select class="form-select" aria-label="Default select example" name="estado">
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="INACTIVO">INACTIVO</option>
+            </select>      
+            </div>
+            
             <!--BOTON NUEVO ROL-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-outline-dark" name="btnregistrar_rol" value="ok">Registrar Rol</button>

@@ -13,7 +13,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Administracion Roles</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_seguridad.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 </head>
 
@@ -165,6 +165,7 @@ if(empty($_SESSION['usuario_login'])){
                         <th class="col-sm-1" scope="col">N°</th>
                         <th scope="col">ROL</th>
                         <th scope="col">DESCRIPCION</th>
+                        <th scope="col">ESTADO</th>
                         <th scope="col"style="width:15px"></th>
                         <th scope="col"style="width:15px"></th>
                     </tr>
@@ -173,10 +174,11 @@ if(empty($_SESSION['usuario_login'])){
                     <?php
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select id_rol, rol, descripcion from tbl_ms_roles
+                    $sql=$conexion->query("select id_rol, rol, descripcion, estado from tbl_ms_roles
                     where id_rol like '%$busqueda_rol%' or
                             rol like '%$busqueda_rol%' or
-                            descripcion like '%$busqueda_rol%' 
+                            descripcion like '%$busqueda_rol%' or
+                            estado like '%$busqueda_rol%' 
                     order by id_rol");
                     $numero=0;
                     while($u = $sql->fetch_assoc()){ ?>
@@ -184,6 +186,7 @@ if(empty($_SESSION['usuario_login'])){
                         <td><?php echo $numero=$numero+1; ?></td>
                         <td><?php echo $u['rol']; ?></td>
                         <td><?php echo $u['descripcion']; ?></td>
+                        <td><?php echo $u['estado']; ?></td>
                         <td>
                             <a href="actualizar_rol.php?id_rol=<?= $u['id_rol'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                         </td>

@@ -13,7 +13,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Administración Parámetros</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_seguridad.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 
 </head>
@@ -161,6 +161,7 @@ if(empty($_SESSION['usuario_login'])){
                             <th class="col-sm-1" scope="col">N°</th>
                             <th scope="col">PARÁMETRO</th>
                             <th scope="col">VALOR</th>
+                            <th scope="col">ESTADO</th>
                             <th scope="col"style="width:15px"></th>
                             <th scope="col"style="width:15px"></th>
                             </tr>
@@ -169,12 +170,13 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_parametro, parametro, valor from tbl_ms_parametros");
+                            $sql= $conexion->query("select id_parametro, parametro, valor, estado from tbl_ms_parametros");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
                                 <td><?php echo $u['id_parametro']; ?></td>
                                 <td><?php echo $u['parametro']; ?></td>
                                 <td><?php echo $u['valor']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>
                                 <td>
                                     <a href="actualizar_parametros.php?id_parametro=<?= $u['id_parametro'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>

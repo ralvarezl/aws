@@ -12,7 +12,7 @@ function campo_vacio( $rol, $descripcion, &$validar){
 }
 
 //ACTUALIZAR 
-function actualizar_rol($id_rol, $rol, $descripcion, &$validar){
+function actualizar_rol($id_rol, $rol, $descripcion,$estado, &$validar){
     include "../../../../modelo/conexion.php";
     
     //CONSULTAR EL ROL
@@ -21,7 +21,7 @@ function actualizar_rol($id_rol, $rol, $descripcion, &$validar){
     $rol_base=$row[0];
 
     if($rol==$rol_base){
-        $sql=$conexion->query(" update tbl_ms_roles SET descripcion='$descripcion' WHERE id_rol=$id_rol");
+        $sql=$conexion->query(" update tbl_ms_roles SET descripcion='$descripcion',estado='$estado' WHERE id_rol=$id_rol");
     }else{
         //consultar por el rol
         $sql=$conexion->query("select rol from tbl_ms_roles where rol='$rol'");
@@ -30,16 +30,16 @@ function actualizar_rol($id_rol, $rol, $descripcion, &$validar){
             $validar=false;
             return $validar;
         }else{
-            $sql=$conexion->query(" update tbl_ms_roles SET rol='$rol', descripcion='$descripcion' WHERE id_rol=$id_rol");
+            $sql=$conexion->query(" update tbl_ms_roles SET rol='$rol', descripcion='$descripcion',estado='$estado' WHERE id_rol=$id_rol");
             return $validar;
         }
     }
 }
 
-//NUEVO OBJETO
-function nuevo_rol($rol, $descripcion, &$validar){
+//NUEVO ROL
+function nuevo_rol($rol, $descripcion,$estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_ms_roles (rol, descripcion) values ('$rol', '$descripcion') "); 
+    $sql=$conexion->query(" insert into tbl_ms_roles (rol, descripcion, estado) values ('$rol', '$descripcion', '$estado') "); 
     if($sql==1){
         return $validar;
     }else{
@@ -69,13 +69,14 @@ if (!empty($_POST["btnregistrar_rol"])) {
     $validar=true;
     $rol=$_POST["rol"];
     $descripcion=$_POST["descripcion"];
+    $estado=$_POST["estado"];
 
     campo_vacio($rol, $descripcion, $validar);
     if ($validar==true) {
         if ($validar==true) {
         validar_existe($rol, $validar);
         if($validar==true){
-            nuevo_rol($rol, $descripcion, $validar);
+            nuevo_rol($rol, $descripcion, $estado, $validar);
             if($validar==true){
                 //Guardar la bitacora 
                 date_default_timezone_set("America/Tegucigalpa");
@@ -97,10 +98,11 @@ if (!empty($_POST["btnactualizar_rol"])) {
     $id_rol=$_POST["id_rol"];
     $rol=$_POST["rol"];
     $descripcion=$_POST["descripcion"];
+    $estado=$_POST["estado"];
     
     campo_vacio($rol, $descripcion, $validar);
         if ($validar==true) {
-                actualizar_rol($id_rol, $rol, $descripcion, $validar);
+                actualizar_rol($id_rol, $rol, $descripcion,$estado, $validar);
                 if($validar==true){
                 //Guardar la bitacora 
                 date_default_timezone_set("America/Tegucigalpa");

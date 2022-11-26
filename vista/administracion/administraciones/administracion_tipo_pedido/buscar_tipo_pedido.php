@@ -13,7 +13,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Administración Tipo Pedido</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_admin.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 
 </head>
@@ -161,6 +161,7 @@ if(empty($_SESSION['usuario_login'])){
                             <tr>
                             <th scope="col">N°</th>
                             <th scope="col">DESCRIPCIÓN</th>
+                            <th scope="col">ESTADO</th>
                             <th scope="col" style="width:10px"></th>
                             <th scope="col" style="width:10px"></th>
                             </tr>
@@ -169,9 +170,10 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_tipo_pedido, descripcion from tbl_tipo_pedido
+                            $sql= $conexion->query("select id_tipo_pedido, descripcion, estado from tbl_tipo_pedido
                             where 
-                                    descripcion like '%$busqueda_tipo_pedido%' 
+                                    descripcion like '%$busqueda_tipo_pedido%' or
+                                    estado like '%$busqueda_tipo_pedido%' 
                             order by id_tipo_pedido");
                             $num=0;
                             while($u = $sql->fetch_assoc())
@@ -181,6 +183,7 @@ if(empty($_SESSION['usuario_login'])){
                             <tr>
                             <td><?php echo ''.$num.''; ?></td>
                                 <td><?php echo $u['descripcion']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>
                                 <td>
                                     <a href="actualizar_tipo_pedido.php?id_tipo_pedido=<?= $u['id_tipo_pedido'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>

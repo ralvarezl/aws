@@ -12,7 +12,7 @@ function campo_vacio( $objeto, $descripcion, $tipo_objeto, &$validar){
 }
 
 //ACTUALIZAR OBJETO
-function actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, &$validar){
+function actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, $estado, &$validar){
     include "../../../../modelo/conexion.php";
     
     //CONSULTAR EL OBJETO
@@ -21,7 +21,7 @@ function actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, &$va
     $objeto_base=$row[0];
 
     if($objeto==$objeto_base){
-        $sql=$conexion->query(" update tbl_ms_objetos SET descripcion='$descripcion', tipo_objeto='$tipo_objeto' WHERE id_objeto = $id_objeto ");   
+        $sql=$conexion->query(" update tbl_ms_objetos SET descripcion='$descripcion', tipo_objeto='$tipo_objeto' , estado='$estado' WHERE id_objeto = $id_objeto ");   
         
     }else{
         //consultar por el objeto
@@ -31,16 +31,16 @@ function actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, &$va
             $validar=false;
             return $validar;
         }else {
-            $sql=$conexion->query(" update tbl_ms_objetos SET objeto='$objeto', descripcion='$descripcion', tipo_objeto='$tipo_objeto' WHERE id_objeto = $id_objeto ");   
+            $sql=$conexion->query(" update tbl_ms_objetos SET objeto='$objeto', descripcion='$descripcion', tipo_objeto='$tipo_objeto', estado='$estado' WHERE id_objeto = $id_objeto ");   
             return $validar;
         }
     }
 }
 
 //NUEVO OBJETO
-function nuevo_objeto($objeto, $descripcion, $tipo_objeto, &$validar){
+function nuevo_objeto($objeto, $descripcion, $tipo_objeto, $estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_ms_objetos (objeto, descripcion, tipo_objeto) values ('$objeto', '$descripcion', '$tipo_objeto') "); 
+    $sql=$conexion->query(" insert into tbl_ms_objetos (objeto, descripcion, tipo_objeto, estado) values ('$objeto', '$descripcion', '$tipo_objeto', '$estado') "); 
     if($sql==1){
         return $validar;
     }else{
@@ -71,6 +71,7 @@ if (!empty($_POST["btnregistrar_objeto"])) {
     $objeto=$_POST["objeto"];
     $descripcion=$_POST["descripcion"];
     $tipo_objeto=$_POST["tipo_objeto"];
+    $estado=$_POST["estado"];
 
 
     campo_vacio($objeto, $descripcion, $tipo_objeto, $validar);
@@ -78,7 +79,7 @@ if (!empty($_POST["btnregistrar_objeto"])) {
     if ($validar==true) {
         validar_existe($objeto, $validar);
         if($validar==true){
-            nuevo_objeto($objeto, $descripcion, $tipo_objeto,$validar);
+            nuevo_objeto($objeto, $descripcion, $tipo_objeto, $estado, $validar);
             if($validar==true){
                 //Guardar la bitacora 
                 date_default_timezone_set("America/Tegucigalpa");
@@ -101,9 +102,10 @@ if (!empty($_POST["btnactualizar_objeto"])) {
     $objeto=$_POST["objeto"];
     $descripcion=$_POST["descripcion"];
     $tipo_objeto=$_POST["tipo_objeto"];
+    $estado=$_POST["estado"];
     campo_vacio($objeto, $descripcion, $tipo_objeto, $validar);
         if ($validar==true) {
-                actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, $validar);
+                actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, $estado, $validar);
                 if($validar==true){
                 //Guardar la bitacora 
                 date_default_timezone_set("America/Tegucigalpa");

@@ -12,22 +12,39 @@ function campo_vacio($id_pregunta,$pregunta, &$validar){
 }
 
 //ACTUALIZAR PREGUNTA
-function actualizar_pregunta($id_pregunta,$pregunta, &$validar){
+function actualizar_pregunta($id_pregunta,$pregunta,$estado, &$validar){
     include "../../../../modelo/conexion.php";
         
-    $sql=$conexion->query(" update tbl_ms_preguntas SET pregunta='$pregunta' WHERE id_pregunta = $id_pregunta ");   
-    if ($sql==1) {
-        return $validar;
-    }else {
-    $validar=false;
-    return $validar;
+    //Consultar por la descripcion
+    $sql=mysqli_query($conexion, "select pregunta from tbl_ms_preguntas where id_pregunta=$id_pregunta");
+    $row=mysqli_fetch_array($sql);
+    $nombre_base=$row[0];
+
+    if($pregunta==$nombre_base){
+        //Actualiza si no se cambio la pregunta pero si los demas campos
+        $sql=$conexion->query("update tbl_ms_preguntas SET ESTADO='$estado' WHERE id_pregunta = $id_pregunta ");
+    }else{
+        //Si modifico la pregunta validar que no exista en la base de datos
+        $sql=$conexion->query("select pregunta from tbl_ms_preguntas where pregunta='$pregunta'");
+        if ($datos=$sql->fetch_object()) {
+            echo"<div align='center' class='alert alert-danger'>La pregunta ya existe, ingrese una nueva</div>";  
+            $validar=false;
+            return $validar;
+        }else{
+            $sql=$conexion->query(" update tbl_ms_preguntas SET pregunta='$pregunta', estado='$estado' WHERE id_pregunta = $id_pregunta "); 
+            if($sql==1){
+                return $validar;
+            }else{
+                echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+            }
+        }
     }
 }
 
 //NUEVA PREGUNTA
-function nueva_pregunta($pregunta, &$validar){
+function nueva_pregunta($pregunta,$estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_ms_preguntas (pregunta) values ('$pregunta') "); 
+    $sql=$conexion->query(" insert into tbl_ms_preguntas (pregunta,estado) values ('$pregunta','$estado') "); 
     if($sql==1){
         return $validar;
     }else{
@@ -103,6 +120,7 @@ if (!empty($_POST["btnregistrar_pregunta"])) {
     //include "../../modelo/conexion.php";
     $validar=true;
     $pregunta=$_POST["pregunta"];
+    $estado=$_POST["estado"];
     if($pregunta==''){
         echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
         $validar=false;
@@ -113,7 +131,7 @@ if (!empty($_POST["btnregistrar_pregunta"])) {
         if($validar==true){
             valida_pregunta($pregunta,$validar);
             if($validar==true){
-                nueva_pregunta($pregunta,$validar);
+                nueva_pregunta($pregunta,$estado,$validar);
                 if($validar==true){
                     //Guardar la bitacora 
                     date_default_timezone_set("America/Tegucigalpa");
@@ -134,24 +152,23 @@ if (!empty($_POST["btnactualizar_pregunta"])) {
     $validar=true;
     $id_pregunta=$_POST["id_pregunta"];
     $pregunta=$_POST["pregunta"];
+    $estado=$_POST["estado"];
     campo_vacio($id_pregunta,$pregunta, $validar);
         if ($validar==true) {
-            validar_existe($pregunta, $validar);
+            valida_pregunta($pregunta,$validar);
             if($validar==true){
-                valida_pregunta($pregunta,$validar);
+                actualizar_pregunta($id_pregunta,$pregunta,$estado, $validar);
                 if($validar==true){
-                    actualizar_pregunta($id_pregunta,$pregunta, $validar);
-                    if($validar==true){
-                        //Guardar la bitacora 
-                        date_default_timezone_set("America/Tegucigalpa");
-                        $fecha = date('Y-m-d h:i:s');
-                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nueva pregunta', 'Creo nueva pregunta','$sesion_usuario')");
-                        //Mensaje de confirmacion
-                        echo '<script language="javascript">alert("Pregunta actualizada exitosamente");;window.location.href="administracion_pregunta.php"</script>';//genero ingresado
+                //Guardar la bitacora 
+                date_default_timezone_set("America/Tegucigalpa");
+                $fecha = date('Y-m-d h:i:s');
+                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nueva pregunta', 'Creo nueva pregunta','$sesion_usuario')");
+                //Mensaje de confirmacion
+                echo '<script language="javascript">alert("Pregunta actualizada exitosamente");;window.location.href="administracion_pregunta.php"</script>';//genero ingresado
                 }
             }
                 
         } 
     }
-}
+
 ?>

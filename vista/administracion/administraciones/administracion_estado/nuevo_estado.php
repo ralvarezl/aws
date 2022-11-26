@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(empty($_SESSION['usuario_login'])){
-    header("location:../../login.php");
+    header("location:../../../../login.php");
 }
 
 ?>
@@ -29,9 +29,18 @@ if(empty($_SESSION['usuario_login'])){
             ?>
             <!--INGRESE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <label for="formGroupExampleInput" class="form-label">Descripcion</label>
             <input type="text" class="form-control" placeholder="" 
                 name="estado" onKeyUp="this.value=this.value.toUpperCase();">
+            </div>
+
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <select class="form-select" aria-label="Default select example" name="estado1">
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="INACTIVO">INACTIVO</option>
+            </select>      
             </div>
             
             <!--BOTON NUEVO ESTADO-->

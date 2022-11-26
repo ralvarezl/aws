@@ -10,22 +10,39 @@ function campo_vacio($id_genero,$genero, &$validar){
     }
 }
 //ACTUALIZAR GENERO
-function actualizar_genero($id_genero,$genero, &$validar){
+function actualizar_genero($id_genero,$genero,$estado, &$validar){
     include "../../../../modelo/conexion.php";
         
-    $sql=$conexion->query(" update tbl_ms_genero SET genero='$genero' WHERE id_genero = $id_genero ");   
-    if ($sql==1) {
-        return $validar;
-    }else {
-    $validar=false;
-    return $validar;
+    //Consultar por la descripcion
+    $sql=mysqli_query($conexion, "select genero from tbl_ms_genero where id_genero=$id_genero");
+    $row=mysqli_fetch_array($sql);
+    $nombre_base=$row[0];
+
+    if($genero==$nombre_base){
+        //Actualiza si no se cambio la descripcion pero si los demas campos
+        $sql=$conexion->query("update tbl_ms_genero SET ESTADO='$estado' WHERE id_genero = $id_genero ");
+    }else{
+        //Si modifico la descripcion validar que no exista en la base de datos
+        $sql=$conexion->query("select genero from tbl_ms_genero where genero='$genero'");
+        if ($datos=$sql->fetch_object()) {
+            echo"<div align='center' class='alert alert-danger'>El genero ya existe, ingrese uno nuevo</div>";  
+            $validar=false;
+            return $validar;
+        }else{
+            $sql=$conexion->query(" update tbl_ms_genero SET genero='$genero', estado='$estado' WHERE id_genero = $id_genero "); 
+            if($sql==1){
+                return $validar;
+            }else{
+                echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+            }
+        }
     }
 }
 
 //NUEVO GENERO
-function nuevo_genero($genero, &$validar){
+function nuevo_genero($genero, $estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_ms_genero (genero) values ('$genero') "); 
+    $sql=$conexion->query(" insert into tbl_ms_genero (genero, estado) values ('$genero','$estado') "); 
     if($sql==1){
         return $validar;
     }else{
@@ -103,6 +120,7 @@ if (!empty($_POST["btnregistrar_genero"])) {
     //include "../../modelo/conexion.php";
     $validar=true;
     $genero=$_POST["genero"];
+    $estado=$_POST["estado"];
     if($genero==''){
         echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
         $validar=false;
@@ -113,7 +131,7 @@ if (!empty($_POST["btnregistrar_genero"])) {
         if($validar==true){
             valida_genero($genero,$validar);
             if($validar==true){
-                nuevo_genero($genero,$validar);
+                nuevo_genero($genero,$estado,$validar);
                 if($validar==true){
                     //Guardar la bitacora 
                     date_default_timezone_set("America/Tegucigalpa");
@@ -134,26 +152,25 @@ if (!empty($_POST["btnactualizar_genero"])) {
     $validar=true;
     $id_genero=$_POST["id_genero"];
     $genero=$_POST["genero"];
+    $estado=$_POST["estado"];
     campo_vacio($id_genero,$genero, $validar);
         if ($validar==true) {
-            validar_existe($genero, $validar);
+            valida_genero($genero,$validar);
             if($validar==true){
-                valida_genero($genero,$validar);
+                actualizar_genero($id_genero,$genero,$estado, $validar);
                 if($validar==true){
-                    actualizar_genero($id_genero,$genero, $validar);
-                    if($validar==true){
-                        //Guardar la bitacora 
-                        date_default_timezone_set("America/Tegucigalpa");
-                        $fecha = date('Y-m-d h:i:s');
-                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar Genero', 'Actualizo genero $genero','$sesion_usuario')");
-                        //Mensaje de confirmacion
-                        echo '<script language="javascript">alert("Genero actualizado exitosamente");;window.location.href="administracion_genero.php"</script>';//genero ingresado
+                    //Guardar la bitacora 
+                    date_default_timezone_set("America/Tegucigalpa");
+                    $fecha = date('Y-m-d h:i:s');
+                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar Genero', 'Actualizo genero $genero','$sesion_usuario')");
+                    //Mensaje de confirmacion
+                    echo '<script language="javascript">alert("Genero actualizado exitosamente");;window.location.href="administracion_genero.php"</script>';//genero ingresado
                 }
             }
                 
         } 
     }
-}
+
 
 
 ?>
