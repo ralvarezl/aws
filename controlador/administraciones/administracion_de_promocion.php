@@ -1,7 +1,7 @@
 <?php
 //Funcion para validar campos vacios
-function campo_vacio($descripcion,$precio,$fecha_inicial,$fecha_final, &$validar){
-    if (!empty($_POST["descripcion"] and $_POST["precio"] and $_POST["fecha_inicial"] and $_POST["fecha_final"] and $validar=true)) { //Campos llenos
+function campo_vacio($descripcion,$precio, &$validar){
+    if (!empty($_POST["descripcion"] and $_POST["precio"] and $validar=true)) { //Campos llenos
         return $validar;
     }else {
         $validar=false;
@@ -10,12 +10,22 @@ function campo_vacio($descripcion,$precio,$fecha_inicial,$fecha_final, &$validar
     }
 }
 
-function limite_precio($precio, &$validar){
+function limite_descripcion_precio($descripcion, $precio, &$validar){
 
-    $Longitud1=strlen($precio);
+    $Longitud1=strlen($descripcion);
+    $Longitud2=strlen($precio);
     $conta=0;
 
-    if($Longitud1<=7){
+    if($Longitud1<=10){
+        $conta=1;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>La descripción es muy extensa</div>";
+        return $validar;
+    }
+
+
+    if($Longitud2<=7){
         $conta=1;
     }else{
         $validar=false;
@@ -23,7 +33,7 @@ function limite_precio($precio, &$validar){
         return $validar;
     }
     
-    if ($conta==1){
+    if ($conta==2){
         return $validar;
     }
 }
@@ -72,9 +82,9 @@ function Validar_promocion($descripcion,&$validar){
 }
 
 //NUEVA PROMOCION
-function nuevo_promocion($descripcion,$precio,$fecha_inicial,$fecha_final,&$validar){
+function nuevo_promocion($descripcion,$precio,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_promocion (descripcion,precio,fecha_inicial,fecha_final) values ('$descripcion',$precio,'$fecha_inicial','$fecha_final')"); 
+    $sql=$conexion->query(" insert into tbl_promocion (descripcion,precio) values ('$descripcion',$precio)"); 
     if($sql==1){
         return $validar;
     }else{
@@ -83,7 +93,7 @@ function nuevo_promocion($descripcion,$precio,$fecha_inicial,$fecha_final,&$vali
 }
 
 //MODIFICAR PRODUCTO
-function modificar_producto($id_promocion,$descripcion,$precio,$fecha_inicial,$fecha_final,&$validar){
+function modificar_producto($id_promocion,$descripcion,$precio,&$validar){
     include "../../../../modelo/conexion.php";
 
     //Consultar por el prodcuto
@@ -93,7 +103,7 @@ function modificar_producto($id_promocion,$descripcion,$precio,$fecha_inicial,$f
 
     if($descripcion==$descripcion_base){
         //Actualiza si no se cambio el nombre pero si los demas campos
-        $sql=$conexion->query("update tbl_promocion SET precio='$precio', fecha_inicial= '$fecha_inicial', fecha_final = '$fecha_final' WHERE id_promocion = $id_promocion ");
+        $sql=$conexion->query("update tbl_promocion SET precio='$precio', WHERE id_promocion = $id_promocion ");
     }else{
         //Si modifico nombre validar que no exista en la base de datos
         $sql=$conexion->query("select descripcion from tbl_promocion where descripcion='$descripcion'");
@@ -102,7 +112,7 @@ function modificar_producto($id_promocion,$descripcion,$precio,$fecha_inicial,$f
             $validar=false;
             return $validar;
         }else{
-            $sql=$conexion->query(" update tbl_promocion SET descripcion='$descripcion', precio='$precio', fecha_inicial= '$fecha_inicial', fecha_final = '$fecha_final' WHERE id_promocion = $id_promocion "); 
+            $sql=$conexion->query(" update tbl_promocion SET descripcion='$descripcion', precio='$precio' WHERE id_promocion = $id_promocion "); 
             if($sql==1){
                 return $validar;
             }else{
@@ -122,18 +132,16 @@ if (!empty($_POST["btnregistrarpromocion"])) {
     $validar=true;
     $descripcion=$_POST["descripcion"];
     $precio=$_POST["precio"];
-    $fecha_inicial=$_POST["fecha_inicial"];
-    $fecha_final=$_POST["fecha_final"];
 
-    campo_vacio($descripcion,$precio,$fecha_inicial,$fecha_final, $validar);
+    campo_vacio($descripcion,$precio, $validar);
     if($validar==true){
         Valida_descripcion($descripcion,$validar);
         if($validar==true){
             Validar_promocion($descripcion,$validar);
             if ($validar==true) {
-                limite_precio($precio, $validar);
+                limite_descripcion_precio($descripcion, $precio, $validar);
                 if ($validar==true) {
-                    nuevo_promocion($descripcion,$precio,$fecha_inicial,$fecha_final,$validar);
+                    nuevo_promocion($descripcion,$precio,$validar);
                     if ($validar==true) {
                         //Guardar la bitacora 
                         date_default_timezone_set("America/Tegucigalpa");
@@ -156,17 +164,14 @@ if (!empty($_POST["btnactualizar_promocion"])) {
     $id_promocion=$_POST["id_promocion"];
     $descripcion=$_POST["descripcion"];
     $precio=$_POST["precio"];
-    $fecha_inicial=$_POST["fecha_inicial"];
-    $fecha_final=$_POST["fecha_final"];
-    $sesion_usuario=$_SESSION['usuario_login'];
 
-    campo_vacio($descripcion,$precio,$fecha_inicial,$fecha_final, $validar);
+    campo_vacio($descripcion,$precio, $validar);
         if ($validar==true) {
             Valida_descripcion($descripcion,$validar);
             if ($validar==true) {
-                limite_precio($precio, $validar);
+                limite_descripcion_precio($descripcion, $precio, $validar);
                 if ($validar==true) {
-                    modificar_producto($id_promocion,$descripcion,$precio,$fecha_inicial,$fecha_final,$validar);
+                    modificar_producto($id_promocion,$descripcion,$precio,$validar);
                     if ($validar==true) {
                             //Guardar la bitacora 
                             date_default_timezone_set("America/Tegucigalpa");

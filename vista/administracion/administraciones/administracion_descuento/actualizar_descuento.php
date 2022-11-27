@@ -35,13 +35,13 @@ $sql=$conexion->query(" select * from tbl_descuento where id_descuento=$id_descu
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">INGRESE DESCRIPCION</label>
             <input type="text" class="form-control" placeholder="Ingrese descripcion" 
-                name="descripcion" value="<?= $datos->DESCRIPCION ?>">
+                name="descripcion" value="<?= $datos->DESCRIPCION ?> " onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             
             <!--INGRESE PORCENTAJE DESCUENTO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">PORCENTAJE DESCUENTO</label>
-            <input type="text" class="form-control" placeholder="Ingrese valor" 
+            <input type="number" class="form-control" placeholder="Ingrese valor" 
                 name="porcentaje_descuento" value="<?= $datos->PORCENTAJE_DESCUENTO ?>">
             </div>
 

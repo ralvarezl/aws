@@ -41,16 +41,11 @@ if(empty($_SESSION['usuario_login'])){
                 <option value="HELADO">HELADO</option>
                 <option value="POSTRE">POSTRE</option>
             </select>
-            </div>
-            <!--INGRESE CANTIDAD-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Cantidad</label>
-            <input type="number" class="form-control" placeholder="Ingrese la cantidad" name="cantidad">
-            </div>
+            </div>            
             <!--INGRESE PRECIO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Precio</label>
-            <input type="decimal" class="form-control" placeholder="Ingrese la fecha de incio" name="precio">
+            <input type="number" class="form-control" placeholder="Ingrese el precio" name="precio">
             </div>
 
             <!--BOTON NUEVO USUARIO-->

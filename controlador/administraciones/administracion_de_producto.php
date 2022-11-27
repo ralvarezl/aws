@@ -1,8 +1,8 @@
 <?php
 
 //Funcion para validar campos vacios
-function campo_vacio($nombre,$tipo,$cantidad, $precio, &$validar){
-    if (!empty($_POST["nombre"] and $_POST["tipo"] and $_POST["cantidad"] and $_POST["precio"] and $validar=true)) { //Campos llenos
+function campo_vacio($nombre,$tipo, $precio, &$validar){
+    if (!empty($_POST["nombre"] and $_POST["tipo"] and $_POST["precio"] and $validar=true)) { //Campos llenos
         return $validar;
     }else {
         $validar=false;
@@ -11,28 +11,20 @@ function campo_vacio($nombre,$tipo,$cantidad, $precio, &$validar){
     }
 }
 
-function limite_cantidad_precio($cantidad,$precio, &$validar){
+function limite_cantidad_precio($precio, &$validar){
 
-    $Longitud1=strlen($cantidad);
     $Longitud2=strlen($precio);
     $conta=0;
 
-    if($Longitud1<=4){
-        $conta=1;
-    }else{
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>La cantidad no debe de exceder los 4 digitos</div>";
-        return $validar;
-    }
     if($Longitud2<=7){
-        $conta=2;
+        $conta=1;
     }else{
         $validar=false;
         echo"<div class='alert alert-danger text-center'>El precio no debe de exceder los 4 digitos</div>";
         return $validar;
     }
 
-    if ($conta==2){
+    if ($conta==1){
         return $validar;
     }
 }
@@ -109,9 +101,9 @@ function Validar_producto($nombre,&$validar){
 }
 
 //NUEVO PRODUCTO
-function nuevo_producto($nombre,$tipo,$cantidad,$precio,&$validar){
+function nuevo_producto($nombre,$tipo,$precio,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_producto (nombre,tipo,cantidad,precio) values ('$nombre','$tipo',$cantidad,$precio)"); 
+    $sql=$conexion->query(" insert into tbl_producto (nombre,tipo,precio) values ('$nombre','$tipo',$precio)"); 
     if($sql==1){
         return $validar;
     }else{
@@ -120,7 +112,7 @@ function nuevo_producto($nombre,$tipo,$cantidad,$precio,&$validar){
 }
 
 //MODIFICAR PRODUCTO
-function modificar_producto($id_producto,$nombre,$tipo,$cantidad,$precio,&$validar){
+function modificar_producto($id_producto,$nombre,$tipo,$precio,&$validar){
     include "../../../../modelo/conexion.php";
 
     //Consultar por el prodcuto
@@ -130,7 +122,7 @@ function modificar_producto($id_producto,$nombre,$tipo,$cantidad,$precio,&$valid
 
     if($nombre==$nombre_base){
         //Actualiza si no se cambio el nombre pero si los demas campos
-        $sql=$conexion->query("update tbl_producto SET TIPO='$tipo', CANTIDAD= '$cantidad', PRECIO = '$precio' WHERE id_producto = $id_producto ");
+        $sql=$conexion->query("update tbl_producto SET TIPO='$tipo', PRECIO = '$precio' WHERE id_producto = $id_producto ");
     }else{
         //Si modifico nombre validar que no exista en la base de datos
         $sql=$conexion->query("select nombre from tbl_producto where nombre='$nombre'");
@@ -139,7 +131,7 @@ function modificar_producto($id_producto,$nombre,$tipo,$cantidad,$precio,&$valid
             $validar=false;
             return $validar;
         }else{
-            $sql=$conexion->query(" update tbl_producto SET NOMBRE='$nombre', TIPO='$tipo', CANTIDAD= '$cantidad', PRECIO = '$precio' WHERE id_producto = $id_producto "); 
+            $sql=$conexion->query(" update tbl_producto SET NOMBRE='$nombre', TIPO='$tipo', PRECIO = '$precio' WHERE id_producto = $id_producto "); 
             if($sql==1){
                 return $validar;
             }else{
@@ -156,21 +148,20 @@ if (!empty($_POST["btnregistrarproducto"])) {
     $sesion_usuario=$_SESSION['usuario_login'];
     $validar=false;
     $nombre=$_POST["nombre"];
-    $tipo=$_POST["tipo"];
-    $cantidad=$_POST["cantidad"];
+    $tipo=$_POST["tipo"];    
     $precio=$_POST["precio"];
 
-    campo_vacio($nombre,$tipo,$cantidad,$precio,$validar);
+    campo_vacio($nombre,$tipo,$precio,$validar);
     if($validar==true){
         Valida_nombre($nombre,$validar);
         if($validar==true){
             Valida_tipo($tipo,$validar);
             if($validar==true){
-                limite_cantidad_precio($cantidad,$precio, $validar);
+                limite_cantidad_precio($precio, $validar);
                 if ($validar==true) { 
                     Validar_producto($nombre,$validar);
                     if ($validar==true) {
-                        nuevo_producto($nombre,$tipo,$cantidad,$precio,$validar);
+                        nuevo_producto($nombre,$tipo,$precio,$validar);
                         if ($validar==true) {
                             //Guardar la bitacora 
                             date_default_timezone_set("America/Tegucigalpa");
@@ -194,19 +185,18 @@ if (!empty($_POST["btnactualizarproducto"])) {
     $id_producto=$_POST["id_producto"];
     $nombre=$_POST["nombre"];
     $tipo=$_POST["tipo"];
-    $cantidad=$_POST["cantidad"];
     $precio=$_POST["precio"];
     $sesion_usuario=$_SESSION['usuario_login'];
 
-    campo_vacio($nombre,$tipo,$cantidad,$precio,$validar);
+    campo_vacio($nombre,$tipo,$precio,$validar);
     if($validar==true){
         Valida_nombre($nombre,$validar);
         if($validar==true){
             Valida_tipo($tipo,$validar);
             if ($validar==true) {
-                limite_cantidad_precio($cantidad,$precio, $validar);
+                limite_cantidad_precio($precio, $validar);
                 if ($validar==true) { 
-                    modificar_producto($id_producto,$nombre,$tipo,$cantidad,$precio,$validar);
+                    modificar_producto($id_producto,$nombre,$tipo,$precio,$validar);
                     if ($validar==true) {
                         //Guardar la bitacora 
                         date_default_timezone_set("America/Tegucigalpa");

@@ -55,7 +55,7 @@ function Footer()
 
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
-$busqueda_descuento=$_SESSION['busqueda_descuento'];
+
 $consulta = " select id_descuento, descripcion, 
 porcentaje_descuento from tbl_descuento";
 

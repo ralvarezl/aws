@@ -30,13 +30,13 @@ if(empty($_SESSION['usuario_login'])){
             <!--INGRESE NOMBRE SUCURSAL-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Nombre Sucursal</label>
-            <input type="text" class="form-control" placeholder="" 
+            <input type="text" class="form-control" placeholder="Escriba nombre de sucursal" 
                 name="nombre_sucursal" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE DIRECCION SUCURSAL-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Direccion Sucursal</label>
-            <input type="text" class="form-control" placeholder="" 
+            <input type="text" class="form-control" placeholder="Escriba la dirección de sucursal" 
                 name="direccion_sucursal" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
 

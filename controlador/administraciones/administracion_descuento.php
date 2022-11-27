@@ -5,7 +5,7 @@ function campo_vacio_nuevo($descripcion, $porcentaje_descuento, &$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger' >Por favor llene todos los campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -16,7 +16,7 @@ function campo_vacio_actualizar($descripcion, $porcentaje_descuento, &$validar){
         return $validar;
     }else {
         $validar=false;
-        echo"<div align='center' class='alert alert-danger' >Favor rellenar campos</div>"; //Campos vacios
+        echo"<div align='center' class='alert alert-danger' >Por favor llene todos los campos</div>"; //Campos vacios
         return $validar;
     }
 }
@@ -37,7 +37,7 @@ function actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento
         //consultar por el objeto
         $sql=$conexion->query("select descripcion from tbl_descuento where descripcion='$descripcion'");
         if ($datos=$sql->fetch_object()) { //si existe
-            echo"<div class='alert alert-danger text-center'>Este descuento ya existe</div>";
+            echo"<div class='alert alert-danger text-center'>El descuento ya existe, ingrese uno nuevo</div>";
             $validar=false;
             return $validar;
         }else {
@@ -64,7 +64,7 @@ function validar_existe($descripcion, &$validar){
     include "../../../../modelo/conexion.php";
     $sql=$conexion->query("select descripcion from tbl_descuento where descripcion='$descripcion';");//consultar por el numero cai
     if ($datos=$sql->fetch_object()) { //si existe
-        echo"<div class='alert alert-danger text-center'>Este descuento ya existe</div>"; //Usuario no existe
+        echo"<div class='alert alert-danger text-center'>El descuento ya existe, ingrese uno nuevo</div>"; //Usuario no existe
         $validar=false;
         return $validar;
     }else {
@@ -74,50 +74,53 @@ function validar_existe($descripcion, &$validar){
 
 //Caracteres especiales 
 function validar_descripcion($descripcion,&$validar){
-    $cont=0;
-    //Validar tenga caracter especial
-    if (preg_match("/(?=.[@$!¿%}*{#+-.:,;'?&])/",$descripcion)){
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>No debe tener caracteres especiales</div>";
-        return $validar;
-    }else{
-        $cont=1;
-    }
-    $Longitud1=strlen($descripcion);
-    if($Longitud1<=60){
-        $cont=2;
-    }else {
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>Numero cai muy extenso</div>"; //Campos sin uso
-        return $validar;
-    }
-    if (strpos($descripcion, "  ")){
-        $validar=false;
-        echo"<div class='alert alert-danger text-center'>No puede tener espacios o caracteres especiales</div>";
-        return $validar;
-    }else{
-        $cont=3; 
-    }
-
-    //Validar tenga numeros
     if (preg_match('/[0-9]/',$descripcion)){
         $validar=false;
         echo"<div class='alert alert-danger text-center'>La descripción no debe tener caracteres numéricos</div>"; 
         return $validar;
-    }else{
-        $cont=4;
-    }
-    
-    if(!strpos($descripcion, "=") && !strpos($descripcion, '""') or !strpos($descripcion, '"')){
-        $cont=5;
+    } else {
+
+        if (!preg_match("/^[a-zA-Z\s]*$/",$descripcion)){
+            $validar=false;
+            echo"<div class='alert alert-danger text-center'>La descripción no debe tener caracteres especiales</div>"; 
+            return $validar;
+        }else {
+            //Validar tenga no tenga mas de 2 espacios
+            if(strpos($descripcion,"  ")){
+                echo"<div class='alert alert-danger text-center'>No se permite más de un espacio</div>";
+                $validar=false;
+                return $validar;
+            }else{
+                return $validar;
+            }
+        }
+    }    
+}
+
+function limite_descripcion_porcentaje($descripcion, $porcentaje_descuento, &$validar){
+
+    $Longitud1=strlen($descripcion);
+    $Longitud2=strlen($porcentaje_descuento);
+    $conta=0;
+
+    if($Longitud1<=50){
+        $conta=1;
     }else{
         $validar=false;
-        echo '<div class="alert alert-danger text-center">La descripción no puede llevar caracteres especiales.</div>';
+        echo"<div class='alert alert-danger text-center'>La descripción es muy extensa</div>";
         return $validar;
     }
 
-    if($cont==5){
-        return $validar;    
+    if($Longitud2<=7){
+        $conta=2;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El porcentaje no debe de exceder los 4 digitos</div>";
+        return $validar;
+    }
+
+    if ($conta==2){
+        return $validar;
     }
 }
 
@@ -139,14 +142,17 @@ if (!empty($_POST["btn_nuevo_descuento"])) {
         if($validar==true){
             validar_descripcion($descripcion, $validar);
             if($validar==true){
-                nuevo_descuento($descripcion, $porcentaje_descuento, $validar);
+                limite_descripcion_porcentaje($descripcion, $porcentaje_descuento, $validar);
                 if($validar==true){
-                    //Guardar la bitacora 
-                    date_default_timezone_set("America/Tegucigalpa");
-                    $fecha = date('Y-m-d h:i:s');
-                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Descuento', 'Creo descuento $descripcion','$sesion_usuario')");
-                    header("location:administracion_descuento.php");
-                }
+                    nuevo_descuento($descripcion, $porcentaje_descuento, $validar);
+                    if($validar==true){
+                        //Guardar la bitacora 
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha = date('Y-m-d h:i:s');
+                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Descuento', 'Creo descuento $descripcion','$sesion_usuario')");
+                        header("location:administracion_descuento.php");
+                    }
+                }    
             }  
         }
     }
@@ -166,17 +172,20 @@ if (!empty($_POST["btn_actualizar_descuento"])) {
     if($validar==true){
         validar_descripcion($descripcion, $validar);
         if($validar==true){
-            actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento, $validar);
+            limite_descripcion_porcentaje($descripcion, $porcentaje_descuento, $validar);
             if($validar==true){
-                //Guardar la bitacora 
-                date_default_timezone_set("America/Tegucigalpa");
-                $fecha = date('Y-m-d h:i:s');
-                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Descuento', 'Creo descuento $descripcion','$sesion_usuario')");
-                header("location:administracion_descuento.php");
+                actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento, $validar);
+                if($validar==true){
+                    //Guardar la bitacora 
+                    date_default_timezone_set("America/Tegucigalpa");
+                    $fecha = date('Y-m-d h:i:s');
+                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Descuento', 'Creo descuento $descripcion','$sesion_usuario')");
+                    header("location:administracion_descuento.php");
                 }
             }  
         }
     }
+}    
 
 
 ?>

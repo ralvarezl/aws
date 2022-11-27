@@ -42,23 +42,10 @@ $sql=$conexion->query(" select * from tbl_promocion where id_promocion=$id_promo
             <!--INGRESE PRECIO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">PRECIO</label>
-            <input type="decimal" class="form-control" placeholder="Ingrese el precio" 
+            <input type="number" class="form-control" placeholder="Ingrese el precio" 
                 name="precio" value="<?= $datos->PRECIO ?>">
             </div>
 
-            <!--INGRESE FECHA_INICIAL-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">FECHA INICIAL</label>
-            <input type="date" class="form-control" placeholder="Ingrese la fecha inicial" 
-                name="fecha_inicial" value="<?= $datos->FECHA_INICIAL ?>">
-            </div>
-
-            <!--INGRESE FECHA_FINAL-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">FECHA FINAL</label>
-            <input type="date" class="form-control" placeholder="Ingrese la fecha final" 
-                name="fecha_final" value="<?= $datos->FECHA_FINAL ?>">
-            </div>
             <?php }
             ?>
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->

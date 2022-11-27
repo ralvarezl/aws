@@ -37,19 +37,8 @@ if(empty($_SESSION['usuario_login'])){
             <!--INGRESE PRECIO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Precio</label>
-            <input type="decimal" class="form-control" placeholder="Ingrese el precio" name="precio">
+            <input type="number" class="form-control" placeholder="Ingrese el precio" name="precio">
             </div>
-            <!--INGRESE FECHA INICIAL-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Fecha de inicio</label>
-            <input type="Date" class="form-control" placeholder="Ingrese la fecha de incio" name="fecha_inicial">
-            </div>
-            <!--INGRESE FECHA FINAL-->
-            <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Fecha de finalizacion</label>
-            <input type="Date" class="form-control" placeholder="Ingrese la fecha de incio" name="fecha_final">
-            </div>
-
             <!--BOTON NUEVO USUARIO-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-outline-dark" name="btnregistrarpromocion" value="ok">Registrar Promocion</button>
