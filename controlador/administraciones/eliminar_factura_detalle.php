@@ -1,12 +1,12 @@
 <?php
-    if(!empty($_GET["id_factura"])) {
+    if(!empty($_GET["id_factura_detalle"])) {
         $sesion_usuario=$_SESSION['usuario_login'];
-        $id_factura=$_GET["id_factura"];
+        $id_factura_detalle=$_GET["id_factura_detalle"];
         
         //INACTIVAR LA FACTURA DETALLE
         //Sacar LA FACTURA
         
-        $sql=$conexion->query(" update tbl_factura_detalle set estado='INACTIVO' where id_factura=$id_factura ");
+        $sql=$conexion->query(" update tbl_factura_detalle set estado='INACTIVO' where id_factura_detalle=$id_factura_detalle ");
         if ($sql==1) {
             //Guardar la bitacora 
             date_default_timezone_set("America/Tegucigalpa");

@@ -1,0 +1,32 @@
+body {
+    
+    background-image: url("../../../../public/img/ACTUALIZAR.png");
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center center;
+ 
+}
+
+h3{
+    font-weight: bold;
+}
+
+label{
+    font-weight: bold;  
+}
+
+form {
+	border: 3px solid #ccc;
+	background: rgba(255, 255, 255, 0.411);
+	border-radius: 15px;
+	left: 55%;
+}
+
+img{
+
+	justify-content: center;
+	align-items: center;
+	display: block;
+    margin: 0px auto;
+	margin-bottom: 15px;
+}
