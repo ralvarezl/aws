@@ -16,14 +16,14 @@ $sql=$conexion->query(" select * from tbl_ms_estado where id_estado=$id_estado "
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
-    <link rel="stylesheet" href="actualizar_estado.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_actualizar_nuevo.css">
     <title>Actualizar Estado</title>
 </head>
 <body>
-    
+ 
+<br></br> <br></br>
 <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
-            <br></br>
-            <img src="../../../../public/img/avatar_actualizar.png" class="img-fluid rounded mx-auto d-block"/>
+            <img src="../../../../public/img/actualizar_estado.png" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">ACTUALIZAR ESTADO</h3>
             <!--Imput que se oculta para almacenar EL estado para enviarlo a la BD-->
             <input type="hidden" name="id_estado" value="<?= $_GET["id_estado"] ?>"> 

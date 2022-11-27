@@ -14,12 +14,13 @@ if(empty($_SESSION['usuario_login'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
-    <link rel="stylesheet" href="../../actualizar_usuarios.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_actualizar_nuevo.css">
     <title>Nueva Promocion</title>
 </head>
 <body>
 
     <!--INICIO DEL FORM REGISTRO USUARIOS-->
+    <br></br><br></br>
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
             <img src="../../../../public/img/NUEVO.png" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">REGISTRO DE PROMOCION</h3>

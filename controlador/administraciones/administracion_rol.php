@@ -21,7 +21,7 @@ function actualizar_rol($id_rol, $rol, $descripcion,$estado, &$validar){
     $rol_base=$row[0];
 
     if($rol==$rol_base){
-        $sql=$conexion->query(" update tbl_ms_roles SET descripcion='$descripcion',estado='$estado' WHERE id_rol=$id_rol");
+        $sql=$conexion->query(" update tbl_ms_roles SET descripcion='$descripcion',estado_rol='$estado' WHERE id_rol=$id_rol");
     }else{
         //consultar por el rol
         $sql=$conexion->query("select rol from tbl_ms_roles where rol='$rol'");
@@ -30,7 +30,7 @@ function actualizar_rol($id_rol, $rol, $descripcion,$estado, &$validar){
             $validar=false;
             return $validar;
         }else{
-            $sql=$conexion->query(" update tbl_ms_roles SET rol='$rol', descripcion='$descripcion',estado='$estado' WHERE id_rol=$id_rol");
+            $sql=$conexion->query(" update tbl_ms_roles SET rol='$rol', descripcion='$descripcion',estado_rol='$estado' WHERE id_rol=$id_rol");
             return $validar;
         }
     }
@@ -39,7 +39,7 @@ function actualizar_rol($id_rol, $rol, $descripcion,$estado, &$validar){
 //NUEVO ROL
 function nuevo_rol($rol, $descripcion,$estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_ms_roles (rol, descripcion, estado) values ('$rol', '$descripcion', '$estado') "); 
+    $sql=$conexion->query(" insert into tbl_ms_roles (rol, descripcion, estado_rol) values ('$rol', '$descripcion', '$estado') "); 
     if($sql==1){
         return $validar;
     }else{

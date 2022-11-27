@@ -178,7 +178,7 @@ if(empty($_SESSION['usuario_login'])){
                             //Llamado a la base de datos
                             include "../../modelo/conexion.php";
                             
-                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento 
+                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, u.estado, rol,fecha_vencimiento 
                                 from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL 
                                 where usuario <> 'ADMIN'
                                     and (id_usuario like '%$busqueda%' or 
@@ -189,7 +189,7 @@ if(empty($_SESSION['usuario_login'])){
                                         telefono like '%$busqueda%' or 
                                         direccion like '%$busqueda%' or 
                                         correo like '%$busqueda%' or 
-                                        estado like '%$busqueda%' or
+                                        u.estado like '%$busqueda%' or
                                         r.rol like '%$busqueda%' or
                                         fecha_vencimiento like '%$busqueda%')
                                 order by id_usuario asc");                                
@@ -203,7 +203,7 @@ if(empty($_SESSION['usuario_login'])){
                                         <td><?php echo $u['telefono']; ?></td>
                                         <td><?php echo $u['direccion']; ?></td>
                                         <td><?php echo $u['correo']; ?></td>
-                                        <td><?php echo $u['estado']; ?></td>
+                                        <td><?php echo $u['u.estado']; ?></td>
                                         <td><?php echo $u['rol']; ?></td>
                                         <td><?php echo $u['fecha_vencimiento']; ?></td>
                                         <td>

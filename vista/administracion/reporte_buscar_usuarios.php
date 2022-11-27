@@ -57,7 +57,7 @@ function Footer()
 require ('../../modelo/conexion.php');
 $busqueda=$_SESSION['busqueda'];
 
-$consulta = "select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento 
+$consulta = "select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, u.estado, rol,fecha_vencimiento 
 from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL 
 where usuario <> 'ADMIN'
     and (id_usuario like '%$busqueda%' or 
@@ -68,7 +68,7 @@ where usuario <> 'ADMIN'
         telefono like '%$busqueda%' or 
         direccion like '%$busqueda%' or 
         correo like '%$busqueda%' or 
-        estado like '%$busqueda%' or
+        u.estado like '%$busqueda%' or
         r.rol like '%$busqueda%' or
         fecha_vencimiento like '%$busqueda%')
 order by id_usuario asc";
@@ -107,7 +107,7 @@ while ($row = $resultado->fetch_assoc()) {
     $pdf->Cell(17, 10,utf8_decode( $row['telefono']), 1, 0, 'C', 0);
     $pdf->Cell(35, 10,utf8_decode( $row['direccion']), 1, 0, 'C', 0);
     $pdf->Cell(40, 10,utf8_decode( $row['correo']), 1, 0, 'C', 0);
-    $pdf->Cell(15, 10,utf8_decode( $row['estado']), 1, 0, 'C', 0);
+    $pdf->Cell(15, 10,utf8_decode( $row['u.estado']), 1, 0, 'C', 0);
     $pdf->Cell(20, 10,utf8_decode( $row['rol']), 1, 0, 'C', 0);
     $pdf->Cell(22, 10,utf8_decode( $row['fecha_vencimiento']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }

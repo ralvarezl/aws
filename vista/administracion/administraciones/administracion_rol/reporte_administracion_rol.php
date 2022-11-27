@@ -55,7 +55,7 @@ function Footer()
 
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
-$consulta = "select id_rol, rol, descripcion,estado from tbl_ms_roles order by id_rol asc";
+$consulta = "select id_rol, rol, descripcion,estado_rol from tbl_ms_roles order by id_rol asc";
 $resultado = $conexion->query($consulta);
 
 //Genero el pdf en vertical y tamaño carta
@@ -83,7 +83,7 @@ while ($row = $resultado->fetch_assoc()) {
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
     $pdf->Cell(55, 10,utf8_decode( $row['rol']), 1, 0, 'C', 0);
     $pdf->Cell(55, 10,utf8_decode( $row['descripcion']), 1, 0, 'C', 0);
-    $pdf->Cell(30, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(30, 10,utf8_decode( $row['estado_rol']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida

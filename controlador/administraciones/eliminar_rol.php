@@ -10,7 +10,7 @@ if (!empty($_GET["id_rol"])) {
     $row=mysqli_fetch_array($sql1);
     $rol=$row[0];
 
-    $sql=$conexion->query(" update tbl_ms_roles set estado='INACTIVO' where id_rol=$id_rol ");
+    $sql=$conexion->query(" update tbl_ms_roles set estado_rol='INACTIVO' where id_rol=$id_rol ");
         if ($sql==1) {
             //Guardar la bitacora 
             date_default_timezone_set("America/Tegucigalpa");

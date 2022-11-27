@@ -16,13 +16,13 @@ $sql=$conexion->query(" select * from tbl_ms_parametros where id_parametro=$id_p
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../../public/img/Logo.png">
-    <link rel="stylesheet" href="../../actualizar_usuarios.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_actualizar_nuevo.css">
     <title>Actualizar Usuario</title>
 </head>
 <body>
-
+        <br></br><br></br> 
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
-            <br></br>
+            <img src="../../../../public/img/actualizar_parametros.png" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">ACTUALIZAR PARAMETRO</h3>
             <!--Imput que se oculta para almacenar el usuario para enviarlo a la BD-->
             <input type="hidden" name="id_parametro" value="<?= $_GET["id_parametro"] ?>"> 

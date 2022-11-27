@@ -13,7 +13,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Administracion Roles</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_seguridad.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 </head>
 
@@ -170,14 +170,14 @@ if(empty($_SESSION['usuario_login'])){
                     <?php
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select id_rol, rol, descripcion, estado from tbl_ms_roles order by id_rol asc");
+                    $sql=$conexion->query("select id_rol, rol, descripcion, estado_rol from tbl_ms_roles order by id_rol asc");
                     $numero=0;
                     while($u = $sql->fetch_assoc()){ ?>
                     <tr>
                         <td><?php echo $numero=$numero+1; ?></td>
                         <td><?php echo $u['rol']; ?></td>
                         <td><?php echo $u['descripcion']; ?></td>
-                        <td><?php echo $u['estado']; ?></td>
+                        <td><?php echo $u['estado_rol']; ?></td>
                         <td>
                             <a href="actualizar_rol.php?id_rol=<?= $u['id_rol'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                         </td>

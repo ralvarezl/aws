@@ -16,14 +16,13 @@ $sql=$conexion->query(" select * from tbl_ms_roles where id_rol=$id_rol ");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
-    <link rel="stylesheet" href="actualizar_rol.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_actualizar_nuevo.css">
     <title>Actualizar Rol</title>
 </head>
 <body>
-    
+<br></br>  <br></br>  
 <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
-            <br></br>
-            <img src="../../../../public/img/avatar_actualizar.png" class="img-fluid rounded mx-auto d-block"/>
+            <img src="../../../../public/img/actualizar_rol.png" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">ACTUALIZAR ROL</h3>
             <!--Imput que se oculta para almacenar EL estado para enviarlo a la BD-->
             <input type="hidden" name="id_rol" value="<?= $_GET["id_rol"] ?>"> 
@@ -51,10 +50,10 @@ $sql=$conexion->query(" select * from tbl_ms_roles where id_rol=$id_rol ");
             <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <select class="form-select" aria-label="Default select example" name="estado" >
               <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
-              <option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>
+              <option selected value="<?= $datos->ESTADO_ROL ?>"><?= $datos->ESTADO_ROL ?></option>
             <!--SELECCIONE DIFERENTE ESTADO DEL QUE TIENE-->
             <? 
-                $actualizar=$datos->ESTADO;
+                $actualizar=$datos->ESTADO_ROL;
                 if($actualizar=='ACTIVO'){?>
                         <option value="INACTIVO">INACTIVO</option>
                     <? 
