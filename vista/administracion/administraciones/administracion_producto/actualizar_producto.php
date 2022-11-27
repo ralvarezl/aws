@@ -39,11 +39,30 @@ $sql=$conexion->query(" select * from tbl_producto where id_producto=$id_product
                 name="nombre" value="<?= $datos->NOMBRE ?>">
             </div>
 
-            <!--INGRESE TIPO-->
+            <!--SELECCIONE TIPO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">TIPO</label>
-            <input type="text" class="form-control" placeholder="Ingrese el tipo" onKeyUp="this.value=this.value.toUpperCase(); "
-                name="tipo" value="<?= $datos->TIPO ?>">
+            <select class="form-select" aria-label="Default select example" name="tipo" >
+
+              <!--SELECCIONA EL TIPO YA ESTABLECIDO EN LA BACE-->
+              <option selected value="<?= $datos->TIPO ?>"><?= $datos->TIPO ?></option>
+
+            <!--SELECCIONE DIFERENTE TIPO DEL QUE TIENE-->
+            <?
+                $actualizar=$datos->TIPO;
+                if($actualizar=='CALIENTE'){?>
+                        <option value="HELADO">HELADO</option>
+                    <?
+                }else{?>
+                    <option value="CALIENTE">CALIENTE</option>
+                    <?
+                }
+                }else{?>
+                    <option value="POSTRE">POSTRE</option>
+                    <?
+                }
+                ?>
+            </select>
             </div>
 
             <!--INGRESE CANTIDAD-->

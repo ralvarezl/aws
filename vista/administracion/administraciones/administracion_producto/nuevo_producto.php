@@ -36,8 +36,11 @@ if(empty($_SESSION['usuario_login'])){
             <!--INGRESE TIPO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Tipo</label>
-            <input type="text" class="form-control" placeholder="Ingrese el tipo" 
-                name="tipo" onKeyUp="this.value=this.value.toUpperCase();">
+            <select class="form-select" aria-label="Default select example" name="tipo">
+                <option value="CALIENTE">CALIENTE</option>
+                <option value="HELADO">HELADO</option>
+                <option value="POSTRE">POSTRE</option>
+            </select>
             </div>
             <!--INGRESE CANTIDAD-->
             <div class="mb-3">
