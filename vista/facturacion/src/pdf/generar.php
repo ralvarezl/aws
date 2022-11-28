@@ -67,6 +67,11 @@ $pdf->SetFont('Arial', '', 7);
 $pdf->Cell(15, 5, utf8_decode($fecha), 0, 1, 'L');
 
 $pdf->SetFont('Arial', 'B', 7);
+$pdf->Cell(15, 5, utf8_decode("Num. Fact: "), 0, 0, 'L');
+$pdf->SetFont('Arial', '', 7);
+$pdf->Cell(15, 5, $id, 0, 1, 'L');
+
+$pdf->SetFont('Arial', 'B', 7);
 $pdf->Cell(15, 5, utf8_decode("Teléfono: "), 0, 0, 'L');
 $pdf->SetFont('Arial', '', 7);
 $pdf->Cell(15, 5, $telefono_negocio, 0, 1, 'L');

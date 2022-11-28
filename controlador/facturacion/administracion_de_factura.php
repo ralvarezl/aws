@@ -24,7 +24,7 @@ function nuevo_cliente($nombres,$identidad,$genero,$telefono,&$validar){
 //MODIFICAR CLIENTE
 function modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,&$validar){
     include "../../../modelo/conexion.php";
-    $sql=$conexion->query("update tbl_cliente SET nombres='$nombres', identidad= $identidad, genero = '$genero', telefono= $telefono WHERE id_cliente = $id_cliente "); 
+    $sql=$conexion->query("update tbl_cliente SET nombres='$nombres', identidad= $identidad, genero = '$genero', telefono= $telefono, ESTADO='ACTIVO' WHERE id_cliente = $id_cliente "); 
     if($sql==1){
         return $validar;
     }else{

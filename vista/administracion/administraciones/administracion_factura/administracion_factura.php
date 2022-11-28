@@ -134,7 +134,7 @@ if(empty($_SESSION['usuario_login'])){
 
     <!--INICIO DE LA TABLE FACTURA-->
     <div class="container-fluid row">
-        <div class="col-8 p-4 m-auto">
+        <div class="col-8 p-4">
             <br><br>
             <?php
             include "../../../../modelo/conexion.php";
@@ -159,14 +159,15 @@ if(empty($_SESSION['usuario_login'])){
                 <thead class="table-dark">
                     <tr>
                         <th class="col-sm-1" scope="col">N°</th>
-                        <th scope="col">FECHA</th>
                         <th scope="col">NUMERO FACTURA</th>
+                        <th scope="col">FECHA</th>
                         <th scope="col">SUB TOTAL</th>
                         <th scope="col">ISV</th>
                         <th scope="col">TOTAL DESCUENTO</th>
                         <th scope="col">TOTAL A PAGAR</th>
                         <th scope="col">PAGO</th>
                         <th scope="col">CAMBIO</th>
+                        <th scope="col">ID_CLIENTE</th>
                         <th scope="col">ESTADO</th>
                         <th scope="col"style="width:15px"></th>
                         <th scope="col"style="width:15px"></th>
@@ -181,17 +182,18 @@ if(empty($_SESSION['usuario_login'])){
                     while($u = $sql->fetch_assoc()){ ?>
                     <tr>
                         <td><?php echo $numero=$numero+1; ?></td>
+                        <td><?php echo $u['id_factura']; ?></td>
                         <td><?php echo $u['fecha']; ?></td>
-                        <td><?php echo $u['numero_factura']; ?></td>
                         <td><?php echo $u['subtotal']; ?></td>
                         <td><?php echo $u['isv']; ?></td>
                         <td><?php echo $u['total_descuento']; ?></td>
                         <td><?php echo $u['total']; ?></td>
                         <td><?php echo $u['pago']; ?></td>
                         <td><?php echo $u['cambio']; ?></td>
+                        <td><?php echo $u['id_cliente']; ?></td>
                         <td><?php echo $u['estado']; ?></td>
                         <td>
-                            <a href="actualizar_factura.php?id_factura=<?= $u['id_factura'] ?>" class="btn btn-small btn-danger" name="btnactualizar"><i class="fa-solid fa-file-pdf btn-lg"></i></a>
+                            <a href="../../../facturacion/src/pdf/generar.php?cl=<?= $u['id_cliente'] ?>&v=<?= $u['id_factura'] ?>"  class="btn btn-small btn-danger" name="btnactualizar"><i class="fa-solid fa-file-pdf btn-lg"></i></a>
                         </td>
                         <td>
                             <a onclick="return eliminar()" href="administracion_factura.php?id_factura=<?= $u['id_factura'] ?>" class="btn btn-small btn-danger" name="btnborrar_factura"><i class="fa-solid fa-trash-can"></i></a>

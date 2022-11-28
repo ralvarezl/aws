@@ -138,7 +138,7 @@ if(empty($_SESSION['usuario_login'])){
         $busqueda_factura = strtoupper($_REQUEST['busqueda_factura']);
     ?>
     <div class="container-fluid row">
-        <div class="col-8 p-4 m-auto">
+        <div class="col-8 p-4 ">
             <br><br>
             <?php
             include "../../../../modelo/conexion.php";
@@ -164,8 +164,8 @@ if(empty($_SESSION['usuario_login'])){
                 <thead class="table-dark">
                     <tr>
                         <th class="col-sm-1" scope="col">N°</th>
-                        <th scope="col">FECHA</th>
                         <th scope="col">NUMERO FACTURA</th>
+                        <th scope="col">FECHA</th>
                         <th scope="col">SUB TOTAL</th>
                         <th scope="col">ISV</th>
                         <th scope="col">TOTAL DESCUENTO</th>
@@ -183,8 +183,8 @@ if(empty($_SESSION['usuario_login'])){
                     include "../../../../modelo/conexion.php";
                     $sql=$conexion->query("select id_factura, fecha, numero_factura, subtotal, isv, total_descuento, total, pago, cambio, id_cliente, estado from tbl_factura
                     where id_factura like '%$busqueda_factura%' or
+                            id_factura like '%$busqueda_factura%' or
                             fecha like '%$busqueda_factura%' or
-                            numero_factura like '%$busqueda_factura%' or
                             subtotal like '%$busqueda_factura%' or
                             isv like '%$busqueda_factura%' or
                             total_descuento like '%$busqueda_factura%' or
@@ -198,8 +198,8 @@ if(empty($_SESSION['usuario_login'])){
                     while($u = $sql->fetch_assoc()){ ?>
                     <tr>
                         <td><?php echo $numero=$numero+1; ?></td>
+                        <td><?php echo $u['id_factura']; ?></td>
                         <td><?php echo $u['fecha']; ?></td>
-                        <td><?php echo $u['numero_factura']; ?></td>
                         <td><?php echo $u['subtotal']; ?></td>
                         <td><?php echo $u['isv']; ?></td>
                         <td><?php echo $u['total_descuento']; ?></td>

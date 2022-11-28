@@ -333,7 +333,7 @@ include "ajax.php";
                                         <td>PAGO RECIBIDO:</td>
                                         <td>
                                             <div class="col-md-3">
-                                                <input id="Pago" class="form-control" type="number" name="Pago" placeholder="Pago de cliente" onkeyup="calcular()">
+                                                <input id="Pago" class="form-control" type="number" name="Pago" placeholder="Pago de cliente" required onkeyup="calcular()">
                                             </div>
                                         </td>
                                     </tr>

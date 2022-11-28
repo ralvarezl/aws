@@ -166,8 +166,8 @@ if (isset($_GET['q'])) {
             $id_sucursal=$row2[0];
 
 
-        $insertar = mysqli_query($conexion, "insert into tbl_factura (fecha,subtotal,isv, total_descuento, total,pago,cambio, id_tipo_pedido, id_cliente, id_sucursal,id_usuario) 
-                            values ('$fecha','$subtotal','$ISV','$total_descuento','$total','$Pago','$Cambio',$id_tipo_pedido,$id_cliente,$id_sucursal,$Id_usuario)"); 
+        $insertar = mysqli_query($conexion, "insert into tbl_factura (fecha,subtotal,isv, total_descuento, total,pago,cambio, id_tipo_pedido, id_cliente, id_sucursal,id_usuario,estado) 
+                            values ('$fecha','$subtotal','$ISV','$total_descuento','$total','$Pago','$Cambio',$id_tipo_pedido,$id_cliente,$id_sucursal,$Id_usuario,'ACTIVO')"); 
 
         if ($insertar) {
 
@@ -176,43 +176,30 @@ if (isset($_GET['q'])) {
             $resultId = mysqli_fetch_assoc($id_maximo);
             $ultimoId = $resultId['id_factura'];
 
-            $sql2=mysqli_query($conexion, "SELECT id from tbl_detalle_temp");
-            $row2=mysqli_fetch_assoc($sql2);
-            $id=$row2['id'];
-
-            if($id>1){
-                $consulta = mysqli_query($conexion, "SELECT id, id_usuario, id_producto, cantidad, precio_venta, total FROM tbl_detalle_temp WHERE id_usuario = $id_user");
-                while($row = mysqli_fetch_assoc($consulta)){
-                    $id_producto = $row['id_producto'];
-                    $precio = $row['precio_venta'];
-                    $cantidad = $row['cantidad'];
-                    $total= $row['total'];
-                    $insertarDet = mysqli_query($conexion, "INSERT INTO tbl_factura_detalle(precio, cantidad, total,id_factura,id_producto ) VALUES ('$precio',$cantidad, '$total', $ultimoId,$id_producto)");
-                }
+            $consulta = mysqli_query($conexion, "SELECT id, id_usuario, id_producto, cantidad, precio_venta, total FROM tbl_detalle_temp WHERE id_usuario = $id_user");
+            while($row = mysqli_fetch_assoc($consulta)){
+                $id_producto = $row['id_producto'];
+                $precio = $row['precio_venta'];
+                $cantidad = $row['cantidad'];
+                $total= $row['total'];
+                $insertarDet = mysqli_query($conexion, "INSERT INTO tbl_factura_detalle(precio, cantidad, total,estado,id_factura,id_producto) VALUES ('$precio',$cantidad, '$total','ACTIVO', $ultimoId,$id_producto)");
             }
-                
 
-            $sql2=mysqli_query($conexion, "SELECT id from tbl_detalle_prom_temp");
-            $row2=mysqli_fetch_assoc($sql2);
-            $id=$row2['id'];
-
-            if($id>1){
-                $consulta2 = mysqli_query($conexion, "SELECT id, id_usuario, id_promocion, cantidad, precio_venta, total FROM tbl_detalle_prom_temp WHERE id_usuario = $id_user");
-                while($row = mysqli_fetch_assoc($consulta2)){
-                    $id_promocion = $row['id_promocion'];
-                    $precio = $row['precio_venta'];
-                    $cantidad = $row['cantidad'];
-                    $total= $row['total'];
-                    $insertarDet = mysqli_query($conexion, "INSERT INTO tbl_factura_detalle(precio, cantidad, total,id_factura,id_promocion ) VALUES ('$precio',$cantidad, '$total', $ultimoId,$id_promocion)");
-                }
-                $insertarprom = mysqli_query($conexion, "INSERT INTO tbl_factura_promocion(cantidad,total_promocion,id_promocion,id_factura) VALUES ($cantidad,'$total',$id_promocion,$ultimoId)");
+            $consulta2 = mysqli_query($conexion, "SELECT id, id_usuario, id_promocion, cantidad, precio_venta, total FROM tbl_detalle_prom_temp WHERE id_usuario = $id_user");
+            while($row = mysqli_fetch_assoc($consulta2)){
+                $id_promocion = $row['id_promocion'];
+                $precio = $row['precio_venta'];
+                $cantidad = $row['cantidad'];
+                $total= $row['total'];
+                $insertarDet = mysqli_query($conexion, "INSERT INTO tbl_factura_detalle(precio, cantidad, total,estado,id_factura,id_promocion ) VALUES ('$precio',$cantidad, '$total','ACTIVO', $ultimoId,$id_promocion)");
+                $insertarprom = mysqli_query($conexion, "INSERT INTO tbl_factura_promocion(cantidad,total_promocion,id_promocion,id_factura,estado) VALUES ($cantidad,'$total',$id_promocion,$ultimoId,'ACTIVO')");
             }
             $sql2=mysqli_query($conexion, "SELECT total_descuento from tbl_factura where id_factura =$ultimoId");
             $row2=mysqli_fetch_assoc($sql2);
             $total_descuento=$row2['total_descuento']; 
 
             if($total_descuento>1){
-                $insertarDet = mysqli_query($conexion, "INSERT INTO tbl_factura_descuento(total_descuento,id_descuento, id_factura ) VALUES ('$total_descuento',$id_desc,$ultimoId)");
+                $insertarDet = mysqli_query($conexion, "INSERT INTO tbl_factura_descuento(total_descuento,id_descuento, id_factura,estado ) VALUES ('$total_descuento',$id_desc,$ultimoId,'ACTIVO')");
             }
 
             if($insertarDet){
