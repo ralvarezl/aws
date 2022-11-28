@@ -53,7 +53,10 @@ if($permiso <> 'PERMITIR'){
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
-                <h1 class="fas fa-user-circle"></h1>
+                <a class="navbar-brand" href="../../../../../controlador/bitacora_pantalla/perfil_usuario.php" >
+                <h1 class="fas fa-user-circle" ></h1>
+                </a>
+
                 <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
                 <!--MOSTRAR EL USUARIO LOGUEADO-->
                 <?=
@@ -68,17 +71,10 @@ if($permiso <> 'PERMITIR'){
                     <a class="nav-link" href="#"><i class="fa-solid fa-house"></i> INICIO </a>
                 </li>
 
-                
-                <!--FACTURACIÓN-->
+                <!--FACTURA-->
                 <li class="btn btn-dark p-2">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    FACTURACIÓN
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                    <!--ADMINISTRADOR DE CONFIGURACION CAI-->
-                    <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_configuracion_cai.php"><i class="fas fa-file-alt"></i> ADMIN. CONFIGURACION CAI</a></li>
+                    <a class="nav-link" href="../../controlador/bitacora_pantalla/factura.php"><i class="fas fa-file-invoice"></i> NUEVA FACTURA </a>
                 </li>
-                </ul>
 
                 <!--ADMINISTRADOR DE FACTURA-->
                 <li class="btn btn-dark p-2">
@@ -99,12 +95,16 @@ if($permiso <> 'PERMITIR'){
                     <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_tipo_pedido.php"><i class="fas fa-poll-h"></i> ADMINISTRADOR DE TIPO PEDIDO</a></li>
                     <!--ADMINISTRADOR DE SUCURSAL-->
                     <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_sucursal.php"><i class="fas fa-store-alt"></i> ADMINISTRADOR DE SUCURSAL</a></li>
-                    <!--ADMINISTRADOR DE SUCURSAL PROMOCION-->
-                    <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_sucursal_promocion.php"><i class="fas fa-store"></i>  ADMIN. SUCURSAL PROMOCION</a></li>
+                    <!--ADMINISTRADOR DE FACTURA-->
+                    <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_factura.php"><i class="fas fa-file-alt"></i> ADMINISTRADOR DE FACTURA</a></li>
+                    <!--ADMINISTRADOR DE FACTURA DETALLE-->
+                    <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_factura_detalle.php"><i class="fas fa-receipt"></i> ADMINISTRADOR DE FACTURA DETALLE</a></li>
                     <!--ADMINISTRADOR DE FACTURA DESCUENTO-->
                     <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_factura_descuento.php"><i class="fas fa-user-tag"></i>  ADMIN. FACTURA DESCUENTO</a></li>
                     <!--ADMINISTRADOR DE FACTURA PROMOCION-->
                     <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_factura_promocion.php"><i class="fas fa-tag"></i> ADMIN. FACTURA PROMOCION</a></li>
+                    <!--ADMINISTRADOR DE CONFIGURACION CAI-->
+                    <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_configuracion_cai.php"><i class="fas fa-file-alt"></i> ADMIN. CONFIGURACION CAI</a></li>      
                 </li>
                 </ul>
 
@@ -155,43 +155,43 @@ if($permiso <> 'PERMITIR'){
             <?=
             "BIENVENIDO AL SISTEMA ".$_SESSION['usuario_login'];
             ?></h3>
-            <div class="col-md-3">
-                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_usuario.php'">
-                    <div>
-                    <h3 class="fs-2">USUARIOS</h3>
-                    <p class="fs-5">Administración de Usuarios</p>
-                    </div>
-                    <i class="fa-solid fa-users-gear fs-1 rounded-full p-3"></i>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_parametros.php'">
-                    <div>
-                    <h3 class="fs-2">PARAMETROS</h3>
-                    <p class="fs-5">Administración de Parametros</p>
-                    </div>
-                    <i class="fa-solid fa-gears fs-1 rounded-full p-3"></i>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/bitacora.php'">
-                    <div>
-                    <h3 class="fs-2">BITACORA</h3>
-                    <p class="fs-5">Visualización de la Bitacora</p>
-                    </div>
-                    <i class="fa-solid fa-list-check fs-1 rounded-full p-3"></i>
-                </div>
-            </div>
-
-            <div class="col-md-3">
+           <div class="col-md-3">
                 <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/factura.php'">
                     <div>
                     <h3 class="fs-2">FACTURA</h3>
                     <p class="fs-5">Visualización de la factura</p>
                     </div>
-                    <i class="fa-solid fa-list-check fs-1 rounded-full p-3"></i>
+                    <i class="fas fa-file-invoice fs-1 rounded-full p-3"></i>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_producto.php'">
+                    <div>
+                    <h3 class="fs-2">PRODUCTOS</h3>
+                    <p class="fs-5">Visualización de los productos</p>
+                    </div>
+                    <i class="fas fa-mug-hot fs-1 rounded-full p-3"></i>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_promocion.php'">
+                    <div>
+                    <h3 class="fs-2">PROMOCIONES</h3>
+                    <p class="fs-5">Visualizar las promociones</p>
+                    </div>
+                    <i class="fas fa-tags fs-1 rounded-full p-3"></i>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="btn p-3  bg-light text-dark shadow-sm d-flex justify-content-around align-items-center rounded" onclick="location.href='../../controlador/bitacora_pantalla/admin_factura.php'">
+                    <div>
+                    <h3 class="fs-2">ADMIN. FACTURA</h3>
+                    <p class="fs-5">Visualización de la Admin.Factura</p>
+                    </div>
+                    <i class="fas fa-file-alt fs-1 rounded-full p-3"></i>
                 </div>
             </div>
 

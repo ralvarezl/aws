@@ -1,0 +1,15 @@
+body{
+    background-image: url("img/factura.jpeg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 20em;
+}
+
+form {
+	border: 3px solid rgba(136, 70, 32, 0.322);
+	background: rgba(255, 255, 255, 0.562);
+	border-radius: 15px;
+	left: 55%;
+}
+

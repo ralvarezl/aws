@@ -32,7 +32,7 @@ if($permiso <> 'PERMITIR'){
     <title>Administracion factura detalle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_admin.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 </head>
 
@@ -45,7 +45,7 @@ if($permiso <> 'PERMITIR'){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                 <i class="fas fa-lightbulb"></i> ADMINISTRACION OBJETOS
+                <i class="fas fa-receipt"></i> ADMINISTRACION FACTURA DETALLE
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -65,17 +65,11 @@ if($permiso <> 'PERMITIR'){
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="../../../../controlador/bitacora_pantalla/inicio.php"><i class="fa-solid fa-house"></i> INICIO </a>
                 </li>
-
-                <!--FACTURACIÓN-->
-                <li class="btn btn-dark p-2">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    FACTURACIÓN
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                    <!--ADMINISTRADOR DE CONFIGURACION CAI-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_configuracion_cai.php"><i class="fas fa-file-alt"></i> ADMIN. CONFIGURACION CAI</a></li>
+                 <!--FACTURA-->
+                 <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/factura.php"><i class="fas fa-file-invoice"></i> NUEVA FACTURA </a>
                 </li>
-                </ul>
+            
 
                 <!--ADMINISTRADOR DE FACTURA-->
                 <li class="btn btn-dark p-2">
@@ -96,12 +90,16 @@ if($permiso <> 'PERMITIR'){
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_tipo_pedido.php"><i class="fas fa-poll-h"></i> ADMINISTRADOR DE TIPO PEDIDO</a></li>
                     <!--ADMINISTRADOR DE SUCURSAL-->
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_sucursal.php"><i class="fas fa-store-alt"></i> ADMINISTRADOR DE SUCURSAL</a></li>
-                    <!--ADMINISTRADOR DE SUCURSAL PROMOCION-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_sucursal_promocion.php"><i class="fas fa-store"></i>  ADMIN. SUCURSAL PROMOCION</a></li>
+                    <!--ADMINISTRADOR DE FACTURA-->
+                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_factura.php"><i class="fas fa-file-alt"></i> ADMINISTRADOR DE FACTURA</a></li>
+                    <!--ADMINISTRADOR DE FACTURA DETALLE-->
+                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_factura_detalle.php"><i class="fas fa-receipt"></i> ADMINISTRADOR DE FACTURA DETALLE</a></li>
                     <!--ADMINISTRADOR DE FACTURA DESCUENTO-->
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_factura_descuento.php"><i class="fas fa-user-tag"></i>  ADMIN. FACTURA DESCUENTO</a></li>
                     <!--ADMINISTRADOR DE FACTURA PROMOCION-->
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_factura_promocion.php"><i class="fas fa-tag"></i> ADMIN. FACTURA PROMOCION</a></li>
+                    <!--ADMINISTRADOR DE CONFIGURACION CAI-->
+                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_configuracion_cai.php"><i class="fas fa-file-alt"></i> ADMIN. CONFIGURACION CAI</a></li>
                 </li>
                 </ul>
 

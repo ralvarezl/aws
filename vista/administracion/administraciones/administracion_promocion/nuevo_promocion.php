@@ -36,7 +36,7 @@ if($permiso <> 'PERMITIR'){
     <!--INICIO DEL FORM REGISTRO USUARIOS-->
     <br></br><br></br>
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
-            <img src="../../../../public/img/NUEVO.png" class="img-fluid rounded mx-auto d-block"/>
+        <img src="../../../../public/img/nuevo_promocion.jpg" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">REGISTRO DE PROMOCION</h3>
             <?php
             include "../../../../modelo/conexion.php";

@@ -31,13 +31,13 @@ $sql=$conexion->query(" select * from tbl_configuracion_cai where id_configuraci
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
-    <link rel="stylesheet" href="actualizar_configuracion_cai.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_actualizar_nuevo.css">
     <title>Actualizar Configuracion Cai</title>
 </head>
 <body>
-
+<br></br>
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
-            <br></br>
+           <img src="../../../../public/img/actualizar_pedido.jpg" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">ACTUALIZAR CONFIGURACION CAI</h3>
             <!--Imput que se oculta para almacenar el id configuracion cai para enviarlo a la BD-->
             <input type="hidden" name="id_configuracion_cai" value="<?= $_GET["id_configuracion_cai"] ?>"> 
