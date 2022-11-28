@@ -190,14 +190,14 @@ if($permiso <> 'PERMITIR'){
                     <?php
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select id_rol, rol, descripcion, estado_rol from tbl_ms_roles order by id_rol asc");
+                    $sql=$conexion->query("select id_rol, rol, descripcion, estado from tbl_ms_roles order by id_rol asc");
                     $numero=0;
                     while($u = $sql->fetch_assoc()){ ?>
                     <tr>
                         <td><?php echo $numero=$numero+1; ?></td>
                         <td><?php echo $u['rol']; ?></td>
                         <td><?php echo $u['descripcion']; ?></td>
-                        <td><?php echo $u['estado_rol']; ?></td>
+                        <td><?php echo $u['estado']; ?></td>
                         <td>
                             <a href="actualizar_rol.php?id_rol=<?= $u['id_rol'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                         </td>

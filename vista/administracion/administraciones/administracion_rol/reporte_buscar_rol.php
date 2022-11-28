@@ -56,11 +56,11 @@ function Footer()
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
 $busqueda_rol=$_SESSION['busqueda_rol'];
-$consulta = "select id_rol, rol, descripcion, estado_rol from tbl_ms_roles
+$consulta = "select id_rol, rol, descripcion, estado from tbl_ms_roles
 where id_rol like '%$busqueda_rol%' or
         rol like '%$busqueda_rol%' or
         descripcion like '%$busqueda_rol%' or
-        estado_rol like '%$busqueda_rol%' 
+        estado like '%$busqueda_rol%' 
 order by id_rol";
 $resultado = $conexion->query($consulta);
 
@@ -89,7 +89,7 @@ while ($row = $resultado->fetch_assoc()) {
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
     $pdf->Cell(55, 10,utf8_decode( $row['rol']), 1, 0, 'C', 0);
     $pdf->Cell(55, 10,utf8_decode( $row['descripcion']), 1, 0, 'C', 0);
-    $pdf->Cell(30, 10,utf8_decode( $row['estado_rol']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(30, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida

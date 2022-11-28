@@ -4,7 +4,7 @@ if(empty($_SESSION['usuario_login'])){
     header("location:../../../login.php");
 }
 //Verificar permiso del rol
-include "../../modelo/conexion.php";
+include "../../../modelo/conexion.php";
 $usuario_rol=$_SESSION['usuario_login'];
 //Sacar el rol del usuario
 $sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");

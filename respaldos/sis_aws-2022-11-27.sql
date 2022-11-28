@@ -183,7 +183,7 @@ CREATE TABLE `tbl_ms_bitacora` (
   PRIMARY KEY (`ID_BITACORA`),
   KEY `ID_OBJETO` (`ID_OBJETO`),
   CONSTRAINT `tbl_ms_bitacora_ibfk_1` FOREIGN KEY (`ID_OBJETO`) REFERENCES `tbl_ms_objetos` (`ID_OBJETO`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO tbl_ms_bitacora VALUES("1","2022-11-27 05:12:06","Login","Ingreso al sistema","ADMIN","","","","",),
 ("2","2022-11-27 05:12:27","Login","Ingreso al sistema","ADMIN","","","","",),
@@ -226,7 +226,9 @@ INSERT INTO tbl_ms_bitacora VALUES("1","2022-11-27 05:12:06","Login","Ingreso al
 ("39","2022-11-27 08:21:27","Salir","Salida del sistema","ADMIN","","","","",),
 ("40","2022-11-27 08:35:02","Login","Ingreso al sistema","DOCTOR","","","","",),
 ("41","2022-11-27 08:42:40","Bitacora","Entro a la Bitacora","DOCTOR","","","","",),
-("42","2022-11-27 08:46:13","Bitacora","Entro a la Bitacora","DOCTOR","","","","",);
+("42","2022-11-27 08:46:13","Bitacora","Entro a la Bitacora","DOCTOR","","","","",),
+("43","2022-11-27 09:09:25","Login","Ingreso al sistema","DOCTOR","","","","",),
+("44","2022-11-27 09:09:31","Bitacora","Entro a la Bitacora","DOCTOR","","","","",);
 
 
 
