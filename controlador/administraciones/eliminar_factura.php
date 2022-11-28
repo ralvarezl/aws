@@ -1,5 +1,19 @@
 <?php
     if(!empty($_GET["id_factura"])) {
+        //Verificar permiso del rol
+     $usuario_rol=$_SESSION['usuario_login'];
+     //Sacar el rol del usuario
+     $sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
+     $row=mysqli_fetch_array($sql);
+     $id_rol=$row[0];
+     //Sacar el permiso dependiendo del rol
+     $sql=mysqli_query($conexion, "select permiso_eliminar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=22");
+     $row=mysqli_fetch_array($sql);
+     $permiso=$row[0];
+ 
+     if($permiso <> 'PERMITIR'){
+         echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="administracion_factura.php"</script>';
+     }else{
         $sesion_usuario=$_SESSION['usuario_login'];
         $id_factura=$_GET["id_factura"];
         
@@ -19,6 +33,8 @@
         } else {
             echo '<div class="alert alert-danger text-center">Error al inactivar la factura</div>';
         } 
+     }
+      
     }
 
 ?>

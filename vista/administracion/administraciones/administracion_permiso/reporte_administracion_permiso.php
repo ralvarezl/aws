@@ -27,11 +27,11 @@ function Header()
     // Arial bold 15
     $this->SetFont('Arial','',20);
     // Movernos a la derecha
-    $this->Cell(65);
+    $this->Cell(40);
     // Título
     $this->Cell(130,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(260,10,'Reporte Permisos',0,0,'C');
+    $this->Cell(200,10,'Reporte Permisos',0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
@@ -55,11 +55,11 @@ function Footer()
 
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
-$consulta = "select id_rol, id_objeto, permiso_visualizar, permiso_insertar, permiso_actualizar, permiso_eliminar from tbl_ms_permisos order by id_rol asc";
+$consulta = "select p.id_rol, p.id_objeto, rol, objeto, permiso_visualizar, permiso_insertar, permiso_actualizar, permiso_eliminar from tbl_ms_permisos p inner join tbl_ms_roles r on r.id_rol=p.id_rol inner join tbl_ms_objetos o on o.id_objeto=p.id_objeto where p.id_rol<>4 order by p.id_rol asc";
 $resultado = $conexion->query($consulta);
 
 //Genero el pdf en vertical y tamaño carta
-$pdf = new PDF('L','mm','Letter');
+$pdf = new PDF('P','mm','Letter');
 //Agrega la numeracion al pie de pagina
 $pdf->AliasNbPages();
 //Agrego una pagina
@@ -67,26 +67,29 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(10);
+$pdf->Cell(5);
 
 //Imprimimos el header de la tabla
+    $pdf->Cell(5, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
     $pdf->Cell(20, 10,utf8_decode('ROL'), 1, 0, 'C', 0);
-    $pdf->Cell(20, 10,utf8_decode('OBJETO'), 1, 0, 'C', 0);
-    $pdf->Cell(50, 10,utf8_decode('PERMISO DE VISUALIZAR'), 1, 0, 'C', 0);
-    $pdf->Cell(50, 10,utf8_decode('PERMISO DE INSERTAR'), 1, 0, 'C', 0);
-    $pdf->Cell(50, 10,utf8_decode('PERMISO DE ACTUALIZAR'), 1, 0, 'C', 0);
-    $pdf->Cell(50, 10,utf8_decode('PERMISO DE ELIMINAR'), 1, 1, 'C', 0);
+    $pdf->Cell(60, 10,utf8_decode('OBJETO'), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode('VISUALIZAR'), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode('INSERTAR'), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode('ACTUALIZAR'), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode('ELIMINAR'), 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
+$numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(10);
-    $pdf->Cell(20, 10,utf8_decode( $row['id_rol']), 1, 0, 'C', 0);
-    $pdf->Cell(20, 10,utf8_decode( $row['id_objeto']), 1, 0, 'C', 0);
-    $pdf->Cell(50, 10,utf8_decode( $row['permiso_visualizar']), 1, 0, 'C', 0);
-    $pdf->Cell(50, 10,utf8_decode( $row['permiso_insertar']), 1, 0, 'C', 0);
-    $pdf->Cell(50, 10,utf8_decode( $row['permiso_actualizar']), 1, 0, 'C', 0);
-    $pdf->Cell(50, 10,utf8_decode( $row['permiso_eliminar']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(5);
+    $pdf->Cell(5, 10,$numero=$numero+1, 1, 0, 'C', 0);
+    $pdf->Cell(20, 10,utf8_decode( $row['rol']), 1, 0, 'C', 0);
+    $pdf->Cell(60, 10,utf8_decode( $row['objeto']), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode( $row['permiso_visualizar']), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode( $row['permiso_insertar']), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode( $row['permiso_actualizar']), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode( $row['permiso_eliminar']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida

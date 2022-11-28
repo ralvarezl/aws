@@ -3,7 +3,22 @@ session_start();
 if(empty($_SESSION['usuario_login'])){
     header("location:../../../../login.php");
 }
+//Verificar permiso del rol
 include "../../../../modelo/conexion.php";
+$usuario_rol=$_SESSION['usuario_login'];
+//Sacar el rol del usuario
+$sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
+$row=mysqli_fetch_array($sql);
+$id_rol=$row[0];
+//Sacar el permiso dependiendo del rol
+$sql=mysqli_query($conexion, "select permiso_actualizar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=20");
+$row=mysqli_fetch_array($sql);
+$permiso=$row[0];
+
+if($permiso <> 'PERMITIR'){
+    echo '<script language="javascript">alert("Usuario permiso");;window.location.href="administracion_promocion.php"</script>';
+}
+//include "../../../../modelo/conexion.php";
 $id_estado=$_GET["id_estado"];    //Guardamos el id estado desde el boton editar
 $sql=$conexion->query(" select * from tbl_ms_estado where id_estado=$id_estado ");
 ?>

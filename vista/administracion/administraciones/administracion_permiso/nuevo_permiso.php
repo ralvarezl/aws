@@ -3,7 +3,22 @@ session_start();
 if(empty($_SESSION['usuario_login'])){
     header("location:../../../../login.php");
 }
+//Verificar permiso del rol
+include "../../../../modelo/conexion.php";
+$usuario_rol=$_SESSION['usuario_login'];
+//Sacar el rol del usuario
+$sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
+$row=mysqli_fetch_array($sql);
+$id_rol=$row[0];
+//Sacar el permiso dependiendo del rol
+$sql=mysqli_query($conexion, "select permiso_insertar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=16");
+$row=mysqli_fetch_array($sql);
+$permiso=$row[0];
 
+if($permiso <> 'PERMITIR'){
+    
+    echo '<script language="javascript">alert("Sin acceso");;window.location.href="administracion_objeto.php"</script>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,18 +40,78 @@ if(empty($_SESSION['usuario_login'])){
             <h3 class="text-center text-secundary">REGISTRO PERMISO</h3>
             <?php
             include "../../../../modelo/conexion.php";
-            //include "../../../../controlador/administraciones/administracion_objeto.php";
+            include "../../../../controlador/administraciones/administracion_permiso.php";
             ?>
-            <!--INGRESE ROL-->
+            <!--SELECCIONE ROL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">ROL</label>
-            <input type="text" class="form-control" placeholder="" 
-                name="rol" onKeyUp="this.value=this.value.toUpperCase();">
+            <label for="formGroupExampleInput" class="form-label">Rol</label>
+            <select class="form-select" aria-label="Default select example" name="id_rol">
+            
+            <?php 
+            include "../../../../modelo/conexion.php";
+            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles where id_rol<>4");
+                //Mostrar los roles creados en la base de datos
+                while($datos=mysqli_fetch_array($sql)){
+                    echo '<option value="'.$datos['id_rol'].'">'.$datos['rol'].'</option>';
+                }
+            ?>
+            </select>
+            </div>
+            <!--SELECCIONE OJBETO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Objeto</label>
+            <select class="form-select" aria-label="Default select example" name="id_objeto">
+            
+            <?php 
+            include "../../../../modelo/conexion.php";
+            $sql=$conexion->query("select id_objeto, objeto from tbl_ms_objetos");
+                //Mostrar los roles creados en la base de datos
+                while($datos=mysqli_fetch_array($sql)){
+                    echo '<option value="'.$datos['id_objeto'].'">'.$datos['objeto'].'</option>';
+                }
+            ?>
+            </select>
+            </div>
+            <!--SELECCIONE PERMISO VISUALIZAR-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Visualizar</label>
+            <select class="form-select" aria-label="Default select example" name="visualizar">
+            
+            <option value="PERMITIR">PERMITIR</option>
+            <option selected value="NO PERMITIR">NO PERMITIR</option>
+            </select>
+            </div>
+            <!--SELECCIONE PERMISO INSERTAR-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Registrar</label>
+            <select class="form-select" aria-label="Default select example" name="registrar">
+            
+            <option value="PERMITIR">PERMITIR</option>
+            <option selected value="NO PERMITIR">NO PERMITIR</option>
+            </select>
+            </div>
+            <!--SELECCIONE PERMISO ACTUALIZAR-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Actualizar</label>
+            <select class="form-select" aria-label="Default select example" name="actualizar">
+           
+            <option value="PERMITIR">PERMITIR</option>
+            <option selected value="NO PERMITIR">NO PERMITIR</option>
+            </select>
+            </div>
+            <!--SELECCIONE PERMISO ELIMINAR-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Eliminar</label>
+            <select class="form-select" aria-label="Default select example" name="eliminar">
+          
+            <option value="PERMITIR">PERMITIR</option>
+            <option selected value="NO PERMITIR">NO PERMITIR</option>
+            </select>
             </div>
             
             <!--BOTON NUEVO OBJETO-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn btn-outline-dark" name="btnregistrar_permiso" value="ok">Registrar Permiso</button>
+            <button type="submit" class="btn btn-outline-dark" name="btnregistrarpermiso" value="ok">Registrar Permiso</button>
             <button type="button" class="btn btn-outline-danger" onclick="location.href='administracion_permiso.php'" >Cancelar</button>
             </div>
         </form>

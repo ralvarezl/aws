@@ -3,6 +3,26 @@ session_start();
 if(empty($_SESSION['usuario_login'])){
     header("location:../../../../login.php");
 }
+//Verificar permiso del rol
+include "../../../../modelo/conexion.php";
+$usuario_rol=$_SESSION['usuario_login'];
+//Sacar el rol del usuario
+$sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
+$row=mysqli_fetch_array($sql);
+$id_rol=$row[0];
+//Sacar el permiso dependiendo del rol
+$sql=mysqli_query($conexion, "select permiso_visualizar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=16");
+$row=mysqli_fetch_array($sql);
+if(is_null($row)){
+    echo '<script language="javascript">alert("Sin acceso");;window.location.href="../../../inicio/inicio.php"</script>';
+}else{
+    $permiso=$row[0];
+}
+
+if($permiso <> 'PERMITIR'){
+    
+    echo '<script language="javascript">alert("Sin acceso");;window.location.href="../../../inicio/inicio.php"</script>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +33,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Administracion Permisos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_seguridad.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 </head>
 
@@ -21,12 +41,12 @@ if(empty($_SESSION['usuario_login'])){
     <!--INICIO DEL NAVBAR-->
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../../../../controlador/bitacora_pantalla/inicio.php" >
+            <a class="navbar-brand" href="#" >
                 <img src="../../../../public/img/aws_navbar.png"/>
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                  <i class="fas fa-vote-yea"></i> ADMINISTRACION PERMISOS
+                <i class="fa-solid fa-users-gear"></i> ADMINISTRACION PERMISOS
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -46,79 +66,70 @@ if(empty($_SESSION['usuario_login'])){
                 <li class="btn btn-dark p-2">
                     <a class="nav-link" href="../../../../controlador/bitacora_pantalla/inicio.php"><i class="fa-solid fa-house"></i> INICIO </a>
                 </li>
+                <!--ADMINISTRADOR CIENTE-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_cliente.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE CLIENTE</a>
+                </li>
+                <!--ADMINISTRADOR PRODUCTO-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_producto.php"><i class="fa-solid fa-gears"></i> ADMINISTRADOR DE PRODUCTOS</a>
+                </li>
+                <!--ADMINISTRADOR PROMOCION-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_promocion.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE PROMOCION</a>
+                </li>
+                <!--ADMINISTRADOR DESCUENTO-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_descuento.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE DESCUENTO</a>
+                </li>
+                <!--ADMINISTRADOR TIPO PEDIDO-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_tipo_pedido.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE PEDIDOS</a>
+                </li>
+                <!--ADMINISTRADOR DE SUCURSAL-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-users-gear"></i> ADMINISTRADOR DE USUARIOS</a>
+                </li>
+                <!--ADMINISTRADOR DE SUCURSAL PROMOCION-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_sucursal_promocion.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE SUCURSAL Y PROMOCION</a>
+                </li>
+                <!--ADMINISTRADOR DE CONFIGURACION CAI-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_configuracion_cai.php"><i class="fa-solid fa-list-check"></i> ADMINISTRADOR DE CONFIGURACION CAI</a>
+                </li>
+                <!--ADMINISTRADOR DE USUARIO-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_usuario.php"><i class="fa-solid fa-users-gear"></i> ADMINISTRADOR DE USUARIOS</a>
+                </li>
+                <!--ADMINISTRADOR DE PARAMETROS-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/admin_parametros.php"><i class="fa-solid fa-gears"></i> ADMINISTRADOR DE PARAMETROS</a>
+                </li>
+                <!--ADMINISTRADOR DE BITACORA-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/bitacora_pantalla/bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a>
+                </li>
+                <!--SALIR DEL SITEMA-->
+                <li class="btn btn-dark p-2">
+                    <a class="nav-link" href="../../../../controlador/cerrar_sesion.php"><i class="fa-solid fa-person-walking-arrow-right"></i> SALIR DEL SISTEMA</a>
+                </li>
 
-                <!--FACTURACIÓN-->
                 <li class="btn btn-dark p-2">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    FACTURACIÓN
+                    Dropdown
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                    <!--ADMINISTRADOR DE CONFIGURACION CAI-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_configuracion_cai.php"><i class="fas fa-file-alt"></i> ADMIN. CONFIGURACION CAI</a></li>
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
                 </li>
                 </ul>
-
-                <!--ADMINISTRADOR DE FACTURA-->
-                <li class="btn btn-dark p-2">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ADMINISTRADOR DE FACTURA
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                    
-                    <!--ADMINISTRADOR CIENTE-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_cliente.php"><i class="fas fa-user-cog"></i> ADMINISTRADOR DE CLIENTE</a></li>
-                    <!--ADMINISTRADOR PRODUCTO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_producto.php"><i class="fas fa-mug-hot"></i> ADMINISTRADOR DE PRODUCTOS</a></li>
-                    <!--ADMINISTRADOR PROMOCION-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_promocion.php"><i class="fas fa-tags"></i> ADMINISTRADOR DE PROMOCION</a></li>
-                    <!--ADMINISTRADOR DESCUENTO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_descuento.php"><i class="fas fa-user-tag"></i> ADMINISTRADOR DE DESCUENTO</a></li>
-                    <!--ADMINISTRADOR TIPO PEDIDO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_tipo_pedido.php"><i class="fas fa-poll-h"></i> ADMINISTRADOR DE TIPO PEDIDO</a></li>
-                    <!--ADMINISTRADOR DE SUCURSAL-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_sucursal.php"><i class="fas fa-store-alt"></i> ADMINISTRADOR DE SUCURSAL</a></li>
-                    <!--ADMINISTRADOR DE SUCURSAL PROMOCION-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_sucursal_promocion.php"><i class="fas fa-store"></i>  ADMIN. SUCURSAL PROMOCION</a></li>
-                    <!--ADMINISTRADOR DE FACTURA DESCUENTO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_factura_descuento.php"><i class="fas fa-user-tag"></i>  ADMIN. FACTURA DESCUENTO</a></li>
-                    <!--ADMINISTRADOR DE FACTURA PROMOCION-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_factura_promocion.php"><i class="fas fa-tag"></i> ADMIN. FACTURA PROMOCION</a></li>
-                </li>
-                </ul>
-
-                <!--ADMINISTRADOR DE SEGURIDAD-->
-                <li class="btn btn-dark p-2">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ADMINISTRADOR DE SEGURIDAD
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                   
-                    <!--ADMINISTRADOR DE USUARIO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_usuario.php"><i class="fa-solid fa-users-gear"></i> ADMINISTRADOR DE USUARIOS</a></li>
-                    <!--ADMINISTRADOR DE ESTADO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_estado.php"><i class="fas fa-toggle-on"></i> ADMINISTRADOR DE ESTADO</a></li>
-                    <!--ADMINISTRADOR DE GENERO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_genero.php"><i class="fas fa-venus-mars"></i> ADMINISTRADOR DE GENERO</a></li>
-                    <!--ADMINISTRADOR DE PARAMETROS-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_parametros.php"><i class="fa-solid fa-gears"></i> ADMINISTRADOR DE PARAMETROS</a></li>
-                    <!--ADMINISTRADOR DE OBJETO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_objeto.php"><i class="fas fa-lightbulb"></i> ADMINISTRADOR DE OBJETO</a></li>
-                    <!--ADMINISTRADOR DE PERMISO-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_permiso.php"><i class="fas fa-vote-yea"></i> ADMINISTRADOR DE PERMISOS</a></li>
-                    <!--ADMINISTRADOR DE PREGUNTAS-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_pregunta.php"><i class="fas fa-question-circle"></i> ADMINISTRADOR DE PREGUNTAS</a></li>
-                    <!--ADMINISTRADOR DE ROLES-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_rol.php"><i class="fas fa-user-tie"></i> ADMINISTRADOR DE ROLES</a></li>
-                    <!--ADMINISTRADOR DE BITACORA-->
-                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a></li>
-                </li>
-                </ul>
-            
             </div>
-            <!--SALIR DEL SITEMA-->
-            <li class="btn btn-dark p-2">
-                <a class="nav-link" href="../../../../controlador/cerrar_sesion.php"><i class="fas fa-sign-out-alt"></i> SALIR DEL SISTEMA</a>
-            </li>
             </div>
         </div>
         </nav>
@@ -138,7 +149,7 @@ if(empty($_SESSION['usuario_login'])){
             <br><br>
             <?php
             include "../../../../modelo/conexion.php";
-            //include "../../../../controlador/administraciones/eliminar_permiso.php";
+            include "../../../../controlador/administraciones/eliminar_permiso.php";
             ?>  
             <div class="row p-2"> <!--Div que contiene nuevo estado y la busqueda-->
                 <div class="ml-auto p-2">
@@ -158,12 +169,13 @@ if(empty($_SESSION['usuario_login'])){
             <table class="table table-dark table-striped" style="text-align:center; white-space: nowrap; overflow: auto;">
                 <thead class="table-dark">
                     <tr>
+                        <th class="col-sm-1" scope="col">N°</th>
                         <th class="col-sm-1" scope="col">ROL</th>
                         <th scope="col-sm-1" scope="col">OBJETO</th>
-                        <th scope="col">PERMISO PARA VISUALIZAR</th>
-                        <th scope="col">PERMISO PARA INSERTAR</th>
-                        <th scope="col">PERMISO PARA ACTUALIZAR</th>
-                        <th scope="col">PERMISO PARA ELIMINAR</th>
+                        <th scope="col">VISUALIZAR</th>
+                        <th scope="col">INSERTAR</th>
+                        <th scope="col">ACTUALIZAR</th>
+                        <th scope="col">ELIMINAR</th>
                         <th scope="col"style="width:15px"></th>
                         <th scope="col"style="width:15px"></th>
                     </tr>
@@ -172,21 +184,24 @@ if(empty($_SESSION['usuario_login'])){
                     <?php
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select id_rol, id_objeto, permiso_visualizar, permiso_insertar, permiso_actualizar, permiso_eliminar from tbl_ms_permisos order by id_rol asc");
-                    
-                    while($u = $sql->fetch_assoc()){ ?>
+                    $sql=$conexion->query("select p.id_rol, p.id_objeto, rol, objeto, permiso_visualizar, permiso_insertar, permiso_actualizar, permiso_eliminar from tbl_ms_permisos p inner join tbl_ms_roles r on r.id_rol=p.id_rol inner join tbl_ms_objetos o on o.id_objeto=p.id_objeto where p.id_rol<>4 order by p.id_rol asc");
+                    $num=0;
+                    while($u = $sql->fetch_assoc()){ 
+                        $num=$num+1
+                        ?>
                     <tr>
-                        <td><?php echo $u['id_rol']; ?></td>
-                        <td><?php echo $u['id_objeto']; ?></td>
+                        <td><?php echo $num; ?></td>
+                        <td><?php echo $u['rol']; ?></td>
+                        <td><?php echo $u['objeto']; ?></td>
                         <td><?php echo $u['permiso_visualizar']; ?></td>
                         <td><?php echo $u['permiso_insertar']; ?></td>
                         <td><?php echo $u['permiso_actualizar']; ?></td>
                         <td><?php echo $u['permiso_eliminar']; ?></td>
                         <td>
-                            <a href="actualizar_permiso.php?id_rol=<?= $u['id_rol'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
+                            <a href="actualizar_permiso.php?id_rol=<?= $u['id_rol'] ?> & id_objeto=<?= $u['id_objeto'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                         </td>
                         <td>
-                            <a onclick="return eliminar()" href="administracion_permiso.php?id_id_rol=<?= $u['id_rol'] ?>" class="btn btn-small btn-danger" name="btnborrar_permiso"><i class="fa-solid fa-trash-can"></i></a>
+                        <a onclick="return eliminar()" href="administracion_permiso.php?id_rol=<?= $u['id_rol'] ?> & id_objeto=<?= $u['id_objeto'] ?>" class="btn btn-small btn-danger" name="btnborrar_permiso"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                     </tr>
                     <?php }

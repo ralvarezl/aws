@@ -3,6 +3,25 @@ session_start();
 if(empty($_SESSION['usuario_login'])){
     header("location:../../login.php");
 }
+//Verificar permiso del rol
+include "../../modelo/conexion.php";
+$usuario_rol=$_SESSION['usuario_login'];
+//Sacar el rol del usuario
+$sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
+$row=mysqli_fetch_array($sql);
+$id_rol=$row[0];
+//Sacar el permiso dependiendo del rol
+$sql=mysqli_query($conexion, "select permiso_visualizar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=5");
+$row=mysqli_fetch_array($sql);
+if(is_null($row)){
+    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../inicio/inicio.php"</script>';
+}else{
+    $permiso=$row[0];
+}
+
+if($permiso <> 'PERMITIR'){
+    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../inicio/inicio.php"</script>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -176,7 +195,7 @@ if(empty($_SESSION['usuario_login'])){
                             //Llamado a la base de datos
                             include "../../modelo/conexion.php";
                             
-                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, estado, rol,fecha_vencimiento from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
+                                $sql=$conexion->query("select id_usuario, nombres, usuario, identidad, genero, telefono, direccion, correo, u.estado, rol,fecha_vencimiento from tbl_ms_usuario u join tbl_ms_roles r ON  r.ID_ROL=u.ID_ROL where usuario <> 'ADMIN' order by id_usuario asc");
                                 while($u = $sql->fetch_assoc()){ ?>
                                     <tr>
                                         <td><?php echo $u['id_usuario']; ?></td>

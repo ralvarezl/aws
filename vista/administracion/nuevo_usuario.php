@@ -7,14 +7,17 @@ if(empty($_SESSION['usuario_login'])){
 //Verificar permiso del rol
 include "../../modelo/conexion.php";
 $usuario_rol=$_SESSION['usuario_login'];
+//Sacar el rol del usuario
 $sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$usuario_rol'");
 $row=mysqli_fetch_array($sql);
 $id_rol=$row[0];
+//Sacar el permiso dependiendo del rol
+$sql=mysqli_query($conexion, "select permiso_insertar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=5");
+$row=mysqli_fetch_array($sql);
+$permiso=$row[0];
 
-if($id_rol <> 1){
-    
-    echo '<script language="javascript">alert("Sin acceso");;window.location.href="administracion_usuarios.php"</script>';
-    
+if($permiso <> 'PERMITIR'){
+    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="administracion_usuarios.php"</script>';
 }
 ?>
 

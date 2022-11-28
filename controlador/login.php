@@ -271,13 +271,31 @@ if (!empty($_POST["btningresar"])){
                                     //Validar el rol del usuario no sea default 
                                     rol_usuario($usuario,$validar);
                                     if($validar==true){
-                                        //Dirigirlo dependiendo el tipo de usuario
-                                        administrador($usuario,$password,$intentos,$validar);
-                                        empleado($usuario,$password,$validar);
+                                        //Llenado de datos del usuario
+                                        date_default_timezone_set("America/Tegucigalpa");
+                                        $mifecha = date('Y-m-d');
+                                        //Ultima conexion de entrada
+                                        $sql=$conexion->query(" update tbl_ms_usuario set fecha_ultima_conexion='$mifecha' where usuario='$usuario'");
+                                        
+                                        //Sacar el id del usuario
+                                        $sql=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'");
+                                        $row=mysqli_fetch_array($sql);
+                                        $id_usuario=$row[0];
+
+                                        //Primer Ingreso
+                                        $sql=mysqli_query($conexion, "select primer_ingreso from tbl_ms_usuario where usuario='$usuario'");
+                                        $row=mysqli_fetch_array($sql);
+                                        $primer_ingreso=$row[0];
+                                        //Si no tiene entonces actualizar su fecha
+                                        if($primer_ingreso==''){
+                                            $sql=$conexion->query(" update tbl_ms_usuario set primer_ingreso='$mifecha' where usuario='$usuario'");
+                                        }
+                                        
                                         //Guardar en bitacora 
                                         date_default_timezone_set("America/Tegucigalpa");
                                         $fecha = date('Y-m-d h:i:s');
                                         $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Login', 'Ingreso al sistema','$usuario')");
+                                        header("location:vista/inicio/inicio.php");//Entra al sistema de facturacion.
                                     } 
                                 }
                             } 
