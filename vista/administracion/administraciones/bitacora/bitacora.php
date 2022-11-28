@@ -148,7 +148,7 @@ if($permiso <> 'PERMITIR'){
         <div class="col-9 p-4 m-auto">
         <br><br>
         <a class="btn btn-danger" href="reporte_bitacora.php"><i class="fa-solid fa-file-pdf btn btn-lg btn-danger"></i>Generar PDF</a>
-        
+        <a class="btn btn-dark" href="../../../../respaldos/respaldo.php"><i class="fa-solid "></i>BackupSQL del Sistema</a>
         <?php
                 include "../../../../modelo/conexion.php";
                 
