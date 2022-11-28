@@ -54,6 +54,12 @@ if($permiso <> 'PERMITIR'){
                 name="direccion_sucursal" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
 
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <input type="text" readonly="readonly" class="form-control" value="ACTIVO" name="estado">
+            </div>
+            
             <!--BOTON NUEVA SUCURSAL-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-outline-dark" name="btnregistrar_sucursal" value="ok">Registrar Sucursal</button>

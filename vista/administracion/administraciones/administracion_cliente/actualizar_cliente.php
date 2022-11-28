@@ -98,6 +98,7 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
             <?php }
              }
             ?>
+                                                
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-dark" id="btnactualizarcliente" name="btnactualizarcliente" value="ok">Actualizar Cliente</button>

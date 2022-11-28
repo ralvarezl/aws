@@ -168,6 +168,7 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">NOMBRE</th>
                             <th scope="col">TIPO</th>
                             <th scope="col">PRECIO</th>
+                            <th scope="col">ESTADO</th>
                             <th scope="col" style="width:10px"></th>
                             <th scope="col" style="width:10px"></th>
                             </tr>
@@ -176,11 +177,12 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_producto, nombre, tipo, precio from tbl_producto
+                            $sql= $conexion->query("select id_producto, nombre, tipo, precio, estado from tbl_producto
                             where id_producto like '%$busqueda_producto%' or
                                     nombre like '%$busqueda_producto%' or
                                     tipo like '%$busqueda_producto%' or
-                                    precio like '%$busqueda_producto%' 
+                                    precio like '%$busqueda_producto%' or
+                                    estado like '%$busqueda_producto%'
                             order by id_producto");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
@@ -188,6 +190,7 @@ if(empty($_SESSION['usuario_login'])){
                                 <td><?php echo $u['nombre']; ?></td>
                                 <td><?php echo $u['tipo']; ?></td>
                                 <td><?php echo $u['precio']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>
                                 <td>
                                     <a href="actualizar_producto.php?id_producto=<?= $u['id_producto'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>

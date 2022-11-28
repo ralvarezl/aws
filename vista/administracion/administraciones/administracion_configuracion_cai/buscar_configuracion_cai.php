@@ -174,7 +174,7 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">SECUENCIA INICIAL</th>
                             <th scope="col">SECUENCIA ACTUAL</th>
                             <th scope="col">SECUENCIA FINAL</th>
-                            <th scope="col">VENCIMIENTO</th>
+                            <th scope="col">ESTADO</th>
                             <th scope="col" style="width:10px"></th>
                             <th scope="col" style="width:10px"></th>
                             </tr>
@@ -186,13 +186,13 @@ if(empty($_SESSION['usuario_login'])){
                             include "../../../../controlador/administraciones/eliminar_configuracion_cai.php";
                             
                             $sql= $conexion->query("select id_configuracion_cai, numero_cai, secuencia_inicial, secuencia_actual, 
-                            secuencia_final, fecha_vencimiento from tbl_configuracion_cai where
+                            secuencia_final, estado from tbl_configuracion_cai where
                                 id_configuracion_cai like '%$busqueda_configuracion_cai%' or
                                 numero_cai like '%$busqueda_configuracion_cai%' or
                                 secuencia_inicial like '%$busqueda_configuracion_cai%' or
                                 secuencia_actual like '%$busqueda_configuracion_cai%' or
                                 secuencia_final like '%$busqueda_configuracion_cai%' or
-                                fecha_vencimiento like '%$busqueda_configuracion_cai%'
+                                estado like '%$busqueda_configuracion_cai%'
                             order by id_configuracion_cai");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
@@ -201,7 +201,7 @@ if(empty($_SESSION['usuario_login'])){
                                 <td><?php echo $u['secuencia_inicial']; ?></td>
                                 <td><?php echo $u['secuencia_actual']; ?></td>
                                 <td><?php echo $u['secuencia_final']; ?></td>
-                                <td><?php echo $u['fecha_vencimiento']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>
                                 <td>
                                     <a href="actualizar_configuracion_cai.php?id_configuracion_cai=<?= $u['id_configuracion_cai'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>

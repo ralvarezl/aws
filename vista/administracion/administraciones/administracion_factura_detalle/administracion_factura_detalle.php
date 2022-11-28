@@ -29,7 +29,7 @@ if($permiso <> 'PERMITIR'){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion factura detalle</title>
+    <title>Administración factura detalle</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../../../../public/style_admin.css">
@@ -45,7 +45,7 @@ if($permiso <> 'PERMITIR'){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                <i class="fas fa-receipt"></i> ADMINISTRACION FACTURA DETALLE
+                <i class="fas fa-receipt"></i> ADMINISTRACIÓN FACTURA DETALLE
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -159,7 +159,7 @@ if($permiso <> 'PERMITIR'){
             ?>  
             <div class="row p-2"> <!--Div que contiene nuevo objeto y la busqueda-->
                 <div class="ml-auto p-2">
-                    <button type="button" class="btn btn-dark" onclick="location.href=''" >Nueva Factura</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href='../../../facturacion/src/ventas.php'" >Nueva Factura</button>
                 </div>
                     
                 <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_objeto-->
@@ -183,7 +183,6 @@ if($permiso <> 'PERMITIR'){
                         <th scope="col">PROMOCION</th>
                         <th scope="col">ESTADO</th>
                         <th scope="col"style="width:15px"></th>
-                        <th scope="col"style="width:15px"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -204,9 +203,7 @@ if($permiso <> 'PERMITIR'){
                         <td><?php echo $u['total']; ?></td>
                         <td><?php echo $u['descripcion']; ?></td>
                         <td><?php echo $u['estado']; ?></td>
-                        <td>
-                            <a href="actualizar_factura_detalle.php?id_factura_detalle=<?= $u['id_factura_detalle'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
-                        </td>
+                        
                         <td>
                             <a onclick="return eliminar()" href="administracion_factura_detalle.php?id_factura_detalle=<?= $u['id_factura_detalle'] ?>" class="btn btn-small btn-danger" name="btnborrar_factura_detalle"><i class="fa-solid fa-trash-can"></i></a>
                         </td>

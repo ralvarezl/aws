@@ -71,6 +71,12 @@ if($permiso <> 'PERMITIR'){
                 name="secuencia_final" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
 
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <input type="text" readonly="readonly" class="form-control" value="ACTIVO" name="estado">
+            </div>
+
             <!--BOTON REGISTRAR-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-dark" id="btn_nuevo_configuracion_cai" name="btn_nuevo_configuracion_cai" value="ok">Registrar Configuracion Cai</button>

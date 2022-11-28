@@ -1,6 +1,6 @@
 <?php
 //Funcion para validar campos vacios
-function campo_vacio($nombres,$identidad,$genero,$telefono,&$validar){
+function campo_vacio($nombres,$identidad,$genero,$telefono, &$validar){
     if (!empty($_POST["nombres"] and $_POST["identidad"] and $_POST["genero"] and $_POST["telefono"] and $validar=true)) { //Campos llenos
         return $validar;
     }else {
@@ -11,9 +11,9 @@ function campo_vacio($nombres,$identidad,$genero,$telefono,&$validar){
 }
 
 //NUEVO CLIENTE
-function nuevo_cliente($nombres,$identidad,$genero,$telefono,&$validar){
+function nuevo_cliente($nombres,$identidad,$genero,$telefono,$estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query("insert into tbl_cliente (nombres,identidad,genero,telefono) values ('$nombres',$identidad,'$genero',$telefono)"); 
+    $sql=$conexion->query("insert into tbl_cliente (nombres,identidad,genero,telefono, estado) values ('$nombres',$identidad,'$genero',$telefono, 'ACTIVO')"); 
     if($sql==1){
         return $validar;
     }else{
@@ -144,6 +144,7 @@ if (!empty($_POST["btnregistrarcliente"])) {
     $identidad=$_POST["identidad"];
     $genero=$_POST["genero"];
     $telefono=$_POST["telefono"];
+    $estado=$_POST["estado"];
 
     campo_vacio($nombres,$identidad,$genero,$telefono,$validar);
     if($validar==true){
@@ -153,7 +154,7 @@ if (!empty($_POST["btnregistrarcliente"])) {
             if ($validar==true) {
                 identidad($identidad,$validar);
                 if ($validar==true) {
-                    nuevo_cliente($nombres,$identidad,$genero,$telefono,$validar);
+                    nuevo_cliente($nombres,$identidad,$genero,$telefono,$estado,$validar);
                     if ($validar==true) {
                         //Guardar la bitacora 
                         date_default_timezone_set("America/Tegucigalpa");
@@ -179,6 +180,7 @@ if (!empty($_POST["btnactualizarcliente"])) {
     $identidad=$_POST["identidad"];
     $genero=$_POST["genero"];
     $telefono=$_POST["telefono"];
+    $estado=$_POST["estado"];
 
     campo_vacio($nombres,$identidad,$genero,$telefono,$validar);
     if($validar==true){

@@ -181,6 +181,7 @@ if($permiso <> 'PERMITIR'){
                             <th scope="col">N°</th>
                             <th scope="col">DESCUENTO</th>
                             <th scope="col">PORCENTAJE DESCUENTO</th>
+                            <th scope="col">ESTADO</th>
                             <th scope="col" style="width:10px"></th>
                             <th scope="col" style="width:10px"></th>
                             </tr>
@@ -190,13 +191,13 @@ if($permiso <> 'PERMITIR'){
                             //Llamado a la base de datos
                             include "../../../../modelo/conexion.php";
                             include "../../../../controlador/administraciones/eliminar_descuento.php";
-                            $sql= $conexion->query("select id_descuento, descripcion, porcentaje_descuento from tbl_descuento");
+                            $sql= $conexion->query("select id_descuento, descripcion, porcentaje_descuento, estado from tbl_descuento");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
                                 <td><?php echo $u['id_descuento']; ?></td>
                                 <td><?php echo $u['descripcion']; ?></td>
                                 <td><?php echo $u['porcentaje_descuento']; ?></td>
-                                
+                                <td><?php echo $u['estado']; ?></td>
                                 <td>
                                     <a href="actualizar_descuento.php?id_descuento=<?= $u['id_descuento'] ?>" class="btn btn-small btn-warning" name="btn_actualizar_descuento"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>

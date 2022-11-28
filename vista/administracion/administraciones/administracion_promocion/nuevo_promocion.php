@@ -53,6 +53,13 @@ if($permiso <> 'PERMITIR'){
             <label for="formGroupExampleInput" class="form-label">Precio</label>
             <input type="number" class="form-control" placeholder="Ingrese el precio" name="precio">
             </div>
+
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <input type="text" readonly="readonly" class="form-control" value="ACTIVO" name="estado">
+            </div>
+
             <!--BOTON NUEVO USUARIO-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-outline-dark" name="btnregistrarpromocion" value="ok">Registrar Promocion</button>

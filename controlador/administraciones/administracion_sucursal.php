@@ -41,7 +41,7 @@ function limite_nombre_direccion($nombre_sucursal, $direccion_sucursal, &$valida
     $Longitud2=strlen($direccion_sucursal);
     $conta=0;
 
-    if($Longitud1<=10){
+    if($Longitud1<=50){
         $conta=1;
     }else{
         $validar=false;
@@ -49,7 +49,7 @@ function limite_nombre_direccion($nombre_sucursal, $direccion_sucursal, &$valida
         return $validar;
     }
 
-    if($Longitud2<=10){
+    if($Longitud2<=100){
         $conta=2;
     }else{
         $validar=false;
@@ -80,7 +80,7 @@ function usuario_crear($nombre_sucursal,$direccion_sucursal,&$validar){
     include "../../../../modelo/conexion.php";
     
     //Envio de los datos a ingresar por la query
-    $sql=$conexion->query("insert into tbl_sucursal (nombre,direccion) values ('$nombre_sucursal', '$direccion_sucursal')");
+    $sql=$conexion->query("insert into tbl_sucursal (nombre,direccion, estado) values ('$nombre_sucursal', '$direccion_sucursal','ACTIVO')");
     if ($sql==1) {
     return $validar;
     }else {

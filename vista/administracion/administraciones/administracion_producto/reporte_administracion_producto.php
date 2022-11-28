@@ -55,7 +55,7 @@ function Footer()
 
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
-$consulta = "select id_producto, nombre, tipo, precio from tbl_producto";
+$consulta = "select id_producto, nombre, tipo, precio, estado from tbl_producto";
 $resultado = $conexion->query($consulta);
 
 //Genero el pdf en vertical y tamaño carta
@@ -67,23 +67,24 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(50);
+$pdf->Cell(35);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
     $pdf->Cell(42, 10, 'NOMBRE', 1, 0, 'C', 0);
     $pdf->Cell(25, 10, 'TIPO', 1, 0, 'C', 0);
-    $pdf->Cell(25, 10, 'PRECIO', 1, 1, 'C', 0);
-
+    $pdf->Cell(25, 10, 'PRECIO', 1, 0, 'C', 0);
+    $pdf->Cell(25, 10, 'ESTADO', 1, 1, 'C', 0);
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(50);
+    $pdf->Cell(35);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
     $pdf->Cell(42, 10,utf8_decode( $row['nombre']), 1, 0, 'C', 0);
     $pdf->Cell(25, 10,utf8_decode( $row['tipo']), 1, 0, 'C', 0);
-    $pdf->Cell(25, 10,utf8_decode( $row['precio']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(25, 10,utf8_decode( $row['precio']), 1, 0, 'C', 0); 
+    $pdf->Cell(25, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida

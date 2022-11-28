@@ -21,21 +21,36 @@ function campo_vacio_nuevo($numero_cai, $secuencia_inicial, $secuencia_actual, $
 }
 
 
-//ACTUALIZAR CONFIGURACION CAI
+
+
 function actualizar_configuracion_cai($id_configuracion_cai, $numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" update tbl_configuracion_cai set numero_cai= '$numero_cai', secuencia_inicial = '$secuencia_inicial', secuencia_actual = '$secuencia_actual', secuencia_final = '$secuencia_final' where id_configuracion_cai = '$id_configuracion_cai';");   
-    if($sql==1){
-        return $validar;
+    
+    //CONSULTAR EL numero cai
+    $sql1=mysqli_query($conexion, "select numero_cai from tbl_configuracion_cai where id_configuracion_cai=$id_configuracion_cai");
+    $row=mysqli_fetch_array($sql1);
+    $cai_base=$row[0];
+
+    if($numero_cai==$cai_base){
+        $sql=$conexion->query(" update tbl_configuracion_cai SET secuencia_inicial='$secuencia_inicial', secuencia_actual ='$secuencia_actual', secuencia_final='$secuencia_final' WHERE id_configuracion_cai=$id_configuracion_cai");
     }else{
-        echo"<div align='center' class='alert alert-danger' >Error al actualizar</div>";
+        //consultar por el numero cai
+        $sql=$conexion->query("select numero_cai from tbl_configuracion_cai where numero_cai='$numero_cai'");
+        if ($datos=$sql->fetch_object()) { //si existe
+            echo"<div class='alert alert-danger text-center'>Este numero cai ya existe</div>";
+            $validar=false;
+            return $validar;
+        }else{
+            $sql=$conexion->query(" update tbl_configuracion_cai SET numero_cai='$numero_cai', secuencia_inicial='$secuencia_inicial',secuencia_actual='$secuencia_actual', secuencia_final='$secuencia_final' WHERE id_configuracion_cai=$id_configuracion_cai");
+            return $validar;
+        }
     }
 }
 
 //NUEVO CONFIGURACION CAI
-function nuevo_configuracion_cai($id_configuracion_cai, $numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, &$validar){
+function nuevo_configuracion_cai($id_configuracion_cai, $numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, $estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_configuracion_cai (numero_cai, secuencia_inicial, secuencia_actual, secuencia_final) values ('$numero_cai','$secuencia_inicial','$secuencia_actual','$secuencia_final'); "); 
+    $sql=$conexion->query(" insert into tbl_configuracion_cai (numero_cai, secuencia_inicial, secuencia_actual, secuencia_final, estado) values ('$numero_cai','$secuencia_inicial','$secuencia_actual','$secuencia_final', 'ACTIVO'); "); 
     if($sql==1){
         return $validar;
     }else{
@@ -43,18 +58,7 @@ function nuevo_configuracion_cai($id_configuracion_cai, $numero_cai, $secuencia_
     }
 }
 
-//VALIDAR QUE NO SEA UN ARCHIVO EXISTENTE
-function validar_existe($numero_cai, &$validar){
-    include "../../../../modelo/conexion.php";
-    $sql=$conexion->query("select numero_cai from tbl_configuracion_cai where numero_cai='$numero_cai';");//consultar por el numero cai
-    if ($datos=$sql->fetch_object()) { //si existe
-        echo"<div class='alert alert-danger text-center'>Este numero cai ya existe</div>"; //Usuario no existe
-        $validar=false;
-        return $validar;
-    }else {
-        return $validar;
-    }
-}
+
 
 //Caracteres especiales 
 function validar_numero_cai($numero_cai,&$validar){
@@ -135,7 +139,7 @@ if (!empty($_POST["btn_nuevo_configuracion_cai"])) {
         if($validar==true){
             validar_numero_cai($numero_cai, $validar);
             if($validar==true){
-                nuevo_configuracion_cai($id_configuracion_cai, $numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, $validar);
+                nuevo_configuracion_cai($id_configuracion_cai, $numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, $estado, $validar);
                 if($validar==true){
                     //Guardar la bitacora 
                     date_default_timezone_set("America/Tegucigalpa");
@@ -163,8 +167,7 @@ if (!empty($_POST["btn_actualizar_configuracion_cai"])) {
 
     campo_vacio_actualizar($numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, $validar);
     if($validar==true){
-        validar_existe($numero_cai, $validar);
-        if($validar==true){
+        
             validar_numero_cai($numero_cai,$validar);
             if($validar==true){
                 actualizar_configuracion_cai($id_configuracion_cai, $numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, $validar);
@@ -176,7 +179,7 @@ if (!empty($_POST["btn_actualizar_configuracion_cai"])) {
                     header("location:administracion_configuracion_cai.php");
                 }
             }  
-        }
+        
     }    
 }
 ?>

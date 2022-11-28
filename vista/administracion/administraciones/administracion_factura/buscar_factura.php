@@ -151,7 +151,7 @@ if(empty($_SESSION['usuario_login'])){
             ?>  
             <div class="row p-2"> <!--Div que contiene nuevo objeto y la busqueda-->
                 <div class="ml-auto p-2">
-                    <button type="button" class="btn btn-dark" onclick="location.href=''" >Nueva Factura</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href='../../../facturacion/src/ventas.php'" >Nueva Factura</button>
                 </div>
                     
                 <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_factura-->
@@ -162,8 +162,9 @@ if(empty($_SESSION['usuario_login'])){
                         <input type="datetime" name="fecha_inicio" id="fecha_inicio" class="form-label" placeholder="Fecha Inicio" value="<?php echo $fecha_inicio; ?>">
                         <label for="formGroupExampleInput" class="form-label">Fecha final</label>
                         <input type="datetime" name="fecha_final" id="fecha_final" class="form-label" placeholder="Fecha Final" value="<?php echo $fecha_final; ?>">
-                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_factura.php"></a>
+                        
                         <input type="submit" value="Buscar" class="btn btn-secondary">
+                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_factura.php"></a>
                         <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_buscar_factura.php"></a>
                     </form>
                 </div>

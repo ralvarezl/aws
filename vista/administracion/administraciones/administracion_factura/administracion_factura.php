@@ -164,7 +164,7 @@ if($permiso <> 'PERMITIR'){
             ?>  
             <div class="row p-2"> <!--Div que contiene nuevo objeto y la busqueda-->
                 <div class="ml-auto p-2">
-                    <button type="button" class="btn btn-dark" onclick="location.href=''" >Nueva Factura</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href='../../../facturacion/src/ventas.php'" >Nueva Factura</button>
                 </div>
                     
                 <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_factura-->

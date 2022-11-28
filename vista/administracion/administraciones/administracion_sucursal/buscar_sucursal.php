@@ -151,8 +151,9 @@ if(empty($_SESSION['usuario_login'])){
                 <div class="align-items-end">
                     <form action="buscar_sucursal.php" method="get" class="form_search">
                         <input type="text" name="busqueda_sucursal" id="busqueda_sucursal" placeholder="" value="<?php echo $busqueda_sucursal; ?>">
-                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_sucursal.php"></a>
+                        
                         <input type="submit" value="Buscar" class="btn btn-secondary">
+                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_sucursal.php"></a>
                         <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_buscar_sucursal.php"></a>
                     </form>
                 </div>
@@ -164,6 +165,7 @@ if(empty($_SESSION['usuario_login'])){
                         <th class="col-sm-1" scope="col">N°</th>
                         <th scope="col">NOMBRE</th>
                         <th scope="col">DIRECCIÓN</th>
+                        <th scope="col">ESTADO</th>
                         <th scope="col"style="width:15px"></th>
                         <th scope="col"style="width:15px"></th>
                     </tr>
@@ -172,10 +174,11 @@ if(empty($_SESSION['usuario_login'])){
                     <?php
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select id_sucursal, nombre, direccion from tbl_sucursal
+                    $sql=$conexion->query("select id_sucursal, nombre, direccion, estado from tbl_sucursal
                     where id_sucursal like '%$busqueda_sucursal%' or
                             nombre like '%$busqueda_sucursal%' or
-                            direccion like '%$busqueda_sucursal%' 
+                            direccion like '%$busqueda_sucursal%' or
+                            estado like '%$busqueda_sucursal%' 
                     order by id_sucursal");
                     $numero=0;
                     while($u = $sql->fetch_assoc()){ ?>
@@ -183,6 +186,7 @@ if(empty($_SESSION['usuario_login'])){
                         <td><?php echo $numero=$numero+1; ?></td>
                         <td><?php echo $u['nombre']; ?></td>
                         <td><?php echo $u['direccion']; ?></td>
+                        <td><?php echo $u['estado']; ?></td>
                         <td>
                             <a href="actualizar_sucursal.php?id_sucursal=<?= $u['id_sucursal'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                         </td>

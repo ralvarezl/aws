@@ -166,7 +166,8 @@ if(empty($_SESSION['usuario_login'])){
                             <tr>
                             <th scope="col">N°</th>
                             <th scope="col">DESCRIPCIÓN</th>
-                            <th scope="col">PRECIO</th>                            
+                            <th scope="col">PRECIO</th> 
+                            <th scope="col">ESTADO</th>                            
                             <th scope="col" style="width:10px"></th>
                             <th scope="col" style="width:10px"></th>
                             </tr>
@@ -175,16 +176,18 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_promocion, descripcion, precio from tbl_promocion
+                            $sql= $conexion->query("select id_promocion, descripcion, precio, estado from tbl_promocion
                             where id_promocion like '%$busqueda_promocion%' or
                                     descripcion like '%$busqueda_promocion%' or
-                                    precio like '%$busqueda_promocion%'                                    
+                                    precio like '%$busqueda_promocion%' or
+                                    estado like '%$busqueda_promocion%'                                    
                             order by id_promocion");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
                                 <td><?php echo $u['id_promocion']; ?></td>
                                 <td><?php echo $u['descripcion']; ?></td>
-                                <td><?php echo $u['precio']; ?></td>                                
+                                <td><?php echo $u['precio']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>                                
                                 <td>
                                     <a href="actualizar_promocion.php?id_promocion=<?= $u['id_promocion'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>

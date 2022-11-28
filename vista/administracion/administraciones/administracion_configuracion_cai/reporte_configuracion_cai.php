@@ -57,7 +57,7 @@ function Footer()
 require ('../../../../modelo/conexion.php');
 $busqueda_configuracion_cai=$_SESSION['busqueda_configuracion_cai'];
 $consulta = " select id_configuracion_cai, numero_cai, secuencia_inicial, secuencia_actual,
-secuencia_final, fecha_vencimiento from tbl_configuracion_cai";
+secuencia_final, estado from tbl_configuracion_cai";
 
 $resultado = $conexion->query($consulta);
 
@@ -78,7 +78,7 @@ $pdf->Cell(15);
     $pdf->Cell(35, 10, 'SECUENCIA INICIAL', 1, 0, 'C', 0);
     $pdf->Cell(35, 10, 'SECUENCIA ACTUAL', 1, 0, 'C', 0);
     $pdf->Cell(35, 10, 'SECUENCIA FINAL', 1, 0, 'C', 0);
-    $pdf->Cell(22, 10, 'VENCIMIENTO', 1, 1, 'C', 0);
+    $pdf->Cell(25, 10, 'ESTADO', 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;
@@ -90,7 +90,7 @@ while ($row = $resultado->fetch_assoc()) {
     $pdf->Cell(35, 10,utf8_decode( $row['secuencia_inicial']), 1, 0, 'C', 0);
     $pdf->Cell(35, 10,utf8_decode( $row['secuencia_actual']), 1, 0, 'C', 0);
     $pdf->Cell(35, 10,utf8_decode( $row['secuencia_final']), 1, 0, 'C', 0);
-    $pdf->Cell(22, 10,utf8_decode( $row['fecha_vencimiento']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(25, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida

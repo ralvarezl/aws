@@ -149,10 +149,10 @@ if(empty($_SESSION['usuario_login'])){
                 <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_sucursal-->
                 <div class="align-items-end">
                     <form action="buscar_factura_promocion.php" method="get" class="form_search">
-                        <input type="text" name="busqueda_factura_promocion" id="busqueda_factura_promocion" placeholder="" value="<?php echo $busqueda_factura_promocion; ?>">
-                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_factura_promocion.php"></a>
+                        <input type="text" name="busqueda_factura_promocion" id="busqueda_factura_promocion" placeholder="" value="<?php echo $busqueda_factura_promocion; ?>">                        
                         <input type="submit" value="Buscar" class="btn btn-secondary">
-                        <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_administracion_factura_promocion.php"></a>
+                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_factura_promocion.php"></a>
+                        <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_buscar_factura_promocion.php"></a>
                     </form>
                 </div>
             </div>
@@ -164,7 +164,6 @@ if(empty($_SESSION['usuario_login'])){
                         <th scope="col">PROMOCION</th>
                         <th scope="col">CANTIDAD</th>
                         <th scope="col">TOTAL PROMOCION</th>
-                        <th scope="col"style="width:15px"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -183,9 +182,7 @@ if(empty($_SESSION['usuario_login'])){
                         <td><?php echo $u['id_promocion']; ?></td>
                         <td><?php echo $u['cantidad']; ?></td>
                         <td><?php echo $u['total_promocion']; ?></td>
-                        <td>
-                            <a href="actualizar_factura_promocion.php?id_factura=<?= $u['id_factura'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
-                        </td>
+
                     </tr>
                     <?php }
                     $_SESSION['busqueda_factura_promocion'] = $busqueda_factura_promocion;

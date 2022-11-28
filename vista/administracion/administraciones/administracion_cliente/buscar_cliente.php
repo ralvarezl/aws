@@ -168,6 +168,7 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">IDENTIDAD</th>
                             <th scope="col">GÉNERO</th>
                             <th scope="col">TELÉFONO</th>
+                            <th scope="col" >ESTADO</th>
                             <th scope="col" style="width:10px"></th>
                             <th scope="col" style="width:10px"></th>
                             </tr>
@@ -176,12 +177,13 @@ if(empty($_SESSION['usuario_login'])){
                             <?php
                             //Llamado a la base de datos
                             include "../../../../modelo/conexion.php";
-                            $sql= $conexion->query("select id_cliente, nombres, identidad, genero, telefono from tbl_cliente
+                            $sql= $conexion->query("select id_cliente, nombres, identidad, genero, telefono, estado from tbl_cliente
                             where id_cliente like '%$busqueda_cliente%' or
                                 nombres like '%$busqueda_cliente%' or
                                 identidad like '%$busqueda_cliente%' or
                                 genero like '%$busqueda_cliente%' or
-                                telefono like '%$busqueda_cliente%'
+                                telefono like '%$busqueda_cliente%' or
+                                estado like '%$busqueda_cliente%' 
                             order by id_cliente");
                             $numero=0;
                             while($u = $sql->fetch_assoc()){ ?>
@@ -191,6 +193,7 @@ if(empty($_SESSION['usuario_login'])){
                                 <td><?php echo $u['identidad']; ?></td>
                                 <td><?php echo $u['genero']; ?></td>
                                 <td><?php echo $u['telefono']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>
                                 <td>
                                     <a href="actualizar_cliente.php?id_cliente=<?= $u['id_cliente'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>

@@ -130,10 +130,7 @@ if(empty($_SESSION['usuario_login'])){
         <?php
         //Declaramos la variable busqueda para capturar que es lo que quiere buscar en la factura descuento
         $busqueda_factura_descuento = strtoupper($_REQUEST['busqueda_factura_descuento']);
-        if (empty($busqueda_factura_descuento)) {
-            //Si busqueda viene vacia que me regrese administracion usuarios
-            header("location: administracion_factura_descuento.php");
-        }
+        
         ?>
 
 
@@ -154,11 +151,9 @@ if(empty($_SESSION['usuario_login'])){
                     <table class="table table-dark table-striped" style="text-align:center;" >
                         <thead class="table-dark">
                             <tr>
-                            <br>
                             <th scope="col">ID</th>
                             <th scope="col">TOTAL DESCUENTO</th>
                             <th scope="col" style="width:15px"></th>
-                            <th scope="col" style="width:15px"></th> 
                             </tr>
                         </thead>
                         <tbody>
@@ -173,9 +168,7 @@ if(empty($_SESSION['usuario_login'])){
                             <tr>
                                 <td><?php echo $u['id_factura_descuento']; ?></td>
                                 <td><?php echo $u['total_descuento']; ?></td>
-                                <td>
-                                     <a href="actualizar_factura_descuento.php?id_factura_descuento=<?= $u['id_factura_descuento'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
-                                </td>
+
                                 <td>
                                     <a onclick="return eliminar()" href="administracion_factura_Descuento.php?id_factura_descuento=<?= $u['id_factura_descuento'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>

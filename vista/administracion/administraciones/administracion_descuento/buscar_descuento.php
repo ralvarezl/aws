@@ -168,6 +168,7 @@ if(empty($_SESSION['usuario_login'])){
                             <th scope="col">N°</th>
                             <th scope="col">DESCUENTO</th>
                             <th scope="col">PORCENTAJE DESCUENTO</th>
+                            <th scope="col">ESTADO</th>
                             <th scope="col" style="width:10px"></th>
                             <th scope="col" style="width:10px"></th>
                             </tr>
@@ -178,16 +179,18 @@ if(empty($_SESSION['usuario_login'])){
                             include "../../../../modelo/conexion.php";
                             include "../../../../controlador/administraciones/eliminar_descuento.php";
                             $sql= $conexion->query("select id_descuento, descripcion, 
-                            porcentaje_descuento from tbl_descuento where
+                            porcentaje_descuento, estado from tbl_descuento where
                                 id_descuento like '%$busqueda_descuento%' or
                                 descripcion like '%$busqueda_descuento%' or
-                                porcentaje_descuento like '%$busqueda_descuento%'   
+                                porcentaje_descuento like '%$busqueda_descuento%' or
+                                estado like '%$busqueda_descuento%'   
                             order by id_descuento");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
                             <td><?php echo $u['id_descuento']; ?></td>
                                 <td><?php echo $u['descripcion']; ?></td>
                                 <td><?php echo $u['porcentaje_descuento']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>
                                 <td>
                                     <a href="actualizar_descuento.php?id_descuento=<?= $u['id_descuento'] ?>" class="btn btn-small btn-warning" name="btn_actualizar_descuento"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>

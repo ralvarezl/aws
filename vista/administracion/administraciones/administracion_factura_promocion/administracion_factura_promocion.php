@@ -179,7 +179,6 @@ if($permiso <> 'PERMITIR'){
                         <th scope="col">PROMOCION</th>
                         <th scope="col">CANTIDAD</th>
                         <th scope="col">TOTAL PROMOCION</th>
-                        <th scope="col"style="width:15px"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -193,9 +192,7 @@ if($permiso <> 'PERMITIR'){
                         <td><?php echo $u['id_promocion']; ?></td>
                         <td><?php echo $u['cantidad']; ?></td>
                         <td><?php echo $u['total_promocion']; ?></td>
-                        <td>
-                            <a href="actualizar_factura_promocion.php?id_factura=<?= $u['id_factura'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
-                        </td>
+                        
                     </tr>
                     <?php }
                     ?>

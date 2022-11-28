@@ -51,7 +51,7 @@ function actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento
 //NUEVO DESCUENTO
 function nuevo_descuento($descripcion, $porcentaje_descuento, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_descuento (descripcion, porcentaje_descuento) values ('$descripcion','$porcentaje_descuento'); "); 
+    $sql=$conexion->query(" insert into tbl_descuento (descripcion, porcentaje_descuento, estado) values ('$descripcion','$porcentaje_descuento', 'ACTIVO'); "); 
     if($sql==1){
         return $validar;
     }else{
@@ -111,7 +111,7 @@ function limite_descripcion_porcentaje($descripcion, $porcentaje_descuento, &$va
         return $validar;
     }
 
-    if($Longitud2<=7){
+    if($Longitud2<=4){
         $conta=2;
     }else{
         $validar=false;

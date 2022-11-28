@@ -157,11 +157,6 @@ if($permiso <> 'PERMITIR'){
         <div class="col-8 p-4 m-auto">
         <br><br> 
   
-        <div class="ml-auto p-2">
-            <button type="button" class="btn btn-dark" onclick="location.href='nuevo_factura_descuento.php'" >Nueva Factura Descuento</button>
-        </div>
-         
-
         <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar factura descuento-->
         <div class="ml-auto p-2">
             <form action="buscar_factura_descuento.php" method="get" class="form_search">
@@ -182,7 +177,6 @@ if($permiso <> 'PERMITIR'){
                             <th scope="col">ID</th>
                             <th scope="col">TOTAL DESCUENTO</th>
                             <th scope="col" style="width:15px"></th>
-                            <th scope="col" style="width:15px"></th>     
                             </tr>
                         </thead>
                         <tbody>
@@ -199,9 +193,7 @@ if($permiso <> 'PERMITIR'){
                             <tr>
                                 <td><?php echo ''.$num.'' ?></td>
                                 <td><?php echo $u['total_descuento']; ?></td>
-                                <td>
-                                    <a href="actualizar_factura_descuento.php?id_factura_descuento=<?= $u['id_factura_descuento'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
-                                </td>
+                                                                
                                 <td>
                                     <a onclick="return eliminar()" href="administracion_factura_Descuento.php?id_factura_descuento=<?= $u['id_factura_descuento'] ?>" class="btn btn-small btn-danger" name="btnborrar"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>

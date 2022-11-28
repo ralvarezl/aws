@@ -27,11 +27,11 @@ function Header()
     // Arial bold 15
     $this->SetFont('Arial','',20);
     // Movernos a la derecha
-    $this->Cell(65);
+    $this->Cell(85);
     // Título
     $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(210,10,'Reporte Sucursal',0,0,'C');
+    $this->Cell(247,10,'Reporte Sucursal',0,0,'C');
     // Salto de línea
     $this->Ln(35);
 }
@@ -55,11 +55,11 @@ function Footer()
 
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
-$consulta = "select id_sucursal, nombre, direccion from tbl_sucursal order by id_sucursal asc";
+$consulta = "select id_sucursal, nombre, direccion, estado from tbl_sucursal order by id_sucursal asc";
 $resultado = $conexion->query($consulta);
 
 //Genero el pdf en vertical y tamaño carta
-$pdf = new PDF('P','mm','Letter');
+$pdf = new PDF('L','mm','Letter');
 //Agrega la numeracion al pie de pagina
 $pdf->AliasNbPages();
 //Agrego una pagina
@@ -67,21 +67,23 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(35);
+$pdf->Cell(8);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, 'NOMBRE', 1, 0, 'C', 0);
-    $pdf->Cell(55, 10, utf8_decode('DIRECCIÓN'), 1, 1, 'C', 0);
+    $pdf->Cell(75, 10, 'NOMBRE', 1, 0, 'C', 0);
+    $pdf->Cell(130, 10, utf8_decode('DIRECCIÓN'), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10, utf8_decode('ESTADO'), 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(35);
+    $pdf->Cell(8);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
-    $pdf->Cell(55, 10,utf8_decode( $row['nombre']), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10,utf8_decode( $row['direccion']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(75, 10,utf8_decode( $row['nombre']), 1, 0, 'C', 0);
+    $pdf->Cell(130, 10,utf8_decode( $row['direccion']), 1, 0, 'C', 0);
+    $pdf->Cell(25, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida

@@ -6,5 +6,5 @@
     $fecha = date('Y-m-d h:i:s');
     //Guardar la bitacora
     $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Administrador de factura detalle', 'Entro a Administración de factura detalle','$usuario')");
-    header("location:../../vista/administracion/administraciones/administracion_permiso/administracion_permiso.php");
+    header("location:../../vista/administracion/administraciones/administracion_factura_detalle/administracion_factura_detalle.php");
 ?>

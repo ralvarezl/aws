@@ -16,7 +16,7 @@ function limite_cantidad_precio($precio, &$validar){
     $Longitud2=strlen($precio);
     $conta=0;
 
-    if($Longitud2<=7){
+    if($Longitud2<=4){
         $conta=1;
     }else{
         $validar=false;
@@ -103,7 +103,7 @@ function Validar_producto($nombre,&$validar){
 //NUEVO PRODUCTO
 function nuevo_producto($nombre,$tipo,$precio,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_producto (nombre,tipo,precio) values ('$nombre','$tipo',$precio)"); 
+    $sql=$conexion->query(" insert into tbl_producto (nombre,tipo,precio, estado) values ('$nombre','$tipo',$precio, 'ACTIVO')"); 
     if($sql==1){
         return $validar;
     }else{

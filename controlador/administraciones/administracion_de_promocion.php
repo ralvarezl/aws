@@ -16,7 +16,7 @@ function limite_descripcion_precio($descripcion, $precio, &$validar){
     $Longitud2=strlen($precio);
     $conta=0;
 
-    if($Longitud1<=10){
+    if($Longitud1<=100){
         $conta=1;
     }else{
         $validar=false;
@@ -25,8 +25,8 @@ function limite_descripcion_precio($descripcion, $precio, &$validar){
     }
 
 
-    if($Longitud2<=7){
-        $conta=1;
+    if($Longitud2<=4){
+        $conta=2;
     }else{
         $validar=false;
         echo"<div class='alert alert-danger text-center'>El precio no debe de exceder los 4 digitos</div>";
@@ -84,7 +84,7 @@ function Validar_promocion($descripcion,&$validar){
 //NUEVA PROMOCION
 function nuevo_promocion($descripcion,$precio,&$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_promocion (descripcion,precio) values ('$descripcion',$precio)"); 
+    $sql=$conexion->query(" insert into tbl_promocion (descripcion,precio, estado) values ('$descripcion',$precio, 'ACTIVO')"); 
     if($sql==1){
         return $validar;
     }else{

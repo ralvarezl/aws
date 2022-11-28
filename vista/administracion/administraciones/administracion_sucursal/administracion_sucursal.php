@@ -182,6 +182,7 @@ if($permiso <> 'PERMITIR'){
                         <th class="col-sm-1" scope="col">N°</th>
                         <th scope="col">NOMBRE</th>
                         <th scope="col">DIRECCIÓN</th>
+                        <th scope="col">ESTADO</th>
                         <th scope="col"style="width:15px"></th>
                         <th scope="col"style="width:15px"></th>
                     </tr>
@@ -190,13 +191,14 @@ if($permiso <> 'PERMITIR'){
                     <?php
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select id_sucursal, nombre, direccion from tbl_sucursal order by id_sucursal asc");
+                    $sql=$conexion->query("select id_sucursal, nombre, direccion, estado from tbl_sucursal order by id_sucursal asc");
                     $numero=0;
                     while($u = $sql->fetch_assoc()){ ?>
                     <tr>
                         <td><?php echo $numero=$numero+1; ?></td>
                         <td><?php echo $u['nombre']; ?></td>
                         <td><?php echo $u['direccion']; ?></td>
+                        <td><?php echo $u['estado']; ?></td>
                         <td>
                             <a href="actualizar_sucursal.php?id_sucursal=<?= $u['id_sucursal'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                         </td>

@@ -56,12 +56,13 @@ function Footer()
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
 $busqueda_cliente=$_SESSION['busqueda_cliente'];
-$consulta = "select id_cliente, nombres, identidad, genero, telefono from tbl_cliente
+$consulta = "select id_cliente, nombres, identidad, genero, telefono, estado from tbl_cliente
             where id_cliente like '%$busqueda_cliente%' or
                     nombres like '%$busqueda_cliente%' or
                     identidad like '%$busqueda_cliente%' or
                     genero like '%$busqueda_cliente%' or
-                    telefono like '%$busqueda_cliente%'
+                    telefono like '%$busqueda_cliente%' or
+                    estado like '%$busqueda_cliente%'
                     order by id_cliente";
 $resultado = $conexion->query($consulta);
 
@@ -74,24 +75,26 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(25);
+$pdf->Cell(8);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
         $pdf->Cell(65, 10, 'NOMBRES', 1, 0, 'C', 0);
         $pdf->Cell(30, 10, 'IDENTIDAD', 1, 0, 'C', 0);
         $pdf->Cell(25, 10, utf8_decode('GÉNERO'), 1, 0, 'C', 0);
-        $pdf->Cell(25, 10, utf8_decode('TELÉFONO'), 1, 1, 'C', 0);
+        $pdf->Cell(25, 10, utf8_decode('TELÉFONO'), 1, 0, 'C', 0);
+        $pdf->Cell(25, 10, utf8_decode('ESTADO'), 1, 1, 'C', 0);
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(25);
+    $pdf->Cell(8);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
     $pdf->Cell(65, 10,utf8_decode( $row['nombres']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['identidad']), 1, 0, 'C', 0);
     $pdf->Cell(25, 10,utf8_decode( $row['genero']), 1, 0, 'C', 0);
-    $pdf->Cell(25, 10,utf8_decode( $row['telefono']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
+    $pdf->Cell(25, 10,utf8_decode( $row['telefono']), 1, 0, 'C', 0); 
+    $pdf->Cell(25, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 
 //Genero la salida

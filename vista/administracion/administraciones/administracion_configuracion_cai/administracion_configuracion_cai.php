@@ -187,7 +187,7 @@ if($permiso <> 'PERMITIR'){
                             <th scope="col">SECUENCIA INICIAL</th>
                             <th scope="col">SECUENCIA ACTUAL</th>
                             <th scope="col">SECUENCIA FINAL</th>
-                            <th scope="col">VENCIMIENTO</th>
+                            <th scope="col">ESTADO</th>
                             <th scope="col" style="width:10px"></th>
                             <th scope="col" style="width:10px"></th>
                             </tr>
@@ -198,7 +198,7 @@ if($permiso <> 'PERMITIR'){
                             include "../../../../modelo/conexion.php";
                             include "../../../../controlador/administraciones/eliminar_configuracion_cai.php";
 
-                            $sql= $conexion->query("select id_configuracion_cai, numero_cai, secuencia_inicial, secuencia_actual, secuencia_final, fecha_vencimiento from tbl_configuracion_cai");
+                            $sql= $conexion->query("select id_configuracion_cai, numero_cai, secuencia_inicial, secuencia_actual, secuencia_final, estado from tbl_configuracion_cai");
                             while($u = $sql->fetch_assoc()){ ?>
                             <tr>
                                 <td><?php echo $u['id_configuracion_cai']; ?></td>
@@ -206,7 +206,7 @@ if($permiso <> 'PERMITIR'){
                                 <td><?php echo $u['secuencia_inicial']; ?></td>
                                 <td><?php echo $u['secuencia_actual']; ?></td>
                                 <td><?php echo $u['secuencia_final']; ?></td>
-                                <td><?php echo $u['fecha_vencimiento']; ?></td>
+                                <td><?php echo $u['estado']; ?></td>
                                 <td>
                                     <a href="actualizar_configuracion_cai.php?id_configuracion_cai=<?= $u['id_configuracion_cai'] ?>" class="btn btn-small btn-warning" name="btn_actualizar_cai"><i class="fa-solid fa-user-pen"></i></a>
                                 </td>
