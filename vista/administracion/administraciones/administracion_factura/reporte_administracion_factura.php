@@ -71,8 +71,8 @@ $pdf->Cell(10);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode('N°'), 1, 0, 'C', 0);
-    $pdf->Cell(30, 10,utf8_decode('FECHA'), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode('NUMERO FACTURA'), 1, 0, 'C', 0);
+    $pdf->Cell(30, 10,utf8_decode('FECHA'), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode('SUB TOTAL'), 1, 0, 'C', 0);
     $pdf->Cell(20, 10,utf8_decode('ISV'), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode('TOTAL DESCUENTO'), 1, 0, 'C', 0);
@@ -87,8 +87,8 @@ while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
     $pdf->Cell(10);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
+    $pdf->Cell(30, 10,utf8_decode( $row['id_factura']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['fecha']), 1, 0, 'C', 0);
-    $pdf->Cell(30, 10,utf8_decode( $row['numero_factura']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['subtotal']), 1, 0, 'C', 0);
     $pdf->Cell(20, 10,utf8_decode( $row['isv']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['total_descuento']), 1, 0, 'C', 0);

@@ -166,8 +166,17 @@ if($permiso <> 'PERMITIR'){
                     
                 <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_factura-->
                 <div class="align-items-end">
-                    <form action="buscar_factura.php" method="get" class="form_search">
-                        <input type="text" name="busqueda_factura" id="busqueda_factura" placeholder="">
+                <form action="buscar_factura.php" method="get" class="form_search">
+                        <?
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha = date('Y-m-d 00:00');
+                        $fecha2 = date('Y-m-d 11:59');
+                        ?>
+                        <input type="text" name="busqueda_factura" id="busqueda_factura" placeholder="Buscar">
+                        <label for="formGroupExampleInput" class="form-label">Fecha inicio</label>
+                        <input type="datetime" name="fecha_inicio" id="fecha_inicio" class="form-label" placeholder="Fecha Inicio" value="<?php date_default_timezone_set("America/Tegucigalpa"); echo date("Y-m-d 00:00"); ?>">
+                        <label for="formGroupExampleInput" class="form-label">Fecha final</label>
+                        <input type="datetime" name="fecha_final" id="fecha_final" class="form-label" placeholder="Fecha Final" value="<?php date_default_timezone_set("America/Tegucigalpa"); echo date("Y-m-d 11:59"); ?>">
                         <input type="submit" value="Buscar" class="btn btn-secondary">
                         <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_administracion_factura.php"></a>
                     </form>
@@ -196,7 +205,7 @@ if($permiso <> 'PERMITIR'){
                     <?php
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select id_factura, fecha, numero_factura, subtotal, isv, total_descuento, total, pago, cambio, id_cliente, estado from tbl_factura order by id_factura asc");
+                    $sql=$conexion->query("select id_factura, fecha, numero_factura, subtotal, isv, total_descuento, total, pago, cambio, id_cliente, estado from tbl_factura order by id_factura desc");
                     $numero=0;
                     while($u = $sql->fetch_assoc()){ ?>
                     <tr>

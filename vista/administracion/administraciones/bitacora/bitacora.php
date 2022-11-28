@@ -147,15 +147,32 @@ if($permiso <> 'PERMITIR'){
         
         <div class="col-9 p-4 m-auto">
         <br><br>
-        <a class="btn btn-danger" href="reporte_bitacora.php"><i class="fa-solid fa-file-pdf btn btn-lg btn-danger"></i>Generar PDF</a>
-        <a class="btn btn-dark" href="../../../../respaldos/respaldo.php"><i class="fa-solid "></i>BackupSQL del Sistema</a>
+        <a class="btn btn-dark" href="../../../../respaldos/respaldo.php"><i class="fa-solid "></i>Backup del Sistema</a>
+        <div class="row p-2">
+        <div class="align-items-end">
+                    <form action="buscar_bitacora.php" method="get" class="form_search">
+                        <?
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha = date('Y-m-d 00:00');
+                        $fecha2 = date('Y-m-d 11:59');
+                        ?>
+                        <input type="text" name="busqueda_bitacora" id="busqueda_bitacora" placeholder="Buscar">
+                        <label for="formGroupExampleInput" class="form-label">Fecha inicio</label>
+                        <input type="datetime" name="fecha_inicio" id="fecha_inicio" class="form-label" placeholder="Fecha Inicio" value="<?php date_default_timezone_set("America/Tegucigalpa"); echo date("Y-m-d 00:00"); ?>">
+                        <label for="formGroupExampleInput" class="form-label">Fecha final</label>
+                        <input type="datetime" name="fecha_final" id="fecha_final" class="form-label" placeholder="Fecha Final" value="<?php date_default_timezone_set("America/Tegucigalpa"); echo date("Y-m-d 11:59"); ?>">
+                        <input type="submit" value="Buscar" class="btn btn-secondary">
+                        <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_bitacora.php"></a>
+                    </form>
+                </div>
+
+        </div>
         <?php
                 include "../../../../modelo/conexion.php";
                 
                 ?>
                     <table class="table table-dark table-striped" style="text-align:center;" >
                         <thead class="table-dark">
-                        <br></br>
                             <tr>
                             <th scope="col">FECHA ACCIÓN</th>
                             <th scope="col">ACCIÓN</th>

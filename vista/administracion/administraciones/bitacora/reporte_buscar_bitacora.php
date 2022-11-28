@@ -55,7 +55,14 @@ function Footer()
 
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
-$consulta = "select fecha_bitacora, accion, descripcion, creado_por from tbl_ms_bitacora order by id_bitacora desc";
+$fecha_inicio=$_SESSION['fecha_inicio'];
+$fecha_final=$_SESSION['fecha_final'];
+$busqueda_bitacora=$_SESSION['busqueda_bitacora'];
+$consulta = "select fecha_bitacora, accion, descripcion, creado_por from tbl_ms_bitacora where fecha_bitacora between '$fecha_inicio' and '$fecha_final' and
+accion like '%$busqueda_bitacora%' or
+descripcion like '%$busqueda_bitacora%' or
+creado_por like '%$busqueda_bitacora%'
+order by id_bitacora desc";
 $resultado = $conexion->query($consulta);
 
 //Genero el pdf en vertical y tamaño carta
@@ -92,6 +99,6 @@ $pdf->Output();
 $sesion_usuario=$_SESSION['usuario_login'];
 date_default_timezone_set("America/Tegucigalpa");
 $fecha = date('Y-m-d h:i:s');
-$sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Reporte Bitacora', 'Genero reporte bitacora','$sesion_usuario')");
+$sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Reporte Bitacora', 'Genero reporte especifico de bitacora','$sesion_usuario')");
 
 ?>

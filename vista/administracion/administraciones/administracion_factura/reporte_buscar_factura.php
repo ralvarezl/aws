@@ -56,10 +56,11 @@ function Footer()
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
 $busqueda_factura=$_SESSION['busqueda_factura'];
-$consulta = "select id_factura, fecha, numero_factura, subtotal, isv, total_descuento, total, pago, cambio, id_cliente, estado from tbl_factura
-where id_factura like '%$busqueda_factura%' or
-        fecha like '%$busqueda_factura%' or
-        numero_factura like '%$busqueda_factura%' or
+$fecha_inicio=$_SESSION['fecha_inicio'];
+$fecha_final=$_SESSION['fecha_final'];
+$consulta = "select fecha, id_factura, subtotal, isv, total_descuento, total, pago, cambio, id_cliente, estado from tbl_factura
+where fecha between '$fecha_inicio' and '$fecha_final' and
+        id_factura like '%$busqueda_factura%' or
         subtotal like '%$busqueda_factura%' or
         isv like '%$busqueda_factura%' or
         total_descuento like '%$busqueda_factura%' or
@@ -68,7 +69,7 @@ where id_factura like '%$busqueda_factura%' or
         cambio like '%$busqueda_factura%' or
         id_cliente like '%$busqueda_factura%' or
         estado like '%$busqueda_factura%' 
-order by id_factura asc";
+order by id_factura desc";
 $resultado = $conexion->query($consulta);
 
 //Genero el pdf en vertical y tamaño carta
@@ -84,8 +85,8 @@ $pdf->Cell(10);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode('N°'), 1, 0, 'C', 0);
-    $pdf->Cell(30, 10,utf8_decode('FECHA'), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode('NUMERO FACTURA'), 1, 0, 'C', 0);
+    $pdf->Cell(30, 10,utf8_decode('FECHA'), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode('SUB TOTAL'), 1, 0, 'C', 0);
     $pdf->Cell(20, 10,utf8_decode('ISV'), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode('TOTAL DESCUENTO'), 1, 0, 'C', 0);
@@ -100,8 +101,8 @@ while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
     $pdf->Cell(10);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
+    $pdf->Cell(30, 10,utf8_decode( $row['id_factura']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['fecha']), 1, 0, 'C', 0);
-    $pdf->Cell(30, 10,utf8_decode( $row['numero_factura']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['subtotal']), 1, 0, 'C', 0);
     $pdf->Cell(20, 10,utf8_decode( $row['isv']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['total_descuento']), 1, 0, 'C', 0);

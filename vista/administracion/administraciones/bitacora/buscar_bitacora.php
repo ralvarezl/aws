@@ -5,16 +5,17 @@ if(empty($_SESSION['usuario_login'])){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administracion factura</title>
+    <title>Bitacora</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_seguridad.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
+
 </head>
 
 <body>
@@ -26,7 +27,7 @@ if(empty($_SESSION['usuario_login'])){
                 Andrés Coffee
             </a>
             <a class="navbar-brand" href="#" >
-                 <i class="fas fa-lightbulb"></i> ADMINISTRACION FACTURA
+                <i class="fa-solid fa-list-check"></i> BITÁCORA
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -47,8 +48,8 @@ if(empty($_SESSION['usuario_login'])){
                     <a class="nav-link" href="../../../../controlador/bitacora_pantalla/inicio.php"><i class="fa-solid fa-house"></i> INICIO </a>
                 </li>
 
-                <!--FACTURACIÓN-->
-                <li class="btn btn-dark p-2">
+                 <!--FACTURACIÓN-->
+                 <li class="btn btn-dark p-2">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     FACTURACIÓN
                     </a>
@@ -113,10 +114,10 @@ if(empty($_SESSION['usuario_login'])){
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a></li>
                 </li>
                 </ul>
-            
+        
             </div>
-            <!--SALIR DEL SITEMA-->
-            <li class="btn btn-dark p-2">
+               <!--SALIR DEL SITEMA-->
+           <li class="btn btn-dark p-2">
                 <a class="nav-link" href="../../../../controlador/cerrar_sesion.php"><i class="fas fa-sign-out-alt"></i> SALIR DEL SISTEMA</a>
             </li>
             </div>
@@ -124,117 +125,75 @@ if(empty($_SESSION['usuario_login'])){
         </nav>
         <!--FIN DEL NAVBAR-->
 
-    <!--Funcion para confirmar si desea eliminar-->
-    <script>
-        function eliminar(){
-        var respuesta=confirm("Esta seguro que desea eliminar?");
-        return respuesta
-        }
-    </script>
-
-    <!--INICIO DE LA TABLE FACTURA-->
-    <?php 
-        //Declaramos la variable busqueda para capturar que es lo que quiere buscar el usuario
-        $busqueda_factura = strtoupper($_REQUEST['busqueda_factura']);
-        $fecha_inicio = strtoupper($_REQUEST['fecha_inicio']);
-        $fecha_final = strtoupper($_REQUEST['fecha_final']);
-    ?>
-    <div class="container-fluid row">
-        <div class="col-8 p-4 ">
-            <br><br>
-            <?php
-            include "../../../../modelo/conexion.php";
-            include "../../../../controlador/administraciones/eliminar_factura.php";
-            ?>  
-            <div class="row p-2"> <!--Div que contiene nuevo objeto y la busqueda-->
-                <div class="ml-auto p-2">
-                    <button type="button" class="btn btn-dark" onclick="location.href=''" >Nueva Factura</button>
-                </div>
-                    
-                <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_factura-->
+        <!--INICIO DE LA TABLE-->
+        <?php 
+            //Declaramos la variable busqueda para capturar que es lo que quiere buscar el usuario
+            $fecha_inicio = strtoupper($_REQUEST['fecha_inicio']);
+            $fecha_final = strtoupper($_REQUEST['fecha_final']);
+            $busqueda_bitacora = strtoupper($_REQUEST['busqueda_bitacora']);
+        ?>  
+        <div class="col-9 p-4 m-auto">
+        <br><br>
+        <a class="btn btn-dark" href="../../../../respaldos/respaldo.php"><i class="fa-solid "></i>Backup del Sistema</a>
+            <div class="row p-2">
                 <div class="align-items-end">
-                <form action="buscar_factura.php" method="get" class="form_search">
-                        <input type="text" name="busqueda_factura" id="busqueda_factura" placeholder="Buscar" value="<?php echo $busqueda_factura; ?>">
+                    <form action="buscar_bitacora.php" method="get" class="form_search">
+                        <input type="text" name="busqueda_bitacora" id="busqueda_bitacora" placeholder="Buscar" value="<?php echo $busqueda_bitacora; ?>">
                         <label for="formGroupExampleInput" class="form-label">Fecha inicio</label>
                         <input type="datetime" name="fecha_inicio" id="fecha_inicio" class="form-label" placeholder="Fecha Inicio" value="<?php echo $fecha_inicio; ?>">
                         <label for="formGroupExampleInput" class="form-label">Fecha final</label>
                         <input type="datetime" name="fecha_final" id="fecha_final" class="form-label" placeholder="Fecha Final" value="<?php echo $fecha_final; ?>">
-                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="administracion_factura.php"></a>
+                        <a class="fa-sharp fa-solid fa-rotate-right btn btn-lg btn-secondary" href="bitacora.php"></a>
                         <input type="submit" value="Buscar" class="btn btn-secondary">
-                        <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_buscar_factura.php"></a>
+                        <a class="fa-solid fa-file-pdf btn btn-lg btn-danger" href="reporte_buscar_bitacora.php"></a>
                     </form>
                 </div>
             </div>
-
-            <table class="table table-dark table-striped" style="text-align:center; white-space: nowrap; overflow: auto;">
-                <thead class="table-dark">
-                    <tr>
-                        <th class="col-sm-1" scope="col">N°</th>
-                        <th scope="col">NUMERO FACTURA</th>
-                        <th scope="col">FECHA</th>
-                        <th scope="col">SUB TOTAL</th>
-                        <th scope="col">ISV</th>
-                        <th scope="col">TOTAL DESCUENTO</th>
-                        <th scope="col">TOTAL A PAGAR</th>
-                        <th scope="col">PAGO</th>
-                        <th scope="col">CAMBIO</th>
-                        <th scope="col">ID_CLIENTE</th>
-                        <th scope="col">ESTADO</th>
-                        <th scope="col"style="width:15px"></th>
-                        <th scope="col"style="width:15px"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    //Llamado a la base de datos
-                    include "../../../../modelo/conexion.php";
-                    $sql=$conexion->query("select fecha, id_factura, subtotal, isv, total_descuento, total, pago, cambio, id_cliente, estado from tbl_factura
-                    where fecha between '$fecha_inicio' and '$fecha_final' and
-                            id_factura like '%$busqueda_factura%' or
-                            subtotal like '%$busqueda_factura%' or
-                            isv like '%$busqueda_factura%' or
-                            total_descuento like '%$busqueda_factura%' or
-                            total like '%$busqueda_factura%' or
-                            pago like '%$busqueda_factura%' or
-                            cambio like '%$busqueda_factura%' or
-                            id_cliente like '%$busqueda_factura%' or
-                            estado like '%$busqueda_factura%' 
-                    order by id_factura desc");
-                    $numero=0;
-                    while($u = $sql->fetch_assoc()){ ?>
-                    <tr>
-                        <td><?php echo $numero=$numero+1; ?></td>
-                        <td><?php echo $u['id_factura']; ?></td>
-                        <td><?php echo $u['fecha']; ?></td>
-                        <td><?php echo $u['subtotal']; ?></td>
-                        <td><?php echo $u['isv']; ?></td>
-                        <td><?php echo $u['total_descuento']; ?></td>
-                        <td><?php echo $u['total']; ?></td>
-                        <td><?php echo $u['pago']; ?></td>
-                        <td><?php echo $u['cambio']; ?></td>
-                        <td><?php echo $u['id_cliente']; ?></td>
-                        <td><?php echo $u['estado']; ?></td>
-                        <td>
-                            <a href="../../../facturacion/src/pdf/generar.php?cl=<?= $u['id_cliente'] ?>&v=<?= $u['id_factura'] ?>"  class="btn btn-small btn-danger" name="btnactualizar"><i class="fa-solid fa-file-pdf btn-lg"></i></a>
-                        </td>
-                        <td>
-                            <a onclick="return eliminar()" href="administracion_factura.php?id_factura=<?= $u['id_factura'] ?>" class="btn btn-small btn-danger" name="btnborrar_factura"><i class="fa-solid fa-trash-can"></i></a>
-                        </td>
-                    </tr>
-                    <?php }
-                    $_SESSION['busqueda_factura'] = $busqueda_factura;
-                    $_SESSION['fecha_inicio'] = $fecha_inicio;
-                    $_SESSION['fecha_final'] = $fecha_final;
-                    ?>
-                </tbody>
-            </table>
+        <?php
+                include "../../../../modelo/conexion.php";
+                
+                ?>
+                    <table class="table table-dark table-striped" style="text-align:center;" >
+                        <thead class="table-dark">
+                        
+                            <tr>
+                            <th scope="col">FECHA ACCIÓN</th>
+                            <th scope="col">ACCIÓN</th>
+                            <th scope="col">DESCRIPCIÓN</th>
+                            <th scope="col">REALIZADO POR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            //Llamado a la base de datos
+                            include "../../../../modelo/conexion.php";
+                            $sql= $conexion->query("select fecha_bitacora, accion, descripcion, creado_por from tbl_ms_bitacora where fecha_bitacora between '$fecha_inicio' and '$fecha_final' and
+                                accion like '%$busqueda_bitacora%' or
+                                descripcion like '%$busqueda_bitacora%' or
+                                creado_por like '%$busqueda_bitacora%'
+                            order by id_bitacora desc");
+                            while($u = $sql->fetch_assoc()){ ?>
+                            <tr>
+                                <td><?php echo $u['fecha_bitacora']; ?></td>
+                                <td><?php echo $u['accion']; ?></td>
+                                <td><?php echo $u['descripcion']; ?></td>
+                                <td><?php echo $u['creado_por']; ?></td>
+                            </tr>
+                            <?php }
+                            $_SESSION['fecha_inicio'] = $fecha_inicio;
+                            $_SESSION['fecha_final'] = $fecha_final;
+                            $_SESSION['busqueda_bitacora'] = $busqueda_bitacora;
+                            ?>
+                        </tbody>
+                    </table>
 
         </div>
-    </div>
+        
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/646c794df3.js"></script>
 
-    </body>
+
+</body>
 </html>

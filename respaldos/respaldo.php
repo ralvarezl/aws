@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+if(empty($_SESSION['usuario_login'])){
+    header("location:../login.php");
+}
     //==================================Respaldo==========================
 // Funcion respaldar_db
 function respaldar_db($host, $user, $pass, $dbname, $tables = '*') {
@@ -81,6 +86,12 @@ function respaldar_db($host, $user, $pass, $dbname, $tables = '*') {
     fwrite($handle,$return);
     if(fclose($handle)){
         echo '<script language="javascript">alert("Copia guardada exitosamente vuelva a iniciar sesion");;window.location.href="../login.php"</script>';//Objeto eliminado
+        //Guardar la bitacora
+        include "../modelo/conexion.php";
+        $sesion_usuario=$_SESSION['usuario_login'];
+        date_default_timezone_set("America/Tegucigalpa");
+        $fecha = date('Y-m-d h:i:s');
+        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Backup del sistema', 'Genero backup del sistema','$sesion_usuario')");
         exit; 
     }
 }
