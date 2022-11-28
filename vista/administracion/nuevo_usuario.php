@@ -131,7 +131,7 @@ if($permiso <> 'PERMITIR'){
             <select class="form-select" aria-label="Default select example" name="id_rol">
             <?php 
             include "../../modelo/conexion.php";
-            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles");
+            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles where id_rol<>4");
                 //Mostrar los roles creados en la base de datos
                 while($datos=mysqli_fetch_array($sql)){
                     echo '<option value="'.$datos['id_rol'].'">'.$datos['rol'].'</option>';
