@@ -109,8 +109,18 @@ if (!empty($_POST["perfil"])) {
     if($validar=true){
         usuario_modificado($usuario,$nombres,$identidad,$telefono,$password,$id_usuario,$validar);
         if($validar=true){
-            actualizar_respuesta($id_usuario,$pregunta,$respuesta,$usuario,$validar);
-            $_SESSION["usuario_login"]=$usuario;
+            if(empty($_POST["respuesta"])){
+                $_SESSION["usuario_login"]=$usuario; 
+                 //Guardar en bitacora
+                    date_default_timezone_set("America/Tegucigalpa");
+                    $fecha = date('Y-m-d h:i:s');
+                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Editar datos de perfil', '$usuario modifico sus datos de perfil','$usuario')");
+                    echo '<script language="javascript">alert("Usuario actualizó datos correctamente");;window.location.href="perfil_usuario.php"</script>';
+            }else{
+                actualizar_respuesta($id_usuario,$pregunta,$respuesta,$usuario,$validar);
+                $_SESSION["usuario_login"]=$usuario;
+            }
+            
         }
     }
     
