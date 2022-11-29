@@ -204,7 +204,7 @@ if(empty($_SESSION['usuario_login'])){
                                         <td><?php echo $u['telefono']; ?></td>
                                         <td><?php echo $u['direccion']; ?></td>
                                         <td><?php echo $u['correo']; ?></td>
-                                        <td><?php echo $u['u.estado']; ?></td>
+                                        <td><?php echo $u['estado']; ?></td>
                                         <td><?php echo $u['rol']; ?></td>
                                         <td><?php echo $u['fecha_vencimiento']; ?></td>
                                         <td>

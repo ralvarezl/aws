@@ -59,6 +59,12 @@ if(empty($_SESSION['usuario_login'])){
             <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono">
             </div>
 
+            <!--INGRESE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <input type="text" readonly="readonly" class="form-control" value="ACTIVO" name="">
+            </div>
+
             <!--BOTON NUEVO CLIENTE-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-outline-dark" name="btnregistrarcliente" value="ok">Registrar Cliente</button>

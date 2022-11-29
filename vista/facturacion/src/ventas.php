@@ -270,7 +270,7 @@ include "ajax.php";
                                             <label for="tipo" class="col-md-7 control-label">Tipo pedido</label>
                                             <select class="form-select" aria-label="Default select example" name="descripcion" id="descripcion">
                                             <?php 
-                                            $sql=$conexion->query("select descripcion from tbl_tipo_pedido");
+                                            $sql=$conexion->query("select descripcion from tbl_tipo_pedido where estado = 'ACTIVO'");
                                                 //Mostrar los roles creados en la base de datos
                                                 while($datos=mysqli_fetch_array($sql)){
                                                     echo '<option value="'.$datos['descripcion'].'">'.$datos['descripcion'].'</option>';
@@ -286,7 +286,7 @@ include "ajax.php";
                                             <label for="tipo" class="col-md-7 control-label">Sucursal:</label>
                                             <select class="form-select" aria-label="Default select example" name="sucursal" id="sucursal">
                                             <?php 
-                                            $sql=$conexion->query("select nombre from tbl_sucursal");
+                                            $sql=$conexion->query("select nombre from tbl_sucursal where estado = 'ACTIVO'");
                                                 //Mostrar los roles creados en la base de datos
                                                 while($datos=mysqli_fetch_array($sql)){
                                                     echo '<option value="'.$datos['nombre'].'">'.$datos['nombre'].'</option>';

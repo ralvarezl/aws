@@ -13,7 +13,7 @@ if(empty($_SESSION['usuario_login'])){
     <title>Administracion factura</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../../../public/style_inicio.css">
+    <link rel="stylesheet" type="text/css" href="../../../../public/style_admin.css">
     <link rel="shortcut icon" href="../../../../public/img/Logo.png">
 </head>
 
@@ -144,7 +144,6 @@ if(empty($_SESSION['usuario_login'])){
     ?>
     <div class="container-fluid row">
         <div class="col-8 p-4 ">
-            <br><br>
             <?php
             include "../../../../modelo/conexion.php";
             include "../../../../controlador/administraciones/eliminar_factura.php";
@@ -157,7 +156,6 @@ if(empty($_SESSION['usuario_login'])){
                 <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_factura-->
                 <div class="align-items-end">
                 <form action="buscar_factura.php" method="get" class="form_search">
-                        <input type="text" name="busqueda_factura" id="busqueda_factura" placeholder="Buscar" value="<?php echo $busqueda_factura; ?>">
                         <label for="formGroupExampleInput" class="form-label">Fecha inicio</label>
                         <input type="datetime" name="fecha_inicio" id="fecha_inicio" class="form-label" placeholder="Fecha Inicio" value="<?php echo $fecha_inicio; ?>">
                         <label for="formGroupExampleInput" class="form-label">Fecha final</label>
@@ -193,16 +191,7 @@ if(empty($_SESSION['usuario_login'])){
                     //Llamado a la base de datos
                     include "../../../../modelo/conexion.php";
                     $sql=$conexion->query("select fecha, id_factura, subtotal, isv, total_descuento, total, pago, cambio, id_cliente, estado from tbl_factura
-                    where fecha between '$fecha_inicio' and '$fecha_final' and
-                            id_factura like '%$busqueda_factura%' or
-                            subtotal like '%$busqueda_factura%' or
-                            isv like '%$busqueda_factura%' or
-                            total_descuento like '%$busqueda_factura%' or
-                            total like '%$busqueda_factura%' or
-                            pago like '%$busqueda_factura%' or
-                            cambio like '%$busqueda_factura%' or
-                            id_cliente like '%$busqueda_factura%' or
-                            estado like '%$busqueda_factura%' 
+                    where fecha between '$fecha_inicio' and '$fecha_final'
                     order by id_factura desc");
                     $numero=0;
                     while($u = $sql->fetch_assoc()){ ?>

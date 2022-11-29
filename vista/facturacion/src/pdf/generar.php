@@ -116,7 +116,7 @@ $pdf->Cell(15, 5, 'Total.', 0, 1, 'L');
 $pdf->SetFont('Arial', '', 7);
 $total = 0.00;
 while ($row = mysqli_fetch_assoc($ventas)) {
-    $pdf->Cell(30, 5, $row['nombre'], 0, 0, 'L');
+    $pdf->Cell(30, 5, utf8_decode($row['nombre']), 0, 0, 'L');
     $pdf->Cell(10, 5, $row['cantidad'], 0, 0, 'L');
     $pdf->Cell(15, 5, $row['precio'], 0, 0, 'L');
     $sub_total = $row['total'];
@@ -124,7 +124,7 @@ while ($row = mysqli_fetch_assoc($ventas)) {
     $pdf->Cell(15, 5, number_format($sub_total, 2, '.', ','), 0, 1, 'L');
 }
 while ($row = mysqli_fetch_assoc($ventas2)) {
-    $pdf->Cell(30, 5, $row['descripcion'], 0, 0, 'L');
+    $pdf->Cell(30, 5, utf8_decode($row['descripcion']), 0, 0, 'L');
     $pdf->Cell(10, 5, $row['cantidad'], 0, 0, 'L');
     $pdf->Cell(15, 5, $row['precio'], 0, 0, 'L');
     $sub_total = $row['total'];
@@ -186,4 +186,10 @@ $pdf->Cell(65, 5, number_format($cambio, 2, '.', ','), 0, 1, 'R');
 
 $pdf->Output("ventas.pdf", "I");
 
+
+//Guardar la bitacora
+$sesion_usuario=$_SESSION['usuario_login'];
+date_default_timezone_set("America/Tegucigalpa");
+$fecha = date('Y-m-d h:i:s');
+$sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Finalizacion de factura', 'Genero factura','$sesion_usuario')");
 ?>

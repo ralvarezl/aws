@@ -55,10 +55,11 @@ function Footer()
 
 //Llamo a la BD
 require ('../../../../modelo/conexion.php');
-$consulta = "select id_factura_detalle,nombre,d.precio, d.cantidad, total, descripcion, d.estado
+$consulta = "select id_factura_detalle, nombre, d.precio, d.cantidad, d.total, pr.descripcion, f.id_factura, d.estado
 from tbl_factura_detalle d
-inner join tbl_producto p on p.id_producto=d.id_producto
-inner join tbl_promocion pro on pro.id_promocion=d.id_promocion";
+inner join tbl_producto p on p.id_producto=d.id_factura_detalle
+inner join tbl_promocion pr on pr.id_promocion=d.id_promocion
+inner join tbl_factura f on f.id_factura = d.id_factura";
 $resultado = $conexion->query($consulta);
 
 //Genero el pdf en vertical y tamaño carta

@@ -14,7 +14,7 @@ $USER=$_SESSION['usuario_login'];
     <title>Perfil de Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/02575225aa.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../../public/style_home.css">
+    <link rel="stylesheet" type="text/css" href="../../public/style_factura.css">
     <link rel="shortcut icon" href="../../public/img/Logo.png">
 
 </head>
@@ -179,7 +179,9 @@ $USER=$_SESSION['usuario_login'];
                         </tbody>
                     </table>
                     <!--SELECCIONE PREGUNTAS-->
-                    <div class="mb-3">
+
+                    <div class="row p-2">
+                    <form action="login.php" class="col-3 p-3 m-auto" method="post">
                     <label for="formGroupExampleInput" class="form-label"><b>PREGUNTAS CONTESTADAS</b></label>
                     <?php 
                     include "../../modelo/conexion.php";
@@ -200,6 +202,8 @@ $USER=$_SESSION['usuario_login'];
 
                     ?>
                     </div>
+                    </form>
+                    
                     <!--FIN DE LA TABLE USUARIOS-->
 
                     <!--BOTON PROVISIONAL SALIDA

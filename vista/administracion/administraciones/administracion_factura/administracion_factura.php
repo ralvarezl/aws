@@ -175,7 +175,6 @@ if($permiso <> 'PERMITIR'){
                         $fecha = date('Y-m-d 00:00');
                         $fecha2 = date('Y-m-d 11:59');
                         ?>
-                        <input type="text" name="busqueda_factura" id="busqueda_factura" placeholder="Buscar">
                         <label for="formGroupExampleInput" class="form-label">Fecha inicio</label>
                         <input type="datetime" name="fecha_inicio" id="fecha_inicio" class="form-label" placeholder="Fecha Inicio" value="<?php date_default_timezone_set("America/Tegucigalpa"); echo date("Y-m-d 00:00"); ?>">
                         <label for="formGroupExampleInput" class="form-label">Fecha final</label>

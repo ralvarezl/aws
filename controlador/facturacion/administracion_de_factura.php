@@ -13,7 +13,7 @@ function campo_vacio($nombres,$identidad,$genero,$telefono,&$validar){
 //NUEVO CLIENTE
 function nuevo_cliente($nombres,$identidad,$genero,$telefono,&$validar){
     include "../../../modelo/conexion.php";
-    $sql=$conexion->query("insert into tbl_cliente (nombres,identidad,genero,telefono) values ('$nombres',$identidad,'$genero',$telefono)"); 
+    $sql=$conexion->query("insert into tbl_cliente (nombres,identidad,genero,telefono,estado) values ('$nombres',$identidad,'$genero',$telefono,'ACTIVO')"); 
     if($sql==1){
         return $validar;
     }else{
@@ -158,7 +158,7 @@ if (!empty($_POST["btnregistrarcliente"])) {
                         //Guardar la bitacora 
                         date_default_timezone_set("America/Tegucigalpa");
                         $fecha = date('Y-m-d h:i:s');
-                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo cliente', 'Cliente nuevo','$sesion_usuario')");
+                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nuevo cliente desde la factura', 'Cliente nuevo en la factura','$sesion_usuario')");
                         //Mensaje de confirmacion
                         echo '<script language="javascript">alert("Cliente registrado exitosamente");;window.location.href="ventas.php"</script>';
                     }

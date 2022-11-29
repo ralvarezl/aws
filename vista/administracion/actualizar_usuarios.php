@@ -157,7 +157,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <option selected value="<?= $datos->id_rol ?>"><?= $datos->rol ?></option>
             <?php 
             include "../../modelo/conexion.php";
-            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles where id_rol<>'$datos->id_rol'" );
+            $sql=$conexion->query("select id_rol, rol from tbl_ms_roles where id_rol<>'$datos->id_rol' and id_rol<>4" );
                 //Mostrar los roles creados en la base de datos
                 while($datos=mysqli_fetch_array($sql)){
                     echo '<option value="'.$datos['id_rol'].'" >'.$datos['rol'].'</option>';
