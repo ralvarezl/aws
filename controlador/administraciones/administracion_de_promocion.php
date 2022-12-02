@@ -67,7 +67,7 @@ function Valida_descripcion($descripcion,&$validar){
 
 //VALIDAR QUE NO SE REPIT LA PROMOCION
 function Validar_promocion($descripcion,&$validar){
-    include "../../../../modelo/conexion.php";
+    include "../../../modelo/conexion.php";
 
     $sql2=mysqli_query($conexion, "select descripcion from tbl_promocion where descripcion='$descripcion'");//consultar por el nombre
     $row2=mysqli_fetch_array($sql2);
@@ -82,9 +82,11 @@ function Validar_promocion($descripcion,&$validar){
 }
 
 //NUEVA PROMOCION
-function nuevo_promocion($descripcion,$precio,&$validar){
-    include "../../../../modelo/conexion.php";
-    $sql=$conexion->query(" insert into tbl_promocion (descripcion,precio, estado) values ('$descripcion',$precio, 'ACTIVO')"); 
+function nuevo_promocion($descripcion,$precio,$fecha_inicial,$fecha_final,&$validar){
+    include "../../../modelo/conexion.php";
+     
+    $sql=$conexion->query(" insert into tbl_promocion (descripcion,precio,fecha_inicial,fecha_final,estado) 
+                                values ('$descripcion',$precio,'$fecha_inicial','$fecha_final','ACTIVO')"); 
     if($sql==1){
         return $validar;
     }else{
@@ -94,7 +96,7 @@ function nuevo_promocion($descripcion,$precio,&$validar){
 
 //MODIFICAR PRODUCTO
 function modificar_producto($id_promocion,$descripcion,$precio,&$validar){
-    include "../../../../modelo/conexion.php";
+    include "../../../modelo/conexion.php";
 
     //Consultar por el prodcuto
     $sql=mysqli_query($conexion, "select descripcion from tbl_promocion where id_promocion=$id_promocion");
@@ -125,15 +127,60 @@ function modificar_producto($id_promocion,$descripcion,$precio,&$validar){
 //-----------------------FIN FUNCIONES-------------------------------------
 
 //Ingresar nuevo pedido
+
+//Funcion para validar campos vacios
+function campo_vacio_nuevo($descripcion,$fecha_final,$precio,&$validar){
+    if (!empty($_POST["descripcion"] and $_POST["fecha_final"] and $_POST["Precio"] and $validar=true)) { //Campos llenos
+        return $validar;
+    }else {
+        $validar=false;
+        echo"<div align='center' class='alert alert-danger'>Por favor llene todos los campos</div>"; //Campos vacios
+        return $validar;
+    }
+}
+
+//Funcion para llenar la tabla promocion producto
+function Llenar_prom_prod($descripcion,$precio,&$validar){
+    
+    include "../../../modelo/conexion.php";
+    $id_user=2;
+
+    $id_maximo = mysqli_query($conexion, "SELECT id_promocion from tbl_promocion where precio='$precio' and descripcion='$descripcion'");
+    $resultId = mysqli_fetch_assoc($id_maximo);
+    $ultimoId = $resultId['id_promocion'];
+
+    $consulta = mysqli_query($conexion, "SELECT id, id_usuario, id_producto, cantidad, precio_venta, total FROM tbl_detalle_temp WHERE id_usuario = $id_user");
+        while($row = mysqli_fetch_assoc($consulta)){
+            $id_producto = $row['id_producto'];
+            $precio = $row['precio_venta'];
+            $cantidad = $row['cantidad'];
+
+            $insertarDet = mysqli_query($conexion, "INSERT INTO tbl_promocion_producto(cantidad, precio, id_promocion, id_producto, estado) VALUES ($cantidad,'$precio',$ultimoId,$id_producto,'ACTIVO')");
+        }
+
+        if($insertarDet){
+            $eliminar2 = mysqli_query($conexion, "DELETE FROM tbl_detalle_temp WHERE id_usuario = $id_user");
+            return $validar=true;
+        }else{
+            $validar=false;
+            echo"<div align='center' class='alert alert-danger'>No se han guardado todos los productos</div>"; //Campos vacios
+            return $validar;
+
+        }
+
+}
+
 if (!empty($_POST["btnregistrarpromocion"])) {
 
-    include "../../../../modelo/conexion.php";
+    include "../../../modelo/conexion.php";
     $sesion_usuario=$_SESSION['usuario_login'];
     $validar=true;
     $descripcion=$_POST["descripcion"];
-    $precio=$_POST["precio"];
+    $precio=$_POST["Precio"];
+    $fecha_inicial=date('Y-m-d');
+    $fecha_final=$_POST["fecha_final"];
 
-    campo_vacio($descripcion,$precio, $validar);
+    campo_vacio_nuevo($descripcion,$fecha_final,$precio,$validar);
     if($validar==true){
         Valida_descripcion($descripcion,$validar);
         if($validar==true){
@@ -141,14 +188,17 @@ if (!empty($_POST["btnregistrarpromocion"])) {
             if ($validar==true) {
                 limite_descripcion_precio($descripcion, $precio, $validar);
                 if ($validar==true) {
-                    nuevo_promocion($descripcion,$precio,$validar);
+                    nuevo_promocion($descripcion,$precio,$fecha_inicial,$fecha_final,$validar);
                     if ($validar==true) {
-                        //Guardar la bitacora 
-                        date_default_timezone_set("America/Tegucigalpa");
-                        $fecha = date('Y-m-d h:i:s');
-                        $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nueva promocion', 'Promocion nueva','$sesion_usuario')");
-                        echo '<script language="javascript">alert("SE A GUARDADO LA PROMOCION CON ÉXITOS");</script>';
-                        header("location:administracion_promocion.php");
+                        Llenar_prom_prod($descripcion,$precio,$validar);
+                        if ($validar==true) {
+                            //Guardar la bitacora 
+                            date_default_timezone_set("America/Tegucigalpa");
+                            $fecha = date('Y-m-d h:i:s');
+                            $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Creo nueva promocion', 'Promocion nueva','$sesion_usuario')");
+                            echo '<script language="javascript">alert("SE A GUARDADO LA PROMOCION CON ÉXITOS");</script>';
+                            header("location:../../administracion/administraciones/administracion_promocion/administracion_promocion.php");
+                        }
                     }
                 }    
             }

@@ -160,7 +160,7 @@ if($permiso <> 'PERMITIR'){
 
         <div class="row p-2"> <!--Div que contiene nuevo usuario y la busqueda-->
                 <div class="ml-auto p-2">
-        <button type="button" class="btn btn-dark" onclick="location.href='nuevo_promocion.php'" >Nueva Promoción</button>
+                <button type="button" class="btn btn-dark" onclick="location.href='../../../facturacion/src/nueva_promocion.php'" >Nueva Promoción</button>
         </div>
 
         <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
