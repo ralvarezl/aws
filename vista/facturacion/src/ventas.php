@@ -171,7 +171,7 @@ include "ajax.php";
                                     <div class="col-lg-5">
                                         <div class="form-group">
                                             <label for="producto">Nombre o Tipo de Producto</label>
-                                            <input id="producto" class="form-control" type="text" name="producto" placeholder="Ingresa el nombre o tipo">
+                                            <input id="producto" class="form-control" type="text" name="producto" placeholder="Ingresa el nombre o tipo" onKeyUp="this.value=this.value.toUpperCase();">
                                             <input id="id" type="hidden" name="id">
                                         </div>
                                     </div>
@@ -204,7 +204,7 @@ include "ajax.php";
                                     <div class="col-lg-5">
                                         <div class="form-group">
                                             <label for="promocion">Nombre de Promocion</label>
-                                            <input id="promocion" class="form-control" type="text" name="promocion" placeholder="Ingresa el nombre">
+                                            <input id="promocion" class="form-control" type="text" name="promocion" placeholder="Ingresa el nombre" onKeyUp="this.value=this.value.toUpperCase();">
                                             <input id="id_prom" type="hidden" name="id_prom">
                                         </div>
                                     </div>
@@ -231,25 +231,40 @@ include "ajax.php";
                         </div>
                     </div>
 
-                    <div class="col-8 p-3 m-auto">
-                            <h4 class="text-center">Detalles Descuentos</h4>
+                    <div class="col-12 p-3 m-auto">
+                            <h4 class="text-center">Detalles Descuentos y Tipo Pedido</h4>
                             <div class="col-10 p-3 m-auto">
                                 <div class="card-body">
                                     <div class="row">
-                                            <div class="col-lg-8">
+                                            <div class="col-lg-5">
                                                 <div class="form-group">
                                                     <input type="hidden" id="id_desc" value="1" name="id_desc" required>
                                                     <label for="descuento">Aplicar Descuento</label>
-                                                    <input type="text" name="descuento" id="descuento" class="form-control" placeholder="Ingresa el nombre del descuento" onchange="calcular()">
+                                                    <input type="text" name="descuento" id="descuento" class="form-control" placeholder="Ingresa el nombre del descuento" onKeyUp="this.value=this.value.toUpperCase();" onchange="calcular()">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="descu" class="col-md-1 control-label">Descuento: </label>
-                                                    <input id="descu" class="form-control" type="text" name="descu" disabled>
+                                                    <input id="descu" class="form-control" type="text" name="descu" readonly="readonly" >
                                                 </div>
                                             </div>  
+                                            <!--SELECCIONE TIPO DE PEDIDO-->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="tipo" class="col-md-7 control-label">Tipo pedido</label>
+                                                    <select class="form-select" aria-label="Default select example" name="descripcion" id="descripcion">
+                                                    <?php 
+                                                    $sql=$conexion->query("select descripcion from tbl_tipo_pedido where estado = 'ACTIVO'");
+                                                        //Mostrar los roles creados en la base de datos
+                                                        while($datos=mysqli_fetch_array($sql)){
+                                                            echo '<option value="'.$datos['descripcion'].'">'.$datos['descripcion'].'</option>';
+                                                        }
+                                                    ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -260,25 +275,10 @@ include "ajax.php";
                     <div class="col-12 p-3 m-auto">
                         <br>
                         <h4 class="text-center">Detalles de Factura</h4>
-                        <div class="col-11 p-2 m-auto">
+                        <div class="col-10 p-3 m-auto">
                             <div class="card-body">
                                 <div class="row">
                                  
-                                    <!--SELECCIONE TIPO DE PEDIDO-->
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="tipo" class="col-md-7 control-label">Tipo pedido</label>
-                                            <select class="form-select" aria-label="Default select example" name="descripcion" id="descripcion">
-                                            <?php 
-                                            $sql=$conexion->query("select descripcion from tbl_tipo_pedido where estado = 'ACTIVO'");
-                                                //Mostrar los roles creados en la base de datos
-                                                while($datos=mysqli_fetch_array($sql)){
-                                                    echo '<option value="'.$datos['descripcion'].'">'.$datos['descripcion'].'</option>';
-                                                }
-                                            ?>
-                                            </select>
-                                        </div>
-                                    </div>
 
                                     <!--SELECCIONE LA SUCURSAL-->
                                     <div class="col-md-4">
@@ -295,19 +295,34 @@ include "ajax.php";
                                             </select>
                                         </div>
                                     </div>
+                                
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="Pago" class="col-md-7 control-label">Pago</label>
+                                            <select class="form-select" aria-label="Default select example" name="pago" id="pago">
+                                                    <?php 
+                                                    $sql=$conexion->query("select tipo from tbl_tipo_pago where estado = 'ACTIVO'");
+                                                        //Mostrar los roles creados en la base de datos
+                                                        while($datos=mysqli_fetch_array($sql)){
+                                                            echo '<option value="'.$datos['tipo'].'">'.$datos['tipo'].'</option>';
+                                                        }
+                                                    ?>
+                                                    </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="fecha" class="col-md-1 control-label">Fecha</label>
+                                            <input type="text" class="form-control input-sm" id="fecha" value="<?php echo date("d/m/Y");?>" readonly disabled>
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="empresa" class="col-md-1 control-label">Vendedor: </label>
                                             <input type="text" readonly="readonly" class="form-control" id="vendedor"
-                                                    name="vendedor" value="<?=$_SESSION['usuario_login'];?>" >
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="fecha" class="col-md-1 control-label">Fecha</label>
-                                            <input type="text" class="form-control input-sm" id="fecha" value="<?php echo date("d/m/Y");?>" readonly disabled>
+                                                    name="vendedor" value="<?=$_SESSION['usuario_login'];?>" readonly disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -356,7 +371,7 @@ include "ajax.php";
                                         <td>PAGO RECIBIDO:</td>
                                         <td>
                                             <div class="col-md-3">
-                                                <input id="Pago" class="form-control" type="number" name="Pago" placeholder="Pago de cliente" required onkeyup="calcular()">
+                                                <input id="Pago" class="form-control" type="number" name="Pago" placeholder="Pago" required onkeyup="calcular()">
                                             </div>
                                         </td>
                                     </tr>
@@ -379,20 +394,20 @@ include "ajax.php";
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <input type="hidden" id="idcliente" value="1" name="idcliente" required>
-                                                <label>Nombre</label>
+                                                <label>Identidad</label>
                                                 <input type="text" name="nom_cliente" id="nom_cliente" class="form-control" placeholder="Ingrese nombre del cliente" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input type="text" name="idt_cliente" id="idt_cliente" class="form-control" disabled required>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Teléfono</label>
                                                 <input type="number" name="tel_cliente" id="tel_cliente" class="form-control" disabled required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Identidad</label>
-                                                <input type="text" name="idt_cliente" id="idt_cliente" class="form-control" disabled required>
                                             </div>
                                         </div>
                                         <div class="col-md-2">

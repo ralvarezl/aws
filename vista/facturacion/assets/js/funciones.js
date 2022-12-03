@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             $("#idcliente").val(ui.item.id);
             $("#nom_cliente").val(ui.item.label);
             $("#tel_cliente").val(ui.item.telefono);
-            $("#idt_cliente").val(ui.item.identidad);
+            $("#idt_cliente").val(ui.item.nombre);
         }
     })
     
@@ -112,6 +112,13 @@ document.addEventListener("DOMContentLoaded", function () {
             $("#id_desc").val(ui.item.id);
             $("#descuento").val(ui.item.value);
             $("#descu").val(ui.item.precio);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Descuento Ingresado',
+                showConfirmButton: false,
+                timer: 2000
+            })
             calcular();
         }
     })
@@ -127,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var sucur= $('#sucursal').val();
             var pago= $('#Pago').val();
             var id_user= $('#vendedor').val();
+            var tipo_pago=$('#pago').val();
             $.ajax({
                 url: 'ajax.php',
                 async: true,
@@ -137,7 +145,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     descrip:descrip,
                     sucur:sucur,
                     pago:pago,
-                    id_user:id_user
+                    id_user:id_user,
+                    tipo_pago:tipo_pago
                 },
                 success: function (response) {
 

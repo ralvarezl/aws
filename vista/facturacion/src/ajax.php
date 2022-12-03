@@ -6,11 +6,11 @@ if (isset($_GET['q'])) {
     $datos = array();
     $nombres = $_GET['q'];
     
-    $cliente = mysqli_query($conexion, "SELECT id_cliente, nombres, telefono, identidad, estado FROM tbl_cliente WHERE nombres LIKE '%".$nombres."%' AND estado='ACTIVO'");
+    $cliente = mysqli_query($conexion, "SELECT id_cliente, nombres, telefono, identidad, estado FROM tbl_cliente WHERE identidad LIKE '%".$nombres."%' AND estado='ACTIVO'");
     while ($row = mysqli_fetch_assoc($cliente)) {
         $data['id'] = $row['id_cliente'];
-        $data['label'] = $row['nombres'];
-        $data['identidad'] = $row['identidad'];
+        $data['label'] = $row['identidad'];
+        $data['nombre'] = $row['nombres'];
         $data['telefono'] = $row['telefono'];
         array_push($datos, $data);
     }
@@ -120,6 +120,7 @@ if (isset($_GET['q'])) {
             $descrip=$_GET["descrip"];
             $nombre=$_GET["sucur"];
             $Pago=$_GET["pago"];
+            $Tipo_pago=$_GET["tipo_pago"];
             date_default_timezone_set("America/Tegucigalpa");
             $fecha= date('Y-m-d h:i:s');
 
@@ -159,10 +160,7 @@ if (isset($_GET['q'])) {
             $total_descuento=($subtotal*$porcentaje_descu);
             $total=$subtotal-$total_descuento+$ISV;
 
- 
 
-        if($Pago>$total){
-        
                 $Cambio=$Pago-$total;
 
  
@@ -177,11 +175,14 @@ if (isset($_GET['q'])) {
             $row2=mysqli_fetch_array($sql2);
                 $id_sucursal=$row2[0];
 
+            $sql2=mysqli_query($conexion, "select ID_TIPO_PAGO from tbl_tipo_pago where tipo='$Tipo_pago'");
+            $row2=mysqli_fetch_array($sql2);
+                $id_tipo_pago=$row2[0];
  
 
 
-            $insertar = mysqli_query($conexion, "insert into tbl_factura (fecha,subtotal,isv, total_descuento, total,pago,cambio, id_tipo_pedido, id_cliente, id_sucursal,id_usuario,estado) 
-                                values ('$fecha','$subtotal','$ISV','$total_descuento','$total','$Pago','$Cambio',$id_tipo_pedido,$id_cliente,$id_sucursal,$Id_usuario,'ACTIVO')"); 
+            $insertar = mysqli_query($conexion, "insert into tbl_factura (fecha,subtotal,isv, total_descuento, total,pago,cambio, id_tipo_pedido, ID_TIPO_PAGO, id_cliente, id_sucursal,id_usuario,estado) 
+                                values ('$fecha','$subtotal','$ISV','$total_descuento','$total','$Pago','$Cambio',$id_tipo_pedido,$id_tipo_pago,$id_cliente,$id_sucursal,$Id_usuario,'ACTIVO')"); 
 
  
 
@@ -191,7 +192,7 @@ if (isset($_GET['q'])) {
  
 
 
-                $id_maximo = mysqli_query($conexion, "SELECT id_factura from tbl_factura where subtotal='$subtotal'");
+                $id_maximo = mysqli_query($conexion, "SELECT id_factura from tbl_factura where subtotal='$subtotal' and fecha='$fecha' and total='$total' and id_cliente=$id_cliente");
                 $resultId = mysqli_fetch_assoc($id_maximo);
                 $ultimoId = $resultId['id_factura'];
 
@@ -235,12 +236,9 @@ if (isset($_GET['q'])) {
                     $msg = array('id_cliente' => $id_cliente, 'id_venta' => $ultimoId);
                 }
 
- 
-
         }else{
             $msg = array('mensaje' => 'error');
         }
-    }
         echo json_encode($msg);
         die();
     
