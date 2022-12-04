@@ -133,7 +133,8 @@ $USER=$_SESSION['usuario_login'];
                     <br><br>
                 <?php
                 include "../../modelo/conexion.php";
-                
+                include "../../controlador/perfil_usuario.php";
+            
                 //echo "Nombre de usuario recuperado de la variable de sesión:" . $_SESSION['usuario_login'];
                 ?>  
                     <!--BUSQUEDA, al apretar el boton buscar que me envie a buscar_usuarios-->
@@ -179,7 +180,6 @@ $USER=$_SESSION['usuario_login'];
                         </tbody>
                     </table>
                     <!--SELECCIONE PREGUNTAS-->
-
                     <div class="row p-2">
                     <form action="login.php" class="col-3 p-3 m-auto" method="post">
                     <label for="formGroupExampleInput" class="form-label"><b>PREGUNTAS CONTESTADAS</b></label>
@@ -195,8 +195,8 @@ $USER=$_SESSION['usuario_login'];
                         while($datos=$sql->fetch_object()){?>
                             <!--INGRESE RESPUESTA-->
                             <div class="mb-3">
-                            <label for="formGroupExampleInput" class="form-label"><?= $datos->PREGUNTA ?></label>
-                            <input type="text" class="form-control" placeholder="Ingrese respuesta" readonly="readonly" value="<?= $datos->RESPUESTA ?>">
+                            <label for="formGroupExampleInput" id="pregunta" class="form-label"><?= $datos->PREGUNTA ?></label>
+                            <input type="text" class="form-control" id="respuesta" placeholder="Ingrese respuesta" readonly="readonly" value="<?= $datos->RESPUESTA ?>">
                             </div>
                     <?php  }
 

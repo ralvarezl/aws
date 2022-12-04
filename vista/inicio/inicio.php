@@ -137,6 +137,9 @@ if($permiso <> 'PERMITIR'){
                 </ul>
 
             </div>
+            <li class="btn btn-dark p-2">
+                <a class="nav-link" href="../../controlador/bitacora_pantalla/restauracion.php"><i class="fas fa-sign-out-alt"></i> BACKUP</a>
+            </li>
            <!--SALIR DEL SITEMA-->
            <li class="btn btn-dark p-2">
                 <a class="nav-link" href="../../controlador/cerrar_sesion.php"><i class="fas fa-sign-out-alt"></i> SALIR DEL SISTEMA</a>
