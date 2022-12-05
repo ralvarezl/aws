@@ -197,9 +197,10 @@ $total_final=$subtotal-$total_descuento+$ISV;
 
 $sql3=mysqli_query($conexion, "SELECT f.ID_TIPO_PAGO, p.tipo from tbl_factura f INNER JOIN tbl_tipo_pago p ON f.ID_TIPO_PAGO=p.ID_TIPO_PAGO where id_factura = $id");
 $row3=mysqli_fetch_assoc($sql3);
+$id_tipo_pago=$row3['ID_TIPO_PAGO'];
 $tipo_pago=$row3['tipo'];
 
-if($tipo_pago==1){
+if($id_tipo_pago==1){
     $sql3=mysqli_query($conexion, "SELECT pago from tbl_factura where id_factura = $id");
     $row3=mysqli_fetch_assoc($sql3);
     $pago=$row3['pago'];
