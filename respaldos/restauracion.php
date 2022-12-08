@@ -15,12 +15,12 @@ $sql=mysqli_query($conexion, "select id_rol from tbl_ms_usuario where usuario='$
 $row=mysqli_fetch_array($sql);
 $id_rol=$row[0];
 //Sacar el permiso dependiendo del rol
-$sql=mysqli_query($conexion, "select permiso_visualizar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=24");
+$sql=mysqli_query($conexion, "select permiso_visualizar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=25");
 $row=mysqli_fetch_array($sql);
 $permiso=$row[0];
 
 if($permiso <> 'PERMITIR'){
-    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="administracion_usuarios.php"</script>';
+    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../vista/inicio/inicio.php"</script>';
 }
 //include "../../modelo/conexion.php";
 $id_usuario=$id_usuario_base;    //Guardamos el id usuario desde el boton editar
