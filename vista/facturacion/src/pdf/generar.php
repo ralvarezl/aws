@@ -204,16 +204,23 @@ $row3=mysqli_fetch_assoc($sql3);
 $id_tipo_pago=$row3['ID_TIPO_PAGO'];
 $tipo_pago=$row3['tipo'];
 
-$sql7=mysqli_query($conexion, "SELECT total from tbl_factura where id_factura = $id");
-$row7=mysqli_fetch_assoc($sql7);
-$pago=$row7['total'];
+
 
 if($id_tipo_pago==1){
     $sql3=mysqli_query($conexion, "SELECT cambio from tbl_factura where id_factura = $id");
     $row3=mysqli_fetch_assoc($sql3);
     $cambio=$row3['cambio'];
+
+    $sql7=mysqli_query($conexion, "SELECT pago from tbl_factura where id_factura = $id");
+    $row7=mysqli_fetch_assoc($sql7);
+    $pago=$row7['pago'];
+
 }else{
     $cambio=0;
+    
+    $sql7=mysqli_query($conexion, "SELECT total from tbl_factura where id_factura = $id");
+    $row7=mysqli_fetch_assoc($sql7);
+    $pago=$row7['total'];
 }
 
 $pdf->SetFont('Arial', '', 10);

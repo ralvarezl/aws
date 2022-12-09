@@ -179,11 +179,15 @@ if (isset($_GET['q'])) {
             $row2=mysqli_fetch_array($sql2);
                 $id_tipo_pago=$row2[0];
  
-
+            if($id_tipo_pago==1){
 
             $insertar = mysqli_query($conexion, "insert into tbl_factura (fecha,subtotal,isv, total_descuento, total,pago,cambio, id_tipo_pedido, ID_TIPO_PAGO, id_cliente, id_sucursal,id_usuario,estado) 
                                 values ('$fecha','$subtotal','$ISV','$total_descuento','$total','$Pago','$Cambio',$id_tipo_pedido,$id_tipo_pago,$id_cliente,$id_sucursal,$Id_usuario,'ACTIVO')"); 
-
+            
+            }else{
+                $insertar = mysqli_query($conexion, "insert into tbl_factura (fecha,subtotal,isv, total_descuento, total,pago,cambio, id_tipo_pedido, ID_TIPO_PAGO, id_cliente, id_sucursal,id_usuario,estado) 
+                                values ('$fecha','$subtotal','$ISV','$total_descuento','$total','$total',0,$id_tipo_pedido,$id_tipo_pago,$id_cliente,$id_sucursal,$Id_usuario,'ACTIVO')"); 
+            }
  
 
             
