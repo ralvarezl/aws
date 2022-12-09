@@ -39,13 +39,13 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
     <title>Recuperar y Restaurar</title>
 </head>
 <body>
-    
+<br></br>  
 <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
             <?php
             include "restaurar.php";
             //include "respaldo.php";
             ?>
-            <br></br>
+            
             <img src="../public/img/avatar_actualizar.png" class="img-fluid rounded mx-auto d-block"/>
             <h3 class="text-center text-secundary">RECUPERAR Y RESTAURAR</h3>
             <script type="text/javascript">
@@ -65,6 +65,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <span id="imgName"></span>
             <input name="importar" type="text" placeholder="Nombre del respaldo"/>
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->
+            <br></br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-dark" name="btnrespaldo" value="ok">Respaldo</button>
             <button type="submit" class="btn btn-dark" name="btnimportar" value="ok">Restaurar</button>

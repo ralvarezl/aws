@@ -135,8 +135,6 @@ if (!empty($_POST["btn_nuevo_configuracion_cai"])) {
 
     campo_vacio_nuevo($numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, $validar);
     if($validar==true){
-        validar_existe($numero_cai, $validar);
-        if($validar==true){
             validar_numero_cai($numero_cai, $validar);
             if($validar==true){
                 nuevo_configuracion_cai($id_configuracion_cai, $numero_cai, $secuencia_inicial, $secuencia_actual, $secuencia_final, $estado, $validar);
@@ -150,7 +148,7 @@ if (!empty($_POST["btn_nuevo_configuracion_cai"])) {
             }  
         }
     }
-}
+
 
 //ACTUALIZAR EL TIPO DE PEDIDO
 if (!empty($_POST["btn_actualizar_configuracion_cai"])) {
