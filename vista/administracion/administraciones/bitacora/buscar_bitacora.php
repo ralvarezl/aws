@@ -136,7 +136,6 @@ if(empty($_SESSION['usuario_login'])){
         ?>  
         <div class="col-9 p-4 m-auto">
         <br><br>
-        <a class="btn btn-dark" href="../../../../respaldos/respaldo.php"><i class="fa-solid "></i>Backup del Sistema</a>
             <div class="row p-2">
                 <div class="align-items-end">
                     <form action="buscar_bitacora.php" method="get" class="form_search">
