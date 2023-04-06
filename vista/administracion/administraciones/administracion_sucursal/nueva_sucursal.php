@@ -49,7 +49,7 @@ if($permiso <> 'PERMITIR'){
             </div>
             <!--INGRESE DIRECCION SUCURSAL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Direccion Sucursal</label>
+            <label for="formGroupExampleInput" class="form-label">Dirección Sucursal</label>
             <input type="text" class="form-control" placeholder="Escriba la dirección de sucursal" 
                 name="direccion_sucursal" onKeyUp="this.value=this.value.toUpperCase();">
             </div>

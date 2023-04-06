@@ -111,6 +111,8 @@ if(empty($_SESSION['usuario_login'])){
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_rol.php"><i class="fas fa-user-tie"></i> ADMINISTRADOR DE ROLES</a></li>
                     <!--ADMINISTRADOR DE BITACORA-->
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a></li>
+                    <!--BACKUP-->
+                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/restauracion.php"><i class="fa-solid fa-cloud-arrow-down"></i> BACKUP</a></li>
                 </li>
                 </ul>
             
@@ -170,9 +172,7 @@ if(empty($_SESSION['usuario_login'])){
                         <th scope="col">CANTIDAD</th>
                         <th scope="col">TOTAL</th>
                         <th scope="col">PROMOCION</th>
-                        <th scope="col">ESTADO</th>
-                        <th scope="col"style="width:15px"></th>
-                        <th scope="col"style="width:15px"></th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -200,13 +200,13 @@ if(empty($_SESSION['usuario_login'])){
                         <td><?php echo $u['cantidad']; ?></td>
                         <td><?php echo $u['total']; ?></td>
                         <td><?php echo $u['descripcion']; ?></td>
-                        <td><?php echo $u['estado']; ?></td>
-                        <td>
+                        
+                       <!-- <td>
                             <a href="actualizar_factura_detalle.php?id_factura_detalle=<?= $u['id_factura_detalle'] ?>" class="btn btn-small btn-warning" name="btnactualizar"><i class="fa-solid fa-user-pen"></i></a>
                         </td>
                         <td>
                             <a onclick="return eliminar()" href="administracion_factura_detalle.php?id_factura_detalle=<?= $u['id_factura_detalle'] ?>" class="btn btn-small btn-danger" name="btnborrar_factura_detalle"><i class="fa-solid fa-trash-can"></i></a>
-                        </td>
+                        </td>-->
                     </tr>
                     <?php }
                     $_SESSION['busqueda_factura_detalle'] = $busqueda_factura_detalle;

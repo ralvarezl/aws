@@ -133,13 +133,13 @@ if($permiso <> 'PERMITIR'){
                     <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/admin_rol.php"><i class="fas fa-user-tie"></i> ADMINISTRADOR DE ROLES</a></li>
                     <!--ADMINISTRADOR DE BITACORA-->
                     <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a></li>
+                    <!--BACKUP-->
+                    <li><a class="dropdown-item" href="../../controlador/bitacora_pantalla/restauracion.php"><i class="fa-solid fa-cloud-arrow-down"></i> BACKUP</a></li>
+
                 </li>
                 </ul>
 
             </div>
-            <li class="btn btn-dark p-2">
-                <a class="nav-link" href="../../controlador/bitacora_pantalla/restauracion.php"><i class="fas fa-sign-out-alt"></i> BACKUP</a>
-            </li>
            <!--SALIR DEL SITEMA-->
            <li class="btn btn-dark p-2">
                 <a class="nav-link" href="../../controlador/cerrar_sesion.php"><i class="fas fa-sign-out-alt"></i> SALIR DEL SISTEMA</a>

@@ -53,7 +53,14 @@ $sql=$conexion->query(" select * from tbl_producto where id_producto=$id_product
             <input type="text" class="form-control" placeholder="Ingrese el nombre" onKeyUp="this.value=this.value.toUpperCase(); "
                 name="nombre" value="<?= $datos->NOMBRE ?>">
             </div>
+            <!--INGRESE PRECIO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">PRECIO</label>
+            <input type="number" class="form-control" placeholder="Ingrese el precio" 
+                name="precio" value="<?= $datos->PRECIO ?>">
+            </div>
 
+            
             <!--SELECCIONE TIPO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">TIPO</label>
@@ -80,12 +87,27 @@ $sql=$conexion->query(" select * from tbl_producto where id_producto=$id_product
             </select>
             </div>
 
-            <!--INGRESE PRECIO-->
+            <!--SELECCIONE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">PRECIO</label>
-            <input type="number" class="form-control" placeholder="Ingrese el precio" 
-                name="precio" value="<?= $datos->PRECIO ?>">
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
+            <select class="form-select" aria-label="Default select example" name="estado" >
+              <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
+              <!--<option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>-->
+            <!--SELECCIONE DIFERENTE ESTADO DEL QUE TIENE-->
+            <? 
+                $actualizar=$datos->ESTADO;
+                if($actualizar=='ACTIVO'){?>
+                        <option value="ACTIVO">ACTIVO</option>
+                    <? 
+                }else{?>
+                    <option value="INACTIVO">INACTIVO</option>
+                    <? 
+                }
+
+            ?>
+            </select>
             </div>
+            
             <?php }
             ?>
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->

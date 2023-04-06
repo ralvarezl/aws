@@ -15,7 +15,7 @@ if (!empty($_GET["id_parametro"])) {
     $permiso=$row[0];
 
     if($permiso <> 'PERMITIR'){
-        echo '<script language="javascript">alert("Usuario sin acceso");;window.location.href="administracion_cliente.php"</script>';
+        echo '<script language="javascript">alert("Usuario sin acceso");;window.location.href="administracion_parametros.php"</script>';
     }else{
         $sesion_usuario=$_SESSION['usuario_login'];
         $id_parametro=$_GET["id_parametro"];

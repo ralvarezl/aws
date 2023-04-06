@@ -22,9 +22,9 @@ function nuevo_cliente($nombres,$identidad,$genero,$telefono,$estado, &$validar)
 }
 
 //MODIFICAR CLIENTE
-function modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,&$validar){
+function modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,$estado, &$validar){
     include "../../../../modelo/conexion.php";
-    $sql=$conexion->query("update tbl_cliente SET nombres='$nombres', identidad= $identidad, genero = '$genero', telefono= $telefono WHERE id_cliente = $id_cliente "); 
+    $sql=$conexion->query("update tbl_cliente SET nombres='$nombres', identidad= $identidad, genero = '$genero', telefono= $telefono, estado='$estado' WHERE id_cliente = $id_cliente "); 
     if($sql==1){
         return $validar;
     }else{
@@ -190,7 +190,7 @@ if (!empty($_POST["btnactualizarcliente"])) {
             if ($validar==true) {
                 identidad_actualizar($id_cliente,$identidad,$validar);
                 if ($validar==true) {
-                    modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,$validar);
+                    modificar_cliente($id_cliente,$nombres,$identidad,$genero,$telefono,$estado,$validar);
                     if ($validar==true) {
                         //Guardar la bitacora 
                         date_default_timezone_set("America/Tegucigalpa");

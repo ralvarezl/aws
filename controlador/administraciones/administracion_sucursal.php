@@ -92,7 +92,7 @@ function usuario_crear($nombre_sucursal,$direccion_sucursal,&$validar){
 ////////FUNCIONES ACTUALIZAR//////////
 //Funcion para validar si se actualizo
 
-function sucursal_actualizar($id_sucursal,$nombre_sucursal,$direccion_sucursal,&$validar){
+function sucursal_actualizar($id_sucursal,$nombre_sucursal,$direccion_sucursal,$estado,&$validar){
 include "../../../../modelo/conexion.php";
         
     //CONSULTAR EL OBJETO
@@ -101,7 +101,7 @@ include "../../../../modelo/conexion.php";
     $objeto_base=$row[0];
 
     if($nombre_sucursal==$objeto_base){
-        $sql=$conexion->query(" update tbl_sucursal SET nombre='$nombre_sucursal', direccion='$direccion_sucursal' WHERE id_sucursal = $id_sucursal ");   
+        $sql=$conexion->query(" update tbl_sucursal SET nombre='$nombre_sucursal', direccion='$direccion_sucursal', estado='$estado' WHERE id_sucursal = $id_sucursal ");   
         
     }else{
         //consultar por el objeto
@@ -111,7 +111,7 @@ include "../../../../modelo/conexion.php";
             $validar=false;
             return $validar;
         }else {
-            $sql=$conexion->query(" update tbl_sucursal SET nombre='$nombre_sucursal', direccion='$direccion_sucursal' WHERE id_sucursal = $id_sucursal ");   
+            $sql=$conexion->query(" update tbl_sucursal SET nombre='$nombre_sucursal', direccion='$direccion_sucursal',estado='$estado' WHERE id_sucursal = $id_sucursal ");   
             return $validar;
         }
     }
@@ -161,6 +161,7 @@ if (!empty($_POST["btnactualizar_sucursal"])) {
     $validar=true;
     $nombre_sucursal=$_POST["nombre_sucursal"];
     $direccion_sucursal=$_POST["direccion_sucursal"];
+    $estado=$_POST["estado"];
     $sesion_usuario=$_SESSION['usuario_login'];
 
     campo_vacio($nombre_sucursal,$direccion_sucursal,$validar);
@@ -171,7 +172,7 @@ if (!empty($_POST["btnactualizar_sucursal"])) {
                 if ($validar==true) {
                     limite_nombre_direccion($nombre_sucursal, $direccion_sucursal, $validar);
                     if ($validar==true) {
-                        sucursal_actualizar($id_sucursal,$nombre_sucursal,$direccion_sucursal,$validar);
+                        sucursal_actualizar($id_sucursal,$nombre_sucursal,$direccion_sucursal,$estado,$validar);
                         if ($validar==true) {
                             //Guardar la bitacora 
                             date_default_timezone_set("America/Tegucigalpa");

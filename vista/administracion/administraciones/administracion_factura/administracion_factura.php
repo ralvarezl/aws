@@ -133,6 +133,8 @@ if($permiso <> 'PERMITIR'){
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/admin_rol.php"><i class="fas fa-user-tie"></i> ADMINISTRADOR DE ROLES</a></li>
                     <!--ADMINISTRADOR DE BITACORA-->
                     <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/bitacora.php"><i class="fa-solid fa-list-check"></i> BITACORA</a></li>
+                    <!--BACKUP-->
+                    <li><a class="dropdown-item" href="../../../../controlador/bitacora_pantalla/restauracion.php"><i class="fa-solid fa-cloud-arrow-down"></i> BACKUP</a></li>
                 </li>
                 </ul>
             
@@ -198,9 +200,9 @@ if($permiso <> 'PERMITIR'){
                         <th scope="col">PAGO</th>
                         <th scope="col">CAMBIO</th>
                         <th scope="col">ID_CLIENTE</th>
-                        <th scope="col">ESTADO</th>
+                        <!--<th scope="col">ESTADO</th>-->
                         <th scope="col"style="width:15px"></th>
-                        <th scope="col"style="width:15px"></th>
+                        <!--<th scope="col"style="width:15px"></th>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -221,12 +223,12 @@ if($permiso <> 'PERMITIR'){
                         <td><?php echo $u['pago']; ?></td>
                         <td><?php echo $u['cambio']; ?></td>
                         <td><?php echo $u['id_cliente']; ?></td>
-                        <td><?php echo $u['estado']; ?></td>
+                        <!--<td><?php echo $u['estado']; ?></td>-->
                         <td>
                             <a href="../../../facturacion/src/pdf/generar.php?cl=<?= $u['id_cliente'] ?>&v=<?= $u['id_factura'] ?>"  class="btn btn-small btn-danger" name="btnactualizar"><i class="fa-solid fa-file-pdf btn-lg"></i></a>
                         </td>
-                        <td>
-                            <a onclick="return eliminar()" href="administracion_factura.php?id_factura=<?= $u['id_factura'] ?>" class="btn btn-small btn-danger" name="btnborrar_factura"><i class="fa-solid fa-trash-can"></i></a>
+                        <!--<td>
+                            <a onclick="return eliminar()" href="administracion_factura.php?id_factura=<?= $u['id_factura'] ?>" class="btn btn-small btn-danger" name="btnborrar_factura"><i class="fa-solid fa-trash-can"></i></a>-->
                         </td>
                     </tr>
                     <?php }

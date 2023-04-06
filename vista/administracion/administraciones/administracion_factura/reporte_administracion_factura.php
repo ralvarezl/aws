@@ -32,8 +32,17 @@ function Header()
     $this->Cell(130,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
     $this->Cell(260,10,'Reporte Factura',0,0,'C');
+    //Direccion y Telefono
+    $this->Ln(0);
+    $this->SetFont('Arial','',10);
+    $this->Cell(460,5,'Telefono: 9867-2309',0,0,'C');
+    $this->Ln(5);
+    $this->Cell(468,5,'Direccion: La paz, La paz',0,0,'C');
+    $this->Ln(5);
+    $this->Cell(458,5,'Barrio San Antonio',0,0,'C');
+   
     // Salto de línea
-    $this->Ln(35);
+    $this->Ln(20);
 }
 
 // Pie de página

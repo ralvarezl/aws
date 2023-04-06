@@ -55,10 +55,31 @@ $sql=$conexion->query(" select * from tbl_sucursal where id_sucursal=$id_sucursa
             </div>
             <!--INGRESE NOMBRE SUCURSAL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Direccion sucursal</label>
+            <label for="formGroupExampleInput" class="form-label">Dirección sucursal</label>
             <input type="text" class="form-control" placeholder="Escriba la dirección de sucursal" 
                 name="direccion_sucursal" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->DIRECCION ?>">
             </div>  
+
+            <!--SELECCIONE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
+            <select class="form-select" aria-label="Default select example" name="estado" >
+              <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
+              <!--<option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>-->
+            <!--SELECCIONE DIFERENTE ESTADO DEL QUE TIENE-->
+            <? 
+                $actualizar=$datos->ESTADO;
+                if($actualizar=='ACTIVO'){?>
+                        <option value="ACTIVO">ACTIVO</option>
+                    <? 
+                }else{?>
+                    <option value="INACTIVO">INACTIVO</option>
+                    <? 
+                }
+
+            ?>
+            </select>
+            </div>
 
             <?php }
             ?>

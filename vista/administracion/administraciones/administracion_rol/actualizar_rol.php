@@ -66,15 +66,15 @@ $sql=$conexion->query(" select * from tbl_ms_roles where id_rol=$id_rol ");
             <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <select class="form-select" aria-label="Default select example" name="estado" >
               <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
-              <option selected value="<?= $datos->ESTADO_ROL ?>"><?= $datos->ESTADO ?></option>
+              <!--<option selected value="<?= $datos->ESTADO_ROL ?>"><?= $datos->ESTADO ?></option>-->
             <!--SELECCIONE DIFERENTE ESTADO DEL QUE TIENE-->
             <? 
                 $actualizar=$datos->ESTADO;
                 if($actualizar=='ACTIVO'){?>
-                        <option value="INACTIVO">INACTIVO</option>
+                        <option value="ACTIVO">ACTIVO</option>
                     <? 
                 }else{?>
-                    <option value="ACTIVO">ACTIVO</option>
+                    <option value="INACTIVO">INACTIVO</option>
                     <? 
                 }
 

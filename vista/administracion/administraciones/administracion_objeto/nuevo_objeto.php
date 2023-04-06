@@ -50,7 +50,7 @@ if($permiso <> 'PERMITIR'){
             </div>
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Descripcion</label>
+            <label for="formGroupExampleInput" class="form-label">Descripción</label>
             <input type="text" class="form-control" placeholder="" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>

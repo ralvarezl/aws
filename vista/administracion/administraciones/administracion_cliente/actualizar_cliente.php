@@ -78,7 +78,29 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
              <?php
             include_once "../../../../controlador/administraciones/administracion_de_cliente.php";
             //WHILE PARA MOSTRAR LOS DATOS EN LOS CAMPOS
-            while ($datos=$sql->fetch_object()) {?>                       
+            while ($datos=$sql->fetch_object()) {?>
+            
+            <!--SELECCIONE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
+            <select class="form-select" aria-label="Default select example" name="estado" >
+              <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
+              <!--<option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>-->
+            <!--SELECCIONE DIFERENTE ESTADO DEL QUE TIENE-->
+            <? 
+                $actualizar=$datos->ESTADO;
+                if($actualizar=='ACTIVO'){?>
+                        <option value="ACTIVO">ACTIVO</option>
+                    <? 
+                }else{?>
+                    <option value="INACTIVO">INACTIVO</option>
+                    <? 
+                }
+
+            ?>
+            </select>
+            </div>
+
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">GENERO</label>

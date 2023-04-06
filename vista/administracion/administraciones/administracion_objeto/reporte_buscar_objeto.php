@@ -32,8 +32,17 @@ function Header()
     $this->Cell(130,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
     $this->Cell(260,10,'Reporte Objetos',0,0,'C');
+    //Direccion y Telefono
+    $this->Ln(0);
+    $this->SetFont('Arial','',10);
+    $this->Cell(460,5,'Telefono: 9867-2309',0,0,'C');
+    $this->Ln(5);
+    $this->Cell(468,5,'Direccion: La paz, La paz',0,0,'C');
+    $this->Ln(5);
+    $this->Cell(458,5,'Barrio San Antonio',0,0,'C');
+   
     // Salto de línea
-    $this->Ln(35);
+    $this->Ln(20);
 }
 
 // Pie de página
@@ -78,9 +87,9 @@ $pdf->Cell(10);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode('N°'), 1, 0, 'C', 0);
-    $pdf->Cell(55, 10,utf8_decode('OBJETO'), 1, 0, 'C', 0);
-    $pdf->Cell(75, 10,utf8_decode('DESCRIPCION'), 1, 0, 'C', 0);
-    $pdf->Cell(75, 10,utf8_decode('TIPO OBJETO'), 1, 0, 'C', 0);
+    $pdf->Cell(85, 10,utf8_decode('OBJETO'), 1, 0, 'C', 0);
+    $pdf->Cell(85, 10,utf8_decode('DESCRIPCION'), 1, 0, 'C', 0);
+    $pdf->Cell(30, 10,utf8_decode('TIPO OBJETO'), 1, 0, 'C', 0);
     $pdf->Cell(30, 10, 'ESTADO', 1, 1, 'C', 0);
 
 //Hacemos el recorrido del resultado que se trae de la BD
@@ -89,9 +98,9 @@ while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
     $pdf->Cell(10);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
-    $pdf->Cell(55, 10,utf8_decode( $row['objeto']), 1, 0, 'C', 0);
-    $pdf->Cell(75, 10,utf8_decode( $row['descripcion']), 1, 0, 'C', 0);
-    $pdf->Cell(75, 10,utf8_decode( $row['tipo_objeto']), 1, 0, 'C', 0);
+    $pdf->Cell(85, 10,utf8_decode( $row['objeto']), 1, 0, 'C', 0);
+    $pdf->Cell(85, 10,utf8_decode( $row['descripcion']), 1, 0, 'C', 0);
+    $pdf->Cell(30, 10,utf8_decode( $row['tipo_objeto']), 1, 0, 'C', 0);
     $pdf->Cell(30, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }
 

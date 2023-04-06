@@ -29,11 +29,20 @@ function Header()
     // Movernos a la derecha
     $this->Cell(65);
     // Título
-    $this->Cell(80,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
+    $this->Cell(65,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
-    $this->Cell(210,10,utf8_decode('Reporte de Promoción'),0,0,'C');
+    $this->Cell(195,10,utf8_decode('Reporte de Promoción'),0,0,'C');
+    //Direccion y Telefono
+    $this->Ln(0);
+    $this->SetFont('Arial','',10);
+    $this->Cell(350,5,'Telefono: 9867-2309',0,0,'C');
+    $this->Ln(5);
+    $this->Cell(358,5,'Direccion: La paz, La paz',0,0,'C');
+    $this->Ln(5);
+    $this->Cell(348,5,'Barrio San Antonio',0,0,'C');
+   
     // Salto de línea
-    $this->Ln(35);
+    $this->Ln(20);
 }
 
 // Pie de página
@@ -67,20 +76,20 @@ $pdf->AddPage();
 //Le doy tipografia a esa pagina
 $pdf->SetFont('Arial','',8);
 // Movernos a la derecha
-$pdf->Cell(45);
+$pdf->Cell(30);
 
 //Imprimimos el header de la tabla
     $pdf->Cell(10, 10,utf8_decode( 'N°'), 1, 0, 'C', 0);
-    $pdf->Cell(42, 10, utf8_decode('DESCRIPCIÓN'), 1, 0, 'C', 0);
+    $pdf->Cell(70, 10, utf8_decode('DESCRIPCIÓN'), 1, 0, 'C', 0);
     $pdf->Cell(25, 10, 'PRECIO', 1, 0, 'C', 0);
     $pdf->Cell(25, 10, 'ESTADO', 1, 1, 'C', 0);
 //Hacemos el recorrido del resultado que se trae de la BD
     $numero=0;
 while ($row = $resultado->fetch_assoc()) {
     // Movernos a la derecha
-    $pdf->Cell(45);
+    $pdf->Cell(30);
     $pdf->Cell(10, 10,$numero=$numero+1, 1, 0, 'C', 0);
-    $pdf->Cell(42, 10,utf8_decode( $row['descripcion']), 1, 0, 'C', 0);
+    $pdf->Cell(70, 10,utf8_decode( $row['descripcion']), 1, 0, 'C', 0);
     $pdf->Cell(25, 10,utf8_decode( $row['precio']), 1, 0, 'C', 0);
     $pdf->Cell(25, 10,utf8_decode( $row['estado']), 1, 1, 'C', 0); //En la ultima celda le digo que haga un salto de linea
 }

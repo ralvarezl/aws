@@ -22,7 +22,7 @@ function campo_vacio_actualizar($descripcion, $porcentaje_descuento, &$validar){
 }
 
 //ACTUALIZAR DESCUENTO
-function actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento, &$validar){
+function actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento,$estado, &$validar){
     include "../../../../modelo/conexion.php";
 
     //CONSULTAR LA DESCRIPCION
@@ -31,7 +31,7 @@ function actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento
     $objeto_base=$row[0];
 
     if($descripcion==$objeto_base){
-        $sql=$conexion->query(" update tbl_descuento SET descripcion='$descripcion', porcentaje_descuento='$porcentaje_descuento' WHERE id_descuento = $id_descuento ");   
+        $sql=$conexion->query(" update tbl_descuento SET descripcion='$descripcion', porcentaje_descuento='$porcentaje_descuento', estado='$estado' WHERE id_descuento = $id_descuento ");   
         
     }else{
         //consultar por el objeto
@@ -41,7 +41,7 @@ function actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento
             $validar=false;
             return $validar;
         }else {
-            $sql=$conexion->query(" update tbl_descuento SET descripcion='$descripcion', porcentaje_descuento='$porcentaje_descuento' WHERE id_descuento = $id_descuento ");   
+            $sql=$conexion->query(" update tbl_descuento SET descripcion='$descripcion', porcentaje_descuento='$porcentaje_descuento',estado='$estado' WHERE id_descuento = $id_descuento ");   
             return $validar;
         }
     }
@@ -167,6 +167,7 @@ if (!empty($_POST["btn_actualizar_descuento"])) {
     $id_descuento=$_POST["id_descuento"];
     $descripcion=$_POST["descripcion"];
     $porcentaje_descuento=$_POST["porcentaje_descuento"];
+    $estado=$_POST["estado"];
     
     campo_vacio_actualizar($descripcion, $porcentaje_descuento, $validar);
     if($validar==true){
@@ -174,7 +175,7 @@ if (!empty($_POST["btn_actualizar_descuento"])) {
         if($validar==true){
             limite_descripcion_porcentaje($descripcion, $porcentaje_descuento, $validar);
             if($validar==true){
-                actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento, $validar);
+                actualizar_descuento($id_descuento, $descripcion, $porcentaje_descuento,$estado, $validar);
                 if($validar==true){
                     //Guardar la bitacora 
                     date_default_timezone_set("America/Tegucigalpa");

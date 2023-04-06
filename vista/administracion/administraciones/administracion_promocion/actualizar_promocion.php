@@ -61,6 +61,27 @@ $sql=$conexion->query(" select * from tbl_promocion where id_promocion=$id_promo
                 name="precio" value="<?= $datos->PRECIO ?>">
             </div>
 
+            <!--SELECCIONE ESTADO-->
+            <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
+            <select class="form-select" aria-label="Default select example" name="estado" >
+              <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
+              <!--<option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>-->
+            <!--SELECCIONE DIFERENTE ESTADO DEL QUE TIENE-->
+            <? 
+                $actualizar=$datos->ESTADO;
+                if($actualizar=='ACTIVO'){?>
+                        <option value="ACTIVO">ACTIVO</option>
+                    <? 
+                }else{?>
+                    <option value="INACTIVO">INACTIVO</option>
+                    <? 
+                }
+
+            ?>
+            </select>
+            </div>
+
             <?php }
             ?>
             <!--BOTON ACTUALIZAR USUARIO Y CANCELAR-->

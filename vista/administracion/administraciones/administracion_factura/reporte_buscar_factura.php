@@ -32,8 +32,17 @@ function Header()
     $this->Cell(130,10,utf8_decode(''.$nombre_negocio.''),0,0,'C');
     $this->Ln(10);
     $this->Cell(260,10,'Reporte Factura',0,0,'C');
+    //Direccion y Telefono
+    $this->Ln(0);
+    $this->SetFont('Arial','',10);
+    $this->Cell(460,5,'Telefono: 9867-2309',0,0,'C');
+    $this->Ln(5);
+    $this->Cell(468,5,'Direccion: La paz, La paz',0,0,'C');
+    $this->Ln(5);
+    $this->Cell(458,5,'Barrio San Antonio',0,0,'C');
+   
     // Salto de línea
-    $this->Ln(35);
+    $this->Ln(20);
 }
 
 // Pie de página
@@ -60,15 +69,15 @@ $fecha_inicio=$_SESSION['fecha_inicio'];
 $fecha_final=$_SESSION['fecha_final'];
 $consulta = "select fecha, id_factura, subtotal, isv, total_descuento, total, pago, cambio, id_cliente, estado from tbl_factura
 where fecha between '$fecha_inicio' and '$fecha_final' and
-        id_factura like '%$busqueda_factura%' or
-        subtotal like '%$busqueda_factura%' or
-        isv like '%$busqueda_factura%' or
-        total_descuento like '%$busqueda_factura%' or
-        total like '%$busqueda_factura%' or
-        pago like '%$busqueda_factura%' or
-        cambio like '%$busqueda_factura%' or
-        id_cliente like '%$busqueda_factura%' or
-        estado like '%$busqueda_factura%' 
+        id_factura like '$fecha_inicio' and '$fecha_final' or
+        subtotal like '$fecha_inicio' and '$fecha_final' or
+        isv like '$fecha_inicio' and '$fecha_final' or
+        total_descuento like '$fecha_inicio' and '$fecha_final' or
+        total like '$fecha_inicio' and '$fecha_final' or
+        pago like '$fecha_inicio' and '$fecha_final' or
+        cambio like '$fecha_inicio' and '$fecha_final' or
+        id_cliente like '$fecha_inicio' and '$fecha_final' or
+        estado like '$fecha_inicio' and '$fecha_final' 
 order by id_factura desc";
 $resultado = $conexion->query($consulta);
 

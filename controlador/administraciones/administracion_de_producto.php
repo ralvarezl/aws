@@ -112,7 +112,7 @@ function nuevo_producto($nombre,$tipo,$precio,&$validar){
 }
 
 //MODIFICAR PRODUCTO
-function modificar_producto($id_producto,$nombre,$tipo,$precio,&$validar){
+function modificar_producto($id_producto,$nombre,$tipo,$precio,$estado,&$validar){
     include "../../../../modelo/conexion.php";
 
     //Consultar por el prodcuto
@@ -122,7 +122,7 @@ function modificar_producto($id_producto,$nombre,$tipo,$precio,&$validar){
 
     if($nombre==$nombre_base){
         //Actualiza si no se cambio el nombre pero si los demas campos
-        $sql=$conexion->query("update tbl_producto SET TIPO='$tipo', PRECIO = '$precio' WHERE id_producto = $id_producto ");
+        $sql=$conexion->query("update tbl_producto SET TIPO='$tipo', PRECIO = '$precio', ESTADO='$estado' WHERE id_producto = $id_producto ");
     }else{
         //Si modifico nombre validar que no exista en la base de datos
         $sql=$conexion->query("select nombre from tbl_producto where nombre='$nombre'");
@@ -131,7 +131,7 @@ function modificar_producto($id_producto,$nombre,$tipo,$precio,&$validar){
             $validar=false;
             return $validar;
         }else{
-            $sql=$conexion->query(" update tbl_producto SET NOMBRE='$nombre', TIPO='$tipo', PRECIO = '$precio' WHERE id_producto = $id_producto "); 
+            $sql=$conexion->query(" update tbl_producto SET NOMBRE='$nombre', TIPO='$tipo', PRECIO = '$precio', ESTADO='$estado' WHERE id_producto = $id_producto "); 
             if($sql==1){
                 return $validar;
             }else{
@@ -186,6 +186,7 @@ if (!empty($_POST["btnactualizarproducto"])) {
     $nombre=$_POST["nombre"];
     $tipo=$_POST["tipo"];
     $precio=$_POST["precio"];
+    $estado=$_POST["estado"];
     $sesion_usuario=$_SESSION['usuario_login'];
 
     campo_vacio($nombre,$tipo,$precio,$validar);
@@ -196,7 +197,7 @@ if (!empty($_POST["btnactualizarproducto"])) {
             if ($validar==true) {
                 limite_cantidad_precio($precio, $validar);
                 if ($validar==true) { 
-                    modificar_producto($id_producto,$nombre,$tipo,$precio,$validar);
+                    modificar_producto($id_producto,$nombre,$tipo,$precio,$estado, $validar);
                     if ($validar==true) {
                         //Guardar la bitacora 
                         date_default_timezone_set("America/Tegucigalpa");
