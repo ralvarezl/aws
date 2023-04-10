@@ -58,8 +58,9 @@
 	}
 
 	/* Se crea la cabecera del archivo */
+	date_default_timezone_set("America/Tegucigalpa");
 	$info['dumpversion'] = "2.15";
-	$info['fecha'] = date ("d-m-Y");
+	$info['fecha'] = date ("d-m-Y h:i:s");
 	$info['hora'] = date ("h:m:s A");
 	$info['mysqlver'] = $conexion->server_info;
 	$info['phpver'] = phpversion ();

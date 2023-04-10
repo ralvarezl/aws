@@ -56,7 +56,7 @@ $sql=$conexion->query(" select * from tbl_producto where id_producto=$id_product
             <!--INGRESE PRECIO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">PRECIO</label>
-            <input type="number" class="form-control" placeholder="Ingrese el precio" 
+            <input type="number" min="0" class="form-control" placeholder="Ingrese el precio" 
                 name="precio" value="<?= $datos->PRECIO ?>">
             </div>
 

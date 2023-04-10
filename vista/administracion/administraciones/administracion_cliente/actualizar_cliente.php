@@ -57,14 +57,14 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">IDENTIDAD</label>
-            <input type="number" class="form-control" placeholder="Ingrese número de identidad" 
+            <input type="number" min="0" class="form-control" placeholder="Ingrese número de identidad" 
                 name="identidad" value="<?= $datos->IDENTIDAD ?>">
             </div>
 
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
-            <input type="number" class="form-control" placeholder="Ingrese número de telefono" 
+            <input type="number" min="0" class="form-control" placeholder="Ingrese número de telefono" 
                 name="telefono" value="<?= $datos->TELEFONO ?>">
             </div>
 

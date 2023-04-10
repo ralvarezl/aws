@@ -53,7 +53,7 @@ if($permiso <> 'PERMITIR'){
             <!--INGRESE PORCENTAJE DESCUENTO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">PORCENTAJE DESCUENTO</label>
-            <input type="number" class="form-control" placeholder="Ingrese porcentaje descuento" 
+            <input type="number" min="0" class="form-control" placeholder="Ingrese porcentaje descuento" 
                 name="porcentaje_descuento" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
 

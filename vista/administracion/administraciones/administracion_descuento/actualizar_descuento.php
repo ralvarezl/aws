@@ -56,7 +56,7 @@ $sql=$conexion->query(" select * from tbl_descuento where id_descuento=$id_descu
             <!--INGRESE PORCENTAJE DESCUENTO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">PORCENTAJE DESCUENTO</label>
-            <input type="number" class="form-control" placeholder="Ingrese valor" 
+            <input type="number" min="0" class="form-control" placeholder="Ingrese valor" 
                 name="porcentaje_descuento" value="<?= $datos->PORCENTAJE_DESCUENTO ?>">
             </div>
 

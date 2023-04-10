@@ -34,7 +34,7 @@ if(empty($_SESSION['usuario_login'])){
         </div>
         <!--INGRESE CONTRASEÑA ANTERIOR-->
         <div class="mb-3">
-            <label for="" class="form-label">Contraseña Anterior</label>
+            <label for="" class="form-label">Ingrese Token de Recuperación</label>
             <input id="InputPassword" type="password"
             class="form-control" name="contraseñaanterior"
             title="ingrese su contraseña anterior" autocomplete="contraseñaanterior" value="" >

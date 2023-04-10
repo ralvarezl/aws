@@ -62,12 +62,12 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">IDENTIDAD</label>
-            <input type="number" class="form-control" placeholder="Ingrese el número de identidad" name="identidad" value="<?= $datos->IDENTIDAD ?>">
+            <input type="number" min="0" class="form-control" placeholder="Ingrese el número de identidad" name="identidad" value="<?= $datos->IDENTIDAD ?>">
             </div>
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">TELÉFONO</label>
-            <input type="number" class="form-control" placeholder="Ingrese el número de teléfono" name="telefono" value="<?= $datos->TELEFONO ?>">
+            <input type="number" min="0" class="form-control" placeholder="Ingrese el número de teléfono" name="telefono" value="<?= $datos->TELEFONO ?>">
             </div>
             <!--INGRESE DIRECCIÓN-->
             <label for="formGroupExampleInput" class="form-label">DIRECCIÓN</label>
