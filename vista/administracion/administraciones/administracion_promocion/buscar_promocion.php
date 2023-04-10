@@ -34,7 +34,10 @@ if(empty($_SESSION['usuario_login'])){
             </button>
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
-                <h1 class="fas fa-user-circle"></h1>
+                <!--Perfil de usuario-->
+                <a class="navbar-brand" href="../../../../controlador/bitacora_pantalla/perfil_usuario.php" >
+                <h1 class="fas fa-user-circle" ></h1>
+                </a>
                 <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
                 <!--MOSTRAR EL USUARIO LOGUEADO-->
                 <?=
