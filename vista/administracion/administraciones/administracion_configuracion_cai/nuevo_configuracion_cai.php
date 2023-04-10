@@ -36,7 +36,7 @@ if($permiso <> 'PERMITIR'){
     <!--INICIO DEL FORM REGISTRO TIPO DE PEDIDO-->
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
         <img src="../../../../public/img/nuevo_pedido.jpg" class="img-fluid rounded mx-auto d-block"/>
-            <h3 class="text-center text-secundary">NUEVO CONFIGURACION CAI</h3>
+            <h3 class="text-center text-secundary">NUEVO CONFIGURACIÓN CAI</h3>
             
             <?php
             include "../../../../modelo/conexion.php";
@@ -45,7 +45,7 @@ if($permiso <> 'PERMITIR'){
 
             <!--INGRESE NUMERO CAI-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">INGRESE NUMERO CAI</label>
+            <label for="formGroupExampleInput" class="form-label">INGRESE NÚMERO CAI</label>
             <input type="text" class="form-control" placeholder="Ingrese numero cai" 
                 name="numero_cai">
             </div>
@@ -73,7 +73,7 @@ if($permiso <> 'PERMITIR'){
 
             <!--INGRESE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <input type="text" readonly="readonly" class="form-control" value="ACTIVO" name="estado">
             </div>
 

@@ -61,6 +61,32 @@ function validar_existe($objeto, &$validar){
     }
 }
 
+//Caracteres especiales 
+function valida_objeto($objeto,&$validar){
+    //Validar tenga numeros
+    if (preg_match('/[0-9]/',$objeto)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
+        return $validar;
+    } else {
+        //Validar tenga caracter especial
+        if (!preg_match("/^[a-zA-Z\s]*$/",$objeto)){
+            $validar=false;
+            echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
+            return $validar;
+        }else {
+            //Validar tenga no tenga mas de 2 espacios
+            if(strpos($objeto,"  ")){
+                echo"<div class='alert alert-danger text-center'>No se permite más de un espacio</div>";
+                $validar=false;
+                return $validar;
+            }else{
+                return $validar;
+            }
+        }
+    }
+}
+
 //-----------------------PRESIONAR BOTONES-------------------------------------
 
 //Ingresar nuevo objeto
@@ -76,18 +102,19 @@ if (!empty($_POST["btnregistrar_objeto"])) {
 
     campo_vacio($objeto, $descripcion, $tipo_objeto, $validar);
     if ($validar==true) {
-    if ($validar==true) {
-        validar_existe($objeto, $validar);
-        if($validar==true){
-            nuevo_objeto($objeto, $descripcion, $tipo_objeto, $estado, $validar);
+        valida_objeto($objeto,$validar);
+        if ($validar==true) {
+            validar_existe($objeto, $validar);
             if($validar==true){
-                //Guardar la bitacora 
-                date_default_timezone_set("America/Tegucigalpa");
-                $fecha = date('Y-m-d h:i:s');
-                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Objeto', 'Creo nuevo objeto $objeto','$sesion_usuario')");
-                //Mensaje de confirmacion
-                echo '<script language="javascript">alert("Objeto ingresado exitosamente");;window.location.href="administracion_objeto.php"</script>';//objeto ingresado
-            }
+                nuevo_objeto($objeto, $descripcion, $tipo_objeto, $estado, $validar);
+                if($validar==true){
+                    //Guardar la bitacora 
+                    date_default_timezone_set("America/Tegucigalpa");
+                    $fecha = date('Y-m-d h:i:s');
+                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Objeto', 'Creo nuevo objeto $objeto','$sesion_usuario')");
+                    //Mensaje de confirmacion
+                    echo '<script language="javascript">alert("Objeto ingresado exitosamente");;window.location.href="administracion_objeto.php"</script>';//objeto ingresado
+                }
             }  
         }
     }
@@ -105,6 +132,8 @@ if (!empty($_POST["btnactualizar_objeto"])) {
     $estado=$_POST["estado"];
     campo_vacio($objeto, $descripcion, $tipo_objeto, $validar);
         if ($validar==true) {
+            valida_objeto($objeto,$validar);
+            if ($validar==true) {
                 actualizar_objeto($id_objeto, $objeto, $descripcion, $tipo_objeto, $estado, $validar);
                 if($validar==true){
                 //Guardar la bitacora 
@@ -114,6 +143,7 @@ if (!empty($_POST["btnactualizar_objeto"])) {
                 //Mensaje de confirmacion
                 echo '<script language="javascript">alert("Objeto actualizado exitosamente");;window.location.href="administracion_objeto.php"</script>';//objeto ingresado
                 }
+            }
         }
     }
 ?>

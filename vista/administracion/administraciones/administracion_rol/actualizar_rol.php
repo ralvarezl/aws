@@ -49,14 +49,14 @@ $sql=$conexion->query(" select * from tbl_ms_roles where id_rol=$id_rol ");
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE ROL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Rol</label>
+            <label for="formGroupExampleInput" class="form-label">ROL</label>
             <input type="text" class="form-control" placeholder="" 
                 name="rol" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->ROL ?>">
             </div>
 
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Descripcion</label>
+            <label for="formGroupExampleInput" class="form-label">DESCRIPCIÓN</label>
             <input type="text" class="form-control" placeholder="" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->DESCRIPCION ?>">
             </div>

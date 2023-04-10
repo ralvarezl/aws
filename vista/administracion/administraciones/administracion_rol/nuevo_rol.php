@@ -44,22 +44,23 @@ if($permiso <> 'PERMITIR'){
             ?>
             <!--INGRESE ROL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Rol</label>
+            <label for="formGroupExampleInput" class="form-label">ROL</label>
             <input type="text" class="form-control" placeholder="" 
                 name="rol" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
 
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Descripcion</label>
+            <label for="formGroupExampleInput" class="form-label">DESCRIPCIÓN</label>
             <input type="text" class="form-control" placeholder="" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             
             <!--INGRESE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <select class="form-select" aria-label="Default select example" name="estado">
+                <option>SELECCIONE UN ESTADO</option>
                 <option value="ACTIVO">ACTIVO</option>
                 <option value="INACTIVO">INACTIVO</option>
             </select>      

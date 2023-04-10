@@ -68,7 +68,7 @@ $sql=$conexion->query(" select p.id_rol,rol, objeto, permiso_visualizar, permiso
             <label for="formGroupExampleInput" class="form-label">VISUALIZAR <?= $datos->objeto ?></label>
             <select class="form-select" aria-label="Default select example" name="permiso_visualizar" >
               <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
-            <option selected value="<?= $datos->permiso_visualizar ?>"><?= $datos->permiso_visualizar ?></option>
+              <!--<option selected value="<?= $datos->permiso_visualizar ?>"><?= $datos->permiso_visualizar ?></option>-->
             <!--SELECCIONE DIFERENTE PERMISO DEL QUE TIENE-->
             <?  
                 $visualizar=$datos->permiso_visualizar;
@@ -87,7 +87,7 @@ $sql=$conexion->query(" select p.id_rol,rol, objeto, permiso_visualizar, permiso
             <label for="formGroupExampleInput" class="form-label">NUEVO <?= $datos->objeto ?></label>
             <select class="form-select" aria-label="Default select example" name="permiso_insertar" >
               <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
-            <option selected value="<?= $datos->permiso_insertar ?>"><?= $datos->permiso_insertar ?></option>
+              <!--<option selected value="<?= $datos->permiso_insertar ?>"><?= $datos->permiso_insertar ?></option>-->
             <!--SELECCIONE DIFERENTE PERMISO DEL QUE TIENE-->
             <?  
                 $insertar=$datos->permiso_insertar;
@@ -106,7 +106,7 @@ $sql=$conexion->query(" select p.id_rol,rol, objeto, permiso_visualizar, permiso
             <label for="formGroupExampleInput" class="form-label">ACTUALIZAR <?= $datos->objeto ?></label>
             <select class="form-select" aria-label="Default select example" name="permiso_actualizar" >
               <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
-            <option selected value="<?= $datos->permiso_actualizar ?>"><?= $datos->permiso_actualizar ?></option>
+              <!-- <option selected value="<?= $datos->permiso_actualizar ?>"><?= $datos->permiso_actualizar ?></option>-->
             <!--SELECCIONE DIFERENTE PERMISO DEL QUE TIENE-->
             <?  
                 $actualizar=$datos->permiso_actualizar;
@@ -125,7 +125,7 @@ $sql=$conexion->query(" select p.id_rol,rol, objeto, permiso_visualizar, permiso
             <label for="formGroupExampleInput" class="form-label">ELIMINAR <?= $datos->objeto ?></label>
             <select class="form-select" aria-label="Default select example" name="permiso_eliminar" >
               <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
-            <option selected value="<?= $datos->permiso_eliminar ?>"><?= $datos->permiso_eliminar ?></option>
+              <!--<option selected value="<?= $datos->permiso_eliminar ?>"><?= $datos->permiso_eliminar ?></option>-->
             <!--SELECCIONE DIFERENTE PERMISO DEL QUE TIENE-->
             <?  
                 $eliminar=$datos->permiso_eliminar;

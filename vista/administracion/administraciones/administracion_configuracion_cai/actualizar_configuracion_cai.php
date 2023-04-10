@@ -38,7 +38,7 @@ $sql=$conexion->query(" select * from tbl_configuracion_cai where id_configuraci
 <br></br>
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
            <img src="../../../../public/img/actualizar_pedido.jpg" class="img-fluid rounded mx-auto d-block"/>
-            <h3 class="text-center text-secundary">ACTUALIZAR CONFIGURACION CAI</h3>
+            <h3 class="text-center text-secundary">ACTUALIZAR CONFIGURACIÓN CAI</h3>
             <!--Imput que se oculta para almacenar el id configuracion cai para enviarlo a la BD-->
             <input type="hidden" name="id_configuracion_cai" value="<?= $_GET["id_configuracion_cai"] ?>"> 
             <?php
@@ -48,7 +48,7 @@ $sql=$conexion->query(" select * from tbl_configuracion_cai where id_configuraci
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE NUMERO CAI-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">INGRESE NUMERO CAI</label>
+            <label for="formGroupExampleInput" class="form-label">INGRESE NÚMERO CAI</label>
             <input type="text" class="form-control" placeholder="Ingrese numero cai" 
                 name="numero_cai" value="<?= $datos->NUMERO_CAI ?>">
             </div>

@@ -11,6 +11,32 @@ function campo_vacio( $rol, $descripcion, &$validar){
     }
 }
 
+//Caracteres especiales 
+function valida_rol($rol,&$validar){
+    //Validar tenga numeros
+    if (preg_match('/[0-9]/',$rol)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
+        return $validar;
+    } else {
+        //Validar tenga caracter especial
+        if (!preg_match("/^[a-zA-Z\s]*$/",$rol)){
+            $validar=false;
+            echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
+            return $validar;
+        }else {
+            //Validar tenga no tenga mas de 2 espacios
+            if(strpos($rol,"  ")){
+                echo"<div class='alert alert-danger text-center'>No se permite más de un espacio</div>";
+                $validar=false;
+                return $validar;
+            }else{
+                return $validar;
+            }
+        }
+    }
+}
+
 //ACTUALIZAR 
 function actualizar_rol($id_rol, $rol, $descripcion,$estado, &$validar){
     include "../../../../modelo/conexion.php";
@@ -73,18 +99,19 @@ if (!empty($_POST["btnregistrar_rol"])) {
 
     campo_vacio($rol, $descripcion, $validar);
     if ($validar==true) {
+        valida_rol($rol,$validar);
         if ($validar==true) {
-        validar_existe($rol, $validar);
-        if($validar==true){
-            nuevo_rol($rol, $descripcion, $estado, $validar);
+            validar_existe($rol, $validar);
             if($validar==true){
-                //Guardar la bitacora 
-                date_default_timezone_set("America/Tegucigalpa");
-                $fecha = date('Y-m-d h:i:s');
-                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Rol', 'Creo nuevo rol $rol','$sesion_usuario')");
-                //Mensaje de confirmacion
-                echo '<script language="javascript">alert("Rol ingresado exitosamente");;window.location.href="administracion_rol.php"</script>';//rol ingresado
-            }
+                nuevo_rol($rol, $descripcion, $estado, $validar);
+                if($validar==true){
+                    //Guardar la bitacora 
+                    date_default_timezone_set("America/Tegucigalpa");
+                    $fecha = date('Y-m-d h:i:s');
+                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Rol', 'Creo nuevo rol $rol','$sesion_usuario')");
+                    //Mensaje de confirmacion
+                    echo '<script language="javascript">alert("Rol ingresado exitosamente");;window.location.href="administracion_rol.php"</script>';//rol ingresado
+                }
             }  
         }
     }
@@ -101,17 +128,20 @@ if (!empty($_POST["btnactualizar_rol"])) {
     $estado=$_POST["estado"];
     
     campo_vacio($rol, $descripcion, $validar);
+    if ($validar==true) {
+        valida_rol($rol,$validar);
         if ($validar==true) {
-                actualizar_rol($id_rol, $rol, $descripcion,$estado, $validar);
-                if($validar==true){
+            actualizar_rol($id_rol, $rol, $descripcion,$estado, $validar);
+            if($validar==true){
                 //Guardar la bitacora 
                 date_default_timezone_set("America/Tegucigalpa");
                 $fecha = date('Y-m-d h:i:s');
                 $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Actualizar Rol', 'Actualizo rol $rol','$sesion_usuario')");
                 //Mensaje de confirmacion
                 echo '<script language="javascript">alert("Rol actualizado exitosamente");;window.location.href="administracion_rol.php"</script>';//objeto ingresado
-                }
+            }
         }
+    }
 }
 
 

@@ -180,7 +180,7 @@ if (!empty($_POST["btnregistrarproducto"])) {
 //Modificar pedido
 if (!empty($_POST["btnactualizarproducto"])) {
 
-    //include "../../modelo/conexion.php";
+    //include "../../modelo/conexion.php";  
     $validar=true;
     $id_producto=$_POST["id_producto"];
     $nombre=$_POST["nombre"];

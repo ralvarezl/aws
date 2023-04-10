@@ -200,12 +200,12 @@ include "ajax.php";
                         </div>
 
                         <div class="col-12 p-3 m-auto">
-                            <h4 class="text-center">Buscar Promocion</h4>
+                            <h4 class="text-center">Buscar Promoción</h4>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-5">
                                         <div class="form-group">
-                                            <label for="promocion">Nombre de Promocion</label>
+                                            <label for="promocion">Nombre de Promoción</label>
                                             <input id="promocion" class="form-control" type="text" name="promocion" placeholder="Ingresa el nombre" onKeyUp="this.value=this.value.toUpperCase();">
                                             <input id="id_prom" type="hidden" name="id_prom">
                                         </div>

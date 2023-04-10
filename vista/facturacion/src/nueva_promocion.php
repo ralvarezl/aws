@@ -53,7 +53,7 @@ include "ajax.php";
 
 <form class="col-7 p-2 m-auto" method="POST" autocomplete="off">
         <img src="../../../public/img/nuevo_promocion.png" class="img-fluid rounded mx-auto d-block"/>
-            <h3 class="text-center text-secundary">REGISTRO DE PROMOCION</h3>
+            <h3 class="text-center text-secundary">REGISTRO DE PROMOCIÓN</h3>
             <?php
             include "../../../modelo/conexion.php";
             include "../../../controlador/administraciones/administracion_de_promocion.php";
@@ -61,7 +61,7 @@ include "ajax.php";
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="col-12 p-3 m-auto">
-                            <h4 class="text-center">Seleccione productos para la promocion</h4>
+                            <h4 class="text-center">Seleccione productos para la promoción</h4>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-5">
@@ -118,7 +118,7 @@ include "ajax.php";
         <form class="col-17 p-2 m-auto" method="POST" autocomplete="off">
         <div class="col-13 p-3 m-auto"> 
                             <br>
-                            <h4 class="text-center">Detalles de la Promocion</h4>
+                            <h4 class="text-center">Detalles de la Promoción</h4>
                         <div class="col-12 p-2 m-auto">
                             <div class="card-body">
                                 <div class="row">
@@ -145,7 +145,7 @@ include "ajax.php";
                                     </div><br>
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label for="formGroupExampleInput" class="col-md-15 control-label">Precio total de la promocion</label>
+                                                <label for="formGroupExampleInput" class="col-md-15 control-label">Precio total de la promoción</label>
                                                 <input type="text" class="form-control" placeholder="Ingrese el nombre la promocion" 
                                                     name="Precio" id="Precio" onKeyUp="this.value=this.value.toUpperCase();">
                                             </div>

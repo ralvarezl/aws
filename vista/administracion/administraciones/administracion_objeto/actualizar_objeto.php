@@ -50,19 +50,19 @@ $sql=$conexion->query(" select * from tbl_ms_objetos where id_objeto=$id_objeto 
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Objeto</label>
+            <label for="formGroupExampleInput" class="form-label">PANTALLA</label>
             <input type="text" class="form-control" placeholder="" 
                 name="objeto" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->OBJETO ?>">
             </div>
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Descripción</label>
+            <label for="formGroupExampleInput" class="form-label">DESCRIPCIÓN</label>
             <input type="text" class="form-control" placeholder="" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->DESCRIPCION ?>">
             </div>
             <!--INGRESE TIPO OBJETO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Tipo Objeto</label>
+            <label for="formGroupExampleInput" class="form-label">TIPO OBJETO</label>
             <input type="text" class="form-control" placeholder="" 
                 name="tipo_objeto" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->TIPO_OBJETO ?>">
             </div>

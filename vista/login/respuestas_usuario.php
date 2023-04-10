@@ -35,8 +35,8 @@ if(empty($_SESSION['usuario_login'])){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">SELECCIONE PREGUNTA:</label>
             <select class="form-select" aria-label="Default select example" name="select_pregunta">
-            <!--<option>Seleccione pregunta</option>-->
-              <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
+            <option>SELECCIONE UNA PREGUNTA</option>
+            <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select * from tbl_ms_preguntas" );

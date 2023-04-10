@@ -65,7 +65,31 @@ function parametro_actualizar($id_parametro,$parametro,$valor,$estado,&$validar)
         }
     }
 
-
+//Caracteres especiales 
+function valida_paramentro($parametro,&$validar){
+    //Validar tenga numeros
+    if (preg_match('/[0-9]/',$parametro)){
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres numéricos</div>"; 
+        return $validar;
+    } else {
+        //Validar tenga caracter especial
+        if (!preg_match("/^[a-zA-Z\s]*$/",$parametro)){
+            $validar=false;
+            echo"<div class='alert alert-danger text-center'>El nombre no debe tener caracteres especiales</div>"; 
+            return $validar;
+        }else {
+            //Validar tenga no tenga mas de 2 espacios
+            if(strpos($parametro," ")){
+                echo"<div class='alert alert-danger text-center'>No se permite espacios</div>";
+                $validar=false;
+                return $validar;
+            }else{
+                return $validar;
+            }
+        }
+    }
+}
 
 //*****************************BOTONES***************************************//
 //Crear Nuevo parametro Al Presionar Boton
@@ -78,19 +102,22 @@ if (!empty($_POST["btnregistrar_parametro"])) {
 
     campo_vacio($parametro,$valor,$validar);
     if ($validar==true) {
-        parametro_existe($parametro,$validar);
+        valida_paramentro($parametro,$validar);
         if ($validar==true) {
-            parametro_crear($parametro,$valor,$estado,$validar);
+            parametro_existe($parametro,$validar);
             if ($validar==true) {
-                //Guardar la bitacora 
-                date_default_timezone_set("America/Tegucigalpa");
-                $fecha = date('Y-m-d h:i:s');
-                $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Parametro', 'Creo el parametro $parametro','$sesion_usuario')");
-                //Mensaje de confirmacion
-                echo '<script language="javascript">alert("Parametro registrado exitosamente");;window.location.href="administracion_parametros.php"</script>';//Parametro ingresado
-            }else{
-                echo '<div class="alert alert-danger text-center">Error al registrar parametro</div>';//Error al ingresar parametro
-                }
+                parametro_crear($parametro,$valor,$estado,$validar);
+                if ($validar==true) {
+                    //Guardar la bitacora 
+                    date_default_timezone_set("America/Tegucigalpa");
+                    $fecha = date('Y-m-d h:i:s');
+                    $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Nuevo Parametro', 'Creo el parametro $parametro','$sesion_usuario')");
+                    //Mensaje de confirmacion
+                    echo '<script language="javascript">alert("Parametro registrado exitosamente");;window.location.href="administracion_parametros.php"</script>';//Parametro ingresado
+                }else{
+                    echo '<div class="alert alert-danger text-center">Error al registrar parametro</div>';//Error al ingresar parametro
+                    }
+            }
         }
     }
 }
@@ -104,6 +131,8 @@ if (!empty($_POST["btnactualizarparametro"])) {
 
     campo_vacio($parametro,$valor,$validar);
     if ($validar==true) {
+        valida_paramentro($parametro,$validar);
+        if ($validar==true) {
             parametro_actualizar($id_parametro,$parametro,$valor,$estado,$validar);
             if ($validar==true) {
                  //Guardar la bitacora 
@@ -114,7 +143,8 @@ if (!empty($_POST["btnactualizarparametro"])) {
                 echo '<script language="javascript">alert("Parametro actualizado exitosamente");;window.location.href="administracion_parametros.php"</script>';//Sucursal ingresada
             }else{
                 echo '<div class="alert alert-danger text-center">Error al actualizar parametro</div>';//Error al ingresar parametro
-                }
+            }
         }
     }
+}
 ?>

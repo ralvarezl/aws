@@ -30,7 +30,7 @@ $usuario_msj= $_SESSION['usuario_msj'];
 			<div class="mb-3">
 			<label for="formGroupExampleInput" class="form-label">Seleccione la pregunta:</label>
 			<select class="form-select" aria-label="Default select example" name = "id_pregunta" id = "id_pregunta">
-
+			<option>SELECCIONE UNA PREGUNTA</option>
 				<!--<option value = "" ></option>-->
 			
 			<?php foreach($ejecutar as $opciones): ?> 	

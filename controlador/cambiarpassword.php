@@ -151,6 +151,24 @@ function Validar_Parametro($nuevacontraseña,$confirmarcontraseña, &$validar){
     }
 }
 
+//--validar la contraseña anterior del token
+function Contraseña_Token($usuario,$password_usu,&$validar){
+
+    include "../../modelo/conexion.php";
+    $sql=mysqli_query($conexion, "select password from tbl_ms_usuario where usuario='$usuario'");
+    $row=mysqli_fetch_array($sql);
+    $password_vieja=$row[0];
+
+    if($password_usu==$password_vieja){
+        return $validar;
+    }else{
+        $validar=false;
+        echo"<div class='alert alert-danger text-center'>Contraseña Anterior no coincide</div>"; //Campos sin uso
+        return $validar;
+    }
+
+}
+
 //=================================BOTON DE GUARDAR CONTRASEÑA=========================
 
 
@@ -171,49 +189,52 @@ if (!empty($_POST["btnnuevacontraseña"])){
     if($validar==true){
         usuario_existe_cambiar($usuario,$validar);
         if($validar==true){
-            Contraseña_Anterior($usuario,$confirmarcontraseña,$validar);
+            Contraseña_Token($usuario,$password_usu,$validar);
             if($validar==true){
-                Contar_Cadena($nuevacontraseña,$confirmarcontraseña,$validar);         
+                Contraseña_Anterior($usuario,$confirmarcontraseña,$validar);
                 if($validar==true){
-                    Comparar_Pass($validar);
+                    Contar_Cadena($nuevacontraseña,$confirmarcontraseña,$validar);         
                     if($validar==true){
-                        Validar_Espacio($nuevacontraseña, $confirmarcontraseña, $validar);
+                        Comparar_Pass($validar);
                         if($validar==true){
-                            validar_clave($nuevacontraseña,$validar);
+                            Validar_Espacio($nuevacontraseña, $confirmarcontraseña, $validar);
                             if($validar==true){
-                                Validar_Parametro($nuevacontraseña,$confirmarcontraseña, $validar);
+                                validar_clave($nuevacontraseña,$validar);
                                 if($validar==true){
-                                    if ($datos=$sql -> fetch_object()){ 
-                      
-                                        $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
-                                        $row=mysqli_fetch_array($sql);
-                                        $estado=$row[0]; //Guardamos el estado
-        
-                                        $sql1=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'"); //preguntar el ID del usuario
-                                        $row1=mysqli_fetch_array($sql1);
-                                        $id_usuario=$row1[0]; //Guardamos el ID_USUARIO
-        
-                                        $password=$_POST["confirmarcontraseña"];//Guardamos la contraseña de lavor confirmar
-        
-                                        //Modifiacmos cualquier estado a ACTIVO
-                                        $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
-                                        $resultado1 = mysqli_query($conexion,$modificar);
+                                    Validar_Parametro($nuevacontraseña,$confirmarcontraseña, $validar);
+                                    if($validar==true){
+                                        if ($datos=$sql -> fetch_object()){ 
+                        
+                                            $sql=mysqli_query($conexion, "select estado from tbl_ms_usuario where usuario='$usuario'"); //preguntar el estado del usuario
+                                            $row=mysqli_fetch_array($sql);
+                                            $estado=$row[0]; //Guardamos el estado
+            
+                                            $sql1=mysqli_query($conexion, "select id_usuario from tbl_ms_usuario where usuario='$usuario'"); //preguntar el ID del usuario
+                                            $row1=mysqli_fetch_array($sql1);
+                                            $id_usuario=$row1[0]; //Guardamos el ID_USUARIO
+            
+                                            $password=$_POST["confirmarcontraseña"];//Guardamos la contraseña de lavor confirmar
+            
+                                            //Modifiacmos cualquier estado a ACTIVO
+                                            $modificar=("update tbl_ms_usuario set password='$password', estado='ACTIVO' where id_usuario='$id_usuario'");
+                                            $resultado1 = mysqli_query($conexion,$modificar);
 
-                                        //Llenar el historial de contraseña
-                                        $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
-                                        $resultado = mysqli_query($conexion,$insertar);
+                                            //Llenar el historial de contraseña
+                                            $insertar=("insert into tbl_ms_historial_password (password,creado_por,fecha_creacion,id_usuario) VALUES( '$password','$usuario','$fecha_actual',$id_usuario)");
+                                            $resultado = mysqli_query($conexion,$insertar);
 
-                                        //Borrar el evento  
-                                        $sql=$conexion->query("DROP EVENT IF EXISTS ".$id_usuario."A");
+                                            //Borrar el evento  
+                                            $sql=$conexion->query("DROP EVENT IF EXISTS ".$id_usuario."A");
 
-                                        //Llenar la bitacora
-                                        date_default_timezone_set("America/Tegucigalpa");
-                                        $fecha = date('Y-m-d h:i:s');
-                                        $sql=$conexion->query("insert into tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Cambiar contraseña', 'Cambia contraseña','$usuario')");
-                                    
-                                        session_destroy();
-                                        //Mensaje de confirmacion de cambio de contraseña.
-                                        echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                                            //Llenar la bitacora
+                                            date_default_timezone_set("America/Tegucigalpa");
+                                            $fecha = date('Y-m-d h:i:s');
+                                            $sql=$conexion->query("insert into tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Cambiar contraseña', 'Cambia contraseña','$usuario')");
+                                        
+                                            session_destroy();
+                                            //Mensaje de confirmacion de cambio de contraseña.
+                                            echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                                        }
                                     }
                                 }
                             }

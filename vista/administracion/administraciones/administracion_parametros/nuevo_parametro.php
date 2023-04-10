@@ -43,13 +43,13 @@ if($permiso <> 'PERMITIR'){
             ?>
             <!--INGRESE PARAMETRO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Parametro</label>
+            <label for="formGroupExampleInput" class="form-label">PARAMETRO</label>
             <input type="text" class="form-control" placeholder="" 
                 name="parametro" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE VALOR-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Valor</label>
+            <label for="formGroupExampleInput" class="form-label">VALOR</label>
             <input type="text" class="form-control" placeholder="" 
                 name="valor" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
@@ -58,6 +58,7 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <select class="form-select" aria-label="Default select example" name="estado">
+                <option>SELECCIONE UNA ESTADO</option>
                 <option value="ACTIVO">ACTIVO</option>
                 <option value="INACTIVO">INACTIVO</option>
             </select>

@@ -48,7 +48,7 @@ $sql=$conexion->query(" select * from tbl_tipo_pedido where id_tipo_pedido=$id_t
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">DESCRIPCION</label>
+            <label for="formGroupExampleInput" class="form-label">DESCRIPCIÓN</label>
             <input type="text" class="form-control" placeholder="Describa el tipo de pedido" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->DESCRIPCION ?>">
             </div>

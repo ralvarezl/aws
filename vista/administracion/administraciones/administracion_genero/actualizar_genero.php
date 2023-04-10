@@ -39,7 +39,7 @@ $sql=$conexion->query(" select * from tbl_ms_genero where id_genero=$id_genero "
 <br></br><br></br>    
 <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
             <img src="../../../../public/img/actualizar_genero.png" class="img-fluid rounded mx-auto d-block"/>
-            <h3 class="text-center text-secundary">ACTUALIZAR GENERO</h3>
+            <h3 class="text-center text-secundary">ACTUALIZAR GÉNERO</h3>
             <!--Imput que se oculta para almacenar EL estado para enviarlo a la BD-->
             <input type="hidden" name="id_genero" value="<?= $_GET["id_genero"] ?>"> 
             <?php
@@ -49,7 +49,7 @@ $sql=$conexion->query(" select * from tbl_ms_genero where id_genero=$id_genero "
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE GENERO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Genero</label>
+            <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <input type="text" class="form-control" placeholder="" 
                 name="genero" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->GENERO ?>">
             </div>

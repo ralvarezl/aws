@@ -44,20 +44,20 @@ if($permiso <> 'PERMITIR'){
             ?>
             <!--INGRESE NOMBRE-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Nombres</label>
-            <input type="text" class="form-control" placeholder="Ingrese nombres" 
+            <label for="formGroupExampleInput" class="form-label">NOMBRE COMPLETO</label>
+            <input type="text" class="form-control" placeholder="Ingrese el nombre completo" 
                 name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE USUARIO-->
             <div class="mb-3">
-			<label for="formGroupExampleInput" class="form-label">Usuario</label>
+			<label for="formGroupExampleInput" class="form-label">USUARIO</label>
 			<input id="usuario" type="text" class="form-control" name="usuario" 
-                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="this.value=this.value.toUpperCase();">
+                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese nombre de usuario" onKeyUp="this.value=this.value.toUpperCase();">
 		    </div>
             <!--INGRESE CONTRASEÑA-->
             <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" placeholder="Ingrese contraseña" id="InputPassword" name="password">
+            <label for="exampleInputPassword1" class="form-label">CONTRASEÑA</label>
+            <input type="password" class="form-control" placeholder="Ingrese la contraseña" id="InputPassword" name="password">
             <input type="checkbox" onclick="myFuction()"> ver contraseña
             </div>
             <script type="text/javascript">
@@ -72,8 +72,8 @@ if($permiso <> 'PERMITIR'){
             </script>
             <!--REPITA CONTRASEÑA-->
             <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Repita Contraseña</label>
-            <input type="password" id="InputPassword1" class="form-control" placeholder="Repita contraseña" name="r_password">
+            <label for="exampleInputPassword1" class="form-label">REPITA CONTRASEÑA</label>
+            <input type="password" id="InputPassword1" class="form-control" placeholder="Repita la contraseña" name="r_password">
             <input type="checkbox" onclick="myFuction1()"> ver contraseña
             </div>
             <script type="text/javascript">
@@ -88,13 +88,14 @@ if($permiso <> 'PERMITIR'){
             </script>
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
+            <label for="formGroupExampleInput" class="form-label">IDENTIDAD</label>
+            <input type="number" class="form-control" placeholder="Ingrese el número de identidad" name="identidad">
             </div>
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Genero</label>
+            <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <select class="form-select" aria-label="Default select example" name="genero">
+            <option>SELECCIONE UNA GÉNERO</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select genero from tbl_ms_genero");
@@ -107,28 +108,29 @@ if($permiso <> 'PERMITIR'){
             </div>
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono">
+            <label for="formGroupExampleInput" class="form-label">TELÉFONO</label>
+            <input type="number" class="form-control" placeholder="Ingrese el número de teléfono" name="telefono">
             </div>
             <!--INGRESE DIRECCIÓN-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Dirección</label>
-            <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion" onKeyUp="this.value=this.value.toUpperCase();">
+            <label for="formGroupExampleInput" class="form-label">DIRECCIÓN</label>
+            <input type="text" class="form-control" placeholder="Ingrese la dirección" name="direccion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE CORREO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Correo</label>
-            <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
+            <label for="formGroupExampleInput" class="form-label">CORREO ELECTRONICO</label>
+            <input type="text" class="form-control" placeholder="Ingrese el correo electrónico" name="correo">
             </div>
             <!--INGRESE ESTADO(BLOQUEADO)-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <input type="text" readonly="readonly" class="form-control" value="NUEVO" name="estado">
             </div>
             <!--SELECCIONE ROL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Rol</label>
+            <label for="formGroupExampleInput" class="form-label">ROL</label>
             <select class="form-select" aria-label="Default select example" name="id_rol">
+            <option>SELECCIONE UN ROL</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select id_rol, rol from tbl_ms_roles where id_rol<>4");
@@ -149,13 +151,13 @@ if($permiso <> 'PERMITIR'){
             </div>
             <!--INGRESE FECHA VENCIMIENTO(BLOQUEADO)-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Fecha de Vencimiento</label>
+            <label for="formGroupExampleInput" class="form-label">FECHA DE VENCIMIENTO</label>
             <input type="text" readonly="readonly" class="form-control" value="<?= $fecha_vencimiento?>" name="fecha_vencimiento">
             </div>
 
             <!--BOTON NUEVO USUARIO-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn btn-outline-dark" name="btnregistrar" value="ok">Registrar Usuario</button>
+            <button type="submit" class="btn btn-outline-dark" name="btnregistrar" value="ok">REGISTRAR USUARIO</button>
             <button type="button" class="btn btn-outline-danger" onclick="location.href='administracion_usuarios.php'" >Cancelar</button>
             </div>
         </form>

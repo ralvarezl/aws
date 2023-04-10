@@ -38,7 +38,7 @@ $sql=$conexion->query(" select * from tbl_promocion where id_promocion=$id_promo
         <br></br><br></br>
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
             <img src="../../../../public/img/actualizar_promocion.png" class="img-fluid rounded mx-auto d-block"/>
-            <h3 class="text-center text-secundary">ACTUALIZAR PROMOCION</h3>
+            <h3 class="text-center text-secundary">ACTUALIZAR PROMOCIÓN</h3>
             <!--Imput que se oculta para almacenar el usuario para enviarlo a la BD-->
             <input type="hidden" name="id_promocion" value="<?= $_GET["id_promocion"] ?>"> 
             <?php
@@ -49,7 +49,7 @@ $sql=$conexion->query(" select * from tbl_promocion where id_promocion=$id_promo
 
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Descripción</label>
+            <label for="formGroupExampleInput" class="form-label">DESCRIPCIÓN</label>
             <input type="text" class="form-control" placeholder="Ingrese la descripcion" onKeyUp="this.value=this.value.toUpperCase(); "
                 name="descripcion" value="<?= $datos->DESCRIPCION ?>">
             </div>

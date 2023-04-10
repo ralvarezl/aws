@@ -49,13 +49,13 @@ $sql=$conexion->query(" select * from tbl_sucursal where id_sucursal=$id_sucursa
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE NOMBRE SUCURSAL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Nombre sucursal</label>
+            <label for="formGroupExampleInput" class="form-label">NOMBRE SUCURSAL</label>
             <input type="text" class="form-control" placeholder="Escriba nombre de sucursal" 
                 name="nombre_sucursal" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->NOMBRE ?>">
             </div>
-            <!--INGRESE NOMBRE SUCURSAL-->
+            <!--INGRESE DIRECCIÓN SUCURSAL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Dirección sucursal</label>
+            <label for="formGroupExampleInput" class="form-label">DIRECCIÓN SUCURSAL</label>
             <input type="text" class="form-control" placeholder="Escriba la dirección de sucursal" 
                 name="direccion_sucursal" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->DIRECCION ?>">
             </div>  

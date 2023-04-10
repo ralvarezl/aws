@@ -44,19 +44,19 @@ if($permiso <> 'PERMITIR'){
             ?>
             <!--INGRESE OBJETO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Objeto</label>
+            <label for="formGroupExampleInput" class="form-label">PANTALLA</label>
             <input type="text" class="form-control" placeholder="" 
                 name="objeto" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Descripción</label>
+            <label for="formGroupExampleInput" class="form-label">DESCRIPCIÓN</label>
             <input type="text" class="form-control" placeholder="" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE TIPO OBJETO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Tipo Objeto</label>
+            <label for="formGroupExampleInput" class="form-label">TIPO OBJETO</label>
             <input type="text" class="form-control" placeholder="" 
                 name="tipo_objeto" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
@@ -65,6 +65,7 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <select class="form-select" aria-label="Default select example" name="estado">
+                <option>SELECCIONE UNA ESTADO</option>
                 <option value="ACTIVO">ACTIVO</option>
                 <option value="INACTIVO">INACTIVO</option>
             </select>

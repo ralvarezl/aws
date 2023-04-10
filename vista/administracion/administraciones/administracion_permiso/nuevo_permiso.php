@@ -44,7 +44,7 @@ if($permiso <> 'PERMITIR'){
             ?>
             <!--SELECCIONE ROL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Rol</label>
+            <label for="formGroupExampleInput" class="form-label">ROL</label>
             <select class="form-select" aria-label="Default select example" name="id_rol">
             
             <?php 
@@ -57,11 +57,11 @@ if($permiso <> 'PERMITIR'){
             ?>
             </select>
             </div>
-            <!--SELECCIONE OJBETO-->
+            <!--SELECCIONE PANTALLA-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Objeto</label>
+            <label for="formGroupExampleInput" class="form-label">PANTALLA</label>
             <select class="form-select" aria-label="Default select example" name="id_objeto">
-            
+            <option>SELECCIONE PANTALLA</option>
             <?php 
             include "../../../../modelo/conexion.php";
             $sql=$conexion->query("select id_objeto, objeto from tbl_ms_objetos");
@@ -74,38 +74,38 @@ if($permiso <> 'PERMITIR'){
             </div>
             <!--SELECCIONE PERMISO VISUALIZAR-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Visualizar</label>
+            <label for="formGroupExampleInput" class="form-label">VISUALIZAR</label>
             <select class="form-select" aria-label="Default select example" name="visualizar">
-            
+            <option selected>SELECCIONE PERMISO</option>
             <option value="PERMITIR">PERMITIR</option>
-            <option selected value="NO PERMITIR">NO PERMITIR</option>
+            <option value="NO PERMITIR">NO PERMITIR</option>
             </select>
             </div>
             <!--SELECCIONE PERMISO INSERTAR-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Registrar</label>
+            <label for="formGroupExampleInput" class="form-label">REGISTRAR</label>
             <select class="form-select" aria-label="Default select example" name="registrar">
-            
+            <option selected >SELECCIONE PERMISO</option>
             <option value="PERMITIR">PERMITIR</option>
-            <option selected value="NO PERMITIR">NO PERMITIR</option>
+            <option value="NO PERMITIR">NO PERMITIR</option>
             </select>
             </div>
             <!--SELECCIONE PERMISO ACTUALIZAR-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Actualizar</label>
+            <label for="formGroupExampleInput" class="form-label">ACTUALIZAR</label>
             <select class="form-select" aria-label="Default select example" name="actualizar">
-           
+            <option selected >SELECCIONE PERMISO</option>
             <option value="PERMITIR">PERMITIR</option>
-            <option selected value="NO PERMITIR">NO PERMITIR</option>
+            <option value="NO PERMITIR">NO PERMITIR</option>
             </select>
             </div>
             <!--SELECCIONE PERMISO ELIMINAR-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Eliminar</label>
+            <label for="formGroupExampleInput" class="form-label">ELIMINAR</label>
             <select class="form-select" aria-label="Default select example" name="eliminar">
-          
+            <option selected >SELECCIONE PERMISO</option>
             <option value="PERMITIR">PERMITIR</option>
-            <option selected value="NO PERMITIR">NO PERMITIR</option>
+            <option value="NO PERMITIR">NO PERMITIR</option>
             </select>
             </div>
             

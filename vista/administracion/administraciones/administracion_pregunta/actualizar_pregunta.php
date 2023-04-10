@@ -49,7 +49,7 @@ $sql=$conexion->query(" select * from tbl_ms_preguntas where id_pregunta=$id_pre
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE PREGUNTA-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Pregunta</label>
+            <label for="formGroupExampleInput" class="form-label">PREGUNTA</label>
             <input type="text" class="form-control" placeholder="" 
                 name="pregunta" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->PREGUNTA ?>">
             </div>

@@ -43,20 +43,20 @@ if($permiso <> 'PERMITIR'){
             ?>
             <!--INGRESE NOMBRE SUCURSAL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Nombre Sucursal</label>
+            <label for="formGroupExampleInput" class="form-label">NOMBRE SUCURSAL</label>
             <input type="text" class="form-control" placeholder="Escriba nombre de sucursal" 
                 name="nombre_sucursal" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE DIRECCION SUCURSAL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Dirección Sucursal</label>
+            <label for="formGroupExampleInput" class="form-label">DIRECCIÓN SUCURSAL</label>
             <input type="text" class="form-control" placeholder="Escriba la dirección de sucursal" 
                 name="direccion_sucursal" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
 
             <!--INGRESE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <input type="text" readonly="readonly" class="form-control" value="ACTIVO" name="estado">
             </div>
             

@@ -36,14 +36,14 @@ if($permiso <> 'PERMITIR'){
     <!--INICIO DEL FORM REGISTRO GENERO-->
         <form class="col-3 p-2 m-auto" method="POST" autocomplete="off">
             <img src="../../../../public/img/nuevo_genero.jpg" class="img-fluid rounded mx-auto d-block"/>
-            <h3 class="text-center text-secundary">REGISTRO GENERO</h3>
+            <h3 class="text-center text-secundary">REGISTRO GÉNERO</h3>
             <?php
             include "../../../../modelo/conexion.php";
             include "../../../../controlador/administraciones/administracion_genero.php";
             ?>
             <!--INGRESE GENERO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Genero</label>
+            <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <input type="text" class="form-control" placeholder="" 
                 name="genero" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
@@ -52,6 +52,7 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <select class="form-select" aria-label="Default select example" name="estado">
+                <option>SELECCIONE UN ESTADO</option>
                 <option value="ACTIVO">ACTIVO</option>
                 <option value="INACTIVO">INACTIVO</option>
             </select>

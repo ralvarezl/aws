@@ -49,34 +49,34 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             while ($datos=$sql->fetch_object()) {?>
             <!--INGRESE NOMBRE-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Nombres</label>
-            <input type="text" class="form-control" placeholder="Ingrese nombres" 
+            <label for="formGroupExampleInput" class="form-label">NOMBRE COMPLETO</label>
+            <input type="text" class="form-control" placeholder="Ingrese el nombre completo" 
                 name="nombres" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->NOMBRES ?>">
             </div>
             <!--INGRESE USUARIO-->
             <div class="mb-3">
-			<label for="formGroupExampleInput" class="form-label">Usuario</label>
+			<label for="formGroupExampleInput" class="form-label">USUARIO</label>
 			<input id="usuario" type="text" class="form-control" name="usuario" 
-                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->USUARIO ?>">
+                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese nombre de usuario" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->USUARIO ?>">
 		    </div>
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad" value="<?= $datos->IDENTIDAD ?>">
+            <label for="formGroupExampleInput" class="form-label">IDENTIDAD</label>
+            <input type="number" class="form-control" placeholder="Ingrese el número de identidad" name="identidad" value="<?= $datos->IDENTIDAD ?>">
             </div>
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono" value="<?= $datos->TELEFONO ?>">
+            <label for="formGroupExampleInput" class="form-label">TELÉFONO</label>
+            <input type="number" class="form-control" placeholder="Ingrese el número de teléfono" name="telefono" value="<?= $datos->TELEFONO ?>">
             </div>
             <!--INGRESE DIRECCIÓN-->
-            <label for="formGroupExampleInput" class="form-label">Dirección</label>
-            <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->DIRECCION ?>">
+            <label for="formGroupExampleInput" class="form-label">DIRECCIÓN</label>
+            <input type="text" class="form-control" placeholder="Ingrese la dirección" name="direccion" onKeyUp="this.value=this.value.toUpperCase();" value="<?= $datos->DIRECCION ?>">
             </div>
             <!--INGRESE CORREO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Correo</label>
-            <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo" value="<?= $datos->CORREO ?>">
+            <label for="formGroupExampleInput" class="form-label">CORREO ELECTRONICO</label>
+            <input type="text" class="form-control" placeholder="Ingrese el correo electrónico" name="correo" value="<?= $datos->CORREO ?>">
             </div>
             <?php }
             ?>
@@ -93,7 +93,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Genero</label>
+            <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <select class="form-select" aria-label="Default select example" name="genero">
               <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
             <option selected value="<?= $datos->GENERO ?>"><?= $datos->GENERO ?></option>
@@ -122,7 +122,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <select class="form-select" aria-label="Default select example" name="estado">
             <!--SELECCIONA EL ESTADO YA ESTABLECIDO EN LA BACE-->
             <option selected value="<?= $datos->ESTADO ?>"><?= $datos->ESTADO ?></option>
@@ -151,7 +151,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             while ($datos=$sql->fetch_object()) {?>                       
             <!--SELECCIONE ROL-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Rol</label>
+            <label for="formGroupExampleInput" class="form-label">ROL</label>
             <select class="form-select" aria-label="Default select example" name="id_rol">
             <!--SELECCIONA EL ROL YA ESTABLECIDO EN LA BACE-->
             <option selected value="<?= $datos->id_rol ?>"><?= $datos->rol ?></option>
@@ -176,7 +176,7 @@ $sql=$conexion->query(" select * from tbl_ms_usuario where id_usuario=$id_usuari
             ?>
             <!--INGRESE FECHA VENCIMIENTO(BLOQUEADO)-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Fecha de Vencimiento</label>
+            <label for="formGroupExampleInput" class="form-label">FECHA DE VENCIMIENTO</label>
             <input type="text" readonly="readonly" class="form-control" value="<?= $fecha_vencimiento?>" name="fecha_vencimiento">
             </div>
             

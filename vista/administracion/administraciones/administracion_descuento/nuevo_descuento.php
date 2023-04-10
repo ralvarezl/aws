@@ -45,7 +45,7 @@ if($permiso <> 'PERMITIR'){
 
             <!--INGRESE DESCRIPCION-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">INGRESE DESCRIPCION</label>
+            <label for="formGroupExampleInput" class="form-label">INGRESE DESCRIPCIÓN</label>
             <input type="text" class="form-control" placeholder="Ingrese descripcion" 
                 name="descripcion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
@@ -59,7 +59,7 @@ if($permiso <> 'PERMITIR'){
 
             <!--INGRESE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <input type="text" readonly="readonly" class="form-control" value="ACTIVO" name="estado">
             </div>
             
