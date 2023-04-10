@@ -49,21 +49,21 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
 
             <!--INGRESE NOMBRE-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">NOMBRES</label>
+            <label for="formGroupExampleInput" class="form-label">NOMBRE COMPLETO</label>
             <input type="text" class="form-control" placeholder="Ingrese sus nombres" onKeyUp="this.value=this.value.toUpperCase(); "
                 name="nombres" value="<?= $datos->NOMBRES ?>">
             </div>
 
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Identidad</label>
+            <label for="formGroupExampleInput" class="form-label">IDENTIDAD</label>
             <input type="number" class="form-control" placeholder="Ingrese número de identidad" 
                 name="identidad" value="<?= $datos->IDENTIDAD ?>">
             </div>
 
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Telefono</label>
+            <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <input type="number" class="form-control" placeholder="Ingrese número de telefono" 
                 name="telefono" value="<?= $datos->TELEFONO ?>">
             </div>

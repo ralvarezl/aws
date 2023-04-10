@@ -43,21 +43,22 @@ if($permiso <> 'PERMITIR'){
             ?>
             <!--INGRESE NOMBRE-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Nombres</label>
+            <label for="formGroupExampleInput" class="form-label">NOMBRE COMPLETO</label>
             <input type="text" class="form-control" placeholder="Ingrese sus nombres" 
                 name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
     
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="number" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
+            <label for="formGroupExampleInput" class="form-label">IDENTIDAD</label>
+            <input type="number" class="form-control" placeholder="Ingrese el número de identidad" name="identidad">
             </div>
 
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Genero</label>
+            <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <select class="form-select" aria-label="Default select example" name="genero">
+            <option>SELECCIONE UN GÉNERO</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select genero from tbl_ms_genero");
@@ -71,13 +72,13 @@ if($permiso <> 'PERMITIR'){
 
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="number" class="form-control" placeholder="Ingrese telefono" name="telefono">
+            <label for="formGroupExampleInput" class="form-label">TELÉFONO</label>
+            <input type="number" class="form-control" placeholder="Ingrese el número de teléfono" name="telefono">
             </div>
 
             <!--INGRESE ESTADO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Estado</label>
+            <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <input type="text" readonly="readonly" class="form-control" value="ACTIVO" name="estado">
             </div>
 
