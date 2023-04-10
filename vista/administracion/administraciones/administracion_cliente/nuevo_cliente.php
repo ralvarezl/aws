@@ -51,7 +51,7 @@ if($permiso <> 'PERMITIR'){
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">IDENTIDAD</label>
-            <input type="number" class="form-control" placeholder="Ingrese el número de identidad" name="identidad">
+            <input type="number" min="0" class="form-control" placeholder="Ingrese el número de identidad" name="identidad">
             </div>
 
             <!--SELECCIONE GENERO-->
@@ -73,7 +73,7 @@ if($permiso <> 'PERMITIR'){
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">TELÉFONO</label>
-            <input type="number" class="form-control" placeholder="Ingrese el número de teléfono" name="telefono">
+            <input type="number" min="0" class="form-control" placeholder="Ingrese el número de teléfono" name="telefono">
             </div>
 
             <!--INGRESE ESTADO-->
