@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(empty($_SESSION['usuario_login'])){
-    header("location:../../login.php");
+    header("location:../../index.php");
 }
 //Verificar permiso del rol
 include "../../modelo/conexion.php";
@@ -14,13 +14,13 @@ $id_rol=$row[0];
 $sql=mysqli_query($conexion, "select permiso_visualizar from tbl_ms_permisos where id_rol='$id_rol' and id_objeto=1");
 $row=mysqli_fetch_array($sql);
 if(is_null($row)){
-    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../../login.php"</script>';
+    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../../index.php"</script>';
 }else{
     $permiso=$row[0];
 }
 
 if($permiso <> 'PERMITIR'){
-    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../../login.php"</script>';
+    echo '<script language="javascript">alert("Usuario sin permiso");;window.location.href="../../index.php"</script>';
 }
 ?>
 <!DOCTYPE html>

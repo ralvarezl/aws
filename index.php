@@ -15,7 +15,7 @@ session_start();
 </head>
 <body>
 	<BR></BR>
-    <form action="login.php" class="col-3 p-3 m-auto" method="post">
+    <form action="index.php" class="col-3 p-3 m-auto" method="post">
 		<img src="public/img/AVATAR.png" class="img-fluid rounded mx-auto d-block"/>
 		<h2 class="text-center text-secundary" >BIENVENIDO</h2>
 		 <?php

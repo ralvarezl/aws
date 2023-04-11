@@ -102,7 +102,7 @@
             <!--BOTONERIA-->
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-dark" name="btnregistrate" value="ok">REGISTRATE</button>
-            <button type="button" class="btn btn-danger" onclick="location.href='../../login.php'" >SALIR</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='../../index.php'" >SALIR</button>
             </div>
 
 

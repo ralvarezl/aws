@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(empty($_SESSION['usuario_login'])){
-    header("location:../../../../login.php");
+    header("location:../../../../index.php");
 }
 //Llamo el archivo del fpdf
 require('../../../../fpdf/fpdf.php');

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(empty($_SESSION['usuario_login'])){
-    header("location:../../login.php");
+    header("location:../../index.php");
 }
 
 ?>
@@ -90,7 +90,7 @@ if(empty($_SESSION['usuario_login'])){
         <!--BOTONERIA-->
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="submit" class="btn btn-secondary" name="btnnuevacontraseña" id="btnnuevacontraseña" value="ok">Guardar Contraseña</button>
-        <button type="button" class="btn btn-danger" name="btn_salir_cambiar_password" onclick="location.href='../../login.php'" >Salir</button>
+        <button type="button" class="btn btn-danger" name="btn_salir_cambiar_password" onclick="location.href='../../index.php'" >Salir</button>
         </div>
    </form>
 	

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(empty($_SESSION['usuario_login'])){
-    header("location:../../login.php");
+    header("location:../../index.php");
 }
 ?>
 
@@ -58,7 +58,7 @@ if(empty($_SESSION['usuario_login'])){
         <!--BOTONERIA-->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <button type="submit" class="btn btn-dark" name="btnguardar" id="btnguardar" value="ok">GUARDAR</button>
-            <button type="button" class="btn btn-danger" onclick="location.href='../../login.php'" >SALIR</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='../../index.php'" >SALIR</button>
         </div>
     </form>
     

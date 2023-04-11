@@ -7,5 +7,5 @@
     //Guardar la bitacora
     $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Salir', 'Salida del sistema','$usuario')");
     session_destroy();
-    header("location:../login.php");
+    header("location:../index.php");
 ?>

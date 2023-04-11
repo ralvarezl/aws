@@ -33,7 +33,7 @@
 
 			<button type="submit" class="btn btn-secondary mb-2" name="btnrecuperar_mjs" id="btnrecuperar_mjs" value="ok">Recuperar via pregunta secreta</button>
 
-            <button type="button" class="btn btn-danger mb-2" onclick="location.href='../../login.php'" >Cancelar</button>
+            <button type="button" class="btn btn-danger mb-2" onclick="location.href='../../index.php'" >Cancelar</button>
 		</div>
    </form>
 	
