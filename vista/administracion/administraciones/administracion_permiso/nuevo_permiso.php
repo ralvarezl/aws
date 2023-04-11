@@ -76,7 +76,6 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">VISUALIZAR</label>
             <select class="form-select" aria-label="Default select example" name="visualizar">
-            <option selected>SELECCIONE PERMISO</option>
             <option value="PERMITIR">PERMITIR</option>
             <option value="NO PERMITIR">NO PERMITIR</option>
             </select>
@@ -85,7 +84,6 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">REGISTRAR</label>
             <select class="form-select" aria-label="Default select example" name="registrar">
-            <option selected >SELECCIONE PERMISO</option>
             <option value="PERMITIR">PERMITIR</option>
             <option value="NO PERMITIR">NO PERMITIR</option>
             </select>
@@ -94,7 +92,7 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">ACTUALIZAR</label>
             <select class="form-select" aria-label="Default select example" name="actualizar">
-            <option selected >SELECCIONE PERMISO</option>
+
             <option value="PERMITIR">PERMITIR</option>
             <option value="NO PERMITIR">NO PERMITIR</option>
             </select>
@@ -103,7 +101,6 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">ELIMINAR</label>
             <select class="form-select" aria-label="Default select example" name="eliminar">
-            <option selected >SELECCIONE PERMISO</option>
             <option value="PERMITIR">PERMITIR</option>
             <option value="NO PERMITIR">NO PERMITIR</option>
             </select>

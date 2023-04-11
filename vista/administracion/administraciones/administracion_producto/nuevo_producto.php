@@ -51,7 +51,6 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Tipo</label>
             <select class="form-select" aria-label="Default select example" name="tipo">
-                <option>SELECCIONE UN TIPO</option>
                 <option value="CALIENTE">CALIENTE</option>
                 <option value="HELADO">HELADO</option>
                 <option value="POSTRE">POSTRE</option>

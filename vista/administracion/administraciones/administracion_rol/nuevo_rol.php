@@ -60,7 +60,6 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">ESTADO</label>
             <select class="form-select" aria-label="Default select example" name="estado">
-                <option>SELECCIONE UN ESTADO</option>
                 <option value="ACTIVO">ACTIVO</option>
                 <option value="INACTIVO">INACTIVO</option>
             </select>      

@@ -95,7 +95,6 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <select class="form-select" aria-label="Default select example" name="genero">
-            <option>SELECCIONE UNA GÉNERO</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select genero from tbl_ms_genero");
@@ -130,7 +129,6 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">ROL</label>
             <select class="form-select" aria-label="Default select example" name="id_rol">
-            <option>SELECCIONE UN ROL</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select id_rol, rol from tbl_ms_roles where id_rol<>4");

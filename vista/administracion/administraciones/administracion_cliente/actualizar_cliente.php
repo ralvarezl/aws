@@ -63,8 +63,8 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
 
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
-            <input type="number" min="0" class="form-control" placeholder="Ingrese número de telefono" 
+            <label for="formGroupExampleInput" class="form-label">TELÉFONO</label>
+            <input type="number" min="0" class="form-control" placeholder="Ingrese número de teléfono" 
                 name="telefono" value="<?= $datos->TELEFONO ?>">
             </div>
 
@@ -103,7 +103,7 @@ $sql=$conexion->query(" select * from tbl_cliente where id_cliente=$id_cliente")
 
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">GENERO</label>
+            <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <select class="form-select" aria-label="Default select example" name="genero">
               <!--SELECCIONA EL GENERO YA ESTABLECIDO EN LA BACE-->
             <option selected value="<?= $datos->GENERO ?>"><?= $datos->GENERO ?></option>

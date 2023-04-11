@@ -44,7 +44,7 @@ if($permiso <> 'PERMITIR'){
             <!--INGRESE NOMBRE-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">NOMBRE COMPLETO</label>
-            <input type="text" class="form-control" placeholder="Ingrese sus nombres" 
+            <input type="text" class="form-control" placeholder="Ingrese el nombre completo" 
                 name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
     
@@ -58,7 +58,6 @@ if($permiso <> 'PERMITIR'){
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">GÉNERO</label>
             <select class="form-select" aria-label="Default select example" name="genero">
-            <option>SELECCIONE UN GÉNERO</option>
             <?php 
             include "../../modelo/conexion.php";
             $sql=$conexion->query("select genero from tbl_ms_genero");

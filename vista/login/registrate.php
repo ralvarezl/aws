@@ -21,20 +21,20 @@
 		
 			<!--INGRESE NOMBRE-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Nombres</label>
-            <input type="text" class="form-control" placeholder="Ingrese nombres" 
+            <label for="formGroupExampleInput" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" placeholder="Ingrese el nombre completo" 
                 name="nombres" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE USUARIO-->
             <div class="mb-3">
 			<label for="formGroupExampleInput" class="form-label">Usuario</label>
 			<input id="usuario" type="text" class="form-control" name="usuario" maxlength="20"
-                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese usuario" onKeyUp="this.value=this.value.toUpperCase();">
+                title="ingrese usuario" autocomplete="usuario" placeholder="Ingrese el usuario" onKeyUp="this.value=this.value.toUpperCase();">
 		    </div>
             <!--INGRESE CONTRASEÑA-->
             <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-            <input type="password" id="InputPassword" class="form-control" placeholder="Ingrese contraseña" name="password">
+            <input type="password" id="InputPassword" class="form-control" placeholder="Ingrese la contraseña" name="password">
             <input type="checkbox" onclick="myFuction()"> ver contraseña
             </div>
             <script type="text/javascript">
@@ -50,7 +50,7 @@
 			<!--REPITA CONTRASEÑA-->
             <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Repita Contraseña</label>
-            <input type="password" id="InputPassword1" class="form-control" placeholder="Repita contraseña" name="r_password">
+            <input type="password" id="InputPassword1" class="form-control" placeholder="Repita la contraseña" name="r_password">
             <input type="checkbox" onclick="myFuction1()"> ver contraseña
             </div>
             <script type="text/javascript">
@@ -66,11 +66,11 @@
             <!--INGRESE IDENTIDAD-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Identidad</label>
-            <input type="number" min="0" class="form-control" placeholder="Ingrese numero de identidad" name="identidad">
+            <input type="number" min="0" class="form-control" placeholder="Ingrese el número de identidad" name="identidad">
             </div>
             <!--SELECCIONE GENERO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Genero</label>
+            <label for="formGroupExampleInput" class="form-label">Género</label>
             <select class="form-select" aria-label="Default select example" name="genero">
             <?php 
             include "../../modelo/conexion.php";
@@ -84,18 +84,18 @@
             </div>
             <!--INGRESE TELEFONO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Telefono</label>
-            <input type="number" min="0" class="form-control" placeholder="Ingrese telefono" name="telefono" >
+            <label for="formGroupExampleInput" class="form-label">Teléfono</label>
+            <input type="number" min="0" class="form-control" placeholder="Ingrese el número teléfono" name="telefono" >
             </div>
             <!--INGRESE DIRECCIÓN-->
             <div class="mb-3">
             <label for="formGroupExampleInput" class="form-label">Dirección</label>
-            <input type="text" class="form-control" placeholder="Ingrese direccion" name="direccion" onKeyUp="this.value=this.value.toUpperCase();">
+            <input type="text" class="form-control" placeholder="Ingrese la direccion" name="direccion" onKeyUp="this.value=this.value.toUpperCase();">
             </div>
             <!--INGRESE CORREO-->
             <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Correo</label>
-            <input type="text" class="form-control" placeholder="Ingrese correo electronico" name="correo">
+            <label for="formGroupExampleInput" class="form-label">Correo Electrónic</label>
+            <input type="text" class="form-control" placeholder="Ingrese el correo electronico" name="correo">
             </div>
 
 
