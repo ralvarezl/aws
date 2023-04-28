@@ -233,7 +233,7 @@ if (!empty($_POST["btnnuevacontraseña"])){
                                         
                                             session_destroy();
                                             //Mensaje de confirmacion de cambio de contraseña.
-                                            echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                                            echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../index.php"</script>';
                                         }
                                     }
                                 }

@@ -166,7 +166,7 @@ if (!empty($_POST["btnrecuperar"])){
                                     date_default_timezone_set("America/Tegucigalpa");
                                     $fecha = date('Y-m-d h:i:s');
                                     $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Recuperar contraseña', 'Usuario entro a recuperar contraseña via correo','$usuario')");    
-                                    echo '<script language="javascript">alert("CORREO ENVIADO");;window.location.href="../../login.php"</script>';
+                                    echo '<script language="javascript">alert("CORREO ENVIADO");;window.location.href="../../index.php"</script>';
                                         
                                 }else{
                                     $errors[] = "La direccion de correo electronico no existe o no tienes.";

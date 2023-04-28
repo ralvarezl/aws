@@ -214,7 +214,7 @@ if (!empty($_POST["btnaceptar"])){
                             $fecha = date('Y-m-d h:i:s');
                             $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Cambio contraseña', 'Cambio la contraseña via pregunta secreta','$usuario_msj')");
                             session_destroy();
-                            echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../login.php"</script>';
+                            echo '<script language="javascript">alert("CONTRASEÑA GUARDADA CON EXITO");;window.location.href="../../index.php"</script>';
                     }
                 }
             }
