@@ -149,7 +149,7 @@ if (!empty($_POST["btnguardar"])){
                                 $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Contestar Preguntas', 'Usuario respondio preguntas de seguridad','$usuario')");
                                 echo '<script language="javascript">alert("RESPONDIO LAS PREGUNTAS");</script>';
                                 session_destroy();
-                                header("location:../../login.php");//Entra al cambiar password
+                                header("location:../../index.php");//Entra al cambiar password
                             }else{
                                 $modificar=("update tbl_ms_usuario set preguntas_contestadas=$intentos, estado='DEFAULT' where id_usuario='$id_usuario'");
                                 $resultado = mysqli_query($conexion,$modificar);
