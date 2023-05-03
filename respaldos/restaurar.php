@@ -42,7 +42,7 @@ if (!empty($_POST["btnimportar"])) {
         $fecha = date('Y-m-d h:i:s');
         $sql_bitacora=$conexion->query("INSERT INTO tbl_ms_bitacora (fecha_bitacora, accion, descripcion,creado_por) value ( '$fecha', 'Restaurar', 'Restauro el sistema','$sesion_usuario')");
         session_destroy();
-        echo '<script language="javascript">alert("Restauración de la base exitosa ingrese de nuevo");;window.location.href="../login.php"</script>';//estado ingresado
+        echo '<script language="javascript">alert("Restauración de la base exitosa ingrese de nuevo");;window.location.href="../index.php"</script>';//estado ingresado
     }
     
     
